@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { IFormItemLabelProps } from './interface';
 import { styleUtils } from '../utils';

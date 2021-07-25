@@ -1,12 +1,11 @@
-import * as React from 'react';
-import {
+import React, {
     FC,
     PropsWithChildren,
     useContext
 } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FormInstance, IFormItemProps, ValidateTrigger, IRuleConfig } from './interface';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';

@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { FC, PropsWithChildren, Children, ReactElement, cloneElement, ReactNode } from 'react';
+import React, { FC, PropsWithChildren, Children, ReactElement, cloneElement, ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FormItem } from './FormItem';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { FormStore } from './useForm';
 import { IFormProps } from './interface';

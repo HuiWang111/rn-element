@@ -17,7 +17,8 @@
         "strictNullChecks": true,
         "jsx": "react",
         "downlevelIteration": true,
-        "removeComments": true
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "src/**/*.ts",

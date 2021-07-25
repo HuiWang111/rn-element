@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react';
+import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react';
 import { NativeSyntheticEvent, TextInputFocusEventData, StyleSheet, View, Text } from 'react-native'
 import { FormContext } from './contexts';
 import { IFieldEntity, IFieldProps, ValueType } from './interface';

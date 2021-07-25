@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 
 export const Test: FC = (): JSX.Element => {
