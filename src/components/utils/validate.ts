@@ -54,7 +54,7 @@ export function isNumber(value: any): value is number {
     return getType(value) === 'number';
 }
 
-export function isObect(value: any): boolean {
+export function isObject(value: any): boolean {
     return typeof value === 'object' && value !== null;
 }
 

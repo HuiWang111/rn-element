@@ -9,7 +9,7 @@ export {
     isFunction,
     isNull,
     isNumber,
-    isObect,
+    isObject,
     isPlainObject,
     isString,
     isUndefined,
