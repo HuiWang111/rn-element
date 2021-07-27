@@ -1,11 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import ActiveListDemo from './src/examples/ActiveListDemo';
 
 const App = (): JSX.Element => {
     return (
-        <View>
-            <Text>App</Text>
-        </View>
+        <ActiveListDemo />
     );
 }
 

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isFloat = exports.isInteger = exports.isNil = exports.isPlainObject = exports.isObect = exports.isNumber = exports.isNull = exports.isUndefined = exports.isFunction = exports.isBoolean = exports.isString = exports.isArray = exports.getType = void 0;
+exports.isFloat = exports.isInteger = exports.isNil = exports.isPlainObject = exports.isObject = exports.isNumber = exports.isNull = exports.isUndefined = exports.isFunction = exports.isBoolean = exports.isString = exports.isArray = exports.getType = void 0;
 var _toString = Object.prototype.toString;
 function getType(value, strict) {
     if (strict === void 0) { strict = false; }
@@ -51,10 +51,10 @@ function isNumber(value) {
     return getType(value) === 'number';
 }
 exports.isNumber = isNumber;
-function isObect(value) {
+function isObject(value) {
     return typeof value === 'object' && value !== null;
 }
-exports.isObect = isObect;
+exports.isObject = isObject;
 function isPlainObject(value) {
     return getType(value) === 'object';
 }

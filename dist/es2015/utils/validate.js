@@ -39,7 +39,7 @@ export function isNull(value) {
 export function isNumber(value) {
     return getType(value) === 'number';
 }
-export function isObect(value) {
+export function isObject(value) {
     return typeof value === 'object' && value !== null;
 }
 export function isPlainObject(value) {

@@ -77,7 +77,6 @@ var __read = (this && this.__read) || function (o, n) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Field = void 0;
-var React = require("react");
 var react_1 = require("react");
 var react_native_1 = require("react-native");
 var contexts_1 = require("./contexts");
@@ -167,12 +166,12 @@ var Field = (function (_super) {
                 fieldStyle = fieldStyle.concat(utils_2.styleUtils["offset-" + col.offset]);
             }
         }
-        return (React.createElement(react_native_1.View, { style: fieldStyle },
+        return (react_1.default.createElement(react_native_1.View, { style: fieldStyle },
             react_1.Children.map(children, function (c) {
                 return react_1.cloneElement(c, _this.getControlled(c.props));
             }),
-            message ? (React.createElement(react_native_1.View, { style: [styles.formItemError] },
-                React.createElement(react_native_1.Text, { style: [styles.formItemErrorMsg] }, message))) : null));
+            message ? (react_1.default.createElement(react_native_1.View, { style: [styles.formItemError] },
+                react_1.default.createElement(react_native_1.Text, { style: [styles.formItemErrorMsg] }, message))) : null));
     };
     Field.contextType = contexts_1.FormContext;
     return Field;

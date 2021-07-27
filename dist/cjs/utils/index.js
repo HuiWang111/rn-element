@@ -8,7 +8,7 @@ Object.defineProperty(exports, "isBoolean", { enumerable: true, get: function ()
 Object.defineProperty(exports, "isFunction", { enumerable: true, get: function () { return validate_1.isFunction; } });
 Object.defineProperty(exports, "isNull", { enumerable: true, get: function () { return validate_1.isNull; } });
 Object.defineProperty(exports, "isNumber", { enumerable: true, get: function () { return validate_1.isNumber; } });
-Object.defineProperty(exports, "isObect", { enumerable: true, get: function () { return validate_1.isObect; } });
+Object.defineProperty(exports, "isObject", { enumerable: true, get: function () { return validate_1.isObject; } });
 Object.defineProperty(exports, "isPlainObject", { enumerable: true, get: function () { return validate_1.isPlainObject; } });
 Object.defineProperty(exports, "isString", { enumerable: true, get: function () { return validate_1.isString; } });
 Object.defineProperty(exports, "isUndefined", { enumerable: true, get: function () { return validate_1.isUndefined; } });
@@ -24,3 +24,4 @@ exports.colors = {
 };
 var styles_1 = require("./styles");
 Object.defineProperty(exports, "styleUtils", { enumerable: true, get: function () { return styles_1.styleUtils; } });
+Object.defineProperty(exports, "mergeStyle", { enumerable: true, get: function () { return styles_1.mergeStyle; } });

@@ -11,8 +11,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.styleUtils = void 0;
+exports.mergeStyle = exports.styleUtils = void 0;
 var react_native_1 = require("react-native");
+var validate_1 = require("./validate");
 function createPercentStyleUtils() {
     var spans = 24;
     var percentStyleUtils = {};
@@ -30,3 +31,34 @@ function createPercentStyleUtils() {
     return percentStyleUtils;
 }
 exports.styleUtils = react_native_1.StyleSheet.create(__assign({}, createPercentStyleUtils()));
+function mergeStyle(style1, style2) {
+    if (!style1 && !style2) {
+        return null;
+    }
+    if (!style1) {
+        return validate_1.isArray(style2)
+            ? style2.reduce(function (style, item) {
+                return Object.assign(style, item);
+            }, {})
+            : style2 || null;
+    }
+    if (!style2) {
+        return validate_1.isArray(style1)
+            ? style1.reduce(function (style, item) {
+                return Object.assign(style, item);
+            }, {})
+            : style1;
+    }
+    var firstStyle = validate_1.isArray(style1)
+        ? style1.reduce(function (style, item) {
+            return Object.assign(style, item);
+        }, {})
+        : style1;
+    var secondStyle = validate_1.isArray(style2)
+        ? style2.reduce(function (style, item) {
+            return Object.assign(style, item);
+        }, {})
+        : style2;
+    return Object.assign(firstStyle, secondStyle);
+}
+exports.mergeStyle = mergeStyle;

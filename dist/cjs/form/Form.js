@@ -1,19 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Form = void 0;
-var React = require("react");
 var react_1 = require("react");
 var react_native_1 = require("react-native");
 var FormItem_1 = require("./FormItem");
-var PropTypes = require("prop-types");
+var prop_types_1 = require("prop-types");
 var contexts_1 = require("./contexts");
 var useForm_1 = require("./useForm");
 var utils_1 = require("../utils");
 exports.Form = function (_a) {
     var initialValues = _a.initialValues, form = _a.form, style = _a.style, _b = _a.validateTrigger, formValidateTrigger = _b === void 0 ? 'onChange' : _b, formLabelCol = _a.labelCol, formWrapperCol = _a.wrapperCol, children = _a.children;
     var formStyle = style ? [styles.form].concat(style) : [styles.form];
-    return (React.createElement(contexts_1.FormContext.Provider, { value: form },
-        React.createElement(react_native_1.View, { style: formStyle }, react_1.Children.map(children, function (child) {
+    return (react_1.default.createElement(contexts_1.FormContext.Provider, { value: form },
+        react_1.default.createElement(react_native_1.View, { style: formStyle }, react_1.Children.map(children, function (child) {
             var c = child;
             if (c.type === FormItem_1.FormItem) {
                 var _a = c.props, name_1 = _a.name, initialValue = _a.initialValue, formItemValidateTrigger = _a.validateTrigger, formItemLabelCol = _a.labelCol, formItemWrapperCol = _a.wrapperCol;
@@ -41,8 +40,8 @@ exports.Form = function (_a) {
 };
 exports.Form.displayName = 'Form';
 exports.Form.propTypes = {
-    initialValues: PropTypes.any,
-    form: PropTypes.instanceOf(useForm_1.FormStore).isRequired
+    initialValues: prop_types_1.default.any,
+    form: prop_types_1.default.instanceOf(useForm_1.FormStore).isRequired
 };
 var styles = react_native_1.StyleSheet.create({
     form: {

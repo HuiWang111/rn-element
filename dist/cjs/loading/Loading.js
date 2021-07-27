@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Loading = void 0;
-var React = require("react");
+var react_1 = require("react");
 var react_native_1 = require("react-native");
 var react_native_root_siblings_1 = require("react-native-root-siblings");
 var _a = react_native_1.Dimensions.get('window'), width = _a.width, height = _a.height;
@@ -12,9 +12,9 @@ var Loading = (function () {
         if (Loading.sibling) {
             return;
         }
-        Loading.sibling = new react_native_root_siblings_1.default(React.createElement(react_native_1.View, { style: styles.maskStyle },
-            React.createElement(react_native_1.View, { style: styles.backViewStyle },
-                React.createElement(react_native_1.ActivityIndicator, { size: 'large', color: 'white' }))));
+        Loading.sibling = new react_native_root_siblings_1.default(react_1.default.createElement(react_native_1.View, { style: styles.maskStyle },
+            react_1.default.createElement(react_native_1.View, { style: styles.backViewStyle },
+                react_1.default.createElement(react_native_1.ActivityIndicator, { size: 'large', color: 'white' }))));
     };
     Loading.hide = function () {
         if (!Loading.sibling) {

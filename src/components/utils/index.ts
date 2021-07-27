@@ -26,4 +26,6 @@ export const colors = {
     black
 };
 
-export { styleUtils } from './styles'
+export { styleUtils, mergeStyle } from './styles';
+
+export { StyleType } from './interface';

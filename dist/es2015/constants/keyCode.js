@@ -1,0 +1,24 @@
+export var KeyCode;
+(function (KeyCode) {
+    KeyCode[KeyCode["Up"] = 19] = "Up";
+    KeyCode[KeyCode["Down"] = 20] = "Down";
+    KeyCode[KeyCode["Left"] = 21] = "Left";
+    KeyCode[KeyCode["Right"] = 22] = "Right";
+    KeyCode[KeyCode["F1"] = 131] = "F1";
+    KeyCode[KeyCode["F2"] = 132] = "F2";
+    KeyCode[KeyCode["F3"] = 133] = "F3";
+    KeyCode[KeyCode["F4"] = 134] = "F4";
+    KeyCode[KeyCode["Del"] = 67] = "Del";
+    KeyCode[KeyCode["Enter"] = 66] = "Enter";
+    KeyCode[KeyCode["Back"] = 4] = "Back";
+    KeyCode[KeyCode["Zero"] = 7] = "Zero";
+    KeyCode[KeyCode["One"] = 8] = "One";
+    KeyCode[KeyCode["Two"] = 9] = "Two";
+    KeyCode[KeyCode["Three"] = 10] = "Three";
+    KeyCode[KeyCode["Four"] = 11] = "Four";
+    KeyCode[KeyCode["Five"] = 12] = "Five";
+    KeyCode[KeyCode["Six"] = 13] = "Six";
+    KeyCode[KeyCode["Seven"] = 14] = "Seven";
+    KeyCode[KeyCode["Eight"] = 15] = "Eight";
+    KeyCode[KeyCode["Nine"] = 16] = "Nine";
+})(KeyCode || (KeyCode = {}));

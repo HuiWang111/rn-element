@@ -12,7 +12,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Toast = void 0;
-var React = require("react");
+var react_1 = require("react");
 var react_native_root_toast_1 = require("react-native-root-toast");
 var FontAwesome_1 = require("react-native-vector-icons/FontAwesome");
 var react_native_1 = require("react-native");
@@ -50,19 +50,19 @@ var Toast = (function () {
         react_native_root_toast_1.default.show(message, this.setDefaultOptions(options));
     };
     Toast.success = function (message, options) {
-        react_native_root_toast_1.default.show(React.createElement(react_native_1.View, { style: styles.toastWrapper },
-            React.createElement(FontAwesome_1.default, { name: 'check', size: 50, color: '#fff' }),
-            React.createElement(react_native_1.Text, { style: styles.toastTitle }, this.handleMessage(message))), this.setDefaultOptions(options));
+        react_native_root_toast_1.default.show(react_1.default.createElement(react_native_1.View, { style: styles.toastWrapper },
+            react_1.default.createElement(FontAwesome_1.default, { name: 'check', size: 50, color: '#fff' }),
+            react_1.default.createElement(react_native_1.Text, { style: styles.toastTitle }, this.handleMessage(message))), this.setDefaultOptions(options));
     };
     Toast.error = function (message, options) {
-        react_native_root_toast_1.default.show(React.createElement(react_native_1.View, { style: styles.toastWrapper },
-            React.createElement(FontAwesome_1.default, { name: 'close', size: 50, color: '#fff' }),
-            React.createElement(react_native_1.Text, { style: styles.toastTitle }, this.handleMessage(message))), this.setDefaultOptions(options));
+        react_native_root_toast_1.default.show(react_1.default.createElement(react_native_1.View, { style: styles.toastWrapper },
+            react_1.default.createElement(FontAwesome_1.default, { name: 'close', size: 50, color: '#fff' }),
+            react_1.default.createElement(react_native_1.Text, { style: styles.toastTitle }, this.handleMessage(message))), this.setDefaultOptions(options));
     };
     Toast.warning = function (message, options) {
-        react_native_root_toast_1.default.show(React.createElement(react_native_1.View, { style: styles.toastWrapper },
-            React.createElement(FontAwesome_1.default, { name: 'warning', size: 50, color: '#fff' }),
-            React.createElement(react_native_1.Text, { style: styles.toastTitle }, this.handleMessage(message))), this.setDefaultOptions(options));
+        react_native_root_toast_1.default.show(react_1.default.createElement(react_native_1.View, { style: styles.toastWrapper },
+            react_1.default.createElement(FontAwesome_1.default, { name: 'warning', size: 50, color: '#fff' }),
+            react_1.default.createElement(react_native_1.Text, { style: styles.toastTitle }, this.handleMessage(message))), this.setDefaultOptions(options));
     };
     return Toast;
 }());

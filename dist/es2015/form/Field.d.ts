@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { ReactElement, PropsWithChildren, Component } from 'react';
+import React, { ReactElement, PropsWithChildren, Component } from 'react';
 import { IFieldEntity, IFieldProps, ValueType } from './interface';
 export declare class Field extends Component<PropsWithChildren<IFieldProps>> implements IFieldEntity {
     static contextType: React.Context<import("./interface").IFormStore<any>>;

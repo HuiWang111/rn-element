@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';

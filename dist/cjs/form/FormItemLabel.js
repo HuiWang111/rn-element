@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormItemLabel = void 0;
-var React = require("react");
+var react_1 = require("react");
 var react_native_1 = require("react-native");
 var utils_1 = require("../utils");
 exports.FormItemLabel = function (_a) {
@@ -15,8 +15,8 @@ exports.FormItemLabel = function (_a) {
             formItemLabelStyle = formItemLabelStyle.concat(utils_1.styleUtils["offset-" + col.offset]);
         }
     }
-    return (React.createElement(react_native_1.View, { style: formItemLabelStyle },
-        React.createElement(react_native_1.Text, { style: [
+    return (react_1.default.createElement(react_native_1.View, { style: formItemLabelStyle },
+        react_1.default.createElement(react_native_1.Text, { style: [
                 styles.formItemLabelText,
                 {
                     textAlign: labelAlign

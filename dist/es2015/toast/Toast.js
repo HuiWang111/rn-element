@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import RootToast from 'react-native-root-toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Text, View, StyleSheet } from 'react-native';

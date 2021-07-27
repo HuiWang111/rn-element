@@ -7,8 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import * as React from 'react';
-import { cloneElement, Children, Component } from 'react';
+import React, { cloneElement, Children, Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { FormContext } from './contexts';
 import { HOOK_MARK } from './contexts';

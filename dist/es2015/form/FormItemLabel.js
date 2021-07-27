@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { styleUtils } from '../utils';
 export const FormItemLabel = ({ label, labelAlign = 'right', col }) => {
