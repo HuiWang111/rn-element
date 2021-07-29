@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.black = exports.error = void 0;
+exports.border = exports.black = exports.error = void 0;
 exports.error = '#ff4d4f';
-exports.black = '#000000d9';
+exports.black = '#000000';
+exports.border = '#f0f0f0';

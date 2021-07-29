@@ -2,11 +2,11 @@ import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, Rea
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { IListProps } from './interface';
-import { useKeyEvents } from '../hooks';
-import { KeyCode } from '../constants';
+import { useKeyEvents } from '../../hooks';
+import { KeyCode } from '../../constants';
 import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
-import { mergeStyle } from '../utils';
+import { mergeStyle } from '../../utils';
 
 const isActivableListItem = (c: ReactElement) => {
     return [ActivableListItem, ListItem].includes(c.type as never);

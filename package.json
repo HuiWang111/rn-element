@@ -20,7 +20,7 @@
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "build": "rm -rf dist && npm run build:es2015 && npm run build:cjs",
         "build:es2015": "tsc --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module es2015 --target es2015 --outDir dist/es2015",
-        "build:cjs": "tsc --rootDir src/components --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module commonjs --target es5 --outDir dist/cjs",
+        "build:cjs": "tsc --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module commonjs --target es5 --outDir dist/cjs",
         "test": "jest --watchAll",
         "coverage": "jest --coverage",
         "deploy": "sh scripts/deploy.sh",

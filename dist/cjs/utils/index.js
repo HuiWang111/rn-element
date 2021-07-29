@@ -20,7 +20,8 @@ var warning_1 = require("./warning");
 Object.defineProperty(exports, "warning", { enumerable: true, get: function () { return warning_1.warning; } });
 exports.colors = {
     error: color_1.error,
-    black: color_1.black
+    black: color_1.black,
+    border: color_1.border
 };
 var styles_1 = require("./styles");
 Object.defineProperty(exports, "styleUtils", { enumerable: true, get: function () { return styles_1.styleUtils; } });

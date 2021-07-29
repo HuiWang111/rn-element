@@ -1,5 +1,5 @@
 import { ValueType, Rule, FormInstance } from './interface';
-import { getType, isNil, isInteger, isFloat } from '../utils';
+import { getType, isNil, isInteger, isFloat } from '../../utils';
 
 export async function validateField(
     value: ValueType,

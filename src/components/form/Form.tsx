@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { FormStore } from './useForm';
 import { IFormProps } from './interface';
-import { isNil, colors } from '../utils'
+import { isNil, colors } from '../../utils';
 
 export const Form: FC<PropsWithChildren<IFormProps>> = ({
     initialValues,

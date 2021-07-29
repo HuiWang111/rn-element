@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';
-import { colors, isFunction } from '../utils';
+import { colors, isFunction } from '../../utils';
 
 export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     initialValue,

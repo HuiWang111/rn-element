@@ -4,7 +4,7 @@ import { FormContext } from './contexts';
 import { IFieldEntity, IFieldProps, ValueType } from './interface';
 import { HOOK_MARK } from './contexts';
 import { validateField } from './utils';
-import { styleUtils, colors } from '../utils';
+import { styleUtils, colors } from '../../utils';
 
 export class Field extends Component<PropsWithChildren<IFieldProps>> implements IFieldEntity {
     static contextType = FormContext;

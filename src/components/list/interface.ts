@@ -1,4 +1,4 @@
-import { StyleType } from '../utils';
+import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
 type EnterHandler = () => void;

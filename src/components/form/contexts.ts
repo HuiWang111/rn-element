@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { StoreValue, ValueType, IFormStore, InternalHooks } from './interface';
-import { warning } from '../utils';
+import { warning } from '../../utils';
 
 export const HOOK_MARK = 'RN-ELEMENT-INTERNAL-HOOKS';
 

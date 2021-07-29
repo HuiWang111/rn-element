@@ -8,7 +8,7 @@ import {
 } from './interface';
 import { useRef } from 'react';
 import { HOOK_MARK } from './contexts';
-import { warning, isUndefined } from '../utils';
+import { warning, isUndefined } from '../../utils';
 
 export class FormStore implements IFormStore, InternalHooks {
     private values: StoreValue;

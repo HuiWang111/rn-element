@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, Text, StyleSheet, Button, useWindowDimensions } from 'react-native';
 import { IModalProps } from './interface';
-import { isString, colors, isUndefined } from '../utils';
+import { isString, colors, isUndefined } from '../../utils';
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,

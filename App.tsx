@@ -1,5 +1,5 @@
 import React from 'react';
-import ActiveListDemo from './src/examples/ActiveListDemo';
+import ActiveListDemo from './examples/ActiveListDemo';
 
 const App = (): JSX.Element => {
     return (

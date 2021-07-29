@@ -59,6 +59,6 @@ function mergeStyle(style1, style2) {
             return Object.assign(style, item);
         }, {})
         : style2;
-    return Object.assign(firstStyle, secondStyle);
+    return __assign(__assign({}, firstStyle), secondStyle);
 }
 exports.mergeStyle = mergeStyle;
