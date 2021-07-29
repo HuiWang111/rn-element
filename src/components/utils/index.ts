@@ -1,6 +1,7 @@
 import {
     error,
-    black
+    black,
+    border
 } from './color';
 
 export {
@@ -23,7 +24,8 @@ export { warning } from './warning';
 
 export const colors = {
     error,
-    black
+    black,
+    border
 };
 
 export { styleUtils, mergeStyle } from './styles';

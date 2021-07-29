@@ -57,5 +57,8 @@ export function mergeStyle(style1?: StyleType, style2?: StyleType): Record<strin
         }, {})
         : style2;
 
-    return Object.assign(firstStyle, secondStyle);
+    return {
+        ...firstStyle,
+        ...secondStyle
+    };
 }

@@ -51,7 +51,7 @@ const ActiveListDemo: FC = () => {
             itemStyle={styles.item}
             activeItemStyle={styles.activeItem}
             onEnter={handleEnter}
-            pauseListener={true}
+            keyboard={true}
         >
             <List.ActivableItem>
                 <Text>1 - isActivable</Text>
@@ -118,11 +118,11 @@ List容器元素的样式
 | ---- | ---- | ---- |
 | object | none | false |
 
-### pauseListener
-是否停止事件监听
+### keyboard
+是否受键盘控制
 | type | default | required |
 | ---- | ---- | ---- |
-| boolean | false | false |
+| boolean | true | false |
 
 ### onChange
 activeIndex发生变化时的回调

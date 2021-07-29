@@ -16,7 +16,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     activeIndex,
     loop = true,
     children,
-    pauseListener = false,
+    keyboard = true,
     onChange,
     onEnter,
     style,
@@ -40,7 +40,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     }, [isActivableList]);
     
     useKeyEvents('keyup', (event): void => {
-        if (pauseListener) return;
+        if (!keyboard) return;
 
         if (event.which === KeyCode.Up) {
             if (!onChange) return;
@@ -63,7 +63,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
 
             onEnter();
         }
-    }, [activeIndex, pauseListener]);
+    }, [activeIndex, keyboard]);
 
     return (
         <View style={style}>

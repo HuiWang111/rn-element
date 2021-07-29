@@ -9,7 +9,7 @@ export interface IListProps {
     style?: StyleType;
     itemStyle?: StyleType;
     activeItemStyle?: StyleType;
-    pauseListener?: boolean;
+    keyboard?: boolean;
     onChange?: ActiveChangeHandler;
     onEnter?: EnterHandler;
 }

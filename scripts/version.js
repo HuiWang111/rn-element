@@ -1,8 +1,8 @@
 const { execSync } = require('child_process');
 const { version } = require('../package.json');
 
-console.info('> change branch to master...');
-execSync('git checkout master');
+console.info('> change branch to main...');
+execSync('git checkout main');
 
 console.info('> commit version change in package.json...');
 const addFileRes = execSync('git add .');

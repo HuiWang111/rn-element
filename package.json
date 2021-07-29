@@ -24,7 +24,8 @@
         "test": "jest --watchAll",
         "coverage": "jest --coverage",
         "deploy": "sh scripts/deploy.sh",
-        "version": "node scripts/version.js"
+        "version": "node scripts/version.js",
+        "debug": "adb shell input keyevent 82"
     },
     "dependencies": {
         "prop-types": "^15.7.2",
