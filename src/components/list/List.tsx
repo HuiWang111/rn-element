@@ -8,16 +8,17 @@ import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../utils';
 
-const UpDownKeyCodes = [KeyCode.Up, KeyCode.Down];
-const isActiveListItem = (c: ReactElement) => {
+const isActivableListItem = (c: ReactElement) => {
     return [ActivableListItem, ListItem].includes(c.type as never);
 }
 
-const ActiveList: FC<PropsWithChildren<IListProps>> = ({
+const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     activeIndex,
     loop = true,
     children,
+    pauseListener = false,
     onChange,
+    onEnter,
     style,
     activeItemStyle,
     itemStyle
@@ -28,9 +29,9 @@ const ActiveList: FC<PropsWithChildren<IListProps>> = ({
             !child ||
             typeofChild === 'number' || typeofChild === 'string' || typeofChild === 'boolean' ||
             !(child as ReactElement).type ||
-            !isActiveListItem(child as ReactElement)
+            !isActivableListItem(child as ReactElement)
         ) {
-            throw new Error('[ActiveList] children must be List.ActiveListItem or List.Item');
+            throw new Error('[ActiveList] children must be List.ActivableListItem or List.Item');
         }
         return (child as ReactElement).type === ActivableListItem;
     });
@@ -39,22 +40,30 @@ const ActiveList: FC<PropsWithChildren<IListProps>> = ({
     }, [isActivableList]);
     
     useKeyEvents('keyup', (event): void => {
-        if (!UpDownKeyCodes.includes(event.which) || !onChange) return;
-        
+        if (pauseListener) return;
+
         if (event.which === KeyCode.Up) {
+            if (!onChange) return;
+
             if (activeIndex > firstActivableIndex) {
                 onChange(isActivableList.lastIndexOf(true, activeIndex - 1));
             } else if (loop) {
                 onChange(lastActivableIndex);
             }
-        } else {
+        } else if (event.which === KeyCode.Down) {
+            if (!onChange) return;
+
             if (activeIndex < lastActivableIndex) {
                 onChange(isActivableList.indexOf(true, activeIndex + 1));
             } else if (loop) {
                 onChange(firstActivableIndex);
             }
+        } else if (event.which === KeyCode.Enter) {
+            if (!onEnter) return;
+
+            onEnter();
         }
-    }, [activeIndex]);
+    }, [activeIndex, pauseListener]);
 
     return (
         <View style={style}>
@@ -75,12 +84,12 @@ const ActiveList: FC<PropsWithChildren<IListProps>> = ({
     );
 }
 
-ActiveList.propTypes = {
+ActivableList.propTypes = {
     activeIndex: PropTypes.number.isRequired,
     loop: PropTypes.bool,
     onChange: PropTypes.func
 };
 
-ActiveList.displayName = 'ActiveList';
+ActivableList.displayName = 'ActivableList';
 
-export default ActiveList;
+export default ActivableList;

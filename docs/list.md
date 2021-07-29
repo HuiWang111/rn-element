@@ -40,6 +40,9 @@ const ActiveListDemo: FC = () => {
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
+    const handleEnter = () => {
+        // ...
+    }
 
     return (
         <List
@@ -47,6 +50,8 @@ const ActiveListDemo: FC = () => {
             onChange={handleChange}
             itemStyle={styles.item}
             activeItemStyle={styles.activeItem}
+            onEnter={handleEnter}
+            pauseListener={true}
         >
             <List.ActivableItem>
                 <Text>1 - isActivable</Text>
@@ -80,3 +85,70 @@ const styles = StyleSheet.create({
     }
 });
 ```
+
+## List Props
+
+### activeIndex
+当前选中条目
+| type | default | required |
+| ---- | ---- | ---- |
+| number | none | true |
+
+### loop
+是否循环
+| type | default | required |
+| ---- | ---- | ---- |
+| boolean | true | false |
+
+### style
+List容器元素的样式
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
+
+### itemStyle
+`List.Item` 和 `List.ActivableItem` 元素的样式
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
+
+### activeItemStyle
+当前选中条目元素的样式
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
+
+### pauseListener
+是否停止事件监听
+| type | default | required |
+| ---- | ---- | ---- |
+| boolean | false | false |
+
+### onChange
+activeIndex发生变化时的回调
+| type | default | required |
+| ---- | ---- | ---- |
+| Function | none | false |
+
+### onEnter
+按回车键时的回调
+| type | default | required |
+| ---- | ---- | ---- |
+| Function | none | false |
+
+## List.Item & List.ActivableItem Props
+### style
+`List.Item` 和 `List.ActivableItem` 元素的样式，与List的props `itemStyle` 重复时，以这个为准
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
+
+### activeStyle
+当前选中条目元素的样式，与List的pros `activeItemStyle` 重复时，以这个为准
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
+
+
+## 注意点
+- List的children只能是 `List.Item` 和 `List.ActivableItem`，传入其他的会报错

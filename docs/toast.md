@@ -1,5 +1,5 @@
 ## 前置条件
-使用该Toast需要在你的应用最外层使用RootSiblingParent包一下
+使用该Toast需要在你的应用最外层使用RootSiblingParent包一下，`react-native-root-siblings` 包无需另外安装，当你安装了 `rn-element` 后node_modules中已经有了
 ```jsx
 import { RootSiblingParent } from 'react-native-root-siblings';
 

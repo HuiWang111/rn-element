@@ -14,6 +14,7 @@ const ActiveListDemo: FC = () => {
             onChange={handleChange}
             itemStyle={styles.item}
             activeItemStyle={styles.activeItem}
+            // loop={false}
         >
             <List.ActivableItem>
                 <Text>1 - isActivable</Text>

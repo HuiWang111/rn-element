@@ -1,14 +1,14 @@
-import ActiveList from './List';
+import ActivableList from './List';
 import { ListItem, ActivableListItem } from './ListItem';
 
-type InternalListType = typeof ActiveList;
+type InternalListType = typeof ActivableList;
 
 interface IListType extends InternalListType {
     Item: typeof ListItem;
     ActivableItem: typeof ActivableListItem;
 }
 
-const List = ActiveList as IListType;
+const List = ActivableList as IListType;
 
 List.Item = ListItem;
 List.ActivableItem = ActivableListItem;
