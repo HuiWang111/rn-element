@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Text, StyleSheet, TextInput } from 'react-native';
+import { Text, StyleSheet, TextInput, View, Button } from 'react-native';
 import { List, Modal } from '../src';
 import { colors } from '../src/utils';
 
@@ -41,6 +41,25 @@ const ActiveListDemo: FC = () => {
                     <TextInput placeholder='isActivable' />
                 </List.ActivableItem>
             </List>
+            <View>
+                <Button
+                    title='show config modal'
+                    onPress={() => {
+                        Modal.confirm({
+                            title: 'alert',
+                            content: 'are you kidding me?',
+                            onOk: () => {
+                                console.info('ok');
+                            },
+                            onCancel: () => {
+                                console.info('cancel');
+                            }
+                        })
+                    }}
+                >
+
+                </Button>
+            </View>
             <Modal
                 title='modal title'
                 onCancel={() => setModalVisible(false)}

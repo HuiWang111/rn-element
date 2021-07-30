@@ -31,3 +31,5 @@ export const colors = {
 export { styleUtils, mergeStyle } from './styles';
 
 export { StyleType } from './interface';
+
+export { omit } from './tools';
