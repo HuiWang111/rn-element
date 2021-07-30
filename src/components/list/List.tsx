@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode } from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
 import { IListProps } from './interface';
 import { useKeyEvents } from '../../hooks';
@@ -21,7 +21,8 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     onEnter,
     style,
     activeItemStyle,
-    itemStyle
+    itemStyle,
+    InputComponent = TextInput
 }: PropsWithChildren<IListProps>): JSX.Element => {
     const isActivableList: boolean[] = Children.toArray(children).map(child => {
         const typeofChild = typeof child;
@@ -72,11 +73,15 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                     const c = child as ReactElement;
                     const childItemStyle = c.props.style;
                     const childActiveItemStyle = c.props.activeStyle;
+                    const childInputComponent = c.props.InputComponent;
                     
                     return cloneElement(c, {
                         isActive: activeIndex === index,
                         style: mergeStyle(itemStyle, childItemStyle),
-                        activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle)
+                        activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
+                        InputComponent: childInputComponent
+                            ? childInputComponent
+                            : InputComponent
                     });
                 })
             }

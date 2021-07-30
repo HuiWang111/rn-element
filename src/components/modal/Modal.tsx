@@ -68,9 +68,15 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <View style={[styles.title, commonStyle, titleStyle]}>
-                        { renderWithText(title) }
-                    </View>
+                    {
+                        title
+                            ? (
+                                <View style={[styles.title, commonStyle, titleStyle]}>
+                                    { renderWithText(title) }
+                                </View>
+                            )
+                            : null
+                    }
                     {
                         children
                             ? (

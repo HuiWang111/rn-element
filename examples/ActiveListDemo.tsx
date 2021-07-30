@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, TextInput } from 'react-native';
 import { List, Modal } from '../src';
 import { colors } from '../src/utils';
 
@@ -37,8 +37,8 @@ const ActiveListDemo: FC = () => {
                 <List.Item>
                     <Text>4</Text>
                 </List.Item>
-                <List.ActivableItem style={styles.lastItem}>
-                    <Text>5 - isActivable</Text>
+                <List.ActivableItem style={styles.lastItem} autoFocus InputComponent={TextInput}>
+                    <TextInput placeholder='isActivable' />
                 </List.ActivableItem>
             </List>
             <Modal
