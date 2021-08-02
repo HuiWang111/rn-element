@@ -1,9 +1,9 @@
 import React from 'react';
-import ActiveListDemo from './examples/ActiveListDemo';
+import Home from './examples/home/Home';
 
 const App = (): JSX.Element => {
     return (
-        <ActiveListDemo />
+        <Home />
     );
 }
 

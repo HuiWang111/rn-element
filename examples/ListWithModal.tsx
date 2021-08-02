@@ -3,7 +3,7 @@ import { Text, StyleSheet, TextInput, View, Button } from 'react-native';
 import { List, Modal } from '../src';
 import { colors } from '../src/utils';
 
-const ActiveListDemo: FC = () => {
+const ListWithModal: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
     const handleChange = (activeIndex: number) => {
@@ -75,7 +75,7 @@ const ActiveListDemo: FC = () => {
     );
 }
 
-export default ActiveListDemo;
+export default ListWithModal;
 
 const styles = StyleSheet.create({
     item: {
