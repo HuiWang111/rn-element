@@ -1,9 +1,9 @@
 import React from 'react';
-import Home from './examples/home/Home';
+import HomeRouter from './examples/home/Router';
 
 const App = (): JSX.Element => {
     return (
-        <Home />
+        <HomeRouter />
     );
 }
 

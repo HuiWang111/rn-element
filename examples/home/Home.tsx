@@ -1,25 +1,27 @@
 import React, { FC } from 'react';
-import { View, Button } from 'react-native';
-import { Route, Switch, Router } from 'react-router-native';
-import { history } from './history';
+import { View } from 'react-native';
+import { Link } from 'react-router-native';
+import { ListItem } from 'react-native-elements';
 import { routeConfig } from './routeConfig';
 
 const Home: FC = (): JSX.Element => {
     return (
-        <>
-            <View>
-                
-            </View>
-            <Router history={history}>
-                <Switch>
-                    {
-                        routeConfig.map(route => {
-                            return <Route key={route.path} { ...route }  />
-                        })
-                    }
-                </Switch>
-            </Router>
-        </>
+        <View>
+            {
+                routeConfig.map(route => {
+                    return (
+                        <Link to={`/${route.path}`} key={route.path}>
+                            <ListItem bottomDivider>
+                                <ListItem.Content>
+                                    <ListItem.Title>{route.path}</ListItem.Title>
+                                </ListItem.Content>
+                                <ListItem.Chevron />
+                            </ListItem>
+                        </Link>
+                    );
+                })
+            }
+        </View>
     );
 }
 

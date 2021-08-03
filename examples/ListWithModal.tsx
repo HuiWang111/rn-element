@@ -1,17 +1,23 @@
 import React, { FC, useState } from 'react';
 import { Text, StyleSheet, TextInput, View, Button } from 'react-native';
+import { Header } from 'react-native-elements';
+import { useHistory } from 'react-router-native';
 import { List, Modal } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithModal: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
+    const history = useHistory();
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
 
     return (
         <>
+            <Header
+                leftComponent={<Button title='返回' onPress={() => history.push('/home')} />}
+            />
             <List
                 activeIndex={activeIndex}
                 onChange={handleChange}
