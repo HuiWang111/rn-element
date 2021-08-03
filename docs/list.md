@@ -86,6 +86,10 @@ const styles = StyleSheet.create({
 });
 ```
 
+## 注意点
+- List的children只能是 `List.Item` 和 `List.ActivableItem`，传入其他的会报错
+- List内部使用 `ScrollView` 实现，使用的时候最好传入确定的高度
+
 ## List Props
 
 ### activeIndex
@@ -124,6 +128,13 @@ List容器元素的样式
 | ---- | ---- | ---- |
 | boolean | true | false |
 
+### InputComponent
+当List.Item设置 `autoFocus` 时，会对List.Item的children进行递归查找，查找到的第一个**type === InputComponent**的元素会被 `focus`。
+默认查找的是 `react-native` 的TextInput，如果引入了其他组件库的Input，就可以通过设置这个属性修改查找的对象。
+| type | default | required |
+| ---- | ---- | ---- |
+| ComponentType | TextInput | false |
+
 ### onChange
 activeIndex发生变化时的回调
 | type | default | required |
@@ -149,6 +160,14 @@ activeIndex发生变化时的回调
 | ---- | ---- | ---- |
 | object | none | false |
 
+### autoFocus
+如果**List.Item**的chilren中有输入框且需要自动聚焦，那么就设置该属性为true
+| type | default | required |
+| ---- | ---- | ---- |
+| boolean | false | false |
 
-## 注意点
-- List的children只能是 `List.Item` 和 `List.ActivableItem`，传入其他的会报错
+### InputComponent
+同**List**的 `InputComponent` 属性，但优先级高于**List**的 `InputComponent`
+| type | default | required |
+| ---- | ---- | ---- |
+| ComponentType | TextInput | false |

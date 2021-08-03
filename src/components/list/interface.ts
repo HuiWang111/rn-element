@@ -1,4 +1,4 @@
-import { FC, ComponentType } from 'react';
+import { ComponentType } from 'react';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
@@ -11,7 +11,7 @@ export interface IListProps {
     itemStyle?: StyleType;
     activeItemStyle?: StyleType;
     keyboard?: boolean;
-    InputComponent?: FC | ComponentType;
+    InputComponent?: ComponentType;
     onChange?: ActiveChangeHandler;
     onEnter?: EnterHandler;
 }
@@ -21,7 +21,7 @@ export interface IListItemProps {
     style?: StyleType;
     activeStyle?: StyleType;
     autoFocus?: boolean;
-    InputComponent?: FC | ComponentType;
+    InputComponent?: ComponentType;
 }
 
 export interface IInternalListItemProps extends IListItemProps {

@@ -1,5 +1,5 @@
-import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode } from 'react';
-import { View, TextInput } from 'react-native';
+import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode, createRef } from 'react';
+import { TextInput, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { IListProps } from './interface';
 import { useKeyEvents } from '../../hooks';
@@ -39,6 +39,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     const [firstActivableIndex, lastActivableIndex] = useMemo(() => {
         return [isActivableList.indexOf(true), isActivableList.lastIndexOf(true)];
     }, [isActivableList]);
+    const scrollViewRef = createRef<ScrollView>();
     
     useKeyEvents('keyup', (event): void => {
         if (!keyboard) return;
@@ -49,6 +50,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
             if (activeIndex > firstActivableIndex) {
                 onChange(isActivableList.lastIndexOf(true, activeIndex - 1));
             } else if (loop) {
+                scrollViewRef.current?.scrollToEnd({ animated: true });
                 onChange(lastActivableIndex);
             }
         } else if (event.which === KeyCode.Down) {
@@ -57,6 +59,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
             if (activeIndex < lastActivableIndex) {
                 onChange(isActivableList.indexOf(true, activeIndex + 1));
             } else if (loop) {
+                scrollViewRef.current?.scrollTo({ y: 0, animated: true });
                 onChange(firstActivableIndex);
             }
         } else if (event.which === KeyCode.Enter) {
@@ -65,9 +68,9 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
             onEnter();
         }
     }, [activeIndex, keyboard]);
-
+    
     return (
-        <View style={style}>
+        <ScrollView style={style} ref={scrollViewRef}>
             {
                 Children.map(children, (child: ReactNode, index: number) => {
                     const c = child as ReactElement;
@@ -85,7 +88,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                     });
                 })
             }
-        </View>
+        </ScrollView>
     );
 }
 
