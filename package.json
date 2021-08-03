@@ -25,7 +25,8 @@
         "coverage": "jest --coverage",
         "deploy": "sh scripts/deploy.sh",
         "version": "node scripts/version.js",
-        "debug": "adb shell input keyevent 82"
+        "debug": "adb shell input keyevent 82",
+        "doc": "node scripts/gen-docs.mjs"
     },
     "dependencies": {
         "prop-types": "^15.7.2",
