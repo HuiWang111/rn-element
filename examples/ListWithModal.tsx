@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Text, StyleSheet, TextInput, View, Button } from 'react-native';
+import { Text, StyleSheet, TextInput, View, Button, Pressable } from 'react-native';
 import { Header } from 'react-native-elements';
 import { useHistory } from 'react-router-native';
 import { List, Modal } from '../src';
@@ -16,7 +16,11 @@ const ListWithModal: FC = () => {
     return (
         <>
             <Header
-                leftComponent={<Button title='返回' onPress={() => history.goBack()} />}
+                leftComponent={
+                    <Pressable onPress={() => history.goBack()}>
+                        <Text style={{ color: '#fff' }}>返回</Text>
+                    </Pressable>
+                }
             />
             <List
                 activeIndex={activeIndex}

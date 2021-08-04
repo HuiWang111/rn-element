@@ -17,7 +17,7 @@ fs.writeFileSync(
     READMEContent
 )
 
-function initializeREADME(content = '# rn-elements\n') {
+function initializeREADME(content = '# rn-element\n') {
     content += '\n';
     content += '## install\n';
     content += '```shell\n';

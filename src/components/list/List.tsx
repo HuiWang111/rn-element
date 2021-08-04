@@ -25,10 +25,8 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     InputComponent = TextInput
 }: PropsWithChildren<IListProps>): JSX.Element => {
     const isActivableList: boolean[] = Children.toArray(children).map(child => {
-        // const typeofChild = typeof child;
         if (
             !child ||
-            // typeofChild === 'number' || typeofChild === 'string' || typeofChild === 'boolean' ||
             !(child as ReactElement).type ||
             !isActivableListItem(child as ReactElement)
         ) {

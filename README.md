@@ -1,4 +1,4 @@
-# rn-elements
+# rn-element
 
 ## install
 ```shell

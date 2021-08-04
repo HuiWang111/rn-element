@@ -49,6 +49,10 @@ export const confirm = (config: IModalConfig): void => {
                     sibling.destroy();
                     sibling = null;
                 }
+
+                if (config.onVisibleChange) {
+                    config.onVisibleChange(false);
+                }
             }}
             visible={true}
         >

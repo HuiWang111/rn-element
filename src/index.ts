@@ -8,5 +8,7 @@ export { Modal } from './components/modal';
 
 // export { Form } from './components/form';
 
+export { Cascader } from './components/cascader';
+
 /****** hooks *******/
 export { useKeyEvents } from './hooks';

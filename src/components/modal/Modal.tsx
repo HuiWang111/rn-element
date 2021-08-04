@@ -1,7 +1,7 @@
-import React, { FC, PropsWithChildren, useEffect } from 'react';
-import { Modal as ReactNativeModal, View, Text, StyleSheet, Button, useWindowDimensions } from 'react-native';
+import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
+import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions } from 'react-native';
 import { IModalProps } from './interface';
-import { isString, colors, isUndefined } from '../../utils';
+import { colors, isUndefined, renderWithText } from '../../utils';
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
@@ -23,12 +23,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     const commonStyle = {
         width: width - 80
     };
-    const renderWithText = (content) => {
-        return isString(content)
-            ? <Text>{ content }</Text>
-            : content;
-    }
-    const getFooter = (footer?: string | JSX.Element): JSX.Element => {
+    const getFooter = (footer?: string | JSX.Element): ReactNode | null | undefined => {
         if (isUndefined(footer)) {
             return (
                 <>
@@ -100,7 +95,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 22
+        marginTop: 22,
+        backgroundColor: 'rgba(0, 0, 0, 0.4)'
     },
     modalView: {
         margin: 20,
