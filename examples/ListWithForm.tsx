@@ -15,7 +15,7 @@ const ListWithForm: FC = () => {
     return (
         <>
             <Header
-                leftComponent={<Button title='返回' onPress={() => history.push('/home')} />}
+                leftComponent={<Button title='返回' onPress={() => history.goBack()} />}
             />
             <List
                 activeIndex={activeIndex}

@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode, createRef } from 'react';
+import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode, useRef } from 'react';
 import { TextInput, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { IListProps } from './interface';
@@ -25,10 +25,10 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     InputComponent = TextInput
 }: PropsWithChildren<IListProps>): JSX.Element => {
     const isActivableList: boolean[] = Children.toArray(children).map(child => {
-        const typeofChild = typeof child;
+        // const typeofChild = typeof child;
         if (
             !child ||
-            typeofChild === 'number' || typeofChild === 'string' || typeofChild === 'boolean' ||
+            // typeofChild === 'number' || typeofChild === 'string' || typeofChild === 'boolean' ||
             !(child as ReactElement).type ||
             !isActivableListItem(child as ReactElement)
         ) {
@@ -39,7 +39,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     const [firstActivableIndex, lastActivableIndex] = useMemo(() => {
         return [isActivableList.indexOf(true), isActivableList.lastIndexOf(true)];
     }, [isActivableList]);
-    const scrollViewRef = createRef<ScrollView>();
+    const scrollViewRef = useRef<ScrollView | null>(null);
     
     useKeyEvents('keyup', (event): void => {
         if (!keyboard) return;
@@ -59,7 +59,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
             if (activeIndex < lastActivableIndex) {
                 onChange(isActivableList.indexOf(true, activeIndex + 1));
             } else if (loop) {
-                scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+                scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
                 onChange(firstActivableIndex);
             }
         } else if (event.which === KeyCode.Enter) {
