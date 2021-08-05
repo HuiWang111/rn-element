@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import ListWithModal from '../ListWithModal';
 import ListWithForm from '../ListWithForm';
-import ListWithCascader from '../ListWithCascader';
+import ListWithPicker from '../ListWithPicker';
 
 interface IRouteConfig {
     path: string;
@@ -11,5 +11,5 @@ interface IRouteConfig {
 export const routeConfig: IRouteConfig[] = [
     { path: 'list-with-modal', component: ListWithModal },
     { path: 'list-with-form', component: ListWithForm },
-    { path: 'list-with-cascader', component: ListWithCascader }
+    { path: 'list-with-picker', component: ListWithPicker }
 ];

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Pressable, Text, Dimensions, StyleSheet } from 'react-native';
 import { Header } from 'react-native-elements';
 import { useHistory } from 'react-router-native';
-import { List, Cascader } from '../src';
+import { List, Picker } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithCascader: FC = () => {
@@ -29,7 +29,7 @@ const ListWithCascader: FC = () => {
                 activeItemStyle={styles.activeItem}
             >
                 <List.ActivableItem>
-                    <Cascader
+                    <Picker
                         options={[
                             { value: 1, label: '选项1' },
                             { value: 2, label: '选项2' },
@@ -40,7 +40,7 @@ const ListWithCascader: FC = () => {
                         <Pressable>
                             <Text>show cascader</Text>
                         </Pressable>
-                    </Cascader>
+                    </Picker>
                 </List.ActivableItem>
                 <List.ActivableItem>
                     <Text>1 - activable</Text>

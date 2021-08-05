@@ -1,4 +1,4 @@
-import { mergeStyle } from './styles';
+import { mergeStyle } from '../styles';
 
 describe('test styles util', () => {
     it('mergeStyle should work', () => {

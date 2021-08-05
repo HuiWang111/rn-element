@@ -1,4 +1,4 @@
-import { getType, isInteger, isFloat } from './validate';
+import { getType, isInteger, isFloat } from '../validate';
 
 describe('test validate,ts', () => {
     it('getType should work', () => {
@@ -6,14 +6,14 @@ describe('test validate,ts', () => {
         expect(getType(new String())).toBe('string');
         expect(getType(true)).toBe('boolean');
         expect(getType(new Boolean())).toBe('boolean');
-        expect(getType(() => {})).toBe('function');
+        expect(getType(() => 1)).toBe('function');
         expect(getType(new Function())).toBe('function');
         expect(getType(undefined)).toBe('undefined');
         expect(getType(null)).toBe('null');
         expect(getType(3)).toBe('number');
         expect(getType(new Number('3'))).toBe('number');
         expect(getType([])).toBe('array');
-        expect(getType(new Array())).toBe('array');
+        expect(getType([])).toBe('array');
         expect(getType({})).toBe('object');
         expect(getType(new Object())).toBe('object');
 

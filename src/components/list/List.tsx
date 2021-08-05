@@ -41,7 +41,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     
     useKeyEvents('keyup', (event): void => {
         if (!keyboard) return;
-
+        
         if (event.which === KeyCode.Up) {
             if (!onChange) return;
 

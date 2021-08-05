@@ -1,5 +1,5 @@
-import { validateField, genError } from './utils';
-import { FormStore } from './useForm';
+import { validateField, genError } from '../utils';
+import { FormStore } from '../useForm';
  
 describe('test form Utils', () => {
     let form;

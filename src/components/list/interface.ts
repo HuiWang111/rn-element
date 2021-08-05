@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
-type EnterHandler = () => void;
+type CommonKeyboardHandler = () => void;
 
 export interface IListProps {
     activeIndex: number;
@@ -13,7 +13,11 @@ export interface IListProps {
     keyboard?: boolean;
     InputComponent?: ComponentType;
     onChange?: ActiveChangeHandler;
-    onEnter?: EnterHandler;
+    onEnter?: CommonKeyboardHandler;
+    onF1?: CommonKeyboardHandler;
+    onF2?: CommonKeyboardHandler;
+    onF3?: CommonKeyboardHandler;
+    onF4?: CommonKeyboardHandler;
 }
 
 export interface IListItemProps {

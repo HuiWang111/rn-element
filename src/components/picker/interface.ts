@@ -1,21 +1,22 @@
 import { ReactNode } from 'react';
 import { ViewStyle } from 'react-native';
 
-export type CascaderValueType = string | number;
+export type PickerValueType = string | number;
 
 export interface IOption {
-    value: CascaderValueType;
+    value: PickerValueType;
     label?: string | ReactNode;
-    chilren?: IOption[];
+    // chilren?: IOption[];
 }
 
-export interface ICascaderProps {
-    value?: CascaderValueType[];
+export interface IPickerProps {
+    value?: PickerValueType;
     options?: IOption[];
     style?: ViewStyle;
     notFoundContent?: string | ReactNode;
     zIndex?: number;
-    onConfirm?: (value: CascaderValueType[]) => void;
+    keyborad?: boolean;
+    onConfirm?: (value: PickerValueType) => void;
     onCancel?: () => void;
     onVisibleChange?: (visible: boolean) => void;
 }

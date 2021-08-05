@@ -32,6 +32,6 @@ export { styleUtils, mergeStyle } from './styles';
 
 export { StyleType } from './interface';
 
-export { omit } from './tools';
+export { omit, keyBy } from './tools';
 
 export { renderWithText } from './render';

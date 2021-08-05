@@ -27,7 +27,7 @@ export const styleUtils = StyleSheet.create({
     ...createPercentStyleUtils()
 })
 
-export function mergeStyle(style1?: StyleType, style2?: StyleType): Record<string, unknown> | null {
+export function mergeStyle(style1?: StyleType | null, style2?: StyleType | null): Record<string, unknown> | null {
     if (!style1 && !style2) {
         return null;
     }

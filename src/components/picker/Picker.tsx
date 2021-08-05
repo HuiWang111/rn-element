@@ -1,6 +1,6 @@
 import React, { FC, useState, PropsWithChildren, cloneElement, ReactElement, useEffect } from 'react';
 import { View, Modal, Text, StyleSheet, Button, Dimensions } from 'react-native';
-import { ICascaderProps, CascaderValueType } from './interface';
+import { IPickerProps, PickerValueType } from './interface';
 import PropTypes from 'prop-types';
 import { List } from '../list';
 import { renderWithText, colors } from '../../utils';
@@ -8,20 +8,19 @@ import { renderWithText, colors } from '../../utils';
 const { width, height } = Dimensions.get('window');
 const { ActivableItem } = List;
 
-const Cascader: FC<PropsWithChildren<ICascaderProps>> = ({
-    value: propsValue = [],
+const Picker: FC<PropsWithChildren<IPickerProps>> = ({
+    value: propsValue,
     options = [],
     style,
-    notFoundContent,
+    // notFoundContent,
     zIndex = 1,
     children,
     onCancel,
     onConfirm,
     onVisibleChange
-}: PropsWithChildren<ICascaderProps>) => {
-    const [value, setValue] = useState<CascaderValueType[]>([]);
+}: PropsWithChildren<IPickerProps>) => {
+    const [value, setValue] = useState<PickerValueType>('');
     const [visible, setVisible] = useState<boolean>(false);
-    const [panelIndex, setPanelIndex] = useState<number>(0);
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const handleCancel = () => {
         setVisible(false);
@@ -55,11 +54,13 @@ const Cascader: FC<PropsWithChildren<ICascaderProps>> = ({
     const handleListChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
-    const propsValueDep = propsValue.join('-');
 
     useEffect(() => {
-        setValue([...propsValueDep.split('-')]);
-    }, [propsValueDep]);
+        setValue(propsValue || '');
+
+        const foundIndex = options.findIndex(option => option.value === propsValue);
+        setActiveIndex(foundIndex === -1 ? 0 : foundIndex);
+    }, [propsValue, options]);
 
     return (
         <>
@@ -74,7 +75,7 @@ const Cascader: FC<PropsWithChildren<ICascaderProps>> = ({
                 style={{
                     zIndex
                 }}
-                visible={visible}            
+                visible={visible}          
             >
                 <View style={styles.bottomView}>
                     <View style={styles.container}>
@@ -98,7 +99,7 @@ const Cascader: FC<PropsWithChildren<ICascaderProps>> = ({
                                 activeItemStyle={styles.activeItem}
                             >
                                 {
-                                    options.map((option, panelIndex) => {
+                                    options.map(option => {
                                         return (
                                             <ActivableItem key={option.value}>
                                                 {
@@ -124,8 +125,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginTop: 22,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)'
+        marginTop: 22
     },
     container: {
         width,
@@ -177,20 +177,18 @@ const styles = StyleSheet.create({
     }
 });
 
-Cascader.propTypes = {
-    value: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.string.isRequired),
-        PropTypes.arrayOf(PropTypes.number.isRequired)
-    ]),
+Picker.propTypes = {
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
     notFoundContent: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.node
     ]),
     zIndex: PropTypes.number,
+    keyborad: PropTypes.bool,
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
-    onVisibleChange: PropTypes.func
+    onVisibleChange: PropTypes.func,
 }
 
-export default Cascader;
+export default Picker;
