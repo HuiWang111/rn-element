@@ -3,12 +3,12 @@ import { Children, cloneElement, ReactElement, ReactNode, RefObject, FC, Compone
 export function mapChildrenWithRef<T>(
     children: ReactNode | undefined,
     ref: RefObject<T>,
-    InputComponent: FC | ComponentType
+    inputComponent: FC | ComponentType
 ): ReactNode | undefined {
     return Children.map(children, child => {
         const c = child as ReactElement;
 
-        if (c.type === InputComponent) {
+        if (c.type === inputComponent) {
             if (!ref.current) {
                 return cloneElement(c, {
                     ref
@@ -19,7 +19,7 @@ export function mapChildrenWithRef<T>(
         }
 
         if (c.props?.children) {
-            c.props.children = mapChildrenWithRef(c.props.children, ref, InputComponent);
+            c.props.children = mapChildrenWithRef(c.props.children, ref, inputComponent);
         }
 
         return c;

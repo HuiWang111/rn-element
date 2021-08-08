@@ -11,7 +11,7 @@ export interface IListProps {
     itemStyle?: StyleType;
     activeItemStyle?: StyleType;
     keyboard?: boolean;
-    InputComponent?: ComponentType;
+    inputComponent?: ComponentType;
     onChange?: ActiveChangeHandler;
     onEnter?: CommonKeyboardHandler;
     onF1?: CommonKeyboardHandler;
@@ -25,7 +25,7 @@ export interface IListItemProps {
     style?: StyleType;
     activeStyle?: StyleType;
     autoFocus?: boolean;
-    InputComponent?: ComponentType;
+    inputComponent?: ComponentType;
 }
 
 export interface IInternalListItemProps extends IListItemProps {

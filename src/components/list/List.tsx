@@ -22,7 +22,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     style,
     activeItemStyle,
     itemStyle,
-    InputComponent = TextInput
+    inputComponent = TextInput
 }: PropsWithChildren<IListProps>): JSX.Element => {
     const isActivableList: boolean[] = Children.toArray(children).map(child => {
         if (
@@ -74,15 +74,15 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                     const c = child as ReactElement;
                     const childItemStyle = c.props.style;
                     const childActiveItemStyle = c.props.activeStyle;
-                    const childInputComponent = c.props.InputComponent;
+                    const childInputComponent = c.props.inputComponent;
                     
                     return cloneElement(c, {
                         isActive: activeIndex === index,
                         style: mergeStyle(itemStyle, childItemStyle),
                         activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
-                        InputComponent: childInputComponent
+                        inputComponent: childInputComponent
                             ? childInputComponent
-                            : InputComponent
+                            : inputComponent
                     });
                 })
             }

@@ -128,8 +128,8 @@ List容器元素的样式
 | ---- | ---- | ---- |
 | boolean | true | false |
 
-### InputComponent
-当List.Item设置 `autoFocus` 时，会对List.Item的children进行递归查找，查找到的第一个**type === InputComponent**的元素会被 `focus`。
+### inputComponent
+当List.Item设置 `autoFocus` 时，会对List.Item的children进行递归查找，查找到的第一个**type === inputComponent**的元素会被 `focus`。
 默认查找的是 `react-native` 的TextInput，如果引入了其他组件库的Input，就可以通过设置这个属性修改查找的对象。
 | type | default | required |
 | ---- | ---- | ---- |
@@ -166,8 +166,8 @@ activeIndex发生变化时的回调
 | ---- | ---- | ---- |
 | boolean | false | false |
 
-### InputComponent
-同**List**的 `InputComponent` 属性，但优先级高于**List**的 `InputComponent`
+### inputComponent
+同**List**的 `inputComponent` 属性，但优先级高于**List**的 `inputComponent`
 | type | default | required |
 | ---- | ---- | ---- |
 | ComponentType | TextInput | false |

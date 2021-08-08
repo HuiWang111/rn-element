@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useEffect, createRef } from 'react';
+import React, { FC, ComponentType, PropsWithChildren, useEffect, createRef } from 'react';
 import { TextInput, View } from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
@@ -8,8 +8,8 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     activeStyle,
     style,
     children,
-    autoFocus = false,
-    InputComponent
+    autoFocus,
+    inputComponent
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
     const inputRef = createRef<TextInput>();
 
@@ -27,7 +27,7 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
         <View style={[style, isActive ? activeStyle : null]}>
             {
                 autoFocus
-                    ? mapChildrenWithRef(children, inputRef, InputComponent as FC)
+                    ? mapChildrenWithRef(children, inputRef, inputComponent as ComponentType)
                     : children
             }
         </View>
