@@ -1,11 +1,11 @@
-import { ComponentType } from 'react';
+import { ComponentType, ReactElement, ReactText } from 'react';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
 type CommonKeyboardHandler = () => void;
 
 export interface IListProps {
-    activeIndex: number;
+    activeIndex?: number;
     loop?: boolean;
     style?: StyleType;
     itemStyle?: StyleType;
@@ -26,8 +26,21 @@ export interface IListItemProps {
     activeStyle?: StyleType;
     autoFocus?: boolean;
     inputComponent?: ComponentType;
+    key?: ReactText;
 }
 
 export interface IInternalListItemProps extends IListItemProps {
     isActivable: boolean;
+}
+
+type ConfirmHandler = (selectedKey: ReactText) => void;
+type OverlayFunc = () => React.ReactElement;
+
+export interface IPickerProps {
+    selectedKey: ReactText;
+    overlay: ReactElement | OverlayFunc;
+    zIndex?: number;
+    onVisibleChange?: (visible: boolean) => void;
+    onConfirm?: ConfirmHandler;
+    onCancel?: () => void;
 }

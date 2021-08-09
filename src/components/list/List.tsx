@@ -13,7 +13,7 @@ const isActivableListItem = (c: ReactElement) => {
 }
 
 const ActivableList: FC<PropsWithChildren<IListProps>> = ({
-    activeIndex,
+    activeIndex = 0,
     loop = true,
     children,
     keyboard = true,
