@@ -1,4 +1,5 @@
-import { ComponentType, ReactElement, ReactText } from 'react';
+import { ComponentType, ReactElement, ReactNode, ReactText } from 'react';
+import { NativeSyntheticEvent, NativeTouchEvent, GestureResponderEvent } from 'react-native';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
@@ -26,21 +27,21 @@ export interface IListItemProps {
     activeStyle?: StyleType;
     autoFocus?: boolean;
     inputComponent?: ComponentType;
-    key?: ReactText;
+    value?: ReactText;
 }
 
 export interface IInternalListItemProps extends IListItemProps {
     isActivable: boolean;
 }
 
-type ConfirmHandler = (selectedKey: ReactText) => void;
-type OverlayFunc = () => React.ReactElement;
-
 export interface IPickerProps {
-    selectedKey: ReactText;
-    overlay: ReactElement | OverlayFunc;
+    value: ReactText;
+    overlay: ReactElement | (() => React.ReactElement);
     zIndex?: number;
+    title?: string | ReactNode;
     onVisibleChange?: (visible: boolean) => void;
-    onConfirm?: ConfirmHandler;
+    onConfirm?: (selectedKey: ReactText) => void;
     onCancel?: () => void;
 }
+
+export type PressEvent = NativeSyntheticEvent<NativeTouchEvent> | GestureResponderEvent;

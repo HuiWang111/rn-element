@@ -1,5 +1,7 @@
-import { ValueType, Rule, FormInstance } from './interface';
+import { ValueType, Rule, FormInstance, IFormItemProps } from './interface';
 import { getType, isNil, isInteger, isFloat } from '../../utils';
+import { Children, cloneElement, ReactElement } from 'react';
+import { FormItem } from './FormItem';
 
 export async function validateField(
     value: ValueType,
@@ -131,4 +133,14 @@ export function genError(
     validType: string
 ): string {
     return `field ${fieldName} expect ${validType} ${target}, received ${current}`;
+}
+
+export function mapChildrenWithFindFormItem(childen: ReactElement, formIemProps: Partial<IFormItemProps>): ReactElement {
+    if (childen.type === FormItem) {
+        return cloneElement(childen, formIemProps);
+    }
+
+    return Children.map(childen.props.childen, (child) => {
+        return mapChildrenWithFindFormItem(child, formIemProps);
+    });
 }

@@ -3,10 +3,10 @@ export enum KeyCode {
     Down = 20,
     Left = 21,
     Right = 22,
-    F1 = 131, // not pda 29
-    F2 = 132, // not pda 30
-    F3 = 133, // not pda 31
-    F4 = 134, // not pda 32
+    F1 = 131,
+    F2 = 132,
+    F3 = 133,
+    F4 = 134,
     Del = 67,
     Enter = 66,
     Back = 4,
@@ -19,5 +19,10 @@ export enum KeyCode {
     Six = 13,
     Seven = 14,
     Eight = 15,
-    Nine = 16
+    Nine = 16,
+    // 模拟 f1/f2/f3/f4的默认keyCode
+    Z = 54,
+    X = 52,
+    C = 31,
+    V = 60
 }

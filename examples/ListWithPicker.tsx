@@ -1,67 +1,94 @@
 import React, { FC, useState } from 'react';
-import { Pressable, Text, Dimensions, StyleSheet } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Text, StyleSheet } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { List, Picker } from '../src';
+import { List, Enterable, Page } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithCascader: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [control, setControl] = useState(true);
     const history = useHistory();
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
 
     return (
-        <>
-            <Header
-                leftComponent={
-                    <Pressable onPress={() => history.goBack()}>
-                        <Text style={{ color: '#fff' }}>返回</Text>
-                    </Pressable>
+        <Page
+            header={{
+                center: 'Page',
+                left: 'Left',
+                right: 'RightRightRightRight'
+            }}
+            F1={{
+                label: '返回',
+                handler: () => {
+                    history.goBack();
                 }
-            />
-            <List
-                activeIndex={activeIndex}
-                onChange={handleChange}
-                style={styles.list}
-                itemStyle={styles.item}
-                activeItemStyle={styles.activeItem}
-            >
-                <List.ActivableItem>
-                    <Picker
-                        options={[
-                            { value: 1, label: '选项1' },
-                            { value: 2, label: '选项2' },
-                            { value: 3, label: '选项3' },
-                            { value: 4, label: '选项4' }
-                        ]}
+            }}
+        >
+            {
+                ({ width, height }) => (
+                    <List
+                        activeIndex={activeIndex}
+                        onChange={handleChange}
+                        style={{
+                            ...styles.list,
+                            width,
+                            height: height - 30,
+                            flexGrow: 0,
+                            backgroundColor: '#fff'
+                        }}
+                        itemStyle={styles.item}
+                        activeItemStyle={styles.activeItem}
+                        keyboard={control}
                     >
-                        <Pressable>
-                            <Text>show cascader</Text>
-                        </Pressable>
-                    </Picker>
-                </List.ActivableItem>
-                <List.ActivableItem>
-                    <Text>1 - activable</Text>
-                </List.ActivableItem>
-                <List.Item>
-                    <Text>2</Text>
-                </List.Item>
-                <List.Item>
-                    <Text>3</Text>
-                </List.Item>
-            </List>
-        </>
+                        <List.ActivableItem>
+                            <List.Picker
+                                title='Picker'
+                                value='2'
+                                overlay={
+                                    <List
+                                        style={{ height: 200 }}
+                                        itemStyle={styles.item}
+                                        activeItemStyle={styles.activeItem}
+                                        keyboard={true}
+                                    >
+                                        {
+                                            ['1', '2', '3', '4', '5'].map(n => {
+                                                return <List.ActivableItem key={n} value={n}>{ n }</List.ActivableItem>
+                                            })
+                                        }
+                                    </List>
+                                }
+                                onVisibleChange={(visible) => {
+                                    setControl(!visible)
+                                }}
+                            >
+                                <Enterable isEnterable={activeIndex === 0}>
+                                    <Text>show picker</Text>
+                                </Enterable>
+                            </List.Picker>
+                        </List.ActivableItem>
+                        <List.ActivableItem>
+                            <Text>1 - activable</Text>
+                        </List.ActivableItem>
+                        <List.Item>
+                            <Text>2</Text>
+                        </List.Item>
+                        <List.Item>
+                            <Text>3</Text>
+                        </List.Item>
+                    </List>
+                )
+            }
+        </Page>
     );
 }
 
 export default ListWithCascader;
 
 const styles = StyleSheet.create({
-    list: {
-        height: Dimensions.get('window').height
-    },
+    list: {},
     item: {
         height: 40,
         justifyContent: 'center',

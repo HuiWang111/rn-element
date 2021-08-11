@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Text, StyleSheet, TextInput, View, Button, Pressable } from 'react-native';
+import { Text, StyleSheet, TextInput, View, Button } from 'react-native';
 import { Header } from 'react-native-elements';
 import { useHistory } from 'react-router-native';
 import { List, Modal } from '../src';
@@ -17,9 +17,7 @@ const ListWithModal: FC = () => {
         <>
             <Header
                 leftComponent={
-                    <Pressable onPress={() => history.goBack()}>
-                        <Text style={{ color: '#fff' }}>返回</Text>
-                    </Pressable>
+                    <Button title='返回' onPress={() => history.goBack()} />
                 }
             />
             <List
@@ -47,7 +45,7 @@ const ListWithModal: FC = () => {
                 <List.Item>
                     <Text>4</Text>
                 </List.Item>
-                <List.ActivableItem style={styles.lastItem} autoFocus InputComponent={TextInput}>
+                <List.ActivableItem style={styles.lastItem} autoFocus inputComponent={TextInput}>
                     <TextInput placeholder='isActivable' />
                 </List.ActivableItem>
             </List>

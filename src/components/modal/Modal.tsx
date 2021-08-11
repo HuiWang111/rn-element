@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions } from 'react-native';
+import PropTypes from 'prop-types';
 import { IModalProps } from './interface';
 import { colors, isUndefined, renderWithText } from '../../utils';
 
@@ -132,3 +133,13 @@ const styles = StyleSheet.create({
         marginLeft: 10
     }
 });
+
+Modal.propTypes = {
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    zIndex: PropTypes.number,
+    okText: PropTypes.string,
+    cancelText: PropTypes.string,
+    onCancel: PropTypes.func,
+    onOk: PropTypes.func,
+    onVisibleChange: PropTypes.func
+}

@@ -57,7 +57,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
             if (activeIndex < lastActivableIndex) {
                 onChange(isActivableList.indexOf(true, activeIndex + 1));
             } else if (loop) {
-                scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+                scrollViewRef.current?.scrollTo({ y: 0, animated: true });
                 onChange(firstActivableIndex);
             }
         } else if (event.which === KeyCode.Enter) {
@@ -91,7 +91,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
 }
 
 ActivableList.propTypes = {
-    activeIndex: PropTypes.number.isRequired,
+    activeIndex: PropTypes.number,
     loop: PropTypes.bool,
     onChange: PropTypes.func
 };

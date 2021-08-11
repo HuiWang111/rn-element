@@ -8,9 +8,12 @@ export { Modal } from './components/modal';
 
 export { Form } from './components/form';
 
-export { Picker } from './components/picker';
+export { Enterable } from './components/enterable';
+
+export { Page } from './components/page';
 
 export { useKeyEvents } from './hooks';
 
 export { KeyCode } from './constants';
+
 

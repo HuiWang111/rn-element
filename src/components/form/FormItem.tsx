@@ -22,6 +22,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     validateTrigger,
     labelCol,
     wrapperCol,
+    errorHandler,
     children
 }: PropsWithChildren<IFormItemProps>) => {
     const form = useContext(FormContext);
@@ -54,6 +55,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
                 validateTrigger={validateTrigger as ValidateTrigger}
                 initialValue={initialValue}
                 col={wrapperCol}
+                errorHandler={errorHandler}
             >
                 { children }
             </Field>

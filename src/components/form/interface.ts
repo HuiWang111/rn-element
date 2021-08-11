@@ -77,6 +77,7 @@ export interface IFieldProps {
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
+    errorHandler?: (message: string) => void;
 }
 
 export type ValidateTrigger = 'onChange' | 'onBlur';
@@ -88,6 +89,7 @@ export interface IFormProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    errorHandler?: (message: string) => void;
 }
 
 export interface IFormItemProps<Values = ValueType> {
@@ -101,6 +103,7 @@ export interface IFormItemProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    errorHandler?: (message: string) => void;
 }
 
 export type LabelAlign = 'left' | 'right' | 'center';

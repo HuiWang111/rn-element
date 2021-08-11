@@ -1,5 +1,5 @@
 import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react';
-import { NativeSyntheticEvent, TextInputFocusEventData, StyleSheet, View, Text } from 'react-native'
+import { NativeSyntheticEvent, TextInputFocusEventData, StyleSheet, View } from 'react-native'
 import { FormContext } from './contexts';
 import { IFieldEntity, IFieldProps, ValueType } from './interface';
 import { HOOK_MARK } from './contexts';
@@ -10,10 +10,6 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
     static contextType = FormContext;
 
     init = false;
-
-    state = {
-        message: ''
-    }
 
     componentDidMount(): void {
         if (!this.init) {
@@ -26,28 +22,21 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
         }
     }
 
-    setMessage = (message: string): void => {
-        this.setState({
-            message
-        });
-    } 
-
     reRender = (): void => {
         this.forceUpdate();
     }
 
     validateRules = async (value: ValueType): Promise<void> => {
-        const { name, rules } = this.props;
+        const { name, rules, errorHandler } = this.props;
         const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
         const { getFieldError } = this.context;
 
         const [hasError, message] = await validateField(value, this.context, name, rules);
 
         if (hasError) {
-            this.setMessage(message);
+            errorHandler?.(message);
             setFieldError(name, message);
         } else if (getFieldError(name)) {
-            this.setMessage('');
             removeFieldError(name);
         }
     }
@@ -87,7 +76,6 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
         }
 
         const { col } = this.props;
-        const { message } = this.state;
 
         let fieldStyle = [styles.field];
         if (col) {
@@ -105,13 +93,6 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                     Children.map(children, c => {
                         return cloneElement(c, this.getControlled(c.props))
                     })
-                }
-                {
-                    message ? (
-                        <View style={[styles.formItemError]}>
-                            <Text style={[styles.formItemErrorMsg]}>{message}</Text>
-                        </View>
-                    ) : null
                 }
             </View>
         )

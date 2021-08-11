@@ -6,6 +6,8 @@ import { FormContext } from './contexts';
 import { FormStore } from './useForm';
 import { IFormProps } from './interface';
 import { isNil, colors } from '../../utils';
+import { Toast } from '../toast';
+import { mapChildrenWithFindFormItem } from './utils';
 
 export const Form: FC<PropsWithChildren<IFormProps>> = ({
     initialValues,
@@ -14,6 +16,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
     validateTrigger: formValidateTrigger = 'onChange',
     labelCol: formLabelCol,
     wrapperCol: formWrapperCol,
+    errorHandler: formErrorHandler = Toast.show,
     children
 }: PropsWithChildren<IFormProps>) => {
     const formStyle = style ? [styles.form].concat(style as never) : [styles.form];
@@ -31,7 +34,8 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
                                 initialValue,
                                 validateTrigger: formItemValidateTrigger,
                                 labelCol: formItemLabelCol,
-                                wrapperCol: formItemWrapperCol
+                                wrapperCol: formItemWrapperCol,
+                                errorHandler: formItemErrorHandler
                             } = c.props;
                             const defaultValue = !initialValues || isNil(initialValues[name])
                                 ? initialValue
@@ -45,12 +49,16 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
                             const wrapperCol = isNil(formWrapperCol) && isNil(formItemWrapperCol)
                                 ? undefined
                                 : (formItemWrapperCol || formWrapperCol);
+                            const errorHandler = formItemErrorHandler
+                                ? formItemErrorHandler
+                                : formErrorHandler;
 
-                            return cloneElement(c, {
+                            return mapChildrenWithFindFormItem(c, {
                                 initialValue: defaultValue,
                                 validateTrigger,
                                 labelCol,
-                                wrapperCol
+                                wrapperCol,
+                                errorHandler
                             });
                         }
 
@@ -65,7 +73,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
 Form.displayName = 'Form';
 Form.propTypes = {
     initialValues: PropTypes.any,
-    form: PropTypes.instanceOf(FormStore).isRequired
+    // form: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({

@@ -1,26 +1,54 @@
-import React, { FC, PropsWithChildren, cloneElement, useState, ReactElement, Children, ReactText, useEffect } from 'react';
-import { View, Modal, Dimensions, Button, Text, StyleSheet } from 'react-native';
-import { IPickerProps } from './interface';
-import { renderWithText, colors, isFunction } from '../../utils';
+import React, { FC, PropsWithChildren, cloneElement, useState, ReactElement, Children, ReactText, useEffect, useMemo } from 'react';
+import { View, Modal, Dimensions, Button, StyleSheet } from 'react-native';
+import { IPickerProps, PressEvent } from './interface';
+import { renderWithText, isFunction } from '../../utils';
 
 const { width, height } = Dimensions.get('window');
 
 const Picker: FC<PropsWithChildren<IPickerProps>> = ({
-    selectedKey: propSelectedkey,
+    value,
     overlay,
     children,
     zIndex,
+    title,
     onConfirm,
     onCancel,
     onVisibleChange
 }: PropsWithChildren<IPickerProps>) => {
     const [visible, setVisible] = useState<boolean>(false);
-    const [selectedKey, setSelectedKey] = useState<ReactText>(propSelectedkey);
-    const handleClickChildren = () => {
+    const [selectedKey, setSelectedKey] = useState<ReactText>(value);
+
+    const overlayContent: ReactElement = isFunction(overlay) ? overlay() : overlay;
+    const foundIndex = Children.toArray(overlayContent.props.children).findIndex(c => (c as ReactElement).props.value === selectedKey);
+    const activeIndex = useMemo(() => {
+        return foundIndex > -1 ? foundIndex : 0
+    }, [foundIndex]);
+    
+    useEffect(() => {
+        setSelectedKey(value);
+    }, [value]);
+
+    const handleListChange = (idx: number) => {
+        const listItems = Children.toArray(overlayContent.props.children);
+        if (listItems[idx]) {
+            setSelectedKey((listItems[idx] as ReactElement).props.value);
+        }
+    }
+    const handleTapChildren = (
+        e?: PressEvent,
+        onPress?: (e: PressEvent) => void,
+        onEnter?: () => void
+    ) => {
         setVisible(true);
 
         if (onVisibleChange) {
             onVisibleChange(true);
+        }
+        if (onPress && e) {
+            onPress(e);
+        }
+        if (onEnter) {
+            onEnter();
         }
     }
     const handleCancel = () => {
@@ -46,25 +74,11 @@ const Picker: FC<PropsWithChildren<IPickerProps>> = ({
         }
     }
 
-    const overlayContent: ReactElement = isFunction(overlay) ? overlay() : overlay;
-    const foundIndex = Children.toArray(overlayContent.props.children).findIndex(c => (c as ReactElement).props.key === selectedKey);
-    const [activeIndex, setActiveIndex] = useState(
-        foundIndex > -1 ? foundIndex : 0
-    );
-
-    const handleListChange = (activeIndex: number) => {
-        setActiveIndex(activeIndex);
-    }
-
-    useEffect(() => {
-        setSelectedKey(propSelectedkey)
-    }, [propSelectedkey]);
-
     return (
         <>
             {
                 cloneElement(children as ReactElement, {
-                    onPress: handleClickChildren
+                    onEnter: () => handleTapChildren(undefined, undefined, (children as ReactElement).props.onEnter)
                 })
             }
             <Modal
@@ -79,13 +93,13 @@ const Picker: FC<PropsWithChildren<IPickerProps>> = ({
                     <View style={styles.container}>
                         <View style={[styles.header]}>
                             <View style={styles.headerBtn}>
-                                <Button title='取消' onPress={handleCancel} />
+                                <Button title='取消' onPress={handleCancel}></Button>
                             </View>
                             <View style={styles.headerTitle}>
-                                <Text>标题</Text>
+                                { renderWithText(title) }
                             </View>
                             <View style={styles.headerBtn}>
-                                <Button title='确定' onPress={handleConfirm} />
+                                <Button title='确定' onPress={handleConfirm}></Button>
                             </View>
                         </View>
                         <View style={styles.body}>
@@ -123,8 +137,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
-            width: 0,
-            height: 2
+            width: 2,
+            height: 6
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
@@ -145,24 +159,6 @@ const styles = StyleSheet.create({
     },
     body: {
         paddingVertical: 20
-    },
-    list: {
-        width,
-        height: height - 200 - 110
-    },
-    item: {
-        height: 40,
-        justifyContent: 'center',
-        paddingLeft: 20,
-        backgroundColor: '#fff',
-        borderBottomColor: colors.border,
-        borderBottomWidth: 1
-    },
-    activeItem: {
-        backgroundColor: 'yellow'
-    },
-    lastItem: {
-        borderBottomWidth: 0
     }
 });
 
