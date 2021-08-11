@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Text, StyleSheet, TextInput, Dimensions, Button } from 'react-native';
 import { Header } from 'react-native-elements';
 import { useHistory } from 'react-router-native';
-import { List, Form } from '../src';
+import { List, Form, Toast } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithForm: FC = () => {
@@ -19,6 +19,11 @@ const ListWithForm: FC = () => {
                 leftComponent={
                     <Button title='返回' onPress={() => history.goBack()} />
                 }
+                rightComponent={
+                    <Button title='提交' onPress={() => {
+                        console.info(form.getFieldsValue());
+                    }} />
+                }
             />
             <Form form={form}>
                 <List
@@ -31,7 +36,7 @@ const ListWithForm: FC = () => {
                 >
                     <List.ActivableItem>
                         <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
-                            <TextInput />
+                            <TextInput placeholder='1 - isActivable' />
                         </Form.Item>
                     </List.ActivableItem>
                     <List.Item>

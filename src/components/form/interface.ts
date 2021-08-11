@@ -69,6 +69,8 @@ export interface IFieldEntity {
     };
 }
 
+type ErrorHandler = (message: string) => void;
+
 export interface IFieldProps {
     name: string;
     rules: IRuleConfig[];
@@ -77,7 +79,7 @@ export interface IFieldProps {
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
-    errorHandler?: (message: string) => void;
+    errorHandler?: ErrorHandler;
 }
 
 export type ValidateTrigger = 'onChange' | 'onBlur';
@@ -89,7 +91,7 @@ export interface IFormProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
-    errorHandler?: (message: string) => void;
+    errorHandler?: ErrorHandler;
 }
 
 export interface IFormItemProps<Values = ValueType> {
@@ -103,7 +105,7 @@ export interface IFormItemProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
-    errorHandler?: (message: string) => void;
+    errorHandler?: ErrorHandler;
 }
 
 export type LabelAlign = 'left' | 'right' | 'center';
@@ -117,4 +119,12 @@ export interface IFormItemLabelProps {
 export interface ICol {
     span?: number;
     offset?: number;
+}
+
+export interface IParentProps {
+    initialValues?: StoreValue;
+    formValidateTrigger?: ValidateTrigger;
+    formLabelCol?: ICol;
+    formWrapperCol?: ICol;
+    formErrorHandler?: ErrorHandler;
 }

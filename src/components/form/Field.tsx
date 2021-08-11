@@ -55,7 +55,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             [valuePropName]: getFieldValue(name),
             [changeMethodName]: (value: string) => {
                 setFieldValue(name, value);
-
+                
                 if (validateTrigger === 'onChange') {
                     this.validateRules(value);
                 }

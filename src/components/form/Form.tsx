@@ -3,11 +3,64 @@ import { View, StyleSheet } from 'react-native';
 import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
-import { FormStore } from './useForm';
-import { IFormProps } from './interface';
+import { IFormProps, IParentProps } from './interface';
 import { isNil, colors } from '../../utils';
 import { Toast } from '../toast';
-import { mapChildrenWithFindFormItem } from './utils';
+
+/**
+ * 由于Form和List组件经常需要组合使用，所以Form和List必定有一个与他们的Item组件不是chilren关系
+ * 这里实现深度遍历children查找Form.Item组件
+ */
+function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): ReactElement {
+    if (c.type === FormItem) {
+        const {
+            initialValues,
+            formValidateTrigger,
+            formLabelCol,
+            formWrapperCol,
+            formErrorHandler
+        } = formProps;
+        const {
+            name,
+            initialValue,
+            validateTrigger: formItemValidateTrigger,
+            labelCol: formItemLabelCol,
+            wrapperCol: formItemWrapperCol,
+            errorHandler: formItemErrorHandler
+        } = c.props;
+        const defaultValue = !initialValues || isNil(initialValues[name])
+            ? initialValue
+            : initialValues[name];
+        const validateTrigger = formItemValidateTrigger
+            ? formItemValidateTrigger
+            : formValidateTrigger;
+        const labelCol = isNil(formLabelCol) && isNil(formItemLabelCol)
+            ? undefined
+            : (formItemLabelCol || formLabelCol);
+        const wrapperCol = isNil(formWrapperCol) && isNil(formItemWrapperCol)
+            ? undefined
+            : (formItemWrapperCol || formWrapperCol);
+        const errorHandler = formItemErrorHandler
+            ? formItemErrorHandler
+            : formErrorHandler;
+
+        return cloneElement(c, {
+            initialValue: defaultValue,
+            validateTrigger,
+            labelCol,
+            wrapperCol,
+            errorHandler
+        });
+    }
+
+    const children = c.props?.children;
+    
+    return children
+        ? cloneElement(c, {}, Children.map(children, (child) => {
+            return mapChildrenWithFindFormItem(child, formProps);
+        }))
+        : c;
+}
 
 export const Form: FC<PropsWithChildren<IFormProps>> = ({
     initialValues,
@@ -27,42 +80,14 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
                 {
                     Children.map(children, (child: ReactNode) => {
                         const c = child as ReactElement;
-
-                        if (c.type === FormItem) {
-                            const {
-                                name,
-                                initialValue,
-                                validateTrigger: formItemValidateTrigger,
-                                labelCol: formItemLabelCol,
-                                wrapperCol: formItemWrapperCol,
-                                errorHandler: formItemErrorHandler
-                            } = c.props;
-                            const defaultValue = !initialValues || isNil(initialValues[name])
-                                ? initialValue
-                                : initialValues[name];
-                            const validateTrigger = formItemValidateTrigger
-                                ? formItemValidateTrigger
-                                : formValidateTrigger;
-                            const labelCol = isNil(formLabelCol) && isNil(formItemLabelCol)
-                                ? undefined
-                                : (formItemLabelCol || formLabelCol);
-                            const wrapperCol = isNil(formWrapperCol) && isNil(formItemWrapperCol)
-                                ? undefined
-                                : (formItemWrapperCol || formWrapperCol);
-                            const errorHandler = formItemErrorHandler
-                                ? formItemErrorHandler
-                                : formErrorHandler;
-
-                            return mapChildrenWithFindFormItem(c, {
-                                initialValue: defaultValue,
-                                validateTrigger,
-                                labelCol,
-                                wrapperCol,
-                                errorHandler
-                            });
-                        }
-
-                        return c;
+                        
+                        return mapChildrenWithFindFormItem(c, {
+                            initialValues,
+                            formValidateTrigger,
+                            formLabelCol,
+                            formWrapperCol,
+                            formErrorHandler
+                        });
                     })
                 }
             </View>
@@ -72,8 +97,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
 
 Form.displayName = 'Form';
 Form.propTypes = {
-    initialValues: PropTypes.any,
-    // form: PropTypes.object.isRequired
+    initialValues: PropTypes.any
 };
 
 const styles = StyleSheet.create({
