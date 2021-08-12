@@ -12,6 +12,8 @@ export { Enterable } from './components/enterable';
 
 export { Page } from './components/page';
 
+export { NumberInput } from './components/numberInput';
+
 export { useKeyEvents } from './hooks';
 
 export { KeyCode } from './constants';

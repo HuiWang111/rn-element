@@ -3,6 +3,7 @@ import {
     black,
     border
 } from './color';
+import regExp from './regExp';
 
 export {
     isArray,
@@ -33,3 +34,5 @@ export { styleUtils, mergeStyle } from './styles';
 export { StyleType } from './interface';
 
 export { omit, keyBy } from './tools';
+
+export { regExp };
