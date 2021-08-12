@@ -50,7 +50,7 @@ export class Toast {
     }
 
     static show(message: string, options?: IShowToastOptions): void {
-        RootToast.show(message, this.setDefaultOptions(options));
+        RootToast.show(message, Toast.setDefaultOptions(options));
     }
 
     static success(message: string, options?: IShowToastOptions): void {
@@ -61,7 +61,7 @@ export class Toast {
                 <Icon name='check' size={50} color='#fff' />
                 <Text style={styles.toastTitle}>{ this.handleMessage(message) }</Text>
             </View>,
-            this.setDefaultOptions(options)
+            Toast.setDefaultOptions(options)
         );
     }
     
@@ -73,7 +73,7 @@ export class Toast {
                 <Icon name='close' size={50} color='#fff' />
                 <Text style={styles.toastTitle}>{ this.handleMessage(message) }</Text>
             </View>,
-            this.setDefaultOptions(options)
+            Toast.setDefaultOptions(options)
         );
     }
 
@@ -85,7 +85,7 @@ export class Toast {
                 <Icon name='warning' size={50} color='#fff' />
                 <Text style={styles.toastTitle}>{ this.handleMessage(message) }</Text>
             </View>,
-            this.setDefaultOptions(options)
+            Toast.setDefaultOptions(options)
         );
     }
 }

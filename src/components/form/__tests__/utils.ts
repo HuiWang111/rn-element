@@ -326,5 +326,55 @@ describe('test form Utils', () => {
             'unknow',
             [{ type: 'enum', enum: [1, 2, 3, 4] }]
         )).toEqual([true, `field unknow should includes by [1,2,3,4]`]);
+
+        // test rule not include type
+        expect(await validateField(
+            '',
+            form,
+            'age',
+            [{ required: true, message: 'required' }]
+        )).toEqual([true, 'required']);
+        expect(await validateField(
+            '1',
+            form,
+            'age',
+            [{ required: true, message: 'required' }]
+        )).toEqual([false, '']);
+        expect(await validateField(
+            ' ',
+            form,
+            'age',
+            [{ required: true, message: 'required' }]
+        )).toEqual([false, '']);
+        expect(await validateField(
+            ' ',
+            form,
+            'age',
+            [{ required: true, message: 'required', whitespace: true }]
+        )).toEqual([true, 'required']);
+
+        // test validator
+        expect(await validateField(
+            5,
+            form,
+            'age',
+            [{ validator: (rule, value) => {
+                if (value > 5) {
+                    return Promise.reject('年龄不能大于5');
+                }
+                return Promise.resolve();
+            } }]
+        )).toEqual([false, '']);
+        expect(await validateField(
+            6,
+            form,
+            'age',
+            [{ validator: (rule, value) => {
+                if (value > 5) {
+                    return Promise.reject('年龄不能大于5');
+                }
+                return Promise.resolve();
+            } }]
+        )).toEqual([true, '年龄不能大于5']);
     });
 });

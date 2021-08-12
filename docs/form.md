@@ -135,10 +135,10 @@ label 标签的文本
 | object | none |
 
 ### validateTrigger
-设置字段触发验证的时机，如果与Form的validateTrigger冲突，以Form.Item的为准
+设置字段触发验证的时机，如果与Form的validateTrigger冲突，Form.Item的优先级更高
 | type | default |
 | ---- | ---- |
-| `left` `center` `right` | `right` |
+| `onChange` `onBlur` | `onChange` |
 
 ### labelCol
 label标签布局，如 { span: 3, offset: 12 }，如果与Form的冲突，以Form.Item的为准
@@ -149,5 +149,36 @@ label标签布局，如 { span: 3, offset: 12 }，如果与Form的冲突，以Fo
 ### wrapperCol
 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol
 
-## 注意点
-- 与在ReactDOM中使用中不同，ReactNative规定文本节点必须被 `Text` 组件包，因此 `Form` 和 `Form.Item` 的children不能直接是文本节点。
+## rules
+以下参数可以去[ant-form](https://ant.design/components/form-cn/)的文档查看具体的含义
+ant有但是这里没列举的参数表示还未支持
+- type
+    - 'string'
+    - 'string'
+    - 'number'
+    - 'boolean'
+    - 'integer'
+    - 'float'
+    - 'array'
+    - 'enum'
+    - 'any'
+- enum
+- len
+- max
+- min
+- message
+- pattern
+- required
+- transform
+- validator
+```ts
+const rules = [{
+    validator: (rule, value) => {
+        if (value > 5) {
+            return Promise.reject('年龄不能大于5');
+        }
+        return Promise.resolve();
+    }
+}]
+```
+- whitespace

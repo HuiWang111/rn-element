@@ -21,7 +21,7 @@ const ListWithForm: FC = () => {
                 }
                 rightComponent={
                     <Button title='提交' onPress={() => {
-                        console.info(form.getFieldsValue());
+                        Toast.show(JSON.stringify(form.getFieldsValue()));
                     }} />
                 }
             />
@@ -34,7 +34,7 @@ const ListWithForm: FC = () => {
                     activeItemStyle={styles.activeItem}
                     // loop={false}
                 >
-                    <List.ActivableItem>
+                    <List.ActivableItem autoFocus>
                         <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
                             <TextInput placeholder='1 - isActivable' />
                         </Form.Item>

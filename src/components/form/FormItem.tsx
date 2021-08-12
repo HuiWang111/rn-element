@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';
-import { colors, isFunction } from '../../utils';
+import { isFunction } from '../../utils';
 
 export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     initialValue,
@@ -75,19 +75,10 @@ FormItem.propTypes = {
 
 const styles = StyleSheet.create({
     formItem: {
-        display: 'flex',
         flexDirection: 'row',
-        flexWrap: 'wrap',
         marginHorizontal: 0,
         marginTop: 0,
-        marginBottom: 24,
         padding: 0,
         height: 50
-    },
-    formItemError: {
-
-    },
-    formItemErrorMsg: {
-        color: colors.error
     }
 });

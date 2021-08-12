@@ -7,7 +7,7 @@ export function mapChildrenWithRef<T>(
 ): ReactNode | undefined {
     return Children.map(children, child => {
         const c = child as ReactElement;
-
+        
         if (c.type === inputComponent) {
             if (!ref.current) {
                 return cloneElement(c, {
@@ -18,10 +18,6 @@ export function mapChildrenWithRef<T>(
             return c;
         }
 
-        if (c.props?.children) {
-            c.props.children = mapChildrenWithRef(c.props.children, ref, inputComponent);
-        }
-
-        return c;
+        return cloneElement(c, {}, mapChildrenWithRef(c.props.children, ref, inputComponent));
     })
 }

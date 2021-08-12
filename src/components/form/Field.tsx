@@ -31,13 +31,17 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
         const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
         const { getFieldError } = this.context;
 
-        const [hasError, message] = await validateField(value, this.context, name, rules);
-
-        if (hasError) {
-            errorHandler?.(message);
-            setFieldError(name, message);
-        } else if (getFieldError(name)) {
-            removeFieldError(name);
+        try {
+            const [hasError, message] = await validateField(value, this.context, name, rules);
+            
+            if (hasError) {
+                errorHandler?.(message);
+                setFieldError(name, message);
+            } else if (getFieldError(name)) {
+                removeFieldError(name);
+            }
+        } catch (e) {
+            console.error(e);
         }
     }
 

@@ -31,6 +31,7 @@ export class FormStore implements IFormStore, InternalHooks {
         this.getFieldError = this.getFieldError.bind(this);
         this.getFieldsError = this.getFieldsError.bind(this);
         this.setFieldError = this.setFieldError.bind(this);
+        this.removeFieldError = this.removeFieldError.bind(this);
     }
 
     getForm = <V>(): FormInstance<V> => {

@@ -107,6 +107,10 @@ export async function validateField(
             }
 
             return [false, ''];
+        } else if (required && !value) {
+            return [true, message || `field ${name} is required`];
+        } else if (required && whitespace && value.trim && value.trim() === '') {
+            return [true, message || `field ${name} is required`];
         }
 
         if (validator) {
