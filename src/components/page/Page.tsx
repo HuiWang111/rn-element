@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { IPageProps } from './interface';
 import { KeyCode } from '../../constants';
 import { useKeyEvents } from '../../hooks';
-import { renderWithText, isFunction } from '../../utils';
+import { isFunction } from '../../utils';
 
 export const Page: FC<IPageProps> = ({
     F1,
@@ -74,43 +74,43 @@ export const Page: FC<IPageProps> = ({
                 header
                     ? <View style={[{ width },styles.header, headerStyle?.container]}>
                         <View style={[styles.headerLeft, headerStyle?.left]}>
-                            { renderWithText(header.left, { numberOfLines: 1 }) }
+                            { header.left }
                         </View>
                         <View style={[styles.headerCenter, headerStyle?.center]}>
-                            { renderWithText(header.center, { numberOfLines: 1 }) }
+                            { header.center }
                         </View>
                         <View style={[styles.headerRight, headerStyle?.right]}>
-                            { renderWithText(header.right, { numberOfLines: 1 }) }
+                            { header.right }
                         </View>
                     </View>
                     : null
             }
             {
                 isFunction(children)
-                    ? renderWithText(children({ width, height: restHeight }))
-                    : renderWithText(children)
+                    ? children({ width, height: restHeight })
+                    : children
             }
             {
                 displayFnBar
                     ? <View style={[{ width }, styles.fnBar, FnStyle?.bar]}>
                         {
                             F1
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F1.handler}>{ renderWithText(`F1 ${F1.label}`, { numberOfLines: 1 }) }</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F1.handler}>{F1.label}</Pressable>
                                 : null
                         }
                         {
                             F2
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F2.handler}>{ renderWithText(`F2 ${F2.label}`, { numberOfLines: 1 }) }</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F2.handler}>{F2.label}</Pressable>
                                 : null
                         }
                         {
                             F3
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F3.handler}>{ renderWithText(`F3 ${F3.label}`, { numberOfLines: 1 }) }</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F3.handler}>{F3.label}</Pressable>
                                 : null
                         }
                         {
                             F4
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F4.handler}>{ renderWithText(`F4 ${F4.label}`, { numberOfLines: 1 }) }</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F4.handler}>{F4.label}</Pressable>
                                 : null
                         }
                     </View>

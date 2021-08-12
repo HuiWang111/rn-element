@@ -2,7 +2,7 @@ import { ReactElement, ReactNode } from 'react';
 import { ViewStyle } from 'react-native';
 
 interface IFn {
-    label: string;
+    label: string | ReactNode;
     handler?: () => void;
 }
 

@@ -54,8 +54,8 @@ const ListWithModal: FC = () => {
                     title='show config modal'
                     onPress={() => {
                         Modal.confirm({
-                            title: 'alert',
-                            content: 'are you kidding me?',
+                            title: <Text>alert</Text>,
+                            content: <Text>are you kidding me?</Text>,
                             onOk: () => {
                                 console.info('ok');
                             },
@@ -69,7 +69,7 @@ const ListWithModal: FC = () => {
                 </Button>
             </View>
             <Modal
-                title='modal title'
+                title={<Text>modal title</Text>}
                 onCancel={() => setModalVisible(false)}
                 onOk={() => console.info('onOk')}
                 onRequestClose={() => setModalVisible(false)}
@@ -77,7 +77,7 @@ const ListWithModal: FC = () => {
                 okText='confirm'
                 cancelText='cancel'
             >
-                content
+                <Text>content</Text>
             </Modal>
         </>
     );

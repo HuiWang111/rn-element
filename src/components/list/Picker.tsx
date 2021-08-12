@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, cloneElement, useState, ReactElement, Children, ReactText, useEffect, useMemo } from 'react';
 import { View, Modal, Dimensions, Button, StyleSheet } from 'react-native';
 import { IPickerProps, PressEvent } from './interface';
-import { renderWithText, isFunction } from '../../utils';
+import { isFunction } from '../../utils';
 
 const { width, height } = Dimensions.get('window');
 
@@ -96,7 +96,7 @@ const Picker: FC<PropsWithChildren<IPickerProps>> = ({
                                 <Button title='取消' onPress={handleCancel}></Button>
                             </View>
                             <View style={styles.headerTitle}>
-                                { renderWithText(title) }
+                                { title }
                             </View>
                             <View style={styles.headerBtn}>
                                 <Button title='确定' onPress={handleConfirm}></Button>

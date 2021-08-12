@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-native';
 import { List, Enterable, Page } from '../src';
 import { colors } from '../src/utils';
 
-const ListWithCascader: FC = () => {
+const ListWithPicker: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [control, setControl] = useState(true);
     const history = useHistory();
@@ -15,12 +15,12 @@ const ListWithCascader: FC = () => {
     return (
         <Page
             header={{
-                center: 'Page',
-                left: 'Left',
-                right: 'RightRightRightRight'
+                center: <Text>Page</Text>,
+                left: <Text>Left</Text>,
+                right: <Text numberOfLines={1}>RightRightRightRight</Text>
             }}
             F1={{
-                label: '返回',
+                label: <Text>F1 返回</Text>,
                 handler: () => {
                     history.goBack();
                 }
@@ -44,7 +44,7 @@ const ListWithCascader: FC = () => {
                     >
                         <List.ActivableItem>
                             <List.Picker
-                                title='Picker'
+                                title={<Text>Picker</Text>}
                                 value='2'
                                 overlay={
                                     <List
@@ -55,7 +55,9 @@ const ListWithCascader: FC = () => {
                                     >
                                         {
                                             ['1', '2', '3', '4', '5'].map(n => {
-                                                return <List.ActivableItem key={n} value={n}>{ n }</List.ActivableItem>
+                                                return <List.ActivableItem key={n} value={n}>
+                                                    <Text>{ n }</Text>
+                                                </List.ActivableItem>
                                             })
                                         }
                                     </List>
@@ -85,7 +87,7 @@ const ListWithCascader: FC = () => {
     );
 }
 
-export default ListWithCascader;
+export default ListWithPicker;
 
 const styles = StyleSheet.create({
     list: {},

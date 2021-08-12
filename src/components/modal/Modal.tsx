@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IModalProps } from './interface';
-import { colors, isUndefined, renderWithText } from '../../utils';
+import { colors, isUndefined } from '../../utils';
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
@@ -45,7 +45,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
             );
         }
 
-        return renderWithText(footer);
+        return footer;
     }
 
     useEffect(() => {
@@ -68,7 +68,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                         title
                             ? (
                                 <View style={[styles.title, commonStyle, titleStyle]}>
-                                    { renderWithText(title) }
+                                    { title }
                                 </View>
                             )
                             : null
@@ -77,7 +77,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                         children
                             ? (
                                 <View style={[styles.body, commonStyle, bodyStyle]}>
-                                    { renderWithText(children) }
+                                    { children }
                                 </View>
                             )
                             : null

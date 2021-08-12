@@ -34,10 +34,8 @@ const ListWithForm: FC = () => {
                     activeItemStyle={styles.activeItem}
                     // loop={false}
                 >
-                    <List.ActivableItem autoFocus>
-                        <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
-                            <TextInput placeholder='1 - isActivable' />
-                        </Form.Item>
+                    <List.ActivableItem>
+                        <Text>1 - isActivable</Text>
                     </List.ActivableItem>
                     <List.Item>
                         <Text>2</Text>
@@ -54,8 +52,10 @@ const ListWithForm: FC = () => {
                     <List.Item>
                         <Text>6</Text>
                     </List.Item>
-                    <List.ActivableItem>
-                        <Text>7 - isActivable</Text>
+                    <List.ActivableItem autoFocus>
+                        <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
+                            <TextInput placeholder='7 - isActivable' />
+                        </Form.Item>
                     </List.ActivableItem>
                     <List.Item>
                         <Text>8</Text>
@@ -81,6 +81,30 @@ const ListWithForm: FC = () => {
                     <List.ActivableItem>
                         <Text>15 - isActivable</Text>
                     </List.ActivableItem>
+                    <List.Item>
+                        <Text>16</Text>
+                    </List.Item>
+                    <List.ActivableItem>
+                        <Text>17 - isActivable</Text>
+                    </List.ActivableItem>
+                    <List.Item>
+                        <Text>18</Text>
+                    </List.Item>
+                    <List.ActivableItem>
+                        <Text>19 - isActivable</Text>
+                    </List.ActivableItem>
+                    <List.Item>
+                        <Text>20</Text>
+                    </List.Item>
+                    <List.ActivableItem>
+                        <Text>21 - isActivable</Text>
+                    </List.ActivableItem>
+                    <List.Item>
+                        <Text>22</Text>
+                    </List.Item>
+                    <List.ActivableItem>
+                        <Text>23 - isActivable</Text>
+                    </List.ActivableItem>
                 </List>
             </Form>
         </>
@@ -91,7 +115,7 @@ export default ListWithForm;
 
 const styles = StyleSheet.create({
     list: {
-        height: Dimensions.get('window').height
+        height: Dimensions.get('window').height - 70
     },
     item: {
         height: 40,
