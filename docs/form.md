@@ -58,33 +58,33 @@ const FormDemo: FC = () => {
 
 ### initialValues
 表单默认值，只有初始化以及重置时生效。如果Form和Form.Item都带这个属性，以Form的为准
-| type | default |
-| ---- | ---- |
-| object | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
 
 ### form
 经 Form.useForm() 创建的 form 控制实例
-| type | default |
-| ---- | ---- |
-| FormInstance | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| FormInstance | none | true |
 
 ### style
 form容器的style属性
-| type | default |
-| ---- | ---- |
-| ViewStyle | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| ViewStyle | none | false |
 
 ### validateTrigger
 统一设置字段触发验证的时机
-| type | default |
-| ---- | ---- |
-| `onChange` `onBlur` | `onChange` |
+| type | default | required |
+| ---- | ---- | ---- |
+| `onChange` `onBlur` | `onChange` | false |
 
 ### labelCol
 label标签布局，如 { span: 3, offset: 12 }
-| type | default |
-| ---- | ---- |
-| object | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
 
 ### wrapperCol
 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol
@@ -94,57 +94,57 @@ label标签布局，如 { span: 3, offset: 12 }
 
 ### initialValue
 设置子元素默认值，如果与 Form 的 initialValues 冲突则以 Form 为准
-| type | default |
-| ---- | ---- |
-| any | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| any | none | false |
 
 ### label
 label 标签的文本
-| type | default |
-| ---- | ---- |
-| string | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| string | none | false |
 
 ### labelAlign
 标签文本对齐方式
-| type | default |
-| ---- | ---- |
-| `left` `center` `right` | `right` |
+| type | default | required |
+| ---- | ---- | ---- |
+| `left` `center` `right` | `right` | false |
 
 ### name
 字段名，必填项
-| type | default |
-| ---- | ---- |
-| string | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| string | none | true |
 
 ### valuePropName
 子节点值的属性
-| type | default |
-| ---- | ---- |
-| string | 'value' |
+| type | default | required |
+| ---- | ---- | ---- |
+| string | 'value' | false |
 
 ### changeMethodName
 子节点change函数名称，如Switch是 `onValueChange`
-| type | default |
-| ---- | ---- |
-| string | 'onChangeText' |
+| type | default | required |
+| ---- | ---- | ---- |
+| string | 'onChangeText' | false |
 
 ### rules
 子节点校验规则
-| type | default |
-| ---- | ---- |
-| object | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
 
 ### validateTrigger
 设置字段触发验证的时机，如果与Form的validateTrigger冲突，Form.Item的优先级更高
-| type | default |
-| ---- | ---- |
-| `onChange` `onBlur` | `onChange` |
+| type | default | required |
+| ---- | ---- | ---- |
+| `onChange` `onBlur` | `onChange` | false |
 
 ### labelCol
 label标签布局，如 { span: 3, offset: 12 }，如果与Form的冲突，以Form.Item的为准
-| type | default |
-| ---- | ---- |
-| object | none |
+| type | default | required |
+| ---- | ---- | ---- |
+| object | none | false |
 
 ### wrapperCol
 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export const Enterable: FC<PropsWithChildren<IEnterableProps>> = ({
     onEnter,
-    isEnterable = false,
+    isEnterable = true,
     children
 }: PropsWithChildren<IEnterableProps>) => {
     useKeyEvents('keyup', (event): void => {
