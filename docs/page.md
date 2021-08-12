@@ -90,13 +90,13 @@ F4按键label及事件
 `Page` header部分样式
 | type | default | required |
 | ---- | ---- | ---- |
-| [HeaderStyle](https://github.com/HuiWang111/rn-element/blob/main/docs/page.md#headerstyle) | none | false |
+| [HeaderStyle](https://github.com/HuiWang111/rn-element/blob/main/docs/page.md#headerstyle-1) | none | false |
 
 ### FnStyle
 `Page` F1-F4按钮部分样式
 | type | default | required |
 | ---- | ---- | ---- |
-| [FnStyle](https://github.com/HuiWang111/rn-element/blob/main/docs/page.md#fnstyle) | none | false |
+| [FnStyle](https://github.com/HuiWang111/rn-element/blob/main/docs/page.md#fnstyle-1) | none | false |
 
 ### style
 | type | default | required |
@@ -107,7 +107,7 @@ F4按键label及事件
 children可以是一个函数，函数参数接受一个对象，里面包含了页面剩余可用的高度和宽度（目前宽度就是屏幕的宽度，高度是出去headr和F1-F4的高度）
 | type | default | required |
 | ---- | ---- | ---- |
-| ReactNode | undefined | ((params: IChildrenParams) => ReactNode | undefined) | none | false |
+| ReactNode or undefined or ((params: IChildrenParams) => ReactNode | undefined) | none | false |
 
 ## interface
 
