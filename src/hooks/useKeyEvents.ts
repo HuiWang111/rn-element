@@ -7,7 +7,7 @@ interface IEventType {
 
 type EventListener = (event: IEventType) => void;
 
-export function useKeyEvents(eventName: string, listener: EventListener, deps: any[] = []): void {
+export function useKeyEvents(eventName: string, listener: EventListener, deps?: any[] | undefined): void {
     useEffect(() => {
         const didMount = () => {
             DeviceEventEmitter.addListener(eventName, listener);
