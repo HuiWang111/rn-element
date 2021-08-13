@@ -55,7 +55,9 @@ const NumberInput: FC<INumberInputProps> = ({
             return;
         }
 
-        onChangeText(value.endsWith('.') ? value : v);
+        onChangeText(
+            float && value.endsWith('.') ? value : v
+        );
     }
 
     return (

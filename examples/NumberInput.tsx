@@ -13,7 +13,7 @@ export const NumberInputDemo: FC = () => {
             value={value}
             onChangeText={handleChange}
             negative={false}
-            precision={3}
+            precision={0}
             max={3}
             min={1}
             onBlur={() => {

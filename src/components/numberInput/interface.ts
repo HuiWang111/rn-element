@@ -5,6 +5,6 @@ export interface INumberInputProps extends Omit<TextInputProps, 'onChangeText' |
     min?: number;
     precision?: number;
     negative?: boolean;
-    value?: number | undefined;
+    value?: number | string | undefined;
     onChangeText?: (value: number | string | undefined) => void;
 }
