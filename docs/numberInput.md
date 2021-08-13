@@ -41,7 +41,7 @@ const NumberInputDemo: FC = () => {
 可输入的小数位数，必须为整数时设为0即可
 | type | default | required |
 | ---- | ---- | ---- |
-| number | 2 | false |
+| number | 10 | false |
 
 ### negative
 是否允许输入负数
@@ -61,6 +61,5 @@ const NumberInputDemo: FC = () => {
 | function | none | false |
 
 ### **！！！注意**
-- 当允许输入小数且以小数点结尾时(如 `2.`)，`onChangeText` 回调中拿到的 `value` 是 `string` 类型的(原因是 `Number('2.') === 2` )
 - `NumberInput` 继承于 `react-native` 的 `TextInput`，因此其他`TextInput`的属性都可以应用于`NumberInput`
 
