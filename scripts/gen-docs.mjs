@@ -23,6 +23,15 @@ function initializeREADME(content = '# rn-element\n') {
     content += '```shell\n';
     content += 'npm i rn-element\n';
     content += '```\n';
+
+    content += '\n';
+    content += '## generate version\n';
+    content += '```shell\n';
+    content += 'npm run version -- --patch # bugfix\n';
+    content += 'npm run version -- --minor # new feature\n';
+    content += 'npm run version -- --major # break api\n';
+    content += '```\n';
+
     content += '\n';
     content += '## usage docs\n';
 

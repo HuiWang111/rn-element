@@ -5,6 +5,13 @@
 npm i rn-element
 ```
 
+## generate version
+```shell
+npm run version -- --patch # bugfix
+npm run version -- --minor # new feature
+npm run version -- --major # break api
+```
+
 ## usage docs
 - [enterable](https://github.com/HuiWang111/rn-element/blob/main/docs/enterable.md)
 - [form](https://github.com/HuiWang111/rn-element/blob/main/docs/form.md)
