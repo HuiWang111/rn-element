@@ -1,10 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { View } from 'react-native';
 import { Link } from 'react-router-native';
 import { ListItem } from 'react-native-elements';
 import { routeConfig } from './routeConfig';
+import { isEmulator } from 'react-native-device-info';
+import { Toast } from '../../src';
 
 const Home: FC = (): JSX.Element => {
+    useEffect(() => {
+        isEmulator().then((isEmulator) => {
+            if (isEmulator) {
+                Toast.show('运行在模拟器上');
+            } else {
+                Toast.show('运行在真实设备上');
+            }
+        });
+    }, [])
+
     return (
         <View>
             {

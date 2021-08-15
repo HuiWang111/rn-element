@@ -1,7 +1,7 @@
 import argsParser from 'yargs-parser';
 import fs from 'fs';
 import path from 'path';
-import { Version } from './utils/version.mjs';
+import { Version } from 'ks-script-utils';
 import pkg from '../package.json';
 
 const args = argsParser(process.argv.slice(2));
