@@ -1,54 +1,49 @@
 import React, { FC } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { INumberInputProps } from './interface';
-import { regExp } from '../../utils';
+import { isString, regExp } from '../../utils';
 
 const NumberInput: FC<INumberInputProps> = ({
     max,
     min,
-    precision = 2,
+    precision = 10,
     negative = true,
     value,
     onChangeText,
+    onBlur,
     ...restPropos
 }: INumberInputProps) => {
-    /**
-     * onKeyPress事件在android设备上只能被虚拟按键触发，无法被物理按键触发
-     * 所以只能用onChangeText对数据进行拦截
-     * 但这么做有一个缺点，当以小数点结尾的时候只能传字符串，因为 Number('1.') ===> 1
-     * 如果这种情况不传字符串会导致无法输入小数点
-     */
-    const handleChangeText = (value?: string) => {
+    const handleChangeText = (val?: string) => {
         if (!onChangeText) return;
 
-        if (!value) {
+        if (!val) {
             onChangeText(undefined);
             return;
         }
 
         const float = precision > 0;
         
-        if (negative && float && !regExp.number.test(value)) {
+        if (negative && float && !regExp.number.test(val)) {
             return;
         }
-        if (negative && !float && !regExp.integer.test(value)) {
+        if (negative && !float && !regExp.integer.test(val)) {
             return;
         }
-        if (!negative && float && !regExp.positive.test(value)) {
+        if (!negative && float && !regExp.positive.test(val)) {
             return;
         }
-        if (!negative && !float && !regExp.posInteger.test(value)) {
+        if (!negative && !float && !regExp.posInteger.test(val)) {
             return;
         }
         
         if (float) {
-            const decimal = value.split('.')[1];
+            const decimal = val.split('.')[1];
             if (decimal && (decimal.length > precision)) {
                 return;
             }
         }
         
-        const v = Number(value);
+        const v = Number(val);
         if (max && v > max) {
             return;
         } else if (min && v < min) {
@@ -56,14 +51,30 @@ const NumberInput: FC<INumberInputProps> = ({
         }
 
         onChangeText(
-            float && value.endsWith('.') ? value : v
+            float && val.endsWith('.') ? val : v
         );
+    }
+    
+    const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        if (onBlur) {
+            onBlur(e);
+        }
+
+        /**
+         * 在 handleChangeText 函数中，当以.结尾时(如 2.)，传递给 onChangeText 时字符串。
+         * 因此在blur时修复这个问题，避免外部接受的是一个字符串。
+         * 这样保证了无论输入的是什么，外部最终拿到的一定是 number | undefined
+         */
+        if (onChangeText && isString(value) && value.endsWith('.')) {
+            onChangeText(Number(value));
+        }
     }
 
     return (
         <TextInput
             onChangeText={handleChangeText}
             value={value ? String(value) : ''}
+            onBlur={handleBlur}
             { ...restPropos }
         />
     );
