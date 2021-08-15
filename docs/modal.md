@@ -27,7 +27,7 @@ const ModalDemo = () => {
 Modal.confin(config);
 ```
 
-### config
+## config
 ```ts
 interface ModalConfig {
     title?: string | JSX.Element;
@@ -40,3 +40,6 @@ interface ModalConfig {
     onVisibleChange?: (visible: boolean) => void;
 }
 ```
+
+### **注意**
+- Modal继承于 `react-native` 的Modal，所有`react-native` 的Modal属性都可以应用于该组件
