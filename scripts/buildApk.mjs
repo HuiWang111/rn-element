@@ -1,18 +1,14 @@
-import { exec } from 'child_process';
+import { exec } from 'ks-script-utils';
 import { openApkDir } from './utils/openApkDir.mjs';
+import path from 'path';
 
-process.chdir('android');
-const proc = exec('gradlew assembleRelease');
+async function build() {
+    try {
+        await exec('gradlew assembleRelease', { cwd: path.join(process.cwd(), 'android') });
+        openApkDir();
+    } catch (e) {
+        console.error(e);
+    }
+}
 
-proc.stdout.on('data', (chunk) => {
-    console.log(chunk);
-});
-
-proc.stdout.on('end', () => {
-    process.chdir('..');
-    openApkDir();
-});
-
-proc.stderr.on('data', (chunk) => {
-    console.log(chunk);
-});
+build();

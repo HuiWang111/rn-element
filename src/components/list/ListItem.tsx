@@ -1,5 +1,5 @@
 import React, { FC, ComponentType, PropsWithChildren, useEffect, createRef } from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, Pressable } from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
 import PropTypes from 'prop-types';
@@ -10,7 +10,8 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     style,
     children,
     autoFocus,
-    inputComponent
+    inputComponent,
+    onPress
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
     const inputRef = createRef<TextInput>();
 
@@ -25,13 +26,13 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     }, [autoFocus, isActive, inputRef]);
 
     return (
-        <View style={[style, isActive ? activeStyle : null]}>
+        <Pressable style={[style, isActive ? activeStyle : null]} onPress={onPress}>
             {
                 autoFocus
                     ? mapChildrenWithRef(children, inputRef, inputComponent as ComponentType)
                     : children
             }
-        </View>
+        </Pressable>
     );
 }
 

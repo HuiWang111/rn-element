@@ -1,5 +1,5 @@
 import { ComponentType, ReactElement, ReactNode, ReactText } from 'react';
-import { NativeSyntheticEvent, NativeTouchEvent, GestureResponderEvent } from 'react-native';
+import { GestureResponderEvent } from 'react-native';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
@@ -27,7 +27,7 @@ export interface IListItemProps {
     activeStyle?: StyleType;
     autoFocus?: boolean;
     inputComponent?: ComponentType;
-    value?: ReactText;
+    onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
 }
 
 export interface IInternalListItemProps extends IListItemProps {
@@ -43,5 +43,3 @@ export interface IPickerProps {
     onConfirm?: (selectedKey: ReactText) => void;
     onCancel?: () => void;
 }
-
-export type PressEvent = NativeSyntheticEvent<NativeTouchEvent> | GestureResponderEvent;

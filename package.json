@@ -54,7 +54,7 @@
         "eslint-plugin-react-hooks": "^4.2.0",
         "eslint-plugin-spellcheck": "0.0.19",
         "jest": "^26.6.3",
-        "ks-script-utils": "^0.1.0",
+        "ks-script-utils": "^0.2.0",
         "react": "^17.0.2",
         "react-native": "^0.64.2",
         "react-native-device-info": "^8.3.0",
