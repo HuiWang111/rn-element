@@ -18,6 +18,8 @@ export const Enterable: FC<PropsWithChildren<IEnterableProps>> = ({
     return children as ReactElement;
 }
 
+Enterable.displayName = 'Enterable';
+
 Enterable.propTypes = {
     onEnter: PropTypes.func,
     isEnterable: PropTypes.bool

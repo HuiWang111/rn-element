@@ -162,4 +162,6 @@ const styles = StyleSheet.create({
     }
 });
 
+Picker.displayName = 'ActivableListPicker';
+
 export default Picker;

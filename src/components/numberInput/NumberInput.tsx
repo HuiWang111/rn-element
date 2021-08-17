@@ -42,4 +42,6 @@ const NumberInput: FC<INumberInputProps> = ({
     );
 }
 
+NumberInput.displayName = 'NumberInput';
+
 export default NumberInput;

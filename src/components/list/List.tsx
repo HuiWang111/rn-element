@@ -82,7 +82,9 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                         activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
                         inputComponent: childInputComponent
                             ? childInputComponent
-                            : inputComponent
+                            : inputComponent,
+                        index,
+                        onChange
                     });
                 })
             }

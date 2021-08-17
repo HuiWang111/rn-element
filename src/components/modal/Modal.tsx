@@ -134,6 +134,8 @@ const styles = StyleSheet.create({
     }
 });
 
+Modal.displayName = 'Modal';
+
 Modal.propTypes = {
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     zIndex: PropTypes.number,

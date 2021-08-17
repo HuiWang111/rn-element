@@ -1,5 +1,5 @@
 import React, { FC, ComponentType, PropsWithChildren, useEffect, createRef } from 'react';
-import { TextInput, Pressable } from 'react-native';
+import { TextInput, Pressable, View, GestureResponderEvent } from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
 import PropTypes from 'prop-types';
@@ -11,9 +11,17 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     children,
     autoFocus,
     inputComponent,
-    onPress
+    isActivable,
+    index,
+    onPress,
+    onChange
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
     const inputRef = createRef<TextInput>();
+
+    const handlePress = (e: GestureResponderEvent) => {
+        onChange?.(index as number);
+        onPress?.(e);
+    }
 
     useEffect(() => {
         if (autoFocus) {
@@ -25,14 +33,18 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
         }
     }, [autoFocus, isActive, inputRef]);
 
-    return (
-        <Pressable style={[style, isActive ? activeStyle : null]} onPress={onPress}>
+    return isActivable ? (
+        <Pressable style={[style, isActive ? activeStyle : null]} onPress={handlePress}>
             {
                 autoFocus
                     ? mapChildrenWithRef(children, inputRef, inputComponent as ComponentType)
                     : children
             }
         </Pressable>
+    ) : (
+        <View style={style}>
+            { children }
+        </View>
     );
 }
 
