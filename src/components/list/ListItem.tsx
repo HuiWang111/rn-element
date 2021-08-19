@@ -1,8 +1,9 @@
-import React, { FC, ComponentType, PropsWithChildren, useEffect, createRef } from 'react';
+import React, { FC, ComponentType, PropsWithChildren, useEffect, useRef, useContext } from 'react';
 import { TextInput, Pressable, View, GestureResponderEvent } from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
 import PropTypes from 'prop-types';
+import { ConfigContext } from '../config-provider';
 
 const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     isActive,
@@ -16,28 +17,38 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     onPress,
     onChange
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
-    const inputRef = createRef<TextInput>();
+    const inputRef = useRef<TextInput | null>(null);
+    const { showSoftInputOnFocus } = useContext(ConfigContext);
 
     const handlePress = (e: GestureResponderEvent) => {
-        onChange?.(index as number);
+        // onChange?.(index as number);
         onPress?.(e);
     }
 
     useEffect(() => {
         if (autoFocus) {
             if (isActive) {
-                inputRef.current?.focus();
+                if (inputRef.current?.isFocused() === false) {
+                    inputRef.current.focus();
+                }
             } else {
-                inputRef.current?.blur();
+                if (inputRef.current?.isFocused()) {
+                    inputRef.current.blur();
+                }
             }
         }
-    }, [autoFocus, isActive, inputRef]);
+    }, [autoFocus, isActive]);
 
     return isActivable ? (
-        <Pressable style={[style, isActive ? activeStyle : null]} onPress={handlePress}>
+        <Pressable
+            style={[style, isActive ? activeStyle : null]}
+            onPress={handlePress}
+        >
             {
                 autoFocus
-                    ? mapChildrenWithRef(children, inputRef, inputComponent as ComponentType)
+                    ? mapChildrenWithRef(children, inputRef, inputComponent as ComponentType, {
+                        showSoftInputOnFocus: showSoftInputOnFocus as boolean
+                    })
                     : children
             }
         </Pressable>

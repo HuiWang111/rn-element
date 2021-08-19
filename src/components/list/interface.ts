@@ -47,3 +47,7 @@ export interface IPickerProps {
 }
 
 export type PressEvent = NativeSyntheticEvent<NativeTouchEvent> | GestureResponderEvent;
+
+export interface IInputConfig {
+    showSoftInputOnFocus: boolean;
+}

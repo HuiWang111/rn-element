@@ -17,12 +17,12 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     loop = true,
     children,
     keyboard = true,
-    onChange,
-    onEnter,
     style,
     activeItemStyle,
     itemStyle,
-    inputComponent = TextInput
+    inputComponent = TextInput,
+    onChange,
+    onEnter
 }: PropsWithChildren<IListProps>): JSX.Element => {
     const isActivableList: boolean[] = Children.toArray(children).map(child => {
         if (

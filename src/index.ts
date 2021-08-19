@@ -12,7 +12,9 @@ export { Enterable } from './components/enterable';
 
 export { Page } from './components/page';
 
-export { NumberInput } from './components/numberInput';
+export { NumberInput } from './components/number-input';
+
+export { ConfigProvider } from './components/config-provider';
 
 export { useKeyEvents } from './hooks';
 
