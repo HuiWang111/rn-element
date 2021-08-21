@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode, useRef } from 'react';
+import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
 import { TextInput, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { IListProps } from './interface';
@@ -24,6 +24,9 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     onChange,
     onEnter
 }: PropsWithChildren<IListProps>): JSX.Element => {
+    /**
+     * map children是否可以被选中
+     */
     const isActivableList: boolean[] = Children.toArray(children).map(child => {
         if (
             !child ||
@@ -34,15 +37,28 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
         }
         return (child as ReactElement).type === ActivableListItem;
     });
+    
+    /**
+     * 第一个和最后一个可选中的index，用于loop为true做循环的判断
+     */
     const [firstActivableIndex, lastActivableIndex] = useMemo(() => {
         return [isActivableList.indexOf(true), isActivableList.lastIndexOf(true)];
     }, [isActivableList]);
+
     const scrollViewRef = useRef<ScrollView | null>(null);
+
+    /**
+     * 由于键盘Enter同时也会触发安卓默认焦点元素的onPress事件
+     * 因此此处做一个标记，当按下Enter键时标记为true
+     * 用这个标记来阻止List.Item的onPress事件
+     */
+    const [isTabEnter, setIsTabEnter] = useState(false);
     
     useKeyEvents('keyup', (event): void => {
         if (!keyboard) return;
         
         if (event.which === KeyCode.Up) {
+            setIsTabEnter(false);
             if (!onChange) return;
 
             if (activeIndex > firstActivableIndex) {
@@ -52,6 +68,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                 onChange(lastActivableIndex);
             }
         } else if (event.which === KeyCode.Down) {
+            setIsTabEnter(false);
             if (!onChange) return;
 
             if (activeIndex < lastActivableIndex) {
@@ -61,9 +78,12 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                 onChange(firstActivableIndex);
             }
         } else if (event.which === KeyCode.Enter) {
+            setIsTabEnter(true);
             if (!onEnter) return;
 
             onEnter();
+        } else {
+            setIsTabEnter(false);
         }
     }, [activeIndex, keyboard]);
     
@@ -84,6 +104,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                             ? childInputComponent
                             : inputComponent,
                         index,
+                        isTabEnter,
                         onChange
                     });
                 })

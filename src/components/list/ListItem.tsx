@@ -14,15 +14,18 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     inputComponent,
     isActivable,
     index,
+    isTabEnter,
     onPress,
     onChange
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
     const inputRef = useRef<TextInput | null>(null);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
-
+    
     const handlePress = (e: GestureResponderEvent) => {
-        // onChange?.(index as number);
-        onPress?.(e);
+        if (!isTabEnter) {
+            onChange?.(index as number);
+            onPress?.(e);
+        }
     }
 
     useEffect(() => {

@@ -27,6 +27,7 @@ export interface IListItemProps {
     activeStyle?: StyleType;
     autoFocus?: boolean;
     index?: number;
+    isTabEnter?: boolean;
     inputComponent?: ComponentType;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
     onChange?: ActiveChangeHandler;
