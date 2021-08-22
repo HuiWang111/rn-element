@@ -89,6 +89,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
                             ? childInputComponent
                             : inputComponent,
                         index,
+                        keyboard,
                         onChange
                     });
                 })

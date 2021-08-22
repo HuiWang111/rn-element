@@ -52,13 +52,6 @@ const ListWithModal: FC = () => {
                 onChange={handleChange}
                 itemStyle={styles.item}
                 activeItemStyle={styles.activeItem}
-                onEnter={() => {
-                    if (activeIndex === 2) {
-                        showModal();
-                    } else if (activeIndex === 4) {
-                        showConfirmModal();
-                    }
-                }}
                 keyboard={!modalVisible || !confirmModalVisible}
             >
                 <List.ActivableItem>
@@ -67,13 +60,13 @@ const ListWithModal: FC = () => {
                 <List.Item>
                     <Text>2</Text>
                 </List.Item>
-                <List.ActivableItem onPress={showModal}>
+                <List.ActivableItem onPress={showModal} onEnter={showModal}>
                     <Text>showModal - isActivable</Text>
                 </List.ActivableItem>
                 <List.Item>
                     <Text>4</Text>
                 </List.Item>
-                <List.ActivableItem style={styles.lastItem} onPress={showConfirmModal}>
+                <List.ActivableItem style={styles.lastItem} onPress={showConfirmModal} onEnter={showConfirmModal}>
                     <Text>showConfirmModal - isActivable</Text>
                 </List.ActivableItem>
             </List>
