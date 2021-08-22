@@ -16,7 +16,7 @@ export { NumberInput } from './components/number-input';
 
 export { ConfigProvider } from './components/config-provider';
 
-export { useKeyEvents } from './hooks';
+export { useKeyUp, useArrowDown, useArrowUp, useEnter } from './hooks';
 
 export { KeyCode } from './constants';
 

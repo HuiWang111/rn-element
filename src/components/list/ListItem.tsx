@@ -2,6 +2,8 @@ import React, { FC, ComponentType, PropsWithChildren, useEffect, useRef, useCont
 import { TextInput, Pressable, View, GestureResponderEvent } from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
+import { useKeyUp } from '../../hooks';
+import { KeyCode } from '../../constants';
 import PropTypes from 'prop-types';
 import { ConfigContext } from '../config-provider';
 
@@ -14,17 +16,20 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     inputComponent,
     isActivable,
     index,
-    isTabEnter,
     onPress,
-    onChange
+    onChange,
+    onEnter
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
     const inputRef = useRef<TextInput | null>(null);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
+    let isTabEnter = false;
     
     const handlePress = (e: GestureResponderEvent) => {
         if (!isTabEnter) {
             onChange?.(index as number);
             onPress?.(e);
+        } else {
+            isTabEnter = false;
         }
     }
 
@@ -41,6 +46,18 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
             }
         }
     }, [autoFocus, isActive]);
+
+    useKeyUp((e) => {
+        if (e.which === KeyCode.Enter) {
+            isTabEnter = true;
+            
+            if (isActive) {
+                onEnter?.();
+            }
+        } else {
+            isTabEnter = false;
+        }
+    }, [isActive]);
 
     return isActivable ? (
         <Pressable

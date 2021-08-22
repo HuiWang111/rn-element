@@ -141,12 +141,6 @@ activeIndex发生变化时的回调
 | ---- | ---- | ---- |
 | Function | none | false |
 
-### onEnter
-按回车键时的回调
-| type | default | required |
-| ---- | ---- | ---- |
-| Function | none | false |
-
 ## List.Item & List.ActivableItem Props
 ### style
 `List.Item` 和 `List.ActivableItem` 元素的样式，与List的props `itemStyle` 重复时，以这个为准
@@ -171,3 +165,9 @@ activeIndex发生变化时的回调
 | type | default | required |
 | ---- | ---- | ---- |
 | ComponentType | TextInput | false |
+
+### onEnter
+按回车键时的回调
+| type | default | required |
+| ---- | ---- | ---- |
+| Function | none | false |

@@ -1,9 +1,8 @@
-import { ComponentType, ReactElement, ReactNode, ReactText } from 'react';
+import { ComponentType } from 'react';
 import { GestureResponderEvent, NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
-type CommonKeyboardHandler = () => void;
 
 export interface IListProps {
     activeIndex?: number;
@@ -14,11 +13,6 @@ export interface IListProps {
     keyboard?: boolean;
     inputComponent?: ComponentType;
     onChange?: ActiveChangeHandler;
-    onEnter?: CommonKeyboardHandler;
-    onF1?: CommonKeyboardHandler;
-    onF2?: CommonKeyboardHandler;
-    onF3?: CommonKeyboardHandler;
-    onF4?: CommonKeyboardHandler;
 }
 
 export interface IListItemProps {
@@ -27,24 +21,14 @@ export interface IListItemProps {
     activeStyle?: StyleType;
     autoFocus?: boolean;
     index?: number;
-    isTabEnter?: boolean;
     inputComponent?: ComponentType;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
     onChange?: ActiveChangeHandler;
+    onEnter?: () => void;
 }
 
 export interface IInternalListItemProps extends IListItemProps {
     isActivable: boolean;
-}
-
-export interface IPickerProps {
-    value: ReactText;
-    overlay: ReactElement | (() => React.ReactElement);
-    zIndex?: number;
-    title?: string | ReactNode;
-    onVisibleChange?: (visible: boolean) => void;
-    onConfirm?: (selectedKey: ReactText) => void;
-    onCancel?: () => void;
 }
 
 export type PressEvent = NativeSyntheticEvent<NativeTouchEvent> | GestureResponderEvent;

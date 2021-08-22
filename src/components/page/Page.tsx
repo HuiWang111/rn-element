@@ -3,7 +3,7 @@ import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IPageProps } from './interface';
 import { KeyCode } from '../../constants';
-import { useKeyEvents } from '../../hooks';
+import { useKeyUp } from '../../hooks';
 import { isFunction } from '../../utils';
 
 export const Page: FC<IPageProps> = ({
@@ -47,7 +47,7 @@ export const Page: FC<IPageProps> = ({
         return mockFnKeyMap.F4 ? [KeyCode.F4].concat(mockFnKeyMap.F4) : [KeyCode.F4];
     }, [mockFn, keyborad, mockFnKeyMap]);
 
-    useKeyEvents('keyup', (event): void => {
+    useKeyUp((event): void => {
         if (F1?.handler && F1KeyCodes.includes(event.which)) {
             F1.handler();
         } else if (F2?.handler && F2KeyCodes.includes(event.which)) {
@@ -57,7 +57,7 @@ export const Page: FC<IPageProps> = ({
         } else if (F4?.handler && F4KeyCodes.includes(event.which)) {
             F4.handler();
         }
-    }, [F1, F2, F3, F4]);
+    }, [F1?.handler, F2?.handler, F3?.handler, F4?.handler]);
 
     let restHeight = height;
     if (header) {
