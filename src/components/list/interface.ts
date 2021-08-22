@@ -1,5 +1,5 @@
 import { ComponentType } from 'react';
-import { GestureResponderEvent, NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
+import { GestureResponderEvent } from 'react-native';
 import { StyleType } from '../../utils';
 
 type ActiveChangeHandler = (activeIndex: number) => void;
@@ -30,8 +30,6 @@ export interface IListItemProps {
 export interface IInternalListItemProps extends IListItemProps {
     isActivable: boolean;
 }
-
-export type PressEvent = NativeSyntheticEvent<NativeTouchEvent> | GestureResponderEvent;
 
 export interface IInputConfig {
     showSoftInputOnFocus: boolean;
