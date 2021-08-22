@@ -16,20 +16,25 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     inputComponent,
     isActivable,
     index,
+    keyboard,
     onPress,
     onChange,
     onEnter
 }: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
     const inputRef = useRef<TextInput | null>(null);
+    /**
+     * 由于按下Enter键同时会触发默认焦点元素的onPress事件
+     * 因此这里做一个标记，避免onEnter时同时触发onPress
+     */
+    const isTabEnter = useRef(false);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
-    let isTabEnter = false;
     
     const handlePress = (e: GestureResponderEvent) => {
-        if (!isTabEnter) {
+        if (!isTabEnter.current) {
             onChange?.(index as number);
             onPress?.(e);
         } else {
-            isTabEnter = false;
+            isTabEnter.current = false;
         }
     }
 
@@ -49,13 +54,13 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
 
     useKeyUp((e) => {
         if (e.which === KeyCode.Enter) {
-            isTabEnter = true;
-            
-            if (isActive) {
+            isTabEnter.current = true;
+
+            if (isActive && keyboard) {
                 onEnter?.();
             }
         } else {
-            isTabEnter = false;
+            isTabEnter.current = false;
         }
     }, [isActive]);
 

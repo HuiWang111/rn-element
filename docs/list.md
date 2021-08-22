@@ -40,9 +40,6 @@ const ActiveListDemo: FC = () => {
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
-    const handleEnter = () => {
-        // ...
-    }
 
     return (
         <List
@@ -50,10 +47,9 @@ const ActiveListDemo: FC = () => {
             onChange={handleChange}
             itemStyle={styles.item}
             activeItemStyle={styles.activeItem}
-            onEnter={handleEnter}
             keyboard={true}
         >
-            <List.ActivableItem>
+            <List.ActivableItem onEnter={() => {}}>
                 <Text>1 - isActivable</Text>
             </List.ActivableItem>
             <List.Item>
