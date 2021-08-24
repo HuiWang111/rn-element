@@ -14,6 +14,7 @@ npm run version -- --major # break api
 
 ## usage docs
 - [config-provider](https://github.com/HuiWang111/rn-element/blob/main/docs/config-provider.md)
+- [download](https://github.com/HuiWang111/rn-element/blob/main/docs/download.md)
 - [enterable](https://github.com/HuiWang111/rn-element/blob/main/docs/enterable.md)
 - [form](https://github.com/HuiWang111/rn-element/blob/main/docs/form.md)
 - [list](https://github.com/HuiWang111/rn-element/blob/main/docs/list.md)
