@@ -3,6 +3,7 @@ import { ViewStyle } from 'react-native';
 
 interface IFn {
     label: string | ReactNode;
+    disabled?: boolean;
     handler?: () => void;
 }
 

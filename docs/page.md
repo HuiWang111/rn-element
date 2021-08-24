@@ -115,6 +115,7 @@ children可以是一个函数，函数参数接受一个对象，里面包含了
 ```ts
 interface Fn {
     label: string | ReactNode;
+    disabled: boolean;
     handler?: () => void;
 }
 ```

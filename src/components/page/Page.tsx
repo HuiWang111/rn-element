@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { FC, useMemo } from 'react';
 import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native';
 import PropTypes from 'prop-types';
@@ -68,6 +69,26 @@ export const Page: FC<IPageProps> = ({
         restHeight -= 50;
     }
 
+    const handlePressF1 = () => {
+        if (F1!.disabled) return;
+        F1!.handler?.();
+    }
+
+    const handlePressF2 = () => {
+        if (F2!.disabled) return;
+        F2!.handler?.();
+    }
+
+    const handlePressF3 = () => {
+        if (F3!.disabled) return;
+        F3!.handler?.();
+    }
+
+    const handlePressF4 = () => {
+        if (F4!.disabled) return;
+        F4!.handler?.();
+    }
+
     return (
         <View style={[{ width, height, display: 'flex' }, style]}>
             {
@@ -95,22 +116,22 @@ export const Page: FC<IPageProps> = ({
                     ? <View style={[{ width }, styles.fnBar, FnStyle?.bar]}>
                         {
                             F1
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F1.handler}>{F1.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF1}>{F1.label}</Pressable>
                                 : null
                         }
                         {
                             F2
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F2.handler}>{F2.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF2}>{F2.label}</Pressable>
                                 : null
                         }
                         {
                             F3
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F3.handler}>{F3.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF3}>{F3.label}</Pressable>
                                 : null
                         }
                         {
                             F4
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={F4.handler}>{F4.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF4}>{F4.label}</Pressable>
                                 : null
                         }
                     </View>
