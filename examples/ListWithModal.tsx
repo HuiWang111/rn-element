@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { useHistory } from 'react-router-native';
 import { List, Modal, Page } from '../src';
 import { colors } from '../src/utils';
@@ -47,40 +47,55 @@ const ListWithModal: FC = () => {
                 }
             }}
         >
-            <List
-                activeIndex={activeIndex}
-                onChange={handleChange}
-                itemStyle={styles.item}
-                activeItemStyle={styles.activeItem}
-                keyboard={!modalVisible || !confirmModalVisible}
-            >
-                <List.ActivableItem>
-                    <Text>1 - isActivable</Text>
-                </List.ActivableItem>
-                <List.Item>
-                    <Text>2</Text>
-                </List.Item>
-                <List.ActivableItem onPress={showModal} onEnter={showModal}>
-                    <Text>showModal - isActivable</Text>
-                </List.ActivableItem>
-                <List.Item>
-                    <Text>4</Text>
-                </List.Item>
-                <List.ActivableItem style={styles.lastItem} onPress={showConfirmModal} onEnter={showConfirmModal}>
-                    <Text>showConfirmModal - isActivable</Text>
-                </List.ActivableItem>
-            </List>
-            <Modal
-                title={<Text>modal title</Text>}
-                onCancel={() => setModalVisible(false)}
-                onOk={() => console.info('onOk')}
-                onRequestClose={() => setModalVisible(false)}
-                visible={modalVisible}
-                okText='confirm'
-                cancelText='cancel'
-            >
-                <Text>content</Text>
-            </Modal>
+            {
+                ({ width, height }) => (
+                    <View
+                        style={{
+                            width,
+                            height: height - 30
+                        }}
+                    >
+                        <List
+                            activeIndex={activeIndex}
+                            onChange={handleChange}
+                            style={{
+                                width,
+                                height: height - 30
+                            }}
+                            itemStyle={styles.item}
+                            activeItemStyle={styles.activeItem}
+                            keyboard={!modalVisible || !confirmModalVisible}
+                        >
+                            <List.ActivableItem>
+                                <Text>1 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>2</Text>
+                            </List.Item>
+                            <List.ActivableItem onPress={showModal} onEnter={showModal}>
+                                <Text>showModal - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>4</Text>
+                            </List.Item>
+                            <List.ActivableItem style={styles.lastItem} onPress={showConfirmModal} onEnter={showConfirmModal}>
+                                <Text>showConfirmModal - isActivable</Text>
+                            </List.ActivableItem>
+                        </List>
+                        <Modal
+                            title={<Text>modal title</Text>}
+                            onCancel={() => setModalVisible(false)}
+                            onOk={() => console.info('onOk')}
+                            onRequestClose={() => setModalVisible(false)}
+                            visible={modalVisible}
+                            okText='confirm'
+                            cancelText='cancel'
+                        >
+                            <Text>content</Text>
+                        </Modal>
+                    </View>
+                )
+            }
         </Page>
     );
 }

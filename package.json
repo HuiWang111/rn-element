@@ -38,6 +38,7 @@
     },
     "devDependencies": {
         "@react-native-community/eslint-config": "^2.0.0",
+        "@react-native-picker/picker": "^1.16.6",
         "@types/jest": "^26.0.23",
         "@types/react": "^17.0.14",
         "@types/react-native": "^0.64.5",

@@ -35,11 +35,11 @@ const ListWithForm: FC = () => {
             {
                 ({ width, height }) => (
                     <ConfigProvider showSoftInputOnFocus={false}>
-                        <Form form={form} style={{ width, height }}>
+                        <Form form={form} style={{ width, height: height - 30 }}>
                             <List
                                 activeIndex={activeIndex}
                                 onChange={handleChange}
-                                style={[styles.list, { width, height }]}
+                                style={[styles.list, { width, height: height - 30 }]}
                                 itemStyle={styles.item}
                                 activeItemStyle={styles.activeItem}
                                 // loop={false}
