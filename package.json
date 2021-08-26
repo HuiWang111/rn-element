@@ -1,9 +1,9 @@
 {
     "name": "rn-element",
     "version": "0.9.0",
-    "main": "dist/cjs/index.js",
-    "module": "dist/es2015/index.js",
-    "types": "dist/es2015/index.d.ts",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
         "url": "git@github.com:HuiWang111/rn-element.git"
@@ -18,8 +18,8 @@
         "ios": "react-native run-ios",
         "start": "react-native start",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-        "build": "rm -rf dist && npm run build:es2015 && npm run build:cjs",
-        "build:es2015": "tsc --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module es2015 --target es2015 --outDir dist/es2015",
+        "build": "rm -rf dist && npm run build:esm",
+        "build:esm": "tsc --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module es2015 --target es2015 --outDir dist",
         "build:cjs": "tsc --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module commonjs --target es5 --outDir dist/cjs",
         "test": "jest --watchAll",
         "coverage": "jest --coverage",
@@ -38,7 +38,7 @@
     },
     "devDependencies": {
         "@react-native-community/eslint-config": "^2.0.0",
-        "@react-native-picker/picker": "^1.16.6",
+        "@react-native-picker/picker": "^1.16.5",
         "@types/jest": "^26.0.23",
         "@types/react": "^17.0.14",
         "@types/react-native": "^0.64.5",

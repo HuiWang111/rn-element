@@ -55,7 +55,6 @@ const PickerDemo: FC = (): JSX.Element => {
                                     ref={pickerRef}
                                     selectedValue={selected}
                                     onValueChange={value => setSelected(value)}
-                                    style={{ width }}
                                 >
                                     {
                                         options.map(option => {
@@ -97,10 +96,7 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.border,
         borderBottomWidth: 1,
     },
-    pickerItem: {
-        flexDirection: 'column',
-        justifyContent: 'space-between'
-    },
+    pickerItem: {},
     activeItem: {
         backgroundColor: 'yellow'
     },

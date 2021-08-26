@@ -1,0 +1,78 @@
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+import React, { useEffect, useRef, useContext } from 'react';
+import { Pressable, View } from 'react-native';
+import { mapChildrenWithRef } from './utils';
+import { useKeyUp } from '../../hooks';
+import { KeyCode } from '../../constants';
+import PropTypes from 'prop-types';
+import { ConfigContext } from '../config-provider';
+const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, inputComponent, isActivable, index, keyboard, onPress, onChange, onEnter }) => {
+    const inputRef = useRef(null);
+    const isTabEnter = useRef(false);
+    const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const handlePress = (e) => {
+        if (!isTabEnter.current) {
+            onChange === null || onChange === void 0 ? void 0 : onChange(index);
+            onPress === null || onPress === void 0 ? void 0 : onPress(e);
+        }
+        else {
+            isTabEnter.current = false;
+        }
+    };
+    useEffect(() => {
+        var _a, _b;
+        if (autoFocus) {
+            if (isActive) {
+                if (((_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.isFocused()) === false) {
+                    inputRef.current.focus();
+                }
+            }
+            else {
+                if ((_b = inputRef.current) === null || _b === void 0 ? void 0 : _b.isFocused()) {
+                    inputRef.current.blur();
+                }
+            }
+        }
+    }, [autoFocus, isActive]);
+    useKeyUp((e) => {
+        if (e.which === KeyCode.Enter) {
+            isTabEnter.current = true;
+            if (isActive && keyboard) {
+                onEnter === null || onEnter === void 0 ? void 0 : onEnter();
+            }
+        }
+        else {
+            isTabEnter.current = false;
+        }
+    }, [isActive]);
+    return isActivable ? (React.createElement(Pressable, { style: [style, isActive ? activeStyle : null], onPress: handlePress }, autoFocus
+        ? mapChildrenWithRef(children, inputRef, inputComponent, {
+            showSoftInputOnFocus: showSoftInputOnFocus
+        })
+        : children)) : (React.createElement(View, { style: style }, children));
+};
+InternalListItem.propTypes = {
+    isActive: PropTypes.bool,
+    autoFocus: PropTypes.bool,
+    isActivable: PropTypes.bool.isRequired
+};
+export const ListItem = (_a) => {
+    var { children } = _a, props = __rest(_a, ["children"]);
+    return (React.createElement(InternalListItem, Object.assign({}, props, { isActivable: false }), children));
+};
+ListItem.displayName = 'ListItem';
+export const ActivableListItem = (_a) => {
+    var { children } = _a, props = __rest(_a, ["children"]);
+    return (React.createElement(InternalListItem, Object.assign({}, props, { isActivable: true }), children));
+};
+ActivableListItem.displayName = 'ActivableListItem';
