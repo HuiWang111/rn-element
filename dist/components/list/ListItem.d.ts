@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 import { IListItemProps } from './interface';
-export declare const ListItem: FC<PropsWithChildren<IListItemProps>>;
-export declare const ActivableListItem: FC<PropsWithChildren<IListItemProps>>;
+export declare const ListItem: FC<IListItemProps>;
+export declare const ActivableListItem: FC<IListItemProps>;

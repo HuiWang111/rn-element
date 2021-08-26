@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { GestureResponderEvent } from 'react-native';
 import { StyleType } from '../../utils';
 declare type ActiveChangeHandler = (activeIndex: number) => void;
@@ -19,6 +19,9 @@ export interface IListItemProps {
     autoFocus?: boolean;
     index?: number;
     keyboard?: boolean;
+    children?: ReactNode | undefined | (({ isActive: boolean }: {
+        isActive: any;
+    }) => ReactNode | undefined);
     inputComponent?: ComponentType;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
     onChange?: ActiveChangeHandler;

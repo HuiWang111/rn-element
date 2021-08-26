@@ -16,6 +16,7 @@ import { useKeyUp } from '../../hooks';
 import { KeyCode } from '../../constants';
 import PropTypes from 'prop-types';
 import { ConfigContext } from '../config-provider';
+import { isFunction } from '../../utils';
 const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, inputComponent, isActivable, index, keyboard, onPress, onChange, onEnter }) => {
     const inputRef = useRef(null);
     const isTabEnter = useRef(false);
@@ -55,11 +56,12 @@ const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, i
             isTabEnter.current = false;
         }
     }, [isActive]);
+    const child = isFunction(children) ? children({ isActive }) : children;
     return isActivable ? (React.createElement(Pressable, { style: [style, isActive ? activeStyle : null], onPress: handlePress }, autoFocus
-        ? mapChildrenWithRef(children, inputRef, inputComponent, {
+        ? mapChildrenWithRef(child, inputRef, inputComponent, {
             showSoftInputOnFocus: showSoftInputOnFocus
         })
-        : children)) : (React.createElement(View, { style: style }, children));
+        : child)) : (React.createElement(View, { style: style }, child));
 };
 InternalListItem.propTypes = {
     isActive: PropTypes.bool,
