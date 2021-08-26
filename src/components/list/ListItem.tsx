@@ -1,4 +1,4 @@
-import React, { FC, ComponentType, PropsWithChildren, useEffect, useRef, useContext } from 'react';
+import React, { FC, ComponentType, useEffect, useRef, useContext } from 'react';
 import { TextInput, Pressable, View, GestureResponderEvent } from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
@@ -6,8 +6,9 @@ import { useKeyUp } from '../../hooks';
 import { KeyCode } from '../../constants';
 import PropTypes from 'prop-types';
 import { ConfigContext } from '../config-provider';
+import { isFunction } from '../../utils';
 
-const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
+const InternalListItem: FC<IInternalListItemProps> = ({
     isActive,
     activeStyle,
     style,
@@ -20,7 +21,7 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
     onPress,
     onChange,
     onEnter
-}: PropsWithChildren<IInternalListItemProps>): JSX.Element => {
+}: IInternalListItemProps): JSX.Element => {
     const inputRef = useRef<TextInput | null>(null);
     /**
      * 由于按下Enter键同时会触发默认焦点元素的onPress事件
@@ -64,6 +65,8 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
         }
     }, [isActive]);
 
+    const child = isFunction(children) ? children({ isActive }) : children;
+
     return isActivable ? (
         <Pressable
             style={[style, isActive ? activeStyle : null]}
@@ -71,15 +74,15 @@ const InternalListItem: FC<PropsWithChildren<IInternalListItemProps>> = ({
         >
             {
                 autoFocus
-                    ? mapChildrenWithRef(children, inputRef, inputComponent as ComponentType, {
+                    ? mapChildrenWithRef(child, inputRef, inputComponent as ComponentType, {
                         showSoftInputOnFocus: showSoftInputOnFocus as boolean
                     })
-                    : children
+                    : child
             }
         </Pressable>
     ) : (
         <View style={style}>
-            { children }
+            { child }
         </View>
     );
 }
@@ -90,10 +93,10 @@ InternalListItem.propTypes = {
     isActivable: PropTypes.bool.isRequired
 };
 
-export const ListItem: FC<PropsWithChildren<IListItemProps>> = ({
+export const ListItem: FC<IListItemProps> = ({
     children,
     ...props
-}: PropsWithChildren<IListItemProps>): JSX.Element => {
+}: IListItemProps): JSX.Element => {
     return (
         <InternalListItem
             {...props}
@@ -106,10 +109,10 @@ export const ListItem: FC<PropsWithChildren<IListItemProps>> = ({
 
 ListItem.displayName = 'ListItem';
 
-export const ActivableListItem: FC<PropsWithChildren<IListItemProps>> = ({
+export const ActivableListItem: FC<IListItemProps> = ({
     children,
     ...props
-}: PropsWithChildren<IListItemProps>): JSX.Element => {
+}: IListItemProps): JSX.Element => {
     return (
         <InternalListItem
             {...props}
