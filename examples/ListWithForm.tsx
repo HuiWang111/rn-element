@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Text, StyleSheet, TextInput, Dimensions, View } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { List, Form, Toast, Page, ConfigProvider } from '../src';
+import { List, Form, Toast, Page, ConfigProvider, NumberInput } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithForm: FC = () => {
@@ -62,9 +62,9 @@ const ListWithForm: FC = () => {
                                 <List.Item>
                                     <Text>6</Text>
                                 </List.Item>
-                                <List.ActivableItem autoFocus>
+                                <List.ActivableItem autoFocus inputComponent={NumberInput}>
                                     <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
-                                        <TextInput placeholder='7 - isActivable' />
+                                        <NumberInput placeholder='7 - isActivable age' />
                                     </Form.Item>
                                 </List.ActivableItem>
                                 <List.Item>

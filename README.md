@@ -25,3 +25,6 @@ npm run version -- --major # break api
 - [number-input](https://github.com/HuiWang111/rn-element/blob/main/docs/number-input.md)
 - [page](https://github.com/HuiWang111/rn-element/blob/main/docs/page.md)
 - [toast](https://github.com/HuiWang111/rn-element/blob/main/docs/toast.md)
+
+## TODO
+- label/title 等属性都兼容 `string` 类型，现在需要手动使用 `Text` 组件包裹

@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, forwardRef, LegacyRef } from 'react';
 import { TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { INumberInputProps } from './interface';
 import { regExp } from '../../utils';
 
-const NumberInput: FC<INumberInputProps> = ({
+const NumberInput: FC<INumberInputProps> = forwardRef(({
     value,
     onChangeText,
     onBlur,
     ...restPropos
-}: INumberInputProps) => {
+}: INumberInputProps, ref) => {
     const handleChangeText = (val: string) => {
         if (!onChangeText) {
             return;
@@ -37,10 +37,11 @@ const NumberInput: FC<INumberInputProps> = ({
             onChangeText={handleChangeText}
             value={value ? String(value) : ''}
             onBlur={handleBlur}
+            ref={ref as (LegacyRef<TextInput> | undefined)}
             { ...restPropos }
         />
     );
-}
+})
 
 NumberInput.displayName = 'NumberInput';
 
