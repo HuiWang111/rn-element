@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native';
+import { View, StyleSheet, Pressable, useWindowDimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { KeyCode } from '../../constants';
 import { useKeyUp } from '../../hooks';
-import { isFunction } from '../../utils';
+import { isFunction, isString } from '../../utils';
 export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKeyMap = {
     F1: KeyCode.Z,
     F2: KeyCode.X,
@@ -90,16 +90,24 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
         displayFnBar
             ? React.createElement(View, { style: [{ width }, styles.fnBar, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.bar] },
                 F1
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF1 }, F1.label)
+                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF1 }, isString(F1.label)
+                        ? React.createElement(Text, null, F1.label)
+                        : F1.label)
                     : null,
                 F2
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF2 }, F2.label)
+                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF2 }, isString(F2.label)
+                        ? React.createElement(Text, null, F2.label)
+                        : F2.label)
                     : null,
                 F3
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF3 }, F3.label)
+                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF3 }, isString(F3.label)
+                        ? React.createElement(Text, null, F3.label)
+                        : F3.label)
                     : null,
                 F4
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF4 }, F4.label)
+                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF4 }, isString(F4.label)
+                        ? React.createElement(Text, null, F4.label)
+                        : F4.label)
                     : null)
             : null));
 };

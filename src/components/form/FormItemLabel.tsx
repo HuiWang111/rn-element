@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { IFormItemLabelProps } from './interface';
-import { styleUtils } from '../../utils';
+import { styleUtils, isString } from '../../utils';
 
 export const FormItemLabel: FC<IFormItemLabelProps> = ({
     label,
@@ -20,16 +20,20 @@ export const FormItemLabel: FC<IFormItemLabelProps> = ({
 
     return (
         <View style={formItemLabelStyle}>
-            <Text
-                style={[
-                    styles.formItemLabelText,
-                    {
-                        textAlign: labelAlign
-                    }
-                ]}
-            >
-                { label }
-            </Text>
+            {
+                isString(label)
+                    ? <Text
+                        style={[
+                            styles.formItemLabelText,
+                            {
+                                textAlign: labelAlign
+                            }
+                        ]}
+                    >
+                        { label }
+                    </Text>
+                    : label
+            }
         </View>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { styleUtils } from '../../utils';
+import { styleUtils, isString } from '../../utils';
 export const FormItemLabel = ({ label, labelAlign = 'right', col }) => {
     let formItemLabelStyle = [styles.formItemLabel];
     if (col) {
@@ -11,13 +11,14 @@ export const FormItemLabel = ({ label, labelAlign = 'right', col }) => {
             formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`offset-${col.offset}`]);
         }
     }
-    return (React.createElement(View, { style: formItemLabelStyle },
-        React.createElement(Text, { style: [
+    return (React.createElement(View, { style: formItemLabelStyle }, isString(label)
+        ? React.createElement(Text, { style: [
                 styles.formItemLabelText,
                 {
                     textAlign: labelAlign
                 }
-            ] }, label)));
+            ] }, label)
+        : label));
 };
 const styles = StyleSheet.create({
     formItemLabel: {

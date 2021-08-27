@@ -10,9 +10,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions } from 'react-native';
+import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { colors, isUndefined } from '../../utils';
+import { colors, isUndefined, isString } from '../../utils';
 export const Modal = (_a) => {
     var { title, footer, zIndex, okText = '确定', cancelText = '取消', titleStyle, bodyStyle, footerStyle, onOk, onCancel, children, visible = false, onVisibleChange } = _a, restProps = __rest(_a, ["title", "footer", "zIndex", "okText", "cancelText", "titleStyle", "bodyStyle", "footerStyle", "onOk", "onCancel", "children", "visible", "onVisibleChange"]);
     const { width } = useWindowDimensions();
@@ -38,7 +38,9 @@ export const Modal = (_a) => {
         React.createElement(View, { style: styles.centeredView },
             React.createElement(View, { style: styles.modalView },
                 title
-                    ? (React.createElement(View, { style: [styles.title, commonStyle, titleStyle] }, title))
+                    ? (React.createElement(View, { style: [styles.title, commonStyle, titleStyle] }, isString(title)
+                        ? React.createElement(Text, null, title)
+                        : title))
                     : null,
                 children
                     ? (React.createElement(View, { style: [styles.body, commonStyle, bodyStyle] }, children))

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { FC, useMemo } from 'react';
-import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native';
+import { View, StyleSheet, Pressable, useWindowDimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { IPageProps } from './interface';
 import { KeyCode } from '../../constants';
 import { useKeyUp } from '../../hooks';
-import { isFunction } from '../../utils';
+import { isFunction, isString } from '../../utils';
 
 export const Page: FC<IPageProps> = ({
     F1,
@@ -116,22 +116,46 @@ export const Page: FC<IPageProps> = ({
                     ? <View style={[{ width }, styles.fnBar, FnStyle?.bar]}>
                         {
                             F1
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF1}>{F1.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF1}>
+                                    {
+                                        isString(F1.label)
+                                            ? <Text>{F1.label}</Text>
+                                            : F1.label
+                                    }
+                                </Pressable>
                                 : null
                         }
                         {
                             F2
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF2}>{F2.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF2}>
+                                    {
+                                        isString(F2.label)
+                                            ? <Text>{F2.label}</Text>
+                                            : F2.label
+                                    }
+                                </Pressable>
                                 : null
                         }
                         {
                             F3
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF3}>{F3.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF3}>
+                                    {
+                                        isString(F3.label)
+                                            ? <Text>{F3.label}</Text>
+                                            : F3.label
+                                    }
+                                </Pressable>
                                 : null
                         }
                         {
                             F4
-                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF4}>{F4.label}</Pressable>
+                                ? <Pressable style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={handlePressF4}>
+                                    {
+                                        isString(F4.label)
+                                            ? <Text>{F4.label}</Text>
+                                            : F4.label
+                                    }
+                                </Pressable>
                                 : null
                         }
                     </View>

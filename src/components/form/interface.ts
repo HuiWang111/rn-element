@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { ViewStyle } from 'react-native';
 
 export type ValueType = any | any[];
@@ -96,7 +97,7 @@ export interface IFormProps<Values = ValueType> {
 
 export interface IFormItemProps<Values = ValueType> {
     initialValue?: Values;
-    label?: string;
+    label?: string | ReactNode;
     labelAlign?: LabelAlign;
     name: string;
     valuePropName?: string;
@@ -111,7 +112,7 @@ export interface IFormItemProps<Values = ValueType> {
 export type LabelAlign = 'left' | 'right' | 'center';
 
 export interface IFormItemLabelProps {
-    label: string;
+    label: string | ReactNode;
     labelAlign?: LabelAlign;
     col?: ICol;
 }

@@ -1,8 +1,8 @@
 import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions } from 'react-native';
+import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { IModalProps } from './interface';
-import { colors, isUndefined } from '../../utils';
+import { colors, isUndefined, isString } from '../../utils';
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
@@ -68,7 +68,11 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                         title
                             ? (
                                 <View style={[styles.title, commonStyle, titleStyle]}>
-                                    { title }
+                                    {
+                                        isString(title)
+                                            ? <Text>{title}</Text>
+                                            : title
+                                    }
                                 </View>
                             )
                             : null

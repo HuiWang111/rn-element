@@ -26,10 +26,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     children
 }: PropsWithChildren<IFormItemProps>) => {
     const form = useContext(FormContext);
-    let labelText = label;
-    if (label && label.indexOf('：') < 0) {
-        labelText += '：' 
-    }
+
     const rules = ruleList
         ? ruleList.map(rule => isFunction<IRuleConfig>(rule) ? rule(form as FormInstance) : rule)
         : [];
@@ -37,10 +34,10 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     return (
         <View style={[styles.formItem]}>
             {
-                labelText
+                label
                     ? (
                         <FormItemLabel
-                            label={labelText}
+                            label={label}
                             labelAlign={labelAlign}
                             col={labelCol}
                         />
@@ -66,7 +63,10 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
 FormItem.displayName = 'FormItem';
 FormItem.propTypes = {
     initialValue: PropTypes.any,
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
     labelAlign: PropTypes.oneOf(['left', 'center', 'right']),
     name: PropTypes.string.isRequired,
     valuePropName: PropTypes.string,
