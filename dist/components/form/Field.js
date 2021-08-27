@@ -42,10 +42,12 @@ export class Field extends Component {
             const { name, valuePropName, changeMethodName, validateTrigger } = this.props;
             const { getFieldValue, setFieldValue } = this.context;
             return Object.assign(Object.assign({}, childProps), { [valuePropName]: getFieldValue(name), [changeMethodName]: (value) => {
+                    var _a;
                     setFieldValue(name, value);
                     if (validateTrigger === 'onChange') {
                         this.validateRules(value);
                     }
+                    (_a = childProps[changeMethodName]) === null || _a === void 0 ? void 0 : _a.call(childProps, value);
                 }, onBlur: (e) => {
                     var _a;
                     if (validateTrigger === 'onBlur') {

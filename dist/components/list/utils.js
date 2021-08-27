@@ -1,6 +1,6 @@
 import { Children, cloneElement } from 'react';
 import { isUndefined } from '../../utils';
-export function mapChildrenWithRef(children, ref, inputComponent, config) {
+export function mapChildrenWithRef(children, ref, inputComponent, config, handleFocus) {
     return Children.map(children, child => {
         const c = child;
         if (c.type === inputComponent) {
@@ -8,9 +8,10 @@ export function mapChildrenWithRef(children, ref, inputComponent, config) {
                 ref,
                 showSoftInputOnFocus: isUndefined(c.props.showSoftInputOnFocus)
                     ? config.showSoftInputOnFocus
-                    : c.props.showSoftInputOnFocus
+                    : c.props.showSoftInputOnFocus,
+                onFocus: (e) => handleFocus(e, c.props)
             });
         }
-        return cloneElement(c, {}, mapChildrenWithRef(c.props.children, ref, inputComponent, config));
+        return cloneElement(c, {}, mapChildrenWithRef(c.props.children, ref, inputComponent, config, handleFocus));
     });
 }

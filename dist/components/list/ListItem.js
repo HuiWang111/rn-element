@@ -30,6 +30,13 @@ const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, i
             isTabEnter.current = false;
         }
     };
+    const handleFocus = (e, inputProps) => {
+        var _a;
+        if (!isActive) {
+            onChange === null || onChange === void 0 ? void 0 : onChange(index);
+        }
+        (_a = inputProps.onFocus) === null || _a === void 0 ? void 0 : _a.call(inputProps, e);
+    };
     useEffect(() => {
         var _a, _b;
         if (autoFocus) {
@@ -60,7 +67,7 @@ const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, i
     return isActivable ? (React.createElement(Pressable, { style: [style, isActive ? activeStyle : null], onPress: handlePress }, autoFocus
         ? mapChildrenWithRef(child, inputRef, inputComponent, {
             showSoftInputOnFocus: showSoftInputOnFocus
-        })
+        }, handleFocus)
         : child)) : (React.createElement(View, { style: style }, child));
 };
 InternalListItem.propTypes = {
