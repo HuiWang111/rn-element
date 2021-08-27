@@ -1,5 +1,13 @@
 import React, { FC, ComponentType, useEffect, useRef, useContext } from 'react';
-import { TextInput, Pressable, View, GestureResponderEvent } from 'react-native';
+import {
+    TextInput,
+    Pressable,
+    View,
+    GestureResponderEvent,
+    NativeSyntheticEvent,
+    TextInputFocusEventData,
+    TextInputProps
+} from 'react-native';
 import { IInternalListItemProps, IListItemProps } from './interface';
 import { mapChildrenWithRef } from './utils';
 import { useKeyUp } from '../../hooks';
@@ -39,6 +47,17 @@ const InternalListItem: FC<IInternalListItemProps> = ({
         }
     }
 
+    /**
+     * 聚焦 input 输入框时也要切换高亮行
+     */
+    const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>, inputProps: TextInputProps) => {
+        if (!isActive) {
+            onChange?.(index as number)
+        }
+
+        inputProps.onFocus?.(e);
+    }
+
     useEffect(() => {
         if (autoFocus) {
             if (isActive) {
@@ -74,9 +93,15 @@ const InternalListItem: FC<IInternalListItemProps> = ({
         >
             {
                 autoFocus
-                    ? mapChildrenWithRef(child, inputRef, inputComponent as ComponentType, {
-                        showSoftInputOnFocus: showSoftInputOnFocus as boolean
-                    })
+                    ? mapChildrenWithRef(
+                        child,
+                        inputRef,
+                        inputComponent as ComponentType,
+                        {
+                            showSoftInputOnFocus: showSoftInputOnFocus as boolean
+                        },
+                        handleFocus
+                    )
                     : child
             }
         </Pressable>

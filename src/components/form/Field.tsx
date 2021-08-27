@@ -53,7 +53,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             validateTrigger
         } = this.props;
         const { getFieldValue, setFieldValue } = this.context;
-
+        
         return {
             ...childProps,
             [valuePropName]: getFieldValue(name),
@@ -63,6 +63,8 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                 if (validateTrigger === 'onChange') {
                     this.validateRules(value);
                 }
+
+                childProps[changeMethodName]?.(value);
             },
             onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
                 if (validateTrigger === 'onBlur') {

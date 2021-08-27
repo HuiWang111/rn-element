@@ -43,3 +43,4 @@ interface ModalConfig {
 
 ### **注意**
 - Modal继承于 `react-native` 的Modal，所有`react-native` 的Modal属性都可以应用于该组件
+- 使用 `Modal.confirm` 有前置条件，请参照 [toast](https://github.com/HuiWang111/rn-element/blob/main/docs/toast.md) 的前置条件
