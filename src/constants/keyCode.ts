@@ -20,7 +20,9 @@ export enum KeyCode {
     Seven = 14,
     Eight = 15,
     Nine = 16,
-    // 模拟 f1/f2/f3/f4的默认keyCode
+    /**
+     * 模拟 f1/f2/f3/f4的默认keyCode
+     */
     Z = 54,
     X = 52,
     C = 31,

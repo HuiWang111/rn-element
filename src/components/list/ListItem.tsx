@@ -15,6 +15,7 @@ import { KeyCode } from '../../constants';
 import PropTypes from 'prop-types';
 import { ConfigContext } from '../config-provider';
 import { isFunction } from '../../utils';
+import { ListContext } from './context';
 
 const InternalListItem: FC<IInternalListItemProps> = ({
     isActive,
@@ -27,7 +28,6 @@ const InternalListItem: FC<IInternalListItemProps> = ({
     index,
     keyboard,
     onPress,
-    onChange,
     onEnter
 }: IInternalListItemProps): JSX.Element => {
     const inputRef = useRef<TextInput | null>(null);
@@ -37,6 +37,7 @@ const InternalListItem: FC<IInternalListItemProps> = ({
      */
     const isTabEnter = useRef(false);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const { onChange } = useContext(ListContext);
     
     const handlePress = (e: GestureResponderEvent) => {
         if (!isTabEnter.current) {

@@ -13,7 +13,9 @@ const NumberInput: FC<INumberInputProps> = forwardRef(({
         if (!onChangeText) {
             return;
         }
-        if (val !== '-' && val !== '' && !regExp.number.test(val)) {
+
+        const allowInputChars = ['-', ''];
+        if (!allowInputChars.includes(val) && !regExp.number.test(val)) {
             return;
         }
 
