@@ -6,6 +6,7 @@ import { useArrowDown, useArrowUp } from '../../hooks';
 import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../../utils';
+import { ListContext } from './context';
 
 const isActivableListItem = (c: ReactElement) => {
     return [ActivableListItem, ListItem].includes(c.type as never);
@@ -74,26 +75,28 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     
     return (
         <ScrollView style={style} ref={scrollViewRef}>
-            {
-                Children.map(children, (child: ReactNode, index: number) => {
-                    const c = child as ReactElement;
-                    const childItemStyle = c.props.style;
-                    const childActiveItemStyle = c.props.activeStyle;
-                    const childInputComponent = c.props.inputComponent;
-                    
-                    return cloneElement(c, {
-                        isActive: activeIndex === index,
-                        style: mergeStyle(itemStyle, childItemStyle),
-                        activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
-                        inputComponent: childInputComponent
-                            ? childInputComponent
-                            : inputComponent,
-                        index,
-                        keyboard,
-                        onChange
-                    });
-                })
-            }
+            <ListContext.Provider value={{ onChange }}>
+                {
+                    Children.map(children, (child: ReactNode, index: number) => {
+                        const c = child as ReactElement;
+                        const childItemStyle = c.props.style;
+                        const childActiveItemStyle = c.props.activeStyle;
+                        const childInputComponent = c.props.inputComponent;
+                        
+                        return cloneElement(c, {
+                            isActive: activeIndex === index,
+                            style: mergeStyle(itemStyle, childItemStyle),
+                            activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
+                            inputComponent: childInputComponent
+                                ? childInputComponent
+                                : inputComponent,
+                            index,
+                            keyboard,
+                            onChange
+                        });
+                    })
+                }
+            </ListContext.Provider>
         </ScrollView>
     );
 }

@@ -5,6 +5,7 @@ import { useArrowDown, useArrowUp } from '../../hooks';
 import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../../utils';
+import { ListContext } from './context';
 const isActivableListItem = (c) => {
     return [ActivableListItem, ListItem].includes(c.type);
 };
@@ -48,23 +49,24 @@ const ActivableList = ({ activeIndex = 0, loop = true, children, keyboard = true
             onChange(firstActivableIndex);
         }
     }, [activeIndex, keyboard, isAllInactivable]);
-    return (React.createElement(ScrollView, { style: style, ref: scrollViewRef }, Children.map(children, (child, index) => {
-        const c = child;
-        const childItemStyle = c.props.style;
-        const childActiveItemStyle = c.props.activeStyle;
-        const childInputComponent = c.props.inputComponent;
-        return cloneElement(c, {
-            isActive: activeIndex === index,
-            style: mergeStyle(itemStyle, childItemStyle),
-            activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
-            inputComponent: childInputComponent
-                ? childInputComponent
-                : inputComponent,
-            index,
-            keyboard,
-            onChange
-        });
-    })));
+    return (React.createElement(ScrollView, { style: style, ref: scrollViewRef },
+        React.createElement(ListContext.Provider, { value: { onChange } }, Children.map(children, (child, index) => {
+            const c = child;
+            const childItemStyle = c.props.style;
+            const childActiveItemStyle = c.props.activeStyle;
+            const childInputComponent = c.props.inputComponent;
+            return cloneElement(c, {
+                isActive: activeIndex === index,
+                style: mergeStyle(itemStyle, childItemStyle),
+                activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
+                inputComponent: childInputComponent
+                    ? childInputComponent
+                    : inputComponent,
+                index,
+                keyboard,
+                onChange
+            });
+        }))));
 };
 ActivableList.propTypes = {
     activeIndex: PropTypes.number,

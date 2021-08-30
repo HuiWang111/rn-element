@@ -13,19 +13,21 @@ export interface IListProps {
     onChange?: ActiveChangeHandler;
 }
 export interface IListItemProps {
-    isActive?: boolean;
     style?: StyleType;
     activeStyle?: StyleType;
     autoFocus?: boolean;
-    index?: number;
     keyboard?: boolean;
     children?: ReactNode | undefined | (({ isActive: boolean }: {
         isActive: any;
     }) => ReactNode | undefined);
     inputComponent?: ComponentType;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
-    onChange?: ActiveChangeHandler;
     onEnter?: () => void;
+    isActive?: boolean;
+    index?: number;
+}
+export interface IInternalProps {
+    onChange?: ActiveChangeHandler;
 }
 export interface IInternalListItemProps extends IListItemProps {
     isActivable: boolean;
