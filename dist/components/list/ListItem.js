@@ -17,10 +17,12 @@ import { KeyCode } from '../../constants';
 import PropTypes from 'prop-types';
 import { ConfigContext } from '../config-provider';
 import { isFunction } from '../../utils';
-const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, inputComponent, isActivable, index, keyboard, onPress, onChange, onEnter }) => {
+import { ListContext } from './context';
+const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, inputComponent, isActivable, index, keyboard, onPress, onEnter }) => {
     const inputRef = useRef(null);
     const isTabEnter = useRef(false);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const { onChange } = useContext(ListContext);
     const handlePress = (e) => {
         if (!isTabEnter.current) {
             onChange === null || onChange === void 0 ? void 0 : onChange(index);
