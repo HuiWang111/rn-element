@@ -50,20 +50,17 @@ const ActivableList = ({ activeIndex = 0, loop = true, children, keyboard = true
         }
     }, [activeIndex, keyboard, isAllInactivable]);
     return (React.createElement(ScrollView, { style: style, ref: scrollViewRef },
-        React.createElement(ListContext.Provider, { value: { onChange } }, Children.map(children, (child, index) => {
+        React.createElement(ListContext.Provider, { value: { onChange, activeItemStyle, keyboard } }, Children.map(children, (child, index) => {
             const c = child;
             const childItemStyle = c.props.style;
-            const childActiveItemStyle = c.props.activeStyle;
             const childInputComponent = c.props.inputComponent;
             return cloneElement(c, {
                 isActive: activeIndex === index,
                 style: mergeStyle(itemStyle, childItemStyle),
-                activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
                 inputComponent: childInputComponent
                     ? childInputComponent
                     : inputComponent,
                 index,
-                keyboard,
                 onChange
             });
         }))));

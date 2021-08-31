@@ -17,9 +17,7 @@ export interface IListProps {
 
 export interface IListItemProps {
     style?: StyleType;
-    activeStyle?: StyleType;
     autoFocus?: boolean;
-    keyboard?: boolean;
     children?: ReactNode | undefined | (({ isActive: boolean }) => ReactNode | undefined);
     inputComponent?: ComponentType;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -27,7 +25,7 @@ export interface IListItemProps {
     /**
      * internal props
      * TODO: 隐藏 internal props 不被外部使用
-     * onChange可以通过context解决，但是 index isActive 每一个item都不一样，暂时没找到解决方案
+     * onChange/activeItemStyle/keyboard等可以通过context解决，但是 index isActive 每一个item都不一样，暂时没找到解决方案
      */
     isActive?: boolean;
     index?: number;
@@ -35,6 +33,8 @@ export interface IListItemProps {
 
 export interface IInternalProps {
     onChange?: ActiveChangeHandler;
+    activeItemStyle?: StyleType;
+    keyboard?: boolean;
 }
 
 export interface IInternalListItemProps extends IListItemProps {
@@ -43,4 +43,12 @@ export interface IInternalListItemProps extends IListItemProps {
 
 export interface IInputConfig {
     showSoftInputOnFocus: boolean;
+}
+
+export interface IParentProps {
+    activeIndex: number;
+    inputComponent?: ComponentType;
+    index: number;
+    itemStyle?: StyleType;
+    onChange?: ActiveChangeHandler;
 }

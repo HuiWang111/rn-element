@@ -19,14 +19,12 @@ import { ListContext } from './context';
 
 const InternalListItem: FC<IInternalListItemProps> = ({
     isActive,
-    activeStyle,
     style,
     children,
     autoFocus,
     inputComponent,
     isActivable,
     index,
-    keyboard,
     onPress,
     onEnter
 }: IInternalListItemProps): JSX.Element => {
@@ -37,7 +35,7 @@ const InternalListItem: FC<IInternalListItemProps> = ({
      */
     const isTabEnter = useRef(false);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
-    const { onChange } = useContext(ListContext);
+    const { onChange, activeItemStyle, keyboard } = useContext(ListContext);
     
     const handlePress = (e: GestureResponderEvent) => {
         if (!isTabEnter.current) {
@@ -89,7 +87,7 @@ const InternalListItem: FC<IInternalListItemProps> = ({
 
     return isActivable ? (
         <Pressable
-            style={[style, isActive ? activeStyle : null]}
+            style={[style, isActive ? activeItemStyle : null]}
             onPress={handlePress}
         >
             {

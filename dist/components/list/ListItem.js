@@ -18,11 +18,11 @@ import PropTypes from 'prop-types';
 import { ConfigContext } from '../config-provider';
 import { isFunction } from '../../utils';
 import { ListContext } from './context';
-const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, inputComponent, isActivable, index, keyboard, onPress, onEnter }) => {
+const InternalListItem = ({ isActive, style, children, autoFocus, inputComponent, isActivable, index, onPress, onEnter }) => {
     const inputRef = useRef(null);
     const isTabEnter = useRef(false);
     const { showSoftInputOnFocus } = useContext(ConfigContext);
-    const { onChange } = useContext(ListContext);
+    const { onChange, activeItemStyle, keyboard } = useContext(ListContext);
     const handlePress = (e) => {
         if (!isTabEnter.current) {
             onChange === null || onChange === void 0 ? void 0 : onChange(index);
@@ -66,7 +66,7 @@ const InternalListItem = ({ isActive, activeStyle, style, children, autoFocus, i
         }
     }, [isActive]);
     const child = isFunction(children) ? children({ isActive }) : children;
-    return isActivable ? (React.createElement(Pressable, { style: [style, isActive ? activeStyle : null], onPress: handlePress }, autoFocus
+    return isActivable ? (React.createElement(Pressable, { style: [style, isActive ? activeItemStyle : null], onPress: handlePress }, autoFocus
         ? mapChildrenWithRef(child, inputRef, inputComponent, {
             showSoftInputOnFocus: showSoftInputOnFocus
         }, handleFocus)

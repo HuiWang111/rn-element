@@ -8,7 +8,6 @@ import { isNil, colors } from '../../utils';
 import { Toast } from '../toast';
 
 /**
- * 由于Form和List组件经常需要组合使用，所以Form和List必定有一个与他们的Item组件不是chilren关系
  * 这里实现深度遍历children查找Form.Item组件
  */
 function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): ReactElement {

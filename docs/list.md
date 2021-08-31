@@ -144,12 +144,6 @@ activeIndex发生变化时的回调
 | ---- | ---- | ---- |
 | object | none | false |
 
-### activeStyle
-当前选中条目元素的样式，与List的pros `activeItemStyle` 重复时，以这个为准
-| type | default | required |
-| ---- | ---- | ---- |
-| object | none | false |
-
 ### autoFocus
 如果**List.Item**的chilren中有输入框且需要自动聚焦，那么就设置该属性为true
 | type | default | required |

@@ -1,15 +1,61 @@
-import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, ReactNode, useRef } from 'react';
+import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, useRef } from 'react';
 import { TextInput, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
-import { IListProps } from './interface';
+import { IListProps, IParentProps } from './interface';
 import { useArrowDown, useArrowUp } from '../../hooks';
 import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../../utils';
 import { ListContext } from './context';
 
-const isActivableListItem = (c: ReactElement) => {
+function isActivableListItem(c: ReactElement) {
     return [ActivableListItem, ListItem].includes(c.type as never);
+}
+
+function mapChildrenWithFindListItem(c: ReactElement, listProps: IParentProps) {
+    if (!c) return null;
+
+    if (isActivableListItem(c)) {
+        const {
+            activeIndex,
+            itemStyle,
+            inputComponent,
+            index,
+            onChange
+        } = listProps;
+        const childItemStyle = c.props.style;
+        const childInputComponent = c.props.inputComponent;
+        
+        return cloneElement(c, {
+            isActive: activeIndex === index,
+            style: mergeStyle(itemStyle, childItemStyle),
+            inputComponent: childInputComponent
+                ? childInputComponent
+                : inputComponent,
+            index,
+            onChange
+        });
+    }
+
+    const children = c.props?.children;
+    
+    return children
+        ? cloneElement(c, {}, Children.map(children, (child) => {
+            return mapChildrenWithFindListItem(child, listProps);
+        }))
+        : c;
+}
+
+function mapChildrenIsActivable(c: ReactElement) {
+    if (c.type === ActivableListItem) {
+        return true;
+    }
+
+    if (!c.props.children) {
+        return false;
+    }
+
+    return Children.toArray(c.props.children).some((child: ReactElement) => mapChildrenIsActivable(child));
 }
 
 const ActivableList: FC<PropsWithChildren<IListProps>> = ({
@@ -26,17 +72,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     /**
      * map children是否可以被选中
      */
-    const isActivableList: boolean[] = Children.toArray(children).map(child => {
-        if (
-            !child ||
-            !(child as ReactElement).type ||
-            !isActivableListItem(child as ReactElement)
-        ) {
-            throw new Error('[ActiveList] children must be List.ActivableListItem or List.Item');
-        }
-        
-        return (child as ReactElement).type === ActivableListItem;
-    });
+    const isActivableList: boolean[] = Children.toArray(children).map((child: ReactElement) => mapChildrenIsActivable(child));
 
     const isAllInactivable = !(isActivableList.some(bool => bool === true));
     
@@ -75,25 +111,17 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     
     return (
         <ScrollView style={style} ref={scrollViewRef}>
-            <ListContext.Provider value={{ onChange }}>
+            <ListContext.Provider value={{ onChange, activeItemStyle, keyboard }}>
                 {
-                    Children.map(children, (child: ReactNode, index: number) => {
-                        const c = child as ReactElement;
-                        const childItemStyle = c.props.style;
-                        const childActiveItemStyle = c.props.activeStyle;
-                        const childInputComponent = c.props.inputComponent;
+                    Children.map(children, (child: ReactElement, index: number) => {
                         
-                        return cloneElement(c, {
-                            isActive: activeIndex === index,
-                            style: mergeStyle(itemStyle, childItemStyle),
-                            activeStyle: mergeStyle(activeItemStyle, childActiveItemStyle),
-                            inputComponent: childInputComponent
-                                ? childInputComponent
-                                : inputComponent,
+                        return mapChildrenWithFindListItem(child, {
+                            activeIndex,
+                            inputComponent,
                             index,
-                            keyboard,
+                            itemStyle,
                             onChange
-                        });
+                        })
                     })
                 }
             </ListContext.Provider>

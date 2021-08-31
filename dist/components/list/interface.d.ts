@@ -14,9 +14,7 @@ export interface IListProps {
 }
 export interface IListItemProps {
     style?: StyleType;
-    activeStyle?: StyleType;
     autoFocus?: boolean;
-    keyboard?: boolean;
     children?: ReactNode | undefined | (({ isActive: boolean }: {
         isActive: any;
     }) => ReactNode | undefined);
@@ -28,6 +26,8 @@ export interface IListItemProps {
 }
 export interface IInternalProps {
     onChange?: ActiveChangeHandler;
+    activeItemStyle?: StyleType;
+    keyboard?: boolean;
 }
 export interface IInternalListItemProps extends IListItemProps {
     isActivable: boolean;

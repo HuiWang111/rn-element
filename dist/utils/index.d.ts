@@ -5,6 +5,7 @@ export declare const colors: {
     error: string;
     black: string;
     border: string;
+    primary: string;
 };
 export { styleUtils, mergeStyle } from './styles';
 export { StyleType } from './interface';
