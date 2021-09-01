@@ -36,7 +36,7 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
 
 const styles = StyleSheet.create({
     footer: {
-        height: 60,
+        height: 50,
         borderTopColor: colors.border,
         borderTopWidth: 1,
         flexDirection: 'row'

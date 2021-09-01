@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { PickerContext } from './context';
+import { isFunction } from '../../utils';
 export const PickerItem = ({ style, children, value, isActive, onPress }) => {
     const activeOpacity = 0.7;
     const { setValue, activeItemStyle, itemStyle } = useContext(PickerContext);
@@ -15,5 +16,6 @@ export const PickerItem = ({ style, children, value, isActive, onPress }) => {
     if (isActive && activeItemStyle) {
         containerStyles.push(activeItemStyle);
     }
-    return (React.createElement(TouchableOpacity, { activeOpacity: activeOpacity, style: containerStyles, onPress: handlePress }, children));
+    const child = isFunction(children) ? children({ isActive }) : children;
+    return (React.createElement(TouchableOpacity, { activeOpacity: activeOpacity, style: containerStyles, onPress: handlePress }, child));
 };

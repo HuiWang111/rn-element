@@ -1,17 +1,5 @@
-import { ViewStyle, GestureResponderEvent } from 'react-native';
+import { ViewStyle, GestureResponderEvent, TextInputProps } from 'react-native';
 import { ReactNode, ReactText } from 'react';
-
-export interface IMaskProps {
-    zIndex?: number;
-    backgroundColor?: string;
-    style?: ViewStyle;
-    visible: boolean;
-}
-
-export interface IPickerFooterProps {
-    onCancel?: () => void;
-    onConfirm?: () => void;
-}
 
 export interface IPickerItem {
     style?: ViewStyle;
@@ -31,6 +19,9 @@ export interface IPickerProps {
     activeItemStyle?: ViewStyle;
     value?: ReactText;
     visible?: boolean;
+    showSearch?: boolean;
+    searchInputProps?: TextInputProps;
+    onSearch?: (keyword: string) => void;
     onCancel?: () => void;
     onConfirm?: (value: ReactText) => void;
 }

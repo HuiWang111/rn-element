@@ -6,18 +6,45 @@ import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../../utils';
 import { ListContext } from './context';
-const isActivableListItem = (c) => {
+function isActivableListItem(c) {
     return [ActivableListItem, ListItem].includes(c.type);
-};
+}
+function mapChildrenWithFindListItem(c, listProps) {
+    var _a;
+    if (!c)
+        return null;
+    if (isActivableListItem(c)) {
+        const { activeIndex, itemStyle, inputComponent, index, onChange } = listProps;
+        const childItemStyle = c.props.style;
+        const childInputComponent = c.props.inputComponent;
+        return cloneElement(c, {
+            isActive: activeIndex === index,
+            style: mergeStyle(itemStyle, childItemStyle),
+            inputComponent: childInputComponent
+                ? childInputComponent
+                : inputComponent,
+            index,
+            onChange
+        });
+    }
+    const children = (_a = c.props) === null || _a === void 0 ? void 0 : _a.children;
+    return children
+        ? cloneElement(c, {}, Children.map(children, (child) => {
+            return mapChildrenWithFindListItem(child, listProps);
+        }))
+        : c;
+}
+function mapChildrenIsActivable(c) {
+    if (c.type === ActivableListItem) {
+        return true;
+    }
+    if (!c.props.children) {
+        return false;
+    }
+    return Children.toArray(c.props.children).some((child) => mapChildrenIsActivable(child));
+}
 const ActivableList = ({ activeIndex = 0, loop = true, children, keyboard = true, style, activeItemStyle, itemStyle, inputComponent = TextInput, onChange }) => {
-    const isActivableList = Children.toArray(children).map(child => {
-        if (!child ||
-            !child.type ||
-            !isActivableListItem(child)) {
-            throw new Error('[ActiveList] children must be List.ActivableListItem or List.Item');
-        }
-        return child.type === ActivableListItem;
-    });
+    const isActivableList = Children.toArray(children).map((child) => mapChildrenIsActivable(child));
     const isAllInactivable = !(isActivableList.some(bool => bool === true));
     const [firstActivableIndex, lastActivableIndex] = useMemo(() => {
         return isAllInactivable
@@ -51,16 +78,11 @@ const ActivableList = ({ activeIndex = 0, loop = true, children, keyboard = true
     }, [activeIndex, keyboard, isAllInactivable]);
     return (React.createElement(ScrollView, { style: style, ref: scrollViewRef },
         React.createElement(ListContext.Provider, { value: { onChange, activeItemStyle, keyboard } }, Children.map(children, (child, index) => {
-            const c = child;
-            const childItemStyle = c.props.style;
-            const childInputComponent = c.props.inputComponent;
-            return cloneElement(c, {
-                isActive: activeIndex === index,
-                style: mergeStyle(itemStyle, childItemStyle),
-                inputComponent: childInputComponent
-                    ? childInputComponent
-                    : inputComponent,
+            return mapChildrenWithFindListItem(child, {
+                activeIndex,
+                inputComponent,
                 index,
+                itemStyle,
                 onChange
             });
         }))));

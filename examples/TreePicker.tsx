@@ -1,13 +1,31 @@
-import React, { FC, ReactText, useState } from 'react';
+import React, { FC, useState, ReactText } from 'react';
 import { StyleSheet, Dimensions, Text, View } from 'react-native';
-import { Picker, List, Toast, Page } from '../src';
+import { TreePicker, List, Toast, Page } from '../src';
+import { IOption } from '../src/components/treePicker/interface';
 import { useHistory } from 'react-router-native';
 import { colors } from '../src/utils';
 
 const numbers = new Array(30).fill(undefined).map((_, index) => index + 1);
+const options: IOption[] = numbers.map(n => {
+    return {
+        value: String(n),
+        label: `选项${n}`,
+        children: numbers.map(i => {
+            return {
+                value: `${n}-${i}`,
+                label: `选项${n}-${i}`,
+                children: numbers.map(v => {
+                    return {
+                        value: `${n}-${i}-${v}`,
+                        label: `选项${n}-${i}-${v}`
+                    };
+                })
+            };
+        })
+    };
+});
 
-const PickerDemo: FC = () => {
-    const [list, setList] = useState(numbers);
+const TreePickerDemo: FC = () => {
     const [index, setIndex] = useState(0);
     const [visible, setVisble] = useState(false);
     const history = useHistory();
@@ -15,7 +33,7 @@ const PickerDemo: FC = () => {
         setIndex(index);
     }
     const showPicker = () => setVisble(true);
-    const handleConfirm = (value: ReactText) => {
+    const handleConfirm = (value: ReactText[]) => {
         Toast.show(`value is ${value}`);
         setVisble(false);
     }
@@ -23,14 +41,6 @@ const PickerDemo: FC = () => {
         setVisble(false);
     }
 
-    const handelSearch = (keyword: string) => {
-        if (keyword) {
-            setList(numbers.filter(n => String(n).includes(keyword)));
-        } else {
-            setList(numbers);
-        }
-    }
-    
     return (
         <Page
             header={{
@@ -49,44 +59,27 @@ const PickerDemo: FC = () => {
                         <List
                             activeIndex={index}
                             onChange={handleChange}
-                            style={[styles.list]}
+                            style={styles.list}
                             itemStyle={styles.item}
                             activeItemStyle={styles.activeItem}
                             keyboard={!visible}
                         >
                             <List.ActivableItem onEnter={showPicker} onPress={showPicker}>
-                                <Text>show picker</Text>
+                                <Text>show tree-picker</Text>
                             </List.ActivableItem>
                             <List.ActivableItem>
                                 <Text>1</Text>
                             </List.ActivableItem>
                         </List>
-                        <Picker
+                        <TreePicker
                             itemStyle={styles.item}
                             activeItemStyle={styles.activeItem}
-                            value={1}
+                            unfocusActiveItemStyle={styles.unfocusActiveItem}
                             visible={visible}
                             onConfirm={handleConfirm}
                             onCancel={handleCancel}
-                            showSearch
-                            searchInputProps={{
-                                placeholder: '请输入关键字搜索'
-                            }}
-                            onSearch={handelSearch}
-                        >
-                            {
-                                list.map(n => {
-                                    return (
-                                        <Picker.Item
-                                            value={n}
-                                            key={n}
-                                        >
-                                            <Text>选项{n}</Text>
-                                        </Picker.Item>
-                                    );
-                                })
-                            }
-                        </Picker>
+                            options={options}
+                        />
                     </View>
                 )
             }
@@ -94,7 +87,7 @@ const PickerDemo: FC = () => {
     );
 }
 
-export default PickerDemo;
+export default TreePickerDemo;
 
 const styles = StyleSheet.create({
     list: {
@@ -112,6 +105,9 @@ const styles = StyleSheet.create({
     },
     activeItem: {
         backgroundColor: 'yellow'
+    },
+    unfocusActiveItem: {
+        backgroundColor: colors.border
     },
     lastItem: {
         borderBottomWidth: 0

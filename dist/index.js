@@ -7,6 +7,7 @@ export { Enterable } from './components/enterable';
 export { Page } from './components/page';
 export { NumberInput } from './components/number-input';
 export { Picker } from './components/picker';
+export { TreePicker } from './components/treePicker';
 export { ConfigProvider } from './components/config-provider';
-export { useKeyUp, useArrowDown, useArrowUp, useEnter } from './hooks';
+export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './hooks';
 export { KeyCode } from './constants';

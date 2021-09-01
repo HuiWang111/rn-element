@@ -1,1 +1,1 @@
-export { useKeyUp, useArrowDown, useArrowUp, useEnter } from './useKeyUp';
+export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './useKeyUp';

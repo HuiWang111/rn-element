@@ -35,4 +35,11 @@ export interface IInternalListItemProps extends IListItemProps {
 export interface IInputConfig {
     showSoftInputOnFocus: boolean;
 }
+export interface IParentProps {
+    activeIndex: number;
+    inputComponent?: ComponentType;
+    index: number;
+    itemStyle?: StyleType;
+    onChange?: ActiveChangeHandler;
+}
 export {};

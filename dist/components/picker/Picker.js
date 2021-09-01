@@ -1,16 +1,28 @@
-import React, { Children, cloneElement, useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Mask } from './Mask';
-import { PickerFooter } from './PickerFooter';
+import React, { Children, cloneElement, useEffect, useState, useContext } from 'react';
+import { View, StyleSheet, Dimensions, ScrollView, TextInput } from 'react-native';
+import { Mask } from '../base/Mask';
+import { PickerFooter } from '../base/PickerFooter';
 import { PickerContext } from './context';
 import { useArrowUp, useArrowDown } from '../../hooks';
+import { omit } from '../../utils';
+import { ConfigContext } from '../config-provider';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-export const Picker = ({ zIndex, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, onCancel, onConfirm }) => {
-    const values = Children.map(children, (child) => {
+const containerWidth = screenWidth - 40;
+const containerHeight = screenHeight - 90;
+export const Picker = ({ zIndex, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, onSearch, onCancel, onConfirm }) => {
+    const values = Children.map(children, (item) => {
         var _a;
-        return (_a = child.props) === null || _a === void 0 ? void 0 : _a.value;
+        return (_a = item.props) === null || _a === void 0 ? void 0 : _a.value;
     }) || [];
     const [value, setValue] = useState(values[0] || '');
+    const [keyword, setKeyword] = useState('');
+    const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const scrollViewStyle = {
+        height: containerHeight - 50
+    };
+    if (showSearch) {
+        scrollViewStyle.height -= 50;
+    }
     useEffect(() => {
         setValue(propsValue || '');
     }, [propsValue]);
@@ -27,25 +39,46 @@ export const Picker = ({ zIndex, maskStyle, children, value: propsValue, activeI
             setValue(values[index + 1]);
         }
     }, [value]);
+    const resetState = () => {
+        setValue(values[0] || '');
+        setKeyword('');
+    };
     const handleConfirm = () => {
         onConfirm === null || onConfirm === void 0 ? void 0 : onConfirm(value);
+        resetState();
     };
-    return (React.createElement(Mask, { zIndex: zIndex, style: maskStyle },
+    const handleCancel = () => {
+        onCancel === null || onCancel === void 0 ? void 0 : onCancel();
+        resetState();
+    };
+    const handleKeywordChange = (value) => {
+        setKeyword(value);
+        onSearch === null || onSearch === void 0 ? void 0 : onSearch(value);
+    };
+    return (React.createElement(Mask, { zIndex: zIndex, style: maskStyle, visible: visible },
         React.createElement(View, { style: styles.container },
-            React.createElement(ScrollView, { style: styles.picker },
-                React.createElement(PickerContext.Provider, { value: { setValue, activeItemStyle, itemStyle } }, Children.map(children, (child) => {
+            showSearch
+                ? React.createElement(View, { style: styles.searchContainer },
+                    React.createElement(TextInput, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, onChangeText: handleKeywordChange, showSoftInputOnFocus: showSoftInputOnFocus })))
+                : null,
+            React.createElement(ScrollView, { style: scrollViewStyle },
+                React.createElement(PickerContext.Provider, { value: { setValue, activeItemStyle, itemStyle } }, Children.map(children, (item) => {
                     var _a;
-                    return cloneElement(child, {
-                        isActive: value === ((_a = child.props) === null || _a === void 0 ? void 0 : _a.value)
+                    return cloneElement(item, {
+                        isActive: value === ((_a = item.props) === null || _a === void 0 ? void 0 : _a.value)
                     });
                 }))),
-            React.createElement(PickerFooter, { onCancel: onCancel, onConfirm: handleConfirm }))));
+            React.createElement(PickerFooter, { onCancel: handleCancel, onConfirm: handleConfirm }))));
 };
-const containerWidth = screenWidth - 40;
-const containerHeight = screenHeight - 70;
 const styles = StyleSheet.create({
-    container: Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { width: containerWidth, height: containerHeight, left: 20, top: 20, right: 20, bottom: 20, backgroundColor: '#fff' }),
-    picker: {
-        height: containerHeight - 60
+    container: {
+        width: containerWidth,
+        height: containerHeight,
+        backgroundColor: '#fff'
+    },
+    searchContainer: {
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

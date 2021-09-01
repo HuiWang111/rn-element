@@ -69,3 +69,39 @@ export function useArrowDown(callback, deps = []) {
         return willUnmount;
     }, [callback, ...deps]);
 }
+export function useArrowLeft(callback, deps = []) {
+    let subscription;
+    useEffect(() => {
+        const listener = (e) => {
+            if (e.which === KeyCode.Left) {
+                callback();
+            }
+        };
+        const didMount = () => {
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+        };
+        const willUnmount = () => {
+            subscription === null || subscription === void 0 ? void 0 : subscription.remove();
+        };
+        didMount();
+        return willUnmount;
+    }, [callback, ...deps]);
+}
+export function useArrowRight(callback, deps = []) {
+    let subscription;
+    useEffect(() => {
+        const listener = (e) => {
+            if (e.which === KeyCode.Right) {
+                callback();
+            }
+        };
+        const didMount = () => {
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+        };
+        const willUnmount = () => {
+            subscription === null || subscription === void 0 ? void 0 : subscription.remove();
+        };
+        didMount();
+        return willUnmount;
+    }, [callback, ...deps]);
+}
