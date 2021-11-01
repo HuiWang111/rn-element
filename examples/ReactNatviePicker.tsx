@@ -1,24 +1,15 @@
-import React, { FC, useState, useRef } from 'react';
+import React, { FC, useState } from 'react';
 import { Text, StyleSheet, Dimensions, View } from 'react-native';
 import { List, Page } from '../src';
 import { useHistory } from 'react-router-native';
 import { colors } from '../src/utils';
-import { Picker } from '@react-native-picker/picker';
 
 const PickerDemo: FC = (): JSX.Element => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [selected, setSelected] = useState('1');
     const history = useHistory();
-    const pickerRef = useRef<Picker<string>>();
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
-    const options = [
-        { value: '1', label: '选项1' },
-        { value: '2', label: '选项2' },
-        { value: '3', label: '选项3' },
-        { value: '4', label: '选项4' }
-    ]
 
     return (
         <Page
@@ -47,30 +38,6 @@ const PickerDemo: FC = (): JSX.Element => {
                             itemStyle={styles.item}
                             activeItemStyle={styles.activeItem}
                         >
-                            <List.ActivableItem
-                                onEnter={() => pickerRef.current?.focus()}
-                                style={styles.pickerItem}
-                            >
-                                <Picker
-                                    ref={pickerRef}
-                                    selectedValue={selected}
-                                    onValueChange={value => setSelected(value)}
-                                >
-                                    {
-                                        options.map(option => {
-                                            const { value, label } = option;
-
-                                            return (
-                                                <Picker.Item
-                                                    value={value}
-                                                    key={value}
-                                                    label={label}
-                                                />
-                                            );
-                                        })
-                                    }
-                                </Picker>
-                            </List.ActivableItem>
                             <List.ActivableItem>
                                 <Text>1</Text>
                             </List.ActivableItem>

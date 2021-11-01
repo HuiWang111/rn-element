@@ -1,15 +1,13 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Text, StyleSheet, TextInput, Dimensions } from 'react-native';
 import { useHistory } from 'react-router-native';
 import { List, Form, Toast, Page, ConfigProvider, NumberInput } from '../src';
 import { colors } from '../src/utils';
-import { Picker } from '@react-native-picker/picker';
 
 const ListWithForm: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [form] = Form.useForm();
     const history = useHistory();
-    const pickerRef = useRef<Picker<string>>(null)
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
@@ -79,26 +77,6 @@ const ListWithForm: FC = () => {
                                 <List.Item>
                                     <Text>8</Text>
                                 </List.Item>
-                                <List.ActivableItem
-                                    onEnter={() => pickerRef.current?.focus()}
-                                >
-                                    <Form.Item
-                                        name='gender'
-                                        valuePropName='selectedValue'
-                                        changeMethodName='onValueChange'
-                                        wrapperCol={{
-                                            span: 24
-                                        }}
-                                    >
-                                        <Picker
-                                            ref={pickerRef}
-                                            prompt='请选择性别'
-                                        >
-                                            <Picker.Item value='male' label='男' />
-                                            <Picker.Item value='female' label='女' />
-                                        </Picker>
-                                    </Form.Item>
-                                </List.ActivableItem>
                                 <List.Item>
                                     <Text>10</Text>
                                 </List.Item>

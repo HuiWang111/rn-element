@@ -50,8 +50,8 @@ function mapChildrenIsActivable(c: ReactElement) {
     if (c.type === ActivableListItem) {
         return true;
     }
-
-    if (!c.props.children) {
+    
+    if (!c.props?.children) {
         return false;
     }
 
