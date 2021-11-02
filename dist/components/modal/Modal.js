@@ -10,9 +10,10 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text } from 'react-native';
+import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import { colors, isUndefined, isString } from '../../utils';
+import { colors, isUndefined, isString, isFunction } from '../../utils';
+const screenWith = Dimensions.get('window').width;
 export const Modal = (_a) => {
     var { title, footer, zIndex, okText = '确定', cancelText = '取消', titleStyle, bodyStyle, footerStyle, onOk, onCancel, children, visible = false, onVisibleChange } = _a, restProps = __rest(_a, ["title", "footer", "zIndex", "okText", "cancelText", "titleStyle", "bodyStyle", "footerStyle", "onOk", "onCancel", "children", "visible", "onVisibleChange"]);
     const { width } = useWindowDimensions();
@@ -26,6 +27,14 @@ export const Modal = (_a) => {
                     React.createElement(Button, { title: okText, onPress: () => { onOk && onOk(); } })),
                 React.createElement(View, { style: styles.cancalBtnWrap },
                     React.createElement(Button, { title: cancelText, onPress: () => { onCancel && onCancel(); }, color: '#d7d7d7' }))));
+        }
+        if (isFunction(footer)) {
+            return footer({
+                okText,
+                cancelText,
+                onOk,
+                onCancel
+            });
         }
         return footer;
     };
@@ -55,6 +64,7 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
+        width: screenWith - 40,
         margin: 20,
         backgroundColor: '#fff',
         borderRadius: 20,
@@ -79,7 +89,9 @@ const styles = StyleSheet.create({
     },
     footer: {
         paddingVertical: 10,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     okBtnWrap: {
         flex: 1

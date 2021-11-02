@@ -35,10 +35,11 @@ function mapChildrenWithFindListItem(c, listProps) {
         : c;
 }
 function mapChildrenIsActivable(c) {
+    var _a;
     if (c.type === ActivableListItem) {
         return true;
     }
-    if (!c.props.children) {
+    if (!((_a = c.props) === null || _a === void 0 ? void 0 : _a.children)) {
         return false;
     }
     return Children.toArray(c.props.children).some((child) => mapChildrenIsActivable(child));

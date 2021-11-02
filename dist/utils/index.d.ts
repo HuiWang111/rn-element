@@ -6,6 +6,8 @@ export declare const colors: {
     black: string;
     border: string;
     primary: string;
+    warning: string;
+    success: string;
 };
 export { styleUtils, mergeStyle } from './styles';
 export { StyleType } from './interface';
