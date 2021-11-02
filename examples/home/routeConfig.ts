@@ -5,6 +5,7 @@ import ListWithForm from '../ListWithForm';
 import ReactNatviePickerDemo from '../ReactNatviePicker';
 import PickerDemo from '../Picker';
 import TreePickerDemo from '../TreePicker';
+import { RadoList } from '../RadoList';
 
 interface IRouteConfig {
     path: string;
@@ -17,5 +18,6 @@ export const routeConfig: IRouteConfig[] = [
     // { path: 'number-input-demo', component: NumberInputDemo },
     { path: 'react-native-picker-demo', component: ReactNatviePickerDemo },
     { path: 'picker-demo', component: PickerDemo },
-    { path: 'tree-picker-demo', component: TreePickerDemo }
+    { path: 'tree-picker-demo', component: TreePickerDemo },
+    { path: 'radio-list', component: RadoList }
 ];
