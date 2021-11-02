@@ -23,7 +23,6 @@
 		"build:cjs": "tsc --declaration --sourceMap false --downlevelIteration --skipLibCheck --jsx react --module commonjs --target es5 --outDir dist/cjs",
 		"test": "jest --watchAll",
 		"coverage": "jest --coverage",
-		"deploy": "sh scripts/deploy.sh",
 		"version": "node --experimental-json-modules scripts/version.mjs",
 		"debug": "adb shell input keyevent 82",
 		"doc": "node scripts/gen-docs.mjs",

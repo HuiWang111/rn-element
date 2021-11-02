@@ -1,12 +1,18 @@
 import { ModalProps, ViewStyle } from 'react-native';
 
-interface IModalBaseConfig {
-    title?: string | JSX.Element;
-    zIndex?: number;
+export interface IModalFooterProps {
     okText?: string;
     cancelText?: string;
     onCancel?: () => void;
     onOk?: () => void;
+}
+
+export type IModalFooter = string | JSX.Element | ((props: IModalFooterProps) => string | JSX.Element);
+
+interface IModalBaseConfig extends IModalFooterProps {
+    title?: string | JSX.Element | null;
+    zIndex?: number;
+    footer?: IModalFooter;
     onVisibleChange?: (visible: boolean) => void;
 }
 
@@ -15,8 +21,9 @@ export interface IModalConfig extends IModalBaseConfig {
 }
 
 export interface IModalProps extends ModalProps, IModalBaseConfig {
-    footer?: string | JSX.Element;
     titleStyle?: ViewStyle;
     bodyStyle?: ViewStyle;
     footerStyle?: ViewStyle;
 }
+
+export type IModalType = 'confirm' | 'error' | 'info' | 'warning' | 'success';

@@ -2,7 +2,9 @@ import {
     error,
     black,
     border,
-    primary
+    primary,
+    warning,
+    success
 } from './color';
 import regExp from './regExp';
 
@@ -28,7 +30,9 @@ export const colors = {
     error,
     black,
     border,
-    primary
+    primary,
+    warning,
+    success
 };
 
 export { styleUtils, mergeStyle } from './styles';

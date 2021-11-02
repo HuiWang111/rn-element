@@ -1,8 +1,10 @@
 import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text } from 'react-native';
+import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import { IModalProps } from './interface';
-import { colors, isUndefined, isString } from '../../utils';
+import { IModalProps, IModalFooter } from './interface';
+import { colors, isUndefined, isString, isFunction } from '../../utils';
+
+const screenWith = Dimensions.get('window').width;
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
@@ -24,7 +26,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     const commonStyle = {
         width: width - 80
     };
-    const getFooter = (footer?: string | JSX.Element): ReactNode | null | undefined => {
+    const getFooter = (footer?: IModalFooter): ReactNode | null | undefined => {
         if (isUndefined(footer)) {
             return (
                 <>
@@ -45,13 +47,22 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
             );
         }
 
+        if (isFunction(footer)) {
+            return footer({
+                okText,
+                cancelText,
+                onOk,
+                onCancel
+            });
+        }
+
         return footer;
     }
 
     useEffect(() => {
         onVisibleChange && onVisibleChange(visible);
     }, [visible, onVisibleChange]);
-
+    
     return (
         <ReactNativeModal
             animationType='slide'
@@ -103,6 +114,7 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
+        width: screenWith - 40,
         margin: 20,
         backgroundColor: '#fff',
         borderRadius: 20,
@@ -127,7 +139,9 @@ const styles = StyleSheet.create({
     },
     footer: {
         paddingVertical: 10,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     okBtnWrap: {
         flex: 1

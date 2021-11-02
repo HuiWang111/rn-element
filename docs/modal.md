@@ -24,7 +24,27 @@ const ModalDemo = () => {
 
 ## Modal.confirm
 ```ts
-Modal.confin(config);
+Modal.confirm(config);
+```
+
+## Modal.info
+```ts
+Modal.info(config);
+```
+
+## Modal.error
+```ts
+Modal.error(config);
+```
+
+## Modal.success
+```ts
+Modal.success(config);
+```
+
+## Modal.warning
+```ts
+Modal.warning(config);
 ```
 
 ## config

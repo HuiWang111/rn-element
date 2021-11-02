@@ -23,9 +23,8 @@ const NumberInput: FC<INumberInputProps> = forwardRef(({
     }
     
     /**
-     * TODO: 这里使用onChange做了字符串 -> 数值的转换，但会导致一个问题:
-     * 在和Form组件配合使用的时候，Form设置了校验时机(validateTrigger)为 `onChange` 时，
-     * 这个组件会在 `onBlur` 时也进行一次校验
+     * TODO: 在 `onBlur` 时将字符串转换为数字
+     * 在配合Form使用，检验必须为数字类型时，最好将检验时机(validateTrigger)设置为 `onBlur`
      */
     const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         if (onChangeText && value !== '-') {

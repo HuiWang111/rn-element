@@ -20,7 +20,7 @@ const ListWithModal: FC = () => {
     const showConfirmModal = () => {
         Modal.confirm({
             title: <Text>alert</Text>,
-            content: <Text>are you kidding me?</Text>,
+            content: <Text>are you kidding me?are you kidding me?are you kidding me?are you kidding me?are you kidding me?</Text>,
             onOk: () => {
                 console.info('ok');
             },
@@ -31,6 +31,46 @@ const ListWithModal: FC = () => {
                 setConfirmModalVisible(visible);
             }
         });
+    }
+
+    const showInfoModal = () => {
+        Modal.info({
+            title: <Text>通知</Text>,
+            content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
+            onOk: () => {
+                console.info('ok');
+            }
+        })
+    }
+
+    const showErrorModal = () => {
+        Modal.error({
+            title: <Text>出错了</Text>,
+            content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
+            onOk: () => {
+                console.info('ok');
+            }
+        })
+    }
+
+    const showSuccessModal = () => {
+        Modal.success({
+            title: <Text>成功了</Text>,
+            content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
+            onOk: () => {
+                console.info('ok');
+            }
+        })
+    }
+
+    const showWarningModal = () => {
+        Modal.warning({
+            title: <Text>警告警告</Text>,
+            content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
+            onOk: () => {
+                console.info('ok');
+            }
+        })
     }
 
     return (
@@ -80,6 +120,18 @@ const ListWithModal: FC = () => {
                             </List.Item>
                             <List.ActivableItem style={styles.lastItem} onPress={showConfirmModal} onEnter={showConfirmModal}>
                                 <Text>showConfirmModal - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.ActivableItem style={styles.lastItem} onPress={showInfoModal} onEnter={showInfoModal}>
+                                <Text>showInfoModal - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.ActivableItem style={styles.lastItem} onPress={showErrorModal} onEnter={showErrorModal}>
+                                <Text>showErrorModal - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.ActivableItem style={styles.lastItem} onPress={showSuccessModal} onEnter={showSuccessModal}>
+                                <Text>showSuccessModal - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.ActivableItem style={styles.lastItem} onPress={showWarningModal} onEnter={showWarningModal}>
+                                <Text>showWarningModal - isActivable</Text>
                             </List.ActivableItem>
                         </List>
                         <Modal
