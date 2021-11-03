@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren, Children, ReactElement, cloneElement, ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
@@ -17,6 +17,7 @@ function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): 
             formValidateTrigger,
             formLabelCol,
             formWrapperCol,
+            formInputComponent,
             formErrorHandler
         } = formProps;
         const {
@@ -42,13 +43,17 @@ function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): 
         const errorHandler = formItemErrorHandler
             ? formItemErrorHandler
             : formErrorHandler;
+        const inputComponent = c.props.inputComponent
+            ? c.props.inputComponent
+            : formInputComponent;
 
         return cloneElement(c, {
             initialValue: defaultValue,
             validateTrigger,
             labelCol,
             wrapperCol,
-            errorHandler
+            errorHandler,
+            inputComponent
         });
     }
 
@@ -69,6 +74,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
     labelCol: formLabelCol,
     wrapperCol: formWrapperCol,
     errorHandler: formErrorHandler = Toast.show,
+    inputComponent: formInputComponent = TextInput,
     children
 }: PropsWithChildren<IFormProps>) => {
     const formStyle = style ? [styles.form].concat(style as never) : [styles.form];
@@ -85,6 +91,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
                             formValidateTrigger,
                             formLabelCol,
                             formWrapperCol,
+                            formInputComponent,
                             formErrorHandler
                         });
                     })

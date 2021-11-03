@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { ViewStyle } from 'react-native';
 
 export type ValueType = any | any[];
@@ -80,6 +80,7 @@ export interface IFieldProps {
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
+    inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
 
@@ -92,6 +93,7 @@ export interface IFormProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
 
@@ -106,6 +108,7 @@ export interface IFormItemProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
 
@@ -127,5 +130,6 @@ export interface IParentProps {
     formValidateTrigger?: ValidateTrigger;
     formLabelCol?: ICol;
     formWrapperCol?: ICol;
+    formInputComponent?: ComponentType;
     formErrorHandler?: ErrorHandler;
 }

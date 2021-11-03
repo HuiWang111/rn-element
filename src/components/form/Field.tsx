@@ -5,6 +5,7 @@ import { IFieldEntity, IFieldProps, ValueType } from './interface';
 import { HOOK_MARK } from './contexts';
 import { validateField } from './utils';
 import { styleUtils } from '../../utils';
+import { ConfigContext } from '../config-provider';
 
 export class Field extends Component<PropsWithChildren<IFieldProps>> implements IFieldEntity {
     static contextType = FormContext;
@@ -81,7 +82,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             return null;
         }
 
-        const { col } = this.props;
+        const { col, inputComponent } = this.props;
 
         let fieldStyle: ViewStyle[] = [];
         if (col) {
@@ -95,11 +96,17 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
 
         return (
             <View style={fieldStyle}>
-                {
-                    Children.map(children, c => {
-                        return cloneElement(c, this.getControlled(c.props))
-                    })
-                }
+                <ConfigContext.Consumer>
+                    {({ showSoftInputOnFocus }) => {
+                        return Children.map(children, c => {
+                            if (c.type === inputComponent) {
+                                return cloneElement(c, this.getControlled({ ...c.props, showSoftInputOnFocus }));
+                            }
+
+                            return cloneElement(c, this.getControlled(c.props))
+                        })
+                    }}
+                </ConfigContext.Consumer>
             </View>
         )
     }
