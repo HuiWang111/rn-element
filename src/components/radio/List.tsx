@@ -1,18 +1,21 @@
-import React, { FC, useState, useEffect, ReactText } from 'react';
+import React, { FC, useState, useEffect, ReactText, useContext } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
 import { IRadioListProps } from './interface';
-import { isObject, colors } from '../../utils';
+import { isObject } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { ThemeContext } from '../theme-provider';
 
 const { width } = Dimensions.get('window');
 
 export const RadioList: FC<IRadioListProps> = ({
     value: propsValue,
     options,
-    activeColor = colors.success,
+    activeColor: selectedColor,
     onChange
 }: IRadioListProps) => {
     const [value, setValue] = useState(propsValue);
+    const theme = useContext(ThemeContext);
+    const activeColor = selectedColor || theme.primary;
 
     useEffect(() => {
         setValue(propsValue);
@@ -37,6 +40,7 @@ export const RadioList: FC<IRadioListProps> = ({
                                 onPress={() => handleChange(option.value, option.disabled)}
                                 style={[
                                     styles.item,
+                                    { borderColor: theme.border },
                                     isActive && activeColor ? { backgroundColor: activeColor } : null,
                                     index > 0 ? { borderTopWidth: 0 } : null
                                 ]}
@@ -51,7 +55,7 @@ export const RadioList: FC<IRadioListProps> = ({
                                     style={[
                                         styles.itemText,
                                         isActive ? styles.activeItemText : null,
-                                        option.disabled ? styles.disabledItemText : null
+                                        option.disabled ? { color: theme.border } : null
                                     ]}
                                     numberOfLines={3}
                                 >
@@ -69,6 +73,7 @@ export const RadioList: FC<IRadioListProps> = ({
                             onPress={() => handleChange(option)}
                             style={[
                                 styles.item,
+                                { borderColor: theme.border },
                                 isActive && activeColor ? { backgroundColor: activeColor } : null,
                                 index > 0 ? { borderTopWidth: 0 } : null
                             ]}
@@ -99,7 +104,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        borderColor: colors.border,
         borderWidth: 1,
         position: 'relative',
         alignItems: 'center'
@@ -112,8 +116,5 @@ const styles = StyleSheet.create({
     },
     checkIcon: {
         marginRight: 10
-    },
-    disabledItemText: {
-        color: colors.border
     }
 });

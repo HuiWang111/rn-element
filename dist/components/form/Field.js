@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import React, { cloneElement, Children, Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { FormContext } from './contexts';
 import { HOOK_MARK } from './contexts';
 import { validateField } from './utils';
-import { styleUtils, colors } from '../../utils';
+import { styleUtils } from '../../utils';
 export class Field extends Component {
     constructor() {
         super(...arguments);
@@ -71,7 +71,7 @@ export class Field extends Component {
             return null;
         }
         const { col } = this.props;
-        let fieldStyle = [styles.field];
+        let fieldStyle = [];
         if (col) {
             if (col.span) {
                 fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);
@@ -86,13 +86,3 @@ export class Field extends Component {
     }
 }
 Field.contextType = FormContext;
-const styles = StyleSheet.create({
-    field: {},
-    formItemError: {
-        minHeight: 24
-    },
-    formItemErrorMsg: {
-        color: colors.error,
-        fontSize: 14
-    }
-});

@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
-import { isNil, colors } from '../../utils';
+import { isNil } from '../../utils';
 import { Toast } from '../toast';
 function mapChildrenWithFindFormItem(c, formProps) {
     var _a;
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     form: {
         margin: 0,
         padding: 0,
-        color: colors.black,
         fontSize: 14,
         fontVariant: ['tabular-nums']
     }

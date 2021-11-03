@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { colors } from '../../utils';
+import { ThemeContext } from '../theme-provider';
 export const PickerFooter = ({ onCancel, onConfirm }) => {
     const activeOpacity = 0.7;
-    return (React.createElement(View, { style: styles.footer },
+    const colors = useContext(ThemeContext);
+    const textStyle = {
+        color: colors.primary
+    };
+    return (React.createElement(View, { style: [
+            styles.footer,
+            {
+                borderTopColor: colors.border
+            }
+        ] },
         React.createElement(TouchableOpacity, { style: styles.btn, activeOpacity: activeOpacity, onPress: onCancel },
-            React.createElement(Text, { style: styles.text }, "\u53D6\u6D88")),
-        React.createElement(TouchableOpacity, { style: [styles.btn, styles.confirmBtn], activeOpacity: activeOpacity, onPress: onConfirm },
-            React.createElement(Text, { style: styles.text }, "\u786E\u8BA4"))));
+            React.createElement(Text, { style: textStyle }, "\u53D6\u6D88")),
+        React.createElement(TouchableOpacity, { style: [
+                styles.btn,
+                styles.confirmBtn,
+                {
+                    borderLeftColor: colors.border
+                }
+            ], activeOpacity: activeOpacity, onPress: onConfirm },
+            React.createElement(Text, { style: textStyle }, "\u786E\u8BA4"))));
 };
 const styles = StyleSheet.create({
     footer: {
         height: 50,
-        borderTopColor: colors.border,
         borderTopWidth: 1,
         flexDirection: 'row'
     },
@@ -22,10 +36,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     confirmBtn: {
-        borderLeftColor: colors.border,
         borderLeftWidth: 1
-    },
-    text: {
-        color: colors.primary
     }
 });

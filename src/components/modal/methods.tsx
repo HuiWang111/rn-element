@@ -144,6 +144,5 @@ export const warning = (config: IModalConfig) => {
     return method('warning', {
         ...config,
         footer: customizedFooter
-
     });
 }

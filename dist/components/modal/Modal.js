@@ -9,14 +9,16 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import { colors, isUndefined, isString, isFunction } from '../../utils';
+import { isUndefined, isString, isFunction } from '../../utils';
+import { ThemeContext } from '../theme-provider';
 const screenWith = Dimensions.get('window').width;
 export const Modal = (_a) => {
     var { title, footer, zIndex, okText = '确定', cancelText = '取消', titleStyle, bodyStyle, footerStyle, onOk, onCancel, children, visible = false, onVisibleChange } = _a, restProps = __rest(_a, ["title", "footer", "zIndex", "okText", "cancelText", "titleStyle", "bodyStyle", "footerStyle", "onOk", "onCancel", "children", "visible", "onVisibleChange"]);
     const { width } = useWindowDimensions();
+    const colors = useContext(ThemeContext);
     const commonStyle = {
         width: width - 80
     };
@@ -47,7 +49,12 @@ export const Modal = (_a) => {
         React.createElement(View, { style: styles.centeredView },
             React.createElement(View, { style: styles.modalView },
                 title
-                    ? (React.createElement(View, { style: [styles.title, commonStyle, titleStyle] }, isString(title)
+                    ? (React.createElement(View, { style: [
+                            styles.title,
+                            { borderBottomColor: colors.border },
+                            commonStyle,
+                            titleStyle
+                        ] }, isString(title)
                         ? React.createElement(Text, null, title)
                         : title))
                     : null,
@@ -81,8 +88,7 @@ const styles = StyleSheet.create({
     },
     title: {
         paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.border
+        borderBottomWidth: 1
     },
     body: {
         paddingVertical: 20

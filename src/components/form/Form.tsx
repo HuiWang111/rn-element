@@ -4,7 +4,7 @@ import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { IFormProps, IParentProps } from './interface';
-import { isNil, colors } from '../../utils';
+import { isNil } from '../../utils';
 import { Toast } from '../toast';
 
 /**
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     form: {
         margin: 0,
         padding: 0,
-        color: colors.black,
         fontSize: 14,
         fontVariant: ['tabular-nums']
     }

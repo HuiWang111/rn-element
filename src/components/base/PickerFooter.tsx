@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import {
     View,
     StyleSheet,
@@ -6,29 +6,48 @@ import {
     Text
 } from 'react-native';
 import { IPickerFooterProps } from './interface';
-import { colors } from '../../utils';
+import { ThemeContext } from '../theme-provider';
 
 export const PickerFooter: FC<IPickerFooterProps> = ({
     onCancel,
     onConfirm
 }: IPickerFooterProps) => {
     const activeOpacity = 0.7;
+    const colors = useContext(ThemeContext);
+    const textStyle = {
+        color: colors.primary
+    };
 
     return (
-        <View style={styles.footer}>
+        <View
+            style={[
+                styles.footer,
+                {
+                    borderTopColor: colors.border
+                }
+            ]}
+        >
             <TouchableOpacity 
                 style={styles.btn}
                 activeOpacity={activeOpacity}
                 onPress={onCancel}
             >
-                <Text style={styles.text}>取消</Text>
+                <Text style={textStyle}>取消</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={[styles.btn, styles.confirmBtn]}
+                style={[
+                    styles.btn,
+                    styles.confirmBtn,
+                    {
+                        borderLeftColor: colors.border
+                    }
+                ]}
                 activeOpacity={activeOpacity}
                 onPress={onConfirm}
             >
-                <Text style={styles.text}>确认</Text>
+                <Text style={textStyle}>
+                    确认
+                </Text>
             </TouchableOpacity>
         </View>
     );
@@ -37,7 +56,6 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
 const styles = StyleSheet.create({
     footer: {
         height: 50,
-        borderTopColor: colors.border,
         borderTopWidth: 1,
         flexDirection: 'row'
     },
@@ -47,10 +65,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     confirmBtn: {
-        borderLeftColor: colors.border,
         borderLeftWidth: 1
-    },
-    text: {
-        color: colors.primary
     }
 });

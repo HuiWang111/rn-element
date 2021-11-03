@@ -1,10 +1,10 @@
 import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react';
-import { NativeSyntheticEvent, TextInputFocusEventData, StyleSheet, View } from 'react-native'
+import { NativeSyntheticEvent, TextInputFocusEventData, View, ViewStyle } from 'react-native'
 import { FormContext } from './contexts';
 import { IFieldEntity, IFieldProps, ValueType } from './interface';
 import { HOOK_MARK } from './contexts';
 import { validateField } from './utils';
-import { styleUtils, colors } from '../../utils';
+import { styleUtils } from '../../utils';
 
 export class Field extends Component<PropsWithChildren<IFieldProps>> implements IFieldEntity {
     static contextType = FormContext;
@@ -83,7 +83,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
 
         const { col } = this.props;
 
-        let fieldStyle = [styles.field];
+        let fieldStyle: ViewStyle[] = [];
         if (col) {
             if (col.span) {
                 fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);
@@ -104,14 +104,3 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
         )
     }
 }
-
-const styles = StyleSheet.create({
-    field: {},
-    formItemError: {
-        minHeight: 24
-    },
-    formItemErrorMsg: {
-        color: colors.error,
-        fontSize: 14
-    }
-})

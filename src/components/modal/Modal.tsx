@@ -1,8 +1,9 @@
-import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
+import React, { FC, PropsWithChildren, ReactNode, useContext, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IModalProps, IModalFooter } from './interface';
-import { colors, isUndefined, isString, isFunction } from '../../utils';
+import { isUndefined, isString, isFunction } from '../../utils';
+import { ThemeContext } from '../theme-provider';
 
 const screenWith = Dimensions.get('window').width;
 
@@ -23,6 +24,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     ...restProps
 }: PropsWithChildren<IModalProps>) => {
     const { width } = useWindowDimensions();
+    const colors = useContext(ThemeContext);
     const commonStyle = {
         width: width - 80
     };
@@ -78,7 +80,14 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                     {
                         title
                             ? (
-                                <View style={[styles.title, commonStyle, titleStyle]}>
+                                <View
+                                    style={[
+                                        styles.title,
+                                        { borderBottomColor: colors.border },
+                                        commonStyle,
+                                        titleStyle
+                                    ]}
+                                >
                                     {
                                         isString(title)
                                             ? <Text>{title}</Text>
@@ -131,8 +140,7 @@ const styles = StyleSheet.create({
     },
     title: {
         paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.border
+        borderBottomWidth: 1
     },
     body: {
         paddingVertical: 20
