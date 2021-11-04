@@ -1,4 +1,5 @@
 import { ReactText } from 'react';
+import { ViewStyle } from 'react-native';
 export interface IRadioListOption {
     label: string;
     value: ReactText;
@@ -9,4 +10,6 @@ export interface IRadioListProps {
     options?: ReactText[] | IRadioListOption[];
     onChange?: (value: ReactText) => void;
     activeColor?: string;
+    style?: ViewStyle;
+    itemStyle?: ViewStyle;
 }

@@ -11,6 +11,8 @@ export const RadioList: FC<IRadioListProps> = ({
     value: propsValue,
     options,
     activeColor: selectedColor,
+    style,
+    itemStyle,
     onChange
 }: IRadioListProps) => {
     const [value, setValue] = useState(propsValue);
@@ -28,7 +30,7 @@ export const RadioList: FC<IRadioListProps> = ({
     }
 
     return (
-        <View>
+        <View style={style}>
             {
                 options?.map((option, index) => {
                     if (isObject(option)) {
@@ -42,7 +44,8 @@ export const RadioList: FC<IRadioListProps> = ({
                                     styles.item,
                                     { borderColor: theme.border },
                                     isActive && activeColor ? { backgroundColor: activeColor } : null,
-                                    index > 0 ? { borderTopWidth: 0 } : null
+                                    index > 0 ? { borderTopWidth: 0 } : null,
+                                    itemStyle
                                 ]}
                             >
                                 <Icon
@@ -75,7 +78,8 @@ export const RadioList: FC<IRadioListProps> = ({
                                 styles.item,
                                 { borderColor: theme.border },
                                 isActive && activeColor ? { backgroundColor: activeColor } : null,
-                                index > 0 ? { borderTopWidth: 0 } : null
+                                index > 0 ? { borderTopWidth: 0 } : null,
+                                itemStyle
                             ]}
                         >
                             <Icon

@@ -4,7 +4,7 @@ import { isObject } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { ThemeContext } from '../theme-provider';
 const { width } = Dimensions.get('window');
-export const RadioList = ({ value: propsValue, options, activeColor: selectedColor, onChange }) => {
+export const RadioList = ({ value: propsValue, options, activeColor: selectedColor, style, itemStyle, onChange }) => {
     const [value, setValue] = useState(propsValue);
     const theme = useContext(ThemeContext);
     const activeColor = selectedColor || theme.primary;
@@ -16,14 +16,15 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
             onChange === null || onChange === void 0 ? void 0 : onChange(pressedValue);
         }
     };
-    return (React.createElement(View, null, options === null || options === void 0 ? void 0 : options.map((option, index) => {
+    return (React.createElement(View, { style: style }, options === null || options === void 0 ? void 0 : options.map((option, index) => {
         if (isObject(option)) {
             const isActive = option.value === value;
             return (React.createElement(Pressable, { key: option.value, onPress: () => handleChange(option.value, option.disabled), style: [
                     styles.item,
                     { borderColor: theme.border },
                     isActive && activeColor ? { backgroundColor: activeColor } : null,
-                    index > 0 ? { borderTopWidth: 0 } : null
+                    index > 0 ? { borderTopWidth: 0 } : null,
+                    itemStyle
                 ] },
                 React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
                 React.createElement(Text, { style: [
@@ -37,7 +38,8 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
                 styles.item,
                 { borderColor: theme.border },
                 isActive && activeColor ? { backgroundColor: activeColor } : null,
-                index > 0 ? { borderTopWidth: 0 } : null
+                index > 0 ? { borderTopWidth: 0 } : null,
+                itemStyle
             ] },
             React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
             React.createElement(Text, { style: isActive ? styles.activeItemText : null }, option)));
