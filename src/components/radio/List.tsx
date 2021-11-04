@@ -44,7 +44,7 @@ export const RadioList: FC<IRadioListProps> = ({
                                     styles.item,
                                     { borderColor: theme.border },
                                     isActive && activeColor ? { backgroundColor: activeColor } : null,
-                                    index > 0 ? { borderTopWidth: 0 } : null,
+                                    index === 0 ? { borderTopWidth: 0 } : null,
                                     itemStyle
                                 ]}
                             >
@@ -78,7 +78,7 @@ export const RadioList: FC<IRadioListProps> = ({
                                 styles.item,
                                 { borderColor: theme.border },
                                 isActive && activeColor ? { backgroundColor: activeColor } : null,
-                                index > 0 ? { borderTopWidth: 0 } : null,
+                                index === 0 ? { borderTopWidth: 0 } : null,
                                 itemStyle
                             ]}
                         >
@@ -98,17 +98,13 @@ export const RadioList: FC<IRadioListProps> = ({
 }
 
 const styles = StyleSheet.create({
-    list: {
-        width,
-        height: '100%'
-    },
     item: {
         width,
         paddingHorizontal: 10,
         paddingVertical: 15,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        borderWidth: 1,
+        borderTopWidth: 1,
         position: 'relative',
         alignItems: 'center'
     },

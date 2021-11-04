@@ -72,7 +72,7 @@ export class Field extends Component {
             return null;
         }
         const { col, inputComponent } = this.props;
-        let fieldStyle = [];
+        let fieldStyle = [{ justifyContent: 'center', alignItems: 'center' }];
         if (col) {
             if (col.span) {
                 fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);

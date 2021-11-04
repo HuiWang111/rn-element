@@ -23,7 +23,7 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
                     styles.item,
                     { borderColor: theme.border },
                     isActive && activeColor ? { backgroundColor: activeColor } : null,
-                    index > 0 ? { borderTopWidth: 0 } : null,
+                    index === 0 ? { borderTopWidth: 0 } : null,
                     itemStyle
                 ] },
                 React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
@@ -38,7 +38,7 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
                 styles.item,
                 { borderColor: theme.border },
                 isActive && activeColor ? { backgroundColor: activeColor } : null,
-                index > 0 ? { borderTopWidth: 0 } : null,
+                index === 0 ? { borderTopWidth: 0 } : null,
                 itemStyle
             ] },
             React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
@@ -46,17 +46,13 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
     })));
 };
 const styles = StyleSheet.create({
-    list: {
-        width,
-        height: '100%'
-    },
     item: {
         width,
         paddingHorizontal: 10,
         paddingVertical: 15,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        borderWidth: 1,
+        borderTopWidth: 1,
         position: 'relative',
         alignItems: 'center'
     },
