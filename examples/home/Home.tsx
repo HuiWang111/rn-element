@@ -1,38 +1,31 @@
-import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import React, { FC } from 'react';
+import { View, Text } from 'react-native';
 import { Link } from 'react-router-native';
-import { ListItem } from 'react-native-elements';
 import { routeConfig } from './routeConfig';
-import { isEmulator } from 'react-native-device-info';
-import { ConfigProvider } from '../../src';
-
 const Home: FC = (): JSX.Element => {
-    const [isEmul, setIsEmul] = useState(true);
-
-    useEffect(() => {
-        isEmulator().then((isEmulator) => {
-            setIsEmul(isEmulator);
-        });
-    }, []);
-
     return (
         <View>
-            <ConfigProvider showSoftInputOnFocus={isEmul}>
-                {
-                    routeConfig.map(route => {
-                        return (
-                            <Link to={`/${route.path}`} key={route.path}>
-                                <ListItem bottomDivider>
-                                    <ListItem.Content>
-                                        <ListItem.Title>{route.path}</ListItem.Title>
-                                    </ListItem.Content>
-                                    <ListItem.Chevron />
-                                </ListItem>
+            {
+                routeConfig.map((route, index) => {
+                    return (
+                        <View
+                            key={route.path}
+                            style={{
+                                height: 50,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                paddingLeft: 20,
+                                borderTopColor: '#eee',
+                                borderTopWidth: index > 0 ? 1 : 0
+                            }}
+                        >
+                            <Link to={`/${route.path}`}>
+                                <Text>{route.path}</Text>
                             </Link>
-                        );
-                    })
-                }
-            </ConfigProvider>
+                        </View>
+                    );
+                })
+            }
         </View>
     );
 }

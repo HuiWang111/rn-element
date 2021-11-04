@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { ViewStyle } from 'react-native';
 export declare type ValueType = any | any[];
 export declare type StoreValue<Values = ValueType> = Record<string, Values>;
@@ -55,6 +55,7 @@ export interface IFieldProps {
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
+    inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
 export declare type ValidateTrigger = 'onChange' | 'onBlur';
@@ -65,6 +66,7 @@ export interface IFormProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
 export interface IFormItemProps<Values = ValueType> {
@@ -78,6 +80,7 @@ export interface IFormItemProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
 export declare type LabelAlign = 'left' | 'right' | 'center';
@@ -95,6 +98,7 @@ export interface IParentProps {
     formValidateTrigger?: ValidateTrigger;
     formLabelCol?: ICol;
     formWrapperCol?: ICol;
+    formInputComponent?: ComponentType;
     formErrorHandler?: ErrorHandler;
 }
 export {};

@@ -1,5 +1,5 @@
 import React, { Children, cloneElement } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
@@ -8,7 +8,7 @@ import { Toast } from '../toast';
 function mapChildrenWithFindFormItem(c, formProps) {
     var _a;
     if (c.type === FormItem) {
-        const { initialValues, formValidateTrigger, formLabelCol, formWrapperCol, formErrorHandler } = formProps;
+        const { initialValues, formValidateTrigger, formLabelCol, formWrapperCol, formInputComponent, formErrorHandler } = formProps;
         const { name, initialValue, validateTrigger: formItemValidateTrigger, labelCol: formItemLabelCol, wrapperCol: formItemWrapperCol, errorHandler: formItemErrorHandler } = c.props;
         const defaultValue = !initialValues || isNil(initialValues[name])
             ? initialValue
@@ -25,12 +25,16 @@ function mapChildrenWithFindFormItem(c, formProps) {
         const errorHandler = formItemErrorHandler
             ? formItemErrorHandler
             : formErrorHandler;
+        const inputComponent = c.props.inputComponent
+            ? c.props.inputComponent
+            : formInputComponent;
         return cloneElement(c, {
             initialValue: defaultValue,
             validateTrigger,
             labelCol,
             wrapperCol,
-            errorHandler
+            errorHandler,
+            inputComponent
         });
     }
     const children = (_a = c.props) === null || _a === void 0 ? void 0 : _a.children;
@@ -40,7 +44,7 @@ function mapChildrenWithFindFormItem(c, formProps) {
         }))
         : c;
 }
-export const Form = ({ initialValues, form, style, validateTrigger: formValidateTrigger = 'onChange', labelCol: formLabelCol, wrapperCol: formWrapperCol, errorHandler: formErrorHandler = Toast.show, children }) => {
+export const Form = ({ initialValues, form, style, validateTrigger: formValidateTrigger = 'onChange', labelCol: formLabelCol, wrapperCol: formWrapperCol, errorHandler: formErrorHandler = Toast.show, inputComponent: formInputComponent = TextInput, children }) => {
     const formStyle = style ? [styles.form].concat(style) : [styles.form];
     return (React.createElement(FormContext.Provider, { value: form },
         React.createElement(View, { style: formStyle }, Children.map(children, (child) => {
@@ -50,6 +54,7 @@ export const Form = ({ initialValues, form, style, validateTrigger: formValidate
                 formValidateTrigger,
                 formLabelCol,
                 formWrapperCol,
+                formInputComponent,
                 formErrorHandler
             });
         }))));

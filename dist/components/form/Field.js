@@ -13,6 +13,7 @@ import { FormContext } from './contexts';
 import { HOOK_MARK } from './contexts';
 import { validateField } from './utils';
 import { styleUtils } from '../../utils';
+import { ConfigContext } from '../config-provider';
 export class Field extends Component {
     constructor() {
         super(...arguments);
@@ -70,7 +71,7 @@ export class Field extends Component {
         if (!children) {
             return null;
         }
-        const { col } = this.props;
+        const { col, inputComponent } = this.props;
         let fieldStyle = [];
         if (col) {
             if (col.span) {
@@ -80,9 +81,15 @@ export class Field extends Component {
                 fieldStyle = fieldStyle.concat(styleUtils[`offset-${col.offset}`]);
             }
         }
-        return (React.createElement(View, { style: fieldStyle }, Children.map(children, c => {
-            return cloneElement(c, this.getControlled(c.props));
-        })));
+        return (React.createElement(View, { style: fieldStyle },
+            React.createElement(ConfigContext.Consumer, null, ({ showSoftInputOnFocus }) => {
+                return Children.map(children, c => {
+                    if (c.type === inputComponent) {
+                        return cloneElement(c, this.getControlled(Object.assign(Object.assign({}, c.props), { showSoftInputOnFocus })));
+                    }
+                    return cloneElement(c, this.getControlled(c.props));
+                });
+            })));
     }
 }
 Field.contextType = FormContext;

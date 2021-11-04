@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Text, StyleSheet, TextInput, Dimensions } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { List, Form, Toast, Page, ConfigProvider, NumberInput } from '../src';
+import { List, Form, Toast, Page, NumberInput } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithForm: FC = () => {
@@ -34,94 +34,92 @@ const ListWithForm: FC = () => {
         >
             {
                 ({ width, height }) => (
-                    <ConfigProvider showSoftInputOnFocus={false}>
-                        <Form
-                            form={form}
-                            style={{ width, height: height - 30 }}
-                            initialValues={{
-                                gender: 'male',
-                                age: 11
-                            }}
+                    <Form
+                        form={form}
+                        style={{ width, height: height - 30 }}
+                        initialValues={{
+                            gender: 'male',
+                            age: 11
+                        }}
+                    >
+                        <List
+                            activeIndex={activeIndex}
+                            onChange={handleChange}
+                            style={[styles.list, { width, height: height - 30 }]}
+                            itemStyle={styles.item}
+                            activeItemStyle={styles.activeItem}
+                            // loop={false}
                         >
-                            <List
-                                activeIndex={activeIndex}
-                                onChange={handleChange}
-                                style={[styles.list, { width, height: height - 30 }]}
-                                itemStyle={styles.item}
-                                activeItemStyle={styles.activeItem}
-                                // loop={false}
-                            >
-                                <List.ActivableItem>
-                                    <Text>1 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>2</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>showModal - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>4</Text>
-                                </List.Item>
-                                <List.ActivableItem style={styles.lastItem} autoFocus inputComponent={TextInput}>
-                                    <TextInput placeholder='5 - isActivable' />
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>6</Text>
-                                </List.Item>
-                                <List.ActivableItem autoFocus inputComponent={NumberInput}>
-                                    <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
-                                        <NumberInput placeholder='7 - isActivable age' />
-                                    </Form.Item>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>8</Text>
-                                </List.Item>
-                                <List.Item>
-                                    <Text>10</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>11 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>12</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>13 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>14</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>15 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>16</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>17 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>18</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>19 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>20</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>21 - isActivable</Text>
-                                </List.ActivableItem>
-                                <List.Item>
-                                    <Text>22</Text>
-                                </List.Item>
-                                <List.ActivableItem>
-                                    <Text>23 - isActivable</Text>
-                                </List.ActivableItem>
-                            </List>
-                        </Form>
-                    </ConfigProvider>
+                            <List.ActivableItem>
+                                <Text>1 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>2</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>showModal - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>4</Text>
+                            </List.Item>
+                            <List.ActivableItem style={styles.lastItem} autoFocus inputComponent={TextInput}>
+                                <TextInput placeholder='5 - isActivable' />
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>6</Text>
+                            </List.Item>
+                            <List.ActivableItem autoFocus inputComponent={NumberInput}>
+                                <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
+                                    <NumberInput placeholder='7 - isActivable age' />
+                                </Form.Item>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>8</Text>
+                            </List.Item>
+                            <List.Item>
+                                <Text>10</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>11 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>12</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>13 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>14</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>15 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>16</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>17 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>18</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>19 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>20</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>21 - isActivable</Text>
+                            </List.ActivableItem>
+                            <List.Item>
+                                <Text>22</Text>
+                            </List.Item>
+                            <List.ActivableItem>
+                                <Text>23 - isActivable</Text>
+                            </List.ActivableItem>
+                        </List>
+                    </Form>
                 )
             }
         </Page>

@@ -6,6 +6,7 @@ import ReactNatviePickerDemo from '../ReactNatviePicker';
 import PickerDemo from '../Picker';
 import TreePickerDemo from '../TreePicker';
 import { RadoList } from '../RadoList';
+import { FormDemo } from '../Form';
 
 interface IRouteConfig {
     path: string;
@@ -19,5 +20,6 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'react-native-picker-demo', component: ReactNatviePickerDemo },
     { path: 'picker-demo', component: PickerDemo },
     { path: 'tree-picker-demo', component: TreePickerDemo },
-    { path: 'radio-list', component: RadoList }
+    { path: 'radio-list', component: RadoList },
+    { path: 'form-demo', component: FormDemo }
 ];
