@@ -65,7 +65,7 @@ const ButtonDemo: FC = () => {
     )
 }
 ```
-[](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/button.png)
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/button.png)
 
 ## Props
 ### type
