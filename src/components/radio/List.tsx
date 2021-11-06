@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, ReactText, useContext } from 'react';
-import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native';
 import { IRadioListProps } from './interface';
 import { isObject } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -28,6 +28,15 @@ export const RadioList: FC<IRadioListProps> = ({
             onChange?.(pressedValue);
         }
     }
+    const getItemStyles = (isActive: boolean, index: number): (ViewStyle | null | undefined)[] => {
+        return [
+            styles.item,
+            { borderTopColor: theme.border },
+            isActive && activeColor ? { backgroundColor: activeColor } : null,
+            index === 0 ? { borderTopWidth: 0 } : null,
+            itemStyle
+        ];
+    }
 
     return (
         <View style={style}>
@@ -40,13 +49,7 @@ export const RadioList: FC<IRadioListProps> = ({
                             <Pressable
                                 key={option.value}
                                 onPress={() => handleChange(option.value, option.disabled)}
-                                style={[
-                                    styles.item,
-                                    { borderColor: theme.border },
-                                    isActive && activeColor ? { backgroundColor: activeColor } : null,
-                                    index === 0 ? { borderTopWidth: 0 } : null,
-                                    itemStyle
-                                ]}
+                                style={getItemStyles(isActive, index)}
                             >
                                 <Icon
                                     name='check'
@@ -74,13 +77,7 @@ export const RadioList: FC<IRadioListProps> = ({
                         <Pressable
                             key={option}
                             onPress={() => handleChange(option)}
-                            style={[
-                                styles.item,
-                                { borderColor: theme.border },
-                                isActive && activeColor ? { backgroundColor: activeColor } : null,
-                                index === 0 ? { borderTopWidth: 0 } : null,
-                                itemStyle
-                            ]}
+                            style={getItemStyles(isActive, index)}
                         >
                             <Icon
                                 name='check'
