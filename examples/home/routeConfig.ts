@@ -7,6 +7,8 @@ import PickerDemo from '../Picker';
 import TreePickerDemo from '../TreePicker';
 import { RadoList } from '../RadoList';
 import { FormDemo } from '../Form';
+import { InputDemo } from '../Input';
+import { ButtonDemo } from '../Button';
 
 interface IRouteConfig {
     path: string;
@@ -21,5 +23,7 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'picker-demo', component: PickerDemo },
     { path: 'tree-picker-demo', component: TreePickerDemo },
     { path: 'radio-list', component: RadoList },
-    { path: 'form-demo', component: FormDemo }
+    { path: 'form-demo', component: FormDemo },
+    { path: 'input-demo', component: InputDemo },
+    { path: 'button-demo', component: ButtonDemo }
 ];

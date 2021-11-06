@@ -16,16 +16,19 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
             onChange === null || onChange === void 0 ? void 0 : onChange(pressedValue);
         }
     };
+    const getItemStyles = (isActive, index) => {
+        return [
+            styles.item,
+            { borderTopColor: theme.border },
+            isActive && activeColor ? { backgroundColor: activeColor } : null,
+            index === 0 ? { borderTopWidth: 0 } : null,
+            itemStyle
+        ];
+    };
     return (React.createElement(View, { style: style }, options === null || options === void 0 ? void 0 : options.map((option, index) => {
         if (isObject(option)) {
             const isActive = option.value === value;
-            return (React.createElement(Pressable, { key: option.value, onPress: () => handleChange(option.value, option.disabled), style: [
-                    styles.item,
-                    { borderColor: theme.border },
-                    isActive && activeColor ? { backgroundColor: activeColor } : null,
-                    index === 0 ? { borderTopWidth: 0 } : null,
-                    itemStyle
-                ] },
+            return (React.createElement(Pressable, { key: option.value, onPress: () => handleChange(option.value, option.disabled), style: getItemStyles(isActive, index) },
                 React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
                 React.createElement(Text, { style: [
                         styles.itemText,
@@ -34,13 +37,7 @@ export const RadioList = ({ value: propsValue, options, activeColor: selectedCol
                     ], numberOfLines: 3 }, option.label)));
         }
         const isActive = option === value;
-        return (React.createElement(Pressable, { key: option, onPress: () => handleChange(option), style: [
-                styles.item,
-                { borderColor: theme.border },
-                isActive && activeColor ? { backgroundColor: activeColor } : null,
-                index === 0 ? { borderTopWidth: 0 } : null,
-                itemStyle
-            ] },
+        return (React.createElement(Pressable, { key: option, onPress: () => handleChange(option), style: getItemStyles(isActive, index) },
             React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
             React.createElement(Text, { style: isActive ? styles.activeItemText : null }, option)));
     })));
