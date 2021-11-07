@@ -1,9 +1,10 @@
 import React, { FC, PropsWithChildren, ReactNode, useContext, useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, Button, useWindowDimensions, Text, Dimensions } from 'react-native';
+import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IModalProps, IModalFooter } from './interface';
 import { isUndefined, isString, isFunction } from '../../utils';
 import { ThemeContext } from '../theme-provider';
+import { Button } from '../button';
 
 const screenWith = Dimensions.get('window').width;
 
@@ -34,6 +35,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                 <>
                     <View style={styles.okBtnWrap}>
                         <Button
+                            type='primary'
                             title={okText}
                             onPress={() => { onOk && onOk() }}
                         />
@@ -42,7 +44,6 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                         <Button
                             title={cancelText}
                             onPress={() => { onCancel && onCancel() }}
-                            color='#d7d7d7'
                         />
                     </View>
                 </>

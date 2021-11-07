@@ -10,8 +10,8 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { forwardRef } from 'react';
-import { TextInput } from 'react-native';
 import { regExp } from '../../utils';
+import { Input } from '../input';
 const NumberInput = forwardRef((_a, ref) => {
     var { value, onChangeText, onBlur } = _a, restPropos = __rest(_a, ["value", "onChangeText", "onBlur"]);
     const handleChangeText = (val) => {
@@ -35,7 +35,7 @@ const NumberInput = forwardRef((_a, ref) => {
         }
         onBlur === null || onBlur === void 0 ? void 0 : onBlur(e);
     };
-    return (React.createElement(TextInput, Object.assign({ onChangeText: handleChangeText, value: value ? String(value) : '', onBlur: handleBlur, ref: ref }, restPropos)));
+    return (React.createElement(Input, Object.assign({ onChangeText: handleChangeText, value: value ? String(value) : '', onBlur: handleBlur, ref: ref }, restPropos)));
 });
 NumberInput.displayName = 'NumberInput';
 export default NumberInput;

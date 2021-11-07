@@ -1,11 +1,12 @@
 import React, { FC, PropsWithChildren, Children, ReactElement, cloneElement, ReactNode } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { IFormProps, IParentProps } from './interface';
 import { isNil } from '../../utils';
 import { Toast } from '../toast';
+import { Input } from '../input'
 
 /**
  * 这里实现深度遍历children查找Form.Item组件
@@ -74,7 +75,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
     labelCol: formLabelCol,
     wrapperCol: formWrapperCol,
     errorHandler: formErrorHandler = Toast.show,
-    inputComponent: formInputComponent = TextInput,
+    inputComponent: formInputComponent = Input,
     children
 }: PropsWithChildren<IFormProps>) => {
     const formStyle = style ? [styles.form].concat(style as never) : [styles.form];

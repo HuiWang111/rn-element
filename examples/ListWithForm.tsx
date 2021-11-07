@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
-import { Text, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { Text, StyleSheet, Dimensions } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { List, Form, Toast, Page, NumberInput } from '../src';
+import { List, Form, Toast, Page, NumberInput, Input } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithForm: FC = () => {
@@ -62,8 +62,8 @@ const ListWithForm: FC = () => {
                             <List.Item>
                                 <Text>4</Text>
                             </List.Item>
-                            <List.ActivableItem style={styles.lastItem} autoFocus inputComponent={TextInput}>
-                                <TextInput placeholder='5 - isActivable' />
+                            <List.ActivableItem style={styles.lastItem} autoFocus>
+                                <Input placeholder='5 - isActivable' />
                             </List.ActivableItem>
                             <List.Item>
                                 <Text>6</Text>

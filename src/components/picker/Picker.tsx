@@ -14,7 +14,6 @@ import {
     StyleSheet,
     Dimensions,
     ScrollView,
-    TextInput,
     StyleProp,
     ViewStyle
 } from 'react-native';
@@ -25,6 +24,7 @@ import { PickerContext } from './context';
 import { useArrowUp, useArrowDown } from '../../hooks';
 import { omit } from '../../utils';
 import { ConfigContext } from '../config-provider';
+import { Input } from '../input';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const containerWidth = screenWidth - 40;
@@ -109,7 +109,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
                 {
                     showSearch
                         ? <View style={styles.searchContainer}>
-                            <TextInput
+                            <Input
                                 {...omit(searchInputProps, ['value', 'onChangeText'])}
                                 value={keyword}
                                 onChangeText={handleKeywordChange}

@@ -1,11 +1,12 @@
 import React, { Children, cloneElement, useRef } from 'react';
-import { TextInput, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { useArrowDown, useArrowUp } from '../../hooks';
 import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../../utils';
 import { ListContext } from './context';
+import { Input } from '../input';
 function isActivableListItem(c) {
     return [ActivableListItem, ListItem].includes(c.type);
 }
@@ -44,7 +45,7 @@ function mapChildrenIsActivable(c) {
     }
     return Children.toArray(c.props.children).some((child) => mapChildrenIsActivable(child));
 }
-const ActivableList = ({ activeIndex = 0, loop = true, children, keyboard = true, style, activeItemStyle, itemStyle, inputComponent = TextInput, onChange }) => {
+const ActivableList = ({ activeIndex = 0, loop = true, children, keyboard = true, style, activeItemStyle, itemStyle, inputComponent = Input, onChange }) => {
     const isActivableList = Children.toArray(children).map((child) => mapChildrenIsActivable(child));
     const isAllInactivable = !(isActivableList.some(bool => bool === true));
     const [firstActivableIndex, lastActivableIndex] = useMemo(() => {

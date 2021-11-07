@@ -1,24 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { IInputProps } from './interface';
 
-export const Input: FC<IInputProps> = ({
+export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
     clearable = true,
     editable = true,
     style,
     value,
     onChangeText,
     ...restProps
-}: IInputProps) => {
+}: IInputProps, ref: ForwardedRef<TextInput>) => {
     const handleClear = () => {
         onChangeText?.('');
     }
 
     return (
-        <View>
+        <View style={styles.inputContainer}>
             <TextInput
                 editable={editable}
+                ref={ref}
                 style={[
                     styles.input,
                     style,
@@ -36,11 +37,14 @@ export const Input: FC<IInputProps> = ({
             ) }
         </View>
     );
-}
+})
+
+Input.displayName = 'Input';
 
 const styles = StyleSheet.create({
     inputContainer: {
-        position: 'relative'
+        position: 'relative',
+        width: '100%'
     },
     input: {
         color: '#000'

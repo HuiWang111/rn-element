@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, useRef } from 'react';
-import { TextInput, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { IListProps, IParentProps } from './interface';
 import { useArrowDown, useArrowUp } from '../../hooks';
@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { ListItem, ActivableListItem } from './ListItem';
 import { mergeStyle } from '../../utils';
 import { ListContext } from './context';
+import { Input } from '../input';
 
 function isActivableListItem(c: ReactElement) {
     return [ActivableListItem, ListItem].includes(c.type as never);
@@ -66,7 +67,7 @@ const ActivableList: FC<PropsWithChildren<IListProps>> = ({
     style,
     activeItemStyle,
     itemStyle,
-    inputComponent = TextInput,
+    inputComponent = Input,
     onChange
 }: PropsWithChildren<IListProps>): JSX.Element => {
     /**

@@ -1,10 +1,11 @@
 import React, { Children, cloneElement } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { FormItem } from './FormItem';
 import PropTypes from 'prop-types';
 import { FormContext } from './contexts';
 import { isNil } from '../../utils';
 import { Toast } from '../toast';
+import { Input } from '../input';
 function mapChildrenWithFindFormItem(c, formProps) {
     var _a;
     if (c.type === FormItem) {
@@ -44,7 +45,7 @@ function mapChildrenWithFindFormItem(c, formProps) {
         }))
         : c;
 }
-export const Form = ({ initialValues, form, style, validateTrigger: formValidateTrigger = 'onChange', labelCol: formLabelCol, wrapperCol: formWrapperCol, errorHandler: formErrorHandler = Toast.show, inputComponent: formInputComponent = TextInput, children }) => {
+export const Form = ({ initialValues, form, style, validateTrigger: formValidateTrigger = 'onChange', labelCol: formLabelCol, wrapperCol: formWrapperCol, errorHandler: formErrorHandler = Toast.show, inputComponent: formInputComponent = Input, children }) => {
     const formStyle = style ? [styles.form].concat(style) : [styles.form];
     return (React.createElement(FormContext.Provider, { value: form },
         React.createElement(View, { style: formStyle }, Children.map(children, (child) => {

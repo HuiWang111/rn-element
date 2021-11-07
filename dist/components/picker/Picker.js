@@ -1,11 +1,12 @@
 import React, { Children, cloneElement, useEffect, useState, useContext } from 'react';
-import { View, StyleSheet, Dimensions, ScrollView, TextInput } from 'react-native';
+import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Mask } from '../base/Mask';
 import { PickerFooter } from '../base/PickerFooter';
 import { PickerContext } from './context';
 import { useArrowUp, useArrowDown } from '../../hooks';
 import { omit } from '../../utils';
 import { ConfigContext } from '../config-provider';
+import { Input } from '../input';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const containerWidth = screenWidth - 40;
 const containerHeight = screenHeight - 90;
@@ -59,7 +60,7 @@ export const Picker = ({ zIndex, maskStyle, children, value: propsValue, activeI
         React.createElement(View, { style: styles.container },
             showSearch
                 ? React.createElement(View, { style: styles.searchContainer },
-                    React.createElement(TextInput, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, onChangeText: handleKeywordChange, showSoftInputOnFocus: showSoftInputOnFocus })))
+                    React.createElement(Input, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, onChangeText: handleKeywordChange, showSoftInputOnFocus: showSoftInputOnFocus })))
                 : null,
             React.createElement(ScrollView, { style: scrollViewStyle },
                 React.createElement(PickerContext.Provider, { value: { setValue, activeItemStyle, itemStyle } }, Children.map(children, (item) => {

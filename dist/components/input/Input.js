@@ -9,16 +9,16 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-export const Input = (_a) => {
+export const Input = forwardRef((_a, ref) => {
     var { clearable = true, editable = true, style, value, onChangeText } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "value", "onChangeText"]);
     const handleClear = () => {
         onChangeText === null || onChangeText === void 0 ? void 0 : onChangeText('');
     };
-    return (React.createElement(View, null,
-        React.createElement(TextInput, Object.assign({ editable: editable, style: [
+    return (React.createElement(View, { style: styles.inputContainer },
+        React.createElement(TextInput, Object.assign({ editable: editable, ref: ref, style: [
                 styles.input,
                 style,
                 !editable ? styles.disabledInput : null,
@@ -26,10 +26,12 @@ export const Input = (_a) => {
             ], value: value, onChangeText: onChangeText }, restProps)),
         clearable && editable && Boolean(value) && (React.createElement(View, { style: styles.closeIconWrap },
             React.createElement(Icon, { name: 'closecircle', style: styles.closeIcon, onPress: handleClear })))));
-};
+});
+Input.displayName = 'Input';
 const styles = StyleSheet.create({
     inputContainer: {
-        position: 'relative'
+        position: 'relative',
+        width: '100%'
     },
     input: {
         color: '#000'

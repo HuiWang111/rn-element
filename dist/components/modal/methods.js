@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
 import { Modal } from './Modal';
 import { omit, colors } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { Button } from '../button';
 let sibling = null;
 const typeMapIcon = {
     confirm: 'questioncircleo',
@@ -82,7 +83,7 @@ export const confirm = (config) => {
     return method('confirm', config);
 };
 const customizedFooter = ({ onOk, okText }) => (React.createElement(View, { style: styles.button },
-    React.createElement(Button, { title: okText || '知道了', onPress: () => { onOk && onOk(); } })));
+    React.createElement(Button, { type: 'primary', title: okText || '知道了', onPress: () => { onOk && onOk(); } })));
 export const info = (config) => {
     return method('info', Object.assign(Object.assign({}, config), { footer: customizedFooter }));
 };

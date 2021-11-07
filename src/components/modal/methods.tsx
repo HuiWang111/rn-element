@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
 import { Modal } from './Modal';
 import { IModalConfig, IModalType } from './interface';
 import { omit, colors } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { Button } from '../button';
 
 let sibling: null | RootSiblings = null;
 const typeMapIcon = {
@@ -113,6 +114,7 @@ export const confirm = (config: IModalConfig) => {
 const customizedFooter = ({ onOk, okText }) => (
     <View style={styles.button}>
         <Button
+            type='primary'
             title={okText || '知道了'}
             onPress={() => { onOk && onOk() }}
         />

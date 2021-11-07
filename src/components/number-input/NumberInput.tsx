@@ -1,14 +1,15 @@
-import React, { FC, forwardRef, LegacyRef } from 'react';
-import { TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react';
+import { NativeSyntheticEvent, TextInputFocusEventData, TextInput } from 'react-native';
 import { INumberInputProps } from './interface';
 import { regExp } from '../../utils';
+import { Input } from '../input';
 
-const NumberInput: FC<INumberInputProps> = forwardRef(({
+const NumberInput: FC<INumberInputProps & ClassAttributes<TextInput>> = forwardRef(({
     value,
     onChangeText,
     onBlur,
     ...restPropos
-}: INumberInputProps, ref) => {
+}: INumberInputProps, ref: ForwardedRef<TextInput>) => {
     const handleChangeText = (val: string) => {
         if (!onChangeText) {
             return;
@@ -39,11 +40,11 @@ const NumberInput: FC<INumberInputProps> = forwardRef(({
     }
     
     return (
-        <TextInput
+        <Input
             onChangeText={handleChangeText}
             value={value ? String(value) : ''}
             onBlur={handleBlur}
-            ref={ref as (LegacyRef<TextInput> | undefined)}
+            ref={ref}
             { ...restPropos }
         />
     );
