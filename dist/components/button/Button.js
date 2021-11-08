@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ThemeContext } from '../theme-provider';
-export const Button = ({ type = 'default', danger = false, title, style, loading = false, disabled = false, spinnerStyle, onPress }) => {
+export const Button = ({ type = 'default', danger = false, title, style, loading = false, disabled = false, spinnerStyle, titleStyle, onPress }) => {
     const { primary, error } = useContext(ThemeContext);
     const isPrimary = type === 'primary';
     let spinnerColor = '#000000d9';
@@ -42,6 +42,7 @@ export const Button = ({ type = 'default', danger = false, title, style, loading
             ] })),
         React.createElement(Text, { style: [
                 styles.buttonTitle,
+                titleStyle,
                 danger ? { color: error } : null,
                 isPrimary ? { color: '#fff' } : null,
                 disabled ? styles.disabledText : null

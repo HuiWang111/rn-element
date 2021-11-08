@@ -5,6 +5,7 @@ import { Button, Page } from '../src';
 
 export const ButtonDemo: FC = () => {
     const history = useHistory()
+    const handlePress = () => console.info('press')
 
     return (
         <Page
@@ -24,40 +25,40 @@ export const ButtonDemo: FC = () => {
                 ({ width, height }) => (
                     <ScrollView style={{ width, height: height - 60 }}>
                         <View>
-                            <Button title='default' />
+                            <Button title='default' onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='default-danger' danger />
+                            <Button title='default-danger' danger onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='primary' type='primary' />
+                            <Button title='primary' type='primary' onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='primary-danger' type='primary' danger />
+                            <Button title='primary-danger' type='primary' danger onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='default' loading />
+                            <Button title='default' loading onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='default-danger' danger loading />
+                            <Button title='default-danger' danger loading onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='primary' type='primary' loading />
+                            <Button title='primary' type='primary' loading onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='primary-danger' type='primary' danger loading />
+                            <Button title='primary-danger' type='primary' danger loading onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='default' disabled />
+                            <Button title='default' disabled onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='default-danger' danger disabled />
+                            <Button title='default-danger' danger disabled onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='primary' type='primary' disabled />
+                            <Button title='primary' type='primary' disabled onPress={handlePress} />
                         </View>
                         <View style={{ marginTop: 20 }}>
-                            <Button title='primary-danger' type='primary' danger disabled />
+                            <Button title='primary-danger' type='primary' danger disabled onPress={handlePress} />
                         </View>
                     </ScrollView>
                 )

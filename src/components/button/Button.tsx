@@ -11,6 +11,7 @@ export const Button: FC<IButtonProps> = ({
     loading = false,
     disabled = false,
     spinnerStyle,
+    titleStyle,
     onPress
 }: IButtonProps) => {
     const { primary, error } = useContext(ThemeContext);
@@ -72,6 +73,7 @@ export const Button: FC<IButtonProps> = ({
             <Text
                 style={[
                     styles.buttonTitle,
+                    titleStyle,
                     danger ? { color: error } : null,
                     isPrimary ? { color: '#fff' } : null,
                     disabled ? styles.disabledText : null
