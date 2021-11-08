@@ -4,7 +4,9 @@ import { ThemeContext } from '../theme-provider';
 export const Button = ({ type = 'default', danger = false, title, style, loading = false, disabled = false, spinnerStyle, titleStyle, onPress }) => {
     const { primary, error } = useContext(ThemeContext);
     const isPrimary = type === 'primary';
-    let spinnerColor = '#000000d9';
+    let spinnerColor = spinnerStyle && spinnerStyle.color
+        ? spinnerStyle.color
+        : '#000000d9';
     let activeOpacity = 0.2;
     if (danger) {
         spinnerColor = error;

@@ -16,7 +16,9 @@ export const Button: FC<IButtonProps> = ({
 }: IButtonProps) => {
     const { primary, error } = useContext(ThemeContext);
     const isPrimary = type === 'primary';
-    let spinnerColor = '#000000d9';
+    let spinnerColor = spinnerStyle && spinnerStyle.color
+        ? spinnerStyle.color
+        : '#000000d9';
     let activeOpacity = 0.2;
 
     if (danger) {

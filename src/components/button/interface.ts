@@ -7,7 +7,7 @@ export interface IButtonProps {
     style?: ViewStyle;
     loading?: boolean;
     disabled?: boolean;
-    spinnerStyle?: ViewStyle;
+    spinnerStyle?: ViewStyle & { color: string, };
     titleStyle?: TextStyle;
     onPress?: () => void;
 }
