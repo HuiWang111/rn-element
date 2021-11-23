@@ -13,11 +13,14 @@ import React, { forwardRef } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 export const Input = forwardRef((_a, ref) => {
-    var { clearable = true, editable = true, style, value, onChangeText } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "value", "onChangeText"]);
+    var { clearable = true, editable = true, style, wrapStyle, value, onChangeText } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "wrapStyle", "value", "onChangeText"]);
     const handleClear = () => {
         onChangeText === null || onChangeText === void 0 ? void 0 : onChangeText('');
     };
-    return (React.createElement(View, { style: styles.inputContainer },
+    return (React.createElement(View, { style: [
+            styles.inputContainer,
+            wrapStyle
+        ] },
         React.createElement(TextInput, Object.assign({ editable: editable, ref: ref, style: [
                 styles.input,
                 style,
@@ -31,7 +34,8 @@ Input.displayName = 'Input';
 const styles = StyleSheet.create({
     inputContainer: {
         position: 'relative',
-        width: '100%'
+        width: '100%',
+        height: '100%'
     },
     input: {
         color: '#000'

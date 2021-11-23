@@ -7,6 +7,7 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
     clearable = true,
     editable = true,
     style,
+    wrapStyle,
     value,
     onChangeText,
     ...restProps
@@ -16,7 +17,10 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
     }
 
     return (
-        <View style={styles.inputContainer}>
+        <View style={[
+            styles.inputContainer,
+            wrapStyle
+        ]}>
             <TextInput
                 editable={editable}
                 ref={ref}
@@ -44,7 +48,8 @@ Input.displayName = 'Input';
 const styles = StyleSheet.create({
     inputContainer: {
         position: 'relative',
-        width: '100%'
+        width: '100%',
+        height: '100%'
     },
     input: {
         color: '#000'
