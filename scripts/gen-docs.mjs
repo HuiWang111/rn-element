@@ -6,10 +6,12 @@ const baseURL = 'https://github.com/HuiWang111/rn-element/blob/main/docs/';
 let READMEContent = initializeREADME();
 
 docs.forEach(doc => {
-    const fileName = doc.split('.')[0];
-
-    READMEContent += `- [${fileName}](${baseURL}${doc})
-`;
+    if (/\.md$/.test(doc)) {
+        const fileName = doc.split('.')[0];
+    
+        READMEContent += `- [${fileName}](${baseURL}${doc})
+`;  
+    }
 });
 
 fs.writeFileSync(
