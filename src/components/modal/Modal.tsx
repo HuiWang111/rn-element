@@ -6,7 +6,7 @@ import { isUndefined, isString, isFunction } from '../../utils';
 import { ThemeContext } from '../theme-provider';
 import { Button } from '../button';
 
-const screenWith = Dimensions.get('window').width;
+const screenWidth = Dimensions.get('window').width;
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
@@ -37,13 +37,13 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                         <Button
                             type='primary'
                             title={okText}
-                            onPress={() => { onOk && onOk() }}
+                            onPress={() => { onOk?.() }}
                         />
                     </View>
                     <View style={styles.cancalBtnWrap}>
                         <Button
                             title={cancelText}
-                            onPress={() => { onCancel && onCancel() }}
+                            onPress={() => { onCancel?.() }}
                         />
                     </View>
                 </>
@@ -63,7 +63,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     }
 
     useEffect(() => {
-        onVisibleChange && onVisibleChange(visible);
+        onVisibleChange?.(visible);
     }, [visible, onVisibleChange]);
     
     return (
@@ -91,7 +91,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                                 >
                                     {
                                         isString(title)
-                                            ? <Text>{title}</Text>
+                                            ? <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{title}</Text>
                                             : title
                                     }
                                 </View>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
-        width: screenWith - 40,
+        width: screenWidth - 40,
         margin: 20,
         backgroundColor: '#fff',
         borderRadius: 20,

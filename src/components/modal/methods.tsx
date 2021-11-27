@@ -116,7 +116,7 @@ const customizedFooter = ({ onOk, okText }) => (
         <Button
             type='primary'
             title={okText || '知道了'}
-            onPress={() => { onOk && onOk() }}
+            onPress={onOk}
         />
     </View>
 )
