@@ -26,6 +26,7 @@
     onChange={handleChange}
 />
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/radiolist.png)
 
 ## Props
 ### value

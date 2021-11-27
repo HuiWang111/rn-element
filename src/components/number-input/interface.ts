@@ -1,6 +1,6 @@
-import { TextInputProps } from 'react-native';
+import { IInputProps } from '../input/interface'
 
-export interface INumberInputProps extends Omit<TextInputProps, 'onChangeText' | 'value'> {
+export interface INumberInputProps extends Omit<IInputProps, 'onChangeText' | 'value'> {
     // max?: number;
     // min?: number;
     // precision?: number;

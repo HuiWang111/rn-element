@@ -26,7 +26,7 @@ export const InputDemo: FC = () => {
         >
             {
                 ({ width, height }) => (
-                    <View style={{ width, height: height - 30 }}>
+                    <View style={{ width, height: height - 30, paddingHorizontal: 10 }}>
                         <View>
                             <Input clearable value={value} onChangeText={handleChange} />
                         </View>

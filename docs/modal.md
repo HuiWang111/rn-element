@@ -21,31 +21,37 @@ const ModalDemo = () => {
     );
 }
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/modal.png)
 
 ## Modal.confirm
 ```ts
 Modal.confirm(config);
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/modalConfirm.png)
 
 ## Modal.info
 ```ts
 Modal.info(config);
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/modalInfo.png)
 
 ## Modal.error
 ```ts
 Modal.error(config);
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/modalError.png)
 
 ## Modal.success
 ```ts
 Modal.success(config);
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/modalSuccess.png)
 
 ## Modal.warning
 ```ts
 Modal.warning(config);
 ```
+![screenShot](https://github.com/HuiWang111/rn-element/blob/main/docs/assets/modalConfirm.png)
 
 ## config
 ```ts
