@@ -39,6 +39,6 @@ export { styleUtils, mergeStyle } from './styles';
 
 export { StyleType } from './interface';
 
-export { omit, keyBy } from './tools';
+export { omit, keyBy, isArrayShallowEqual, last } from './tools';
 
 export { regExp };

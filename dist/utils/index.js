@@ -11,5 +11,5 @@ export const colors = {
     success
 };
 export { styleUtils, mergeStyle } from './styles';
-export { omit, keyBy } from './tools';
+export { omit, keyBy, isArrayShallowEqual, last } from './tools';
 export { regExp };

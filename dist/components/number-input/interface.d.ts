@@ -1,5 +1,5 @@
-import { TextInputProps } from 'react-native';
-export interface INumberInputProps extends Omit<TextInputProps, 'onChangeText' | 'value'> {
+import { IInputProps } from '../input/interface';
+export interface INumberInputProps extends Omit<IInputProps, 'onChangeText' | 'value'> {
     value?: number | string | undefined;
     onChangeText?: (value: number | string | undefined) => void;
 }

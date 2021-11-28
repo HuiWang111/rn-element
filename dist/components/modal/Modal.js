@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { isUndefined, isString, isFunction } from '../../utils';
 import { ThemeContext } from '../theme-provider';
 import { Button } from '../button';
-const screenWith = Dimensions.get('window').width;
+const screenWidth = Dimensions.get('window').width;
 export const Modal = (_a) => {
     var { title, footer, zIndex, okText = '确定', cancelText = '取消', titleStyle, bodyStyle, footerStyle, onOk, onCancel, children, visible = false, onVisibleChange } = _a, restProps = __rest(_a, ["title", "footer", "zIndex", "okText", "cancelText", "titleStyle", "bodyStyle", "footerStyle", "onOk", "onCancel", "children", "visible", "onVisibleChange"]);
     const { width } = useWindowDimensions();
@@ -27,9 +27,9 @@ export const Modal = (_a) => {
         if (isUndefined(footer)) {
             return (React.createElement(React.Fragment, null,
                 React.createElement(View, { style: styles.okBtnWrap },
-                    React.createElement(Button, { type: 'primary', title: okText, onPress: () => { onOk && onOk(); } })),
+                    React.createElement(Button, { type: 'primary', title: okText, onPress: () => { onOk === null || onOk === void 0 ? void 0 : onOk(); } })),
                 React.createElement(View, { style: styles.cancalBtnWrap },
-                    React.createElement(Button, { title: cancelText, onPress: () => { onCancel && onCancel(); } }))));
+                    React.createElement(Button, { title: cancelText, onPress: () => { onCancel === null || onCancel === void 0 ? void 0 : onCancel(); } }))));
         }
         if (isFunction(footer)) {
             return footer({
@@ -42,7 +42,7 @@ export const Modal = (_a) => {
         return footer;
     };
     useEffect(() => {
-        onVisibleChange && onVisibleChange(visible);
+        onVisibleChange === null || onVisibleChange === void 0 ? void 0 : onVisibleChange(visible);
     }, [visible, onVisibleChange]);
     return (React.createElement(ReactNativeModal, Object.assign({ animationType: 'slide', transparent: true, style: {
             zIndex
@@ -56,7 +56,7 @@ export const Modal = (_a) => {
                             commonStyle,
                             titleStyle
                         ] }, isString(title)
-                        ? React.createElement(Text, null, title)
+                        ? React.createElement(Text, { style: { fontSize: 18, fontWeight: 'bold' } }, title)
                         : title))
                     : null,
                 children
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
-        width: screenWith - 40,
+        width: screenWidth - 40,
         margin: 20,
         backgroundColor: '#fff',
         borderRadius: 20,

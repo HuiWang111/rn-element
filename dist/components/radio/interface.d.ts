@@ -1,15 +1,5 @@
-import { ReactText } from 'react';
-import { ViewStyle } from 'react-native';
-export interface IRadioListOption {
-    label: string;
-    value: ReactText;
-    disabled?: boolean;
-}
-export interface IRadioListProps {
-    value?: ReactText;
-    options?: ReactText[] | IRadioListOption[];
-    onChange?: (value: ReactText) => void;
-    activeColor?: string;
-    style?: ViewStyle;
-    itemStyle?: ViewStyle;
+import { ICheckListProps } from '../checkbox/interface';
+export interface IRadioListProps extends Omit<ICheckListProps, 'value' | 'onChange'> {
+    value?: string;
+    onChange?: (value?: string) => void;
 }

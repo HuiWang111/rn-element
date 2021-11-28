@@ -1,65 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
-import { isObject } from '../../utils';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { ThemeContext } from '../theme-provider';
-const { width } = Dimensions.get('window');
-export const RadioList = ({ value: propsValue, options, activeColor: selectedColor, style, itemStyle, onChange }) => {
-    const [value, setValue] = useState(propsValue);
-    const theme = useContext(ThemeContext);
-    const activeColor = selectedColor || theme.primary;
-    useEffect(() => {
-        setValue(propsValue);
-    }, [propsValue]);
-    const handleChange = (pressedValue, disabled = false) => {
-        if (!disabled && value !== pressedValue) {
-            onChange === null || onChange === void 0 ? void 0 : onChange(pressedValue);
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
         }
-    };
-    const getItemStyles = (isActive, index) => {
-        return [
-            styles.item,
-            { borderTopColor: theme.border },
-            isActive && activeColor ? { backgroundColor: activeColor } : null,
-            index === 0 ? { borderTopWidth: 0 } : null,
-            itemStyle
-        ];
-    };
-    return (React.createElement(View, { style: style }, options === null || options === void 0 ? void 0 : options.map((option, index) => {
-        if (isObject(option)) {
-            const isActive = option.value === value;
-            return (React.createElement(Pressable, { key: option.value, onPress: () => handleChange(option.value, option.disabled), style: getItemStyles(isActive, index) },
-                React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
-                React.createElement(Text, { style: [
-                        styles.itemText,
-                        isActive ? styles.activeItemText : null,
-                        option.disabled ? { color: theme.border } : null
-                    ], numberOfLines: 3 }, option.label)));
-        }
-        const isActive = option === value;
-        return (React.createElement(Pressable, { key: option, onPress: () => handleChange(option), style: getItemStyles(isActive, index) },
-            React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
-            React.createElement(Text, { style: isActive ? styles.activeItemText : null }, option)));
-    })));
+    return t;
 };
-const styles = StyleSheet.create({
-    item: {
-        width,
-        paddingHorizontal: 10,
-        paddingVertical: 15,
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        borderTopWidth: 1,
-        position: 'relative',
-        alignItems: 'center'
-    },
-    itemText: {
-        width: width - 40
-    },
-    activeItemText: {
-        color: '#fff'
-    },
-    checkIcon: {
-        marginRight: 10
-    }
-});
+import React from 'react';
+import { last } from '../../utils';
+import { CheckList } from '../checkbox';
+export const RadioList = (_a) => {
+    var { value, onChange } = _a, rest = __rest(_a, ["value", "onChange"]);
+    const handleChange = (value) => {
+        onChange === null || onChange === void 0 ? void 0 : onChange(value.length ? last(value) : undefined);
+    };
+    return (React.createElement(CheckList, Object.assign({}, rest, { value: value ? [value] : undefined, onChange: handleChange })));
+};

@@ -9,6 +9,7 @@ import { RadoList } from '../RadoList';
 import { FormDemo } from '../Form';
 import { InputDemo } from '../Input';
 import { ButtonDemo } from '../Button';
+import { CheckListDemo } from '../CheckList'
 
 interface IRouteConfig {
     path: string;
@@ -25,5 +26,6 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'radio-list', component: RadoList },
     { path: 'form-demo', component: FormDemo },
     { path: 'input-demo', component: InputDemo },
-    { path: 'button-demo', component: ButtonDemo }
+    { path: 'button-demo', component: ButtonDemo },
+    { path: 'check-list', component: CheckListDemo }
 ];

@@ -12,6 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React, { forwardRef } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { colors } from '../../utils';
 export const Input = forwardRef((_a, ref) => {
     var { clearable = true, editable = true, style, wrapStyle, value, onChangeText } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "wrapStyle", "value", "onChangeText"]);
     const handleClear = () => {
@@ -19,7 +20,8 @@ export const Input = forwardRef((_a, ref) => {
     };
     return (React.createElement(View, { style: [
             styles.inputContainer,
-            wrapStyle
+            wrapStyle,
+            !editable ? styles.disabledInputContainer : null
         ] },
         React.createElement(TextInput, Object.assign({ editable: editable, ref: ref, style: [
                 styles.input,
@@ -33,30 +35,34 @@ export const Input = forwardRef((_a, ref) => {
 Input.displayName = 'Input';
 const styles = StyleSheet.create({
     inputContainer: {
-        position: 'relative',
+        flexDirection: 'row',
+        height: 40,
         width: '100%',
-        height: '100%'
+        paddingHorizontal: 5,
+        borderWidth: 1,
+        borderColor: colors.border,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderRadius: 2
     },
-    input: {
-        color: '#000'
-    },
-    disabledInput: {
+    disabledInputContainer: {
         backgroundColor: '#f5f5f5',
-        color: '#00000040',
         borderColor: '#d9d9d9'
     },
+    input: {
+        color: '#000',
+        flex: 1
+    },
+    disabledInput: {
+        color: '#00000040'
+    },
     closeIconWrap: {
-        width: 20,
-        height: '100%',
-        position: 'absolute',
-        right: 2,
-        top: 0,
+        width: 14,
+        height: 14,
         justifyContent: 'center',
         alignItems: 'center'
     },
     closeIcon: {
-        color: '#00000040',
-        width: 20,
-        height: 20
+        color: '#00000040'
     }
 });

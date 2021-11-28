@@ -83,7 +83,7 @@ export const confirm = (config) => {
     return method('confirm', config);
 };
 const customizedFooter = ({ onOk, okText }) => (React.createElement(View, { style: styles.button },
-    React.createElement(Button, { type: 'primary', title: okText || '知道了', onPress: () => { onOk && onOk(); } })));
+    React.createElement(Button, { type: 'primary', title: okText || '知道了', onPress: onOk })));
 export const info = (config) => {
     return method('info', Object.assign(Object.assign({}, config), { footer: customizedFooter }));
 };

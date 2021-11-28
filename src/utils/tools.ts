@@ -37,3 +37,27 @@ export function keyBy<T extends Record<string, any>>(
         return map;
     }, {});
 }
+
+export function isArrayShallowEqual(arr1: any[], arr2: any[]) {
+    if (!isArray(arr1) || !isArray(arr2)) {
+        return false
+    }
+
+    if (arr1.length !== arr2.length) {
+        return false
+    }
+
+    if (arr1.length === 0 && arr2.length === 0) {
+        return true
+    }
+
+    if (arr1.some((item, index) => item !== arr2[index])) {
+        return false
+    }
+
+    return true
+}
+
+export function last(arr: any[]): any {
+    return arr[arr.length - 1]
+}
