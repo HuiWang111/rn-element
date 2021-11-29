@@ -9,7 +9,7 @@ export const RadioList: FC<IRadioListProps> = ({
     ...rest
 }: IRadioListProps) => {
     const handleChange = (value: string[]): void => {
-        onChange?.(value.length ? last(value) : undefined)
+        onChange?.(last(value))
     }
 
     return (

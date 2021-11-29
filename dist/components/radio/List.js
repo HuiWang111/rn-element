@@ -15,7 +15,7 @@ import { CheckList } from '../checkbox';
 export const RadioList = (_a) => {
     var { value, onChange } = _a, rest = __rest(_a, ["value", "onChange"]);
     const handleChange = (value) => {
-        onChange === null || onChange === void 0 ? void 0 : onChange(value.length ? last(value) : undefined);
+        onChange === null || onChange === void 0 ? void 0 : onChange(last(value));
     };
     return (React.createElement(CheckList, Object.assign({}, rest, { value: value ? [value] : undefined, onChange: handleChange })));
 };
