@@ -33,8 +33,12 @@ const styles = StyleSheet.create({
 export class Toast {
     private static setDefaultOptions(options?: IShowToastOptions): IShowToastOptions {
         options = options ? { ...options } : {};
+        /**
+         * 默认位置改为 BOTTOM
+         * 使用CENTER时和Modal一起使用会出现被Modal覆盖的情况
+         */
         if (options.position == null) {
-            options.position = RootToast.positions.CENTER;
+            options.position = RootToast.positions.BOTTOM;
         }
 
         return options;
