@@ -19,7 +19,7 @@ export class Toast {
     static setDefaultOptions(options) {
         options = options ? Object.assign({}, options) : {};
         if (options.position == null) {
-            options.position = RootToast.positions.CENTER;
+            options.position = RootToast.positions.BOTTOM;
         }
         return options;
     }
