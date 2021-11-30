@@ -3,24 +3,24 @@
 ## 示例
 ```tsx
 <RadioList
-    value={checked}
+    value={'1'}
     options={[
         {
             label: '一一一一一一一一一一一一一一一一一一一一一一一一一一一一',
-            value: 1
+            value: '1'
         },
         {
             label: '二二二二二二二二二二二二二二二二二二二二二二二二二二二二',
-            value: 2
+            value: '2'
         },
         {
             label: '三三三三三三三三三三三三三三三三三三三三三三三三三三三三',
-            value: 3,
+            value: '3',
             disabled: true
         },
         {
             label: '四四四四四四四四四四四四四四四四四四四四四四四四四四四四',
-            value: 4
+            value: '4'
         }
     ]}
     onChange={handleChange}
@@ -32,7 +32,7 @@
 ### value
 | type | default | required |
 | ---- | ---- | ---- |
-| ReactText | none | false |
+| string | none | false |
 
 ### options
 | type | default | required |

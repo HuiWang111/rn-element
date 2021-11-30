@@ -14,6 +14,7 @@ npm run version -- --major # break api
 
 ## usage docs
 - [button](https://github.com/HuiWang111/rn-element/blob/main/docs/button.md)
+- [check-list](https://github.com/HuiWang111/rn-element/blob/main/docs/check-list.md)
 - [config-provider](https://github.com/HuiWang111/rn-element/blob/main/docs/config-provider.md)
 - [constants](https://github.com/HuiWang111/rn-element/blob/main/docs/constants.md)
 - [download](https://github.com/HuiWang111/rn-element/blob/main/docs/download.md)
