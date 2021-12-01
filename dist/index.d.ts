@@ -13,5 +13,6 @@ export { RadioList } from './components/radio';
 export { Input } from './components/input';
 export { Button } from './components/button';
 export { CheckList } from './components/checkbox';
+export { Switch, ISwitchProps } from './components/switch';
 export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './hooks';
 export { KeyCode } from './constants';

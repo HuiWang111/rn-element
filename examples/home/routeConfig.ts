@@ -10,6 +10,7 @@ import { FormDemo } from '../Form';
 import { InputDemo } from '../Input';
 import { ButtonDemo } from '../Button';
 import { CheckListDemo } from '../CheckList'
+import { SwitchDemo } from '../Switch'
 
 interface IRouteConfig {
     path: string;
@@ -27,5 +28,6 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'form-demo', component: FormDemo },
     { path: 'input-demo', component: InputDemo },
     { path: 'button-demo', component: ButtonDemo },
-    { path: 'check-list', component: CheckListDemo }
+    { path: 'check-list', component: CheckListDemo },
+    { path: 'switch', component: SwitchDemo }
 ];

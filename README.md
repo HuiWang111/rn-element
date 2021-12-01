@@ -28,6 +28,7 @@ npm run version -- --major # break api
 - [number-input](https://github.com/HuiWang111/rn-element/blob/main/docs/number-input.md)
 - [page](https://github.com/HuiWang111/rn-element/blob/main/docs/page.md)
 - [radio-list](https://github.com/HuiWang111/rn-element/blob/main/docs/radio-list.md)
+- [swtich](https://github.com/HuiWang111/rn-element/blob/main/docs/swtich.md)
 - [theme-provider](https://github.com/HuiWang111/rn-element/blob/main/docs/theme-provider.md)
 - [toast](https://github.com/HuiWang111/rn-element/blob/main/docs/toast.md)
 - [webView](https://github.com/HuiWang111/rn-element/blob/main/docs/webView.md)
