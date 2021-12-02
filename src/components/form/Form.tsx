@@ -18,6 +18,7 @@ function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): 
             formValidateTrigger,
             formLabelCol,
             formWrapperCol,
+            formWrapperStyle,
             formInputComponent,
             formErrorHandler
         } = formProps;
@@ -27,7 +28,9 @@ function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): 
             validateTrigger: formItemValidateTrigger,
             labelCol: formItemLabelCol,
             wrapperCol: formItemWrapperCol,
-            errorHandler: formItemErrorHandler
+            errorHandler: formItemErrorHandler,
+            wrapperStyle: formItemWrapperStyle,
+            inputComponent: formItemInputComponent
         } = c.props;
         const defaultValue = !initialValues || isNil(initialValues[name])
             ? initialValue
@@ -44,9 +47,12 @@ function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): 
         const errorHandler = formItemErrorHandler
             ? formItemErrorHandler
             : formErrorHandler;
-        const inputComponent = c.props.inputComponent
-            ? c.props.inputComponent
+        const inputComponent = formItemInputComponent
+            ? formItemInputComponent
             : formInputComponent;
+        const wrapperStyle = formItemWrapperStyle
+            ? formItemWrapperStyle
+            : formWrapperStyle
 
         return cloneElement(c, {
             initialValue: defaultValue,
@@ -54,7 +60,8 @@ function mapChildrenWithFindFormItem(c: ReactElement, formProps: IParentProps): 
             labelCol,
             wrapperCol,
             errorHandler,
-            inputComponent
+            inputComponent,
+            wrapperStyle
         });
     }
 
@@ -71,6 +78,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
     initialValues,
     form,
     style,
+    wrapperStyle: formWrapperStyle,
     validateTrigger: formValidateTrigger = 'onChange',
     labelCol: formLabelCol,
     wrapperCol: formWrapperCol,
@@ -92,6 +100,7 @@ export const Form: FC<PropsWithChildren<IFormProps>> = ({
                             formValidateTrigger,
                             formLabelCol,
                             formWrapperCol,
+                            formWrapperStyle,
                             formInputComponent,
                             formErrorHandler
                         });

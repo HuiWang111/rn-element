@@ -37,12 +37,12 @@
 ### options
 | type | default | required |
 | ---- | ---- | ---- |
-| string[] or ICheckListOption[] | none | none |
+| string[] or ICheckListOption[] | none | false |
 
 ### onChange
 | type | default | required |
 | ---- | ---- | ---- |
-| Function | none | none |
+| Function | none | false |
 
 ## Interfaces
 ### ICheckListOption

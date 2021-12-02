@@ -82,9 +82,9 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             return null;
         }
 
-        const { col, inputComponent } = this.props;
+        const { col, inputComponent, style } = this.props;
 
-        let fieldStyle: ViewStyle[] = [{ justifyContent: 'center', alignItems: 'center' }];
+        let fieldStyle: (ViewStyle | undefined)[] = [{ justifyContent: 'center', alignItems: 'center' }, style];
         if (col) {
             if (col.span) {
                 fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);

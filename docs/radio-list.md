@@ -37,12 +37,12 @@
 ### options
 | type | default | required |
 | ---- | ---- | ---- |
-| string[] or IRadioListOption[] | none | none |
+| string[] or IRadioListOption[] | none | false |
 
 ### onChange
 | type | default | required |
 | ---- | ---- | ---- |
-| Function | none | none |
+| Function | none | false |
 
 ## Interfaces
 ### IRadioListOption

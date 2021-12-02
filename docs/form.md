@@ -74,6 +74,12 @@ form容器的style属性
 | ---- | ---- | ---- |
 | ViewStyle | none | false |
 
+### wrapperStyle
+需要为输入控件设置样式时，使用该属性
+| type | default | required |
+| ---- | ---- | ---- |
+| ViewStyle | none | false |
+
 ### validateTrigger
 统一设置字段触发验证的时机
 | type | default | required |
@@ -148,6 +154,12 @@ label标签布局，如 { span: 3, offset: 12 }，如果与Form的冲突，以Fo
 
 ### wrapperCol
 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol
+
+### wrapperStyle
+需要为输入控件设置样式时，使用该属性
+| type | default | required |
+| ---- | ---- | ---- |
+| ViewStyle | none | false |
 
 ## rules
 以下参数可以去[ant-form](https://ant.design/components/form-cn/)的文档查看具体的含义

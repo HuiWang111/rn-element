@@ -5,7 +5,7 @@ import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';
 import { isFunction } from '../../utils';
-export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName = 'value', changeMethodName = 'onChangeText', rules: ruleList, validateTrigger, labelCol, wrapperCol, inputComponent, errorHandler, children }) => {
+export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName = 'value', changeMethodName = 'onChangeText', rules: ruleList, validateTrigger, labelCol, wrapperCol, wrapperStyle, inputComponent, errorHandler, children }) => {
     const form = useContext(FormContext);
     const rules = ruleList
         ? ruleList.map(rule => isFunction(rule) ? rule(form) : rule)
@@ -14,7 +14,7 @@ export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName 
         label
             ? (React.createElement(FormItemLabel, { label: label, labelAlign: labelAlign, col: labelCol }))
             : null,
-        React.createElement(Field, { name: name, rules: rules, valuePropName: valuePropName, changeMethodName: changeMethodName, validateTrigger: validateTrigger, initialValue: initialValue, col: wrapperCol, errorHandler: errorHandler, inputComponent: inputComponent }, children)));
+        React.createElement(Field, { name: name, rules: rules, valuePropName: valuePropName, changeMethodName: changeMethodName, validateTrigger: validateTrigger, initialValue: initialValue, col: wrapperCol, errorHandler: errorHandler, inputComponent: inputComponent, style: wrapperStyle }, children)));
 };
 FormItem.displayName = 'FormItem';
 FormItem.propTypes = {
