@@ -4,6 +4,7 @@ export declare class Field extends Component<PropsWithChildren<IFieldProps>> imp
     static contextType: React.Context<import("./interface").IFormStore<any>>;
     init: boolean;
     componentDidMount(): void;
+    componentWillUnmount(): void;
     reRender: () => void;
     validateRules: (value: ValueType) => Promise<void>;
     getControlled: (childProps: Record<string, any>) => Record<string, any>;

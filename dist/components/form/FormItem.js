@@ -5,7 +5,7 @@ import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';
 import { isFunction } from '../../utils';
-export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName = 'value', changeMethodName = 'onChangeText', rules: ruleList, validateTrigger, labelCol, wrapperCol, wrapperStyle, inputComponent, errorHandler, children }) => {
+export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName = 'value', changeMethodName = 'onChangeText', rules: ruleList, validateTrigger, labelCol, wrapperCol, wrapperStyle, inputComponent, numeric = false, errorHandler, shouldUpdate = false, children }) => {
     const form = useContext(FormContext);
     const rules = ruleList
         ? ruleList.map(rule => isFunction(rule) ? rule(form) : rule)
@@ -14,7 +14,7 @@ export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName 
         label
             ? (React.createElement(FormItemLabel, { label: label, labelAlign: labelAlign, col: labelCol }))
             : null,
-        React.createElement(Field, { name: name, rules: rules, valuePropName: valuePropName, changeMethodName: changeMethodName, validateTrigger: validateTrigger, initialValue: initialValue, col: wrapperCol, errorHandler: errorHandler, inputComponent: inputComponent, style: wrapperStyle }, children)));
+        React.createElement(Field, { name: name, rules: rules, valuePropName: valuePropName, changeMethodName: changeMethodName, validateTrigger: validateTrigger, initialValue: initialValue, col: wrapperCol, errorHandler: errorHandler, inputComponent: inputComponent, numeric: numeric, style: wrapperStyle, shouldUpdate: shouldUpdate }, children)));
 };
 FormItem.displayName = 'FormItem';
 FormItem.propTypes = {
@@ -24,7 +24,7 @@ FormItem.propTypes = {
         PropTypes.node
     ]),
     labelAlign: PropTypes.oneOf(['left', 'center', 'right']),
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     valuePropName: PropTypes.string,
     rules: PropTypes.array
 };

@@ -13,7 +13,7 @@ import React, { forwardRef } from 'react';
 import { regExp } from '../../utils';
 import { Input } from '../input';
 const NumberInput = forwardRef((_a, ref) => {
-    var { value, onChangeText, onBlur } = _a, restPropos = __rest(_a, ["value", "onChangeText", "onBlur"]);
+    var { value, onChangeText } = _a, restPropos = __rest(_a, ["value", "onChangeText"]);
     const handleChangeText = (val) => {
         if (!onChangeText) {
             return;
@@ -24,18 +24,7 @@ const NumberInput = forwardRef((_a, ref) => {
         }
         onChangeText(val);
     };
-    const handleBlur = (e) => {
-        if (onChangeText && value !== '-') {
-            if (!value) {
-                onChangeText(undefined);
-            }
-            else {
-                onChangeText(Number(value));
-            }
-        }
-        onBlur === null || onBlur === void 0 ? void 0 : onBlur(e);
-    };
-    return (React.createElement(Input, Object.assign({ onChangeText: handleChangeText, value: value ? String(value) : '', onBlur: handleBlur, ref: ref }, restPropos)));
+    return (React.createElement(Input, Object.assign({ onChangeText: handleChangeText, value: value ? String(value) : '', ref: ref }, restPropos)));
 });
 NumberInput.displayName = 'NumberInput';
 export default NumberInput;

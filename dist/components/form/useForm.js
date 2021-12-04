@@ -29,6 +29,7 @@ export class FormStore {
             if (mark === HOOK_MARK) {
                 return {
                     registerField: this.registerField,
+                    unregisterField: this.unregisterField,
                     getForm: this.getForm,
                     setFieldError: this.setFieldError,
                     setInitialValue: this.setInitialValue,
@@ -47,6 +48,9 @@ export class FormStore {
         this.registerField = (fieldEntity) => {
             this.fieldEntities.push(fieldEntity);
         };
+        this.unregisterField = (fieldEntity) => {
+            this.fieldEntities = this.fieldEntities.filter(f => f !== fieldEntity);
+        };
         this.values = {};
         this.initialValues = {};
         this.errors = {};
@@ -61,6 +65,23 @@ export class FormStore {
         this.getFieldsError = this.getFieldsError.bind(this);
         this.setFieldError = this.setFieldError.bind(this);
         this.removeFieldError = this.removeFieldError.bind(this);
+    }
+    notifyObservers(prevValues, fields = [], force = false) {
+        this.fieldEntities.forEach(entity => {
+            const shouldUpdate = entity.props.shouldUpdate;
+            if (force) {
+                entity.reRender();
+            }
+            else if (fields.includes(entity.props.name)) {
+                entity.reRender();
+            }
+            else if (typeof shouldUpdate === 'function' && shouldUpdate(prevValues, Object.assign({}, this.values))) {
+                entity.reRender();
+            }
+            else if (shouldUpdate) {
+                entity.reRender();
+            }
+        });
     }
     getFieldsValue(fields) {
         if (fields == null) {
@@ -92,35 +113,32 @@ export class FormStore {
         }, {});
     }
     resetFields(fields) {
+        const prevValues = Object.assign({}, this.values);
         if (fields == null) {
             this.values = Object.assign({}, this.initialValues);
-            this.fieldEntities.forEach(entity => entity.reRender());
-            return;
         }
-        fields.forEach(field => {
-            this.values[field] = this.initialValues[field];
-        });
-        this.fieldEntities.forEach(entity => entity.reRender());
+        else {
+            fields.forEach(field => {
+                this.values[field] = this.initialValues[field];
+            });
+        }
+        this.notifyObservers(prevValues, undefined, true);
     }
     setFieldsValue(values) {
         if (values == null) {
             return;
         }
+        const prevValues = Object.assign({}, this.values);
         this.values = Object.assign(Object.assign({}, this.values), values);
-        this.fieldEntities.forEach(entity => entity.reRender());
+        this.notifyObservers(prevValues, Object.keys(values));
     }
     setFieldValue(field, value) {
         if (field == null) {
             return;
         }
+        const prevValues = Object.assign({}, this.values);
         this.values[field] = value;
-        this.fieldEntities.some(entity => {
-            if (entity.props.name === field) {
-                entity.reRender();
-                return true;
-            }
-            return false;
-        });
+        this.notifyObservers(prevValues, [field]);
     }
     setFieldError(field, message) {
         this.errors[field] = message;
@@ -139,7 +157,9 @@ export class FormStore {
             }
             for (const entity of fieldEntities) {
                 const { name } = entity.props;
-                yield entity.validateRules(this.values[name]);
+                if (name) {
+                    yield entity.validateRules(this.values[name]);
+                }
             }
             return new Promise((resolve, reject) => {
                 const errorKeys = Object.keys(this.errors);

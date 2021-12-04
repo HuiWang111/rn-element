@@ -23,6 +23,9 @@ export class Field extends Component {
         };
         this.validateRules = (value) => __awaiter(this, void 0, void 0, function* () {
             const { name, rules, errorHandler } = this.props;
+            if (!name) {
+                return;
+            }
             const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
             const { getFieldError } = this.context;
             try {
@@ -40,20 +43,25 @@ export class Field extends Component {
             }
         });
         this.getControlled = (childProps) => {
-            const { name, valuePropName, changeMethodName, validateTrigger } = this.props;
+            const { name, valuePropName, changeMethodName, validateTrigger, numeric } = this.props;
             const { getFieldValue, setFieldValue } = this.context;
-            return Object.assign(Object.assign({}, childProps), { [valuePropName]: getFieldValue(name), [changeMethodName]: (value) => {
+            if (!name) {
+                return Object.assign({}, childProps);
+            }
+            return Object.assign(Object.assign({}, childProps), { [valuePropName]: getFieldValue(name), [changeMethodName]: (val) => {
                     var _a;
-                    setFieldValue(name, value);
+                    const value = numeric ? Number(val) : val;
+                    setFieldValue(name, numeric ? Number(value) : value);
                     if (validateTrigger === 'onChange') {
                         this.validateRules(value);
                     }
                     (_a = childProps[changeMethodName]) === null || _a === void 0 ? void 0 : _a.call(childProps, value);
                 }, onBlur: (e) => {
-                    var _a;
+                    var _a, _b;
                     if (validateTrigger === 'onBlur') {
                         this.validateRules((_a = e === null || e === void 0 ? void 0 : e.nativeEvent) === null || _a === void 0 ? void 0 : _a.text);
                     }
+                    (_b = childProps.onBlur) === null || _b === void 0 ? void 0 : _b.call(childProps, e);
                 } });
         };
     }
@@ -63,8 +71,14 @@ export class Field extends Component {
             const { registerField, setInitialValue } = this.context.getInternalHooks(HOOK_MARK);
             this.init = true;
             registerField(this);
-            setInitialValue(name, initialValue);
+            if (name) {
+                setInitialValue(name, initialValue);
+            }
         }
+    }
+    componentWillUnmount() {
+        const { unregisterField } = this.context.getInternalHooks(HOOK_MARK);
+        unregisterField(this);
     }
     render() {
         const children = this.props.children;
@@ -83,11 +97,17 @@ export class Field extends Component {
         }
         return (React.createElement(View, { style: fieldStyle },
             React.createElement(ConfigContext.Consumer, null, ({ showSoftInputOnFocus }) => {
+                if (typeof children === 'function') {
+                    return children(this.context);
+                }
                 return Children.map(children, c => {
-                    if (c.type === inputComponent) {
-                        return cloneElement(c, this.getControlled(Object.assign(Object.assign({}, c.props), { showSoftInputOnFocus })));
+                    if (c) {
+                        if (c.type === inputComponent) {
+                            return cloneElement(c, this.getControlled(Object.assign(Object.assign({}, c.props), { showSoftInputOnFocus })));
+                        }
+                        return cloneElement(c, this.getControlled(c.props));
                     }
-                    return cloneElement(c, this.getControlled(c.props));
+                    return c;
                 });
             })));
     }

@@ -15,6 +15,7 @@ export declare type FormInstance<Values = ValueType> = {
 };
 export declare type InternalHooks<Values = ValueType> = {
     registerField: (fieldEntity: IFieldEntity) => void;
+    unregisterField: (fieldEntity: IFieldEntity) => void;
     getForm: () => FormInstance;
     setFieldError: (field: string, message: string) => void;
     setInitialValue: (field: string, value: Values) => void;
@@ -38,26 +39,30 @@ export interface IRuleConfig<Values = ValueType> {
     whitespace?: boolean;
 }
 export declare type Rule = IRuleConfig | ((form: FormInstance) => IRuleConfig);
-export interface IFieldEntity {
+export interface IFieldEntity<Values = ValueType> {
     getControlled: (childProps: Record<string, any>) => void;
     reRender: () => void;
     validateRules: (value: ValueType) => Promise<void>;
     props: {
-        name: string;
+        name?: string;
+        shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
+        children?: any;
     };
 }
 declare type ErrorHandler = (message: string) => void;
-export interface IFieldProps {
-    name: string;
+export interface IFieldProps<Values = ValueType> {
+    name?: string;
     rules: IRuleConfig[];
     valuePropName: string;
     changeMethodName: string;
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
+    numeric?: boolean;
     style?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
+    shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
 }
 export declare type ValidateTrigger = 'onChange' | 'onBlur';
 export interface IFormProps<Values = ValueType> {
@@ -75,16 +80,18 @@ export interface IFormItemProps<Values = ValueType> {
     initialValue?: Values;
     label?: string | ReactNode;
     labelAlign?: LabelAlign;
-    name: string;
+    name?: string;
     valuePropName?: string;
     changeMethodName?: string;
     rules?: Rule[];
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    numeric?: boolean;
     wrapperStyle?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
+    shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
 }
 export declare type LabelAlign = 'left' | 'right' | 'center';
 export interface IFormItemLabelProps {

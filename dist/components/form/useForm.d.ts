@@ -7,8 +7,10 @@ export declare class FormStore implements IFormStore, InternalHooks {
     constructor();
     getForm: <V>() => FormInstance<V>;
     getInternalHooks: (mark?: string | undefined) => InternalHooks | null;
+    private notifyObservers;
     setInitialValue: (field: string, initialValue: ValueType) => void;
     registerField: (fieldEntity: IFieldEntity) => void;
+    unregisterField: (fieldEntity: IFieldEntity) => void;
     getFieldsValue(fields?: string[]): StoreValue;
     getFieldValue(field?: string): ValueType;
     getFieldError(field: string): string | undefined;
