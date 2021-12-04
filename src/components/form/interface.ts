@@ -1,5 +1,5 @@
 import { ComponentType, ReactNode } from 'react';
-import { View, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 
 export type ValueType = any | any[];
 export type StoreValue<Values = ValueType> = Record<string, Values>;
@@ -62,18 +62,20 @@ export interface IRuleConfig<Values = ValueType> {
 
 export type Rule = IRuleConfig | ((form: FormInstance) => IRuleConfig);
 
-export interface IFieldEntity {
+export interface IFieldEntity<Values = ValueType> {
     getControlled: (childProps: Record<string, any>) => void;
     reRender: () => void;
     validateRules: (value: ValueType) => Promise<void>;
     props: {
         name?: string,
+        shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean),
+        children?: any,
     };
 }
 
 type ErrorHandler = (message: string) => void;
 
-export interface IFieldProps {
+export interface IFieldProps<Values = ValueType> {
     name?: string;
     rules: IRuleConfig[];
     valuePropName: string;
@@ -85,6 +87,7 @@ export interface IFieldProps {
     style?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
+    shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
 }
 
 export type ValidateTrigger = 'onChange' | 'onBlur';
@@ -116,6 +119,7 @@ export interface IFormItemProps<Values = ValueType> {
     wrapperStyle?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
+    shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
 }
 
 export type LabelAlign = 'left' | 'right' | 'center';

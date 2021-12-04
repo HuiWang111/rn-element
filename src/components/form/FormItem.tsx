@@ -26,6 +26,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     inputComponent,
     numeric = false,
     errorHandler,
+    shouldUpdate = false,
     children
 }: PropsWithChildren<IFormItemProps>) => {
     const form = useContext(FormContext);
@@ -59,6 +60,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
                 inputComponent={inputComponent}
                 numeric={numeric}
                 style={wrapperStyle}
+                shouldUpdate={shouldUpdate}
             >
                 { children }
             </Field>
@@ -74,7 +76,7 @@ FormItem.propTypes = {
         PropTypes.node
     ]),
     labelAlign: PropTypes.oneOf(['left', 'center', 'right']),
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     valuePropName: PropTypes.string,
     rules: PropTypes.array
 };

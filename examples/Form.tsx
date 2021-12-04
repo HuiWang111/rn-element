@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { Form, Toast, Page, Input } from '../src';
+import { Form, Toast, Page, Input, Switch } from '../src';
 
 export const FormDemo: FC = () => {
     const history = useHistory();
@@ -27,12 +27,37 @@ export const FormDemo: FC = () => {
                 }
             }}
         >
-            <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} wrapperStyle={{ marginLeft: 10 }}>
+            <Form
+                form={form}
+                labelCol={{ span: 4 }}
+                wrapperCol={{ span: 18 }}
+                wrapperStyle={{ marginLeft: 10 }}
+            >
                 <Form.Item name='1' label='姓名'>
                     <Input placeholder='张三' />
                 </Form.Item>
-                <Form.Item name='2' label='年龄'>
-                    <Input placeholder='李四' />
+                <Form.Item
+                    name='2'
+                    label='年龄'
+                    shouldUpdate={(prevValues, curValues) => {
+                        const res = curValues['3'] !== prevValues['3'] && curValues['3']
+                        return res
+                    }}
+                >
+                    {({ getFieldValue }) => {
+                        return (
+                            <View>
+                                {
+                                    getFieldValue('3')
+                                        ? <Input placeholder='18' />
+                                        : null
+                                }
+                            </View>
+                        )
+                    }}
+                </Form.Item>
+                <Form.Item name='3' label='是否展示年龄' valuePropName='checked' changeMethodName='onChange'>
+                    <Switch />
                 </Form.Item>
             </Form>
         </Page>

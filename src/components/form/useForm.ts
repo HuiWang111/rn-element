@@ -64,6 +64,26 @@ export class FormStore implements IFormStore, InternalHooks {
         return null
     }
 
+    private notifyObservers(
+        prevValues: StoreValue,
+        fields: string[] = [],
+        force = false
+    ) {
+        this.fieldEntities.forEach(entity => {
+            const shouldUpdate = entity.props.shouldUpdate
+
+            if (force) {
+                entity.reRender()
+            } else if (fields.includes(entity.props.name as string)) {
+                entity.reRender()
+            } else if (typeof shouldUpdate === 'function' && shouldUpdate(prevValues, { ...this.values })) {
+                entity.reRender()
+            } else if (shouldUpdate) {
+                entity.reRender()
+            }
+        })
+    }
+
     setInitialValue = (field: string, initialValue: ValueType): void => {
         if (!isUndefined(initialValue)) {
             this.initialValues[field] = initialValue;
@@ -115,16 +135,17 @@ export class FormStore implements IFormStore, InternalHooks {
     }
 
     resetFields(fields?: string[]): void {
+        const prevValues = { ...this.values }
+
         if (fields == null) {
             this.values = { ...this.initialValues };
-            this.fieldEntities.forEach(entity => entity.reRender());
-            return;
+        } else {
+            fields.forEach(field => {
+                this.values[field] = this.initialValues[field];
+            });
         }
 
-        fields.forEach(field => {
-            this.values[field] = this.initialValues[field];
-        });
-        this.fieldEntities.forEach(entity => entity.reRender());
+        this.notifyObservers(prevValues, undefined, true)
     }
 
     setFieldsValue(values?: StoreValue): void {
@@ -132,16 +153,19 @@ export class FormStore implements IFormStore, InternalHooks {
             return;
         }
 
+        const prevValues = { ...this.values }
         this.values = { ...this.values, ...values };
-        this.fieldEntities.forEach(entity => entity.reRender());
+        this.notifyObservers(prevValues, Object.keys(values))
     }
 
     setFieldValue(field: string, value: ValueType): void {
         if (field == null) {
             return;
         }
+
+        const prevValues = { ...this.values }
         this.values[field] = value;
-        this.fieldEntities.forEach(entity => entity.reRender());
+        this.notifyObservers(prevValues, [field])
     }
 
     setFieldError(field: string, message: string): void {
@@ -153,7 +177,7 @@ export class FormStore implements IFormStore, InternalHooks {
     }
 
     async validateFields(fields?: string[]): Promise<ValueType> {
-        let fieldEntities;
+        let fieldEntities: IFieldEntity[];
         if (fields) {
             fieldEntities = this.fieldEntities.filter(entity => fields.includes(entity.props.name as string));
         } else {
@@ -162,7 +186,10 @@ export class FormStore implements IFormStore, InternalHooks {
 
         for (const entity of fieldEntities) {
             const { name } = entity.props;
-            await entity.validateRules(this.values[name]);
+
+            if (name) {
+                await entity.validateRules(this.values[name]);
+            }
         }
 
         return new Promise((resolve, reject) => {

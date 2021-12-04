@@ -44,6 +44,7 @@ const internalHooksWarningFunc = (): InternalHooks => {
             getInternalHooks: internalHooksWarningFunc
         }),
         registerField: warningFunc,
+        unregisterField: warningFunc,
         setFieldError: warningFunc,
         setInitialValue: warningFunc,
         removeFieldError: warningFunc

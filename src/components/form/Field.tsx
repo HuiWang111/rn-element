@@ -77,7 +77,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             [valuePropName]: getFieldValue(name),
             [changeMethodName]: (val: string) => {
                 const value = numeric ? Number(val) : val
-
+                
                 setFieldValue(name, numeric ? Number(value) : value);
                 
                 if (validateTrigger === 'onChange') {
@@ -98,8 +98,8 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
     };
 
     render(): ReactElement | null {
-        const children = this.props.children as ReactElement[];
-
+        const children: any = this.props.children;
+        
         if (!children) {
             return null;
         }
@@ -115,17 +115,25 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                 fieldStyle = fieldStyle.concat(styleUtils[`offset-${col.offset}`]);
             }
         }
-
+        
         return (
             <View style={fieldStyle}>
                 <ConfigContext.Consumer>
                     {({ showSoftInputOnFocus }) => {
+                        if (typeof children === 'function') {
+                            return children(this.context)
+                        }
+
                         return Children.map(children, c => {
-                            if (c.type === inputComponent) {
-                                return cloneElement(c, this.getControlled({ ...c.props, showSoftInputOnFocus }));
+                            if (c) {
+                                if (c.type === inputComponent) {
+                                    return cloneElement(c, this.getControlled({ ...c.props, showSoftInputOnFocus }));
+                                }
+
+                                return cloneElement(c, this.getControlled(c.props))
                             }
 
-                            return cloneElement(c, this.getControlled(c.props))
+                            return c
                         })
                     }}
                 </ConfigContext.Consumer>
