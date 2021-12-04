@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Text, TextInput } from 'react-native';
+import { Text } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { Form, Toast, Page } from '../src';
+import { Form, Toast, Page, Input } from '../src';
 
 export const FormDemo: FC = () => {
     const history = useHistory();
@@ -27,12 +27,12 @@ export const FormDemo: FC = () => {
                 }
             }}
         >
-            <Form form={form}>
-                <Form.Item name='1'>
-                    <TextInput placeholder='1' />
+            <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} wrapperStyle={{ marginLeft: 10 }}>
+                <Form.Item name='1' label='姓名'>
+                    <Input placeholder='张三' />
                 </Form.Item>
-                <Form.Item name='2'>
-                    <TextInput placeholder='2' />
+                <Form.Item name='2' label='年龄'>
+                    <Input placeholder='李四' />
                 </Form.Item>
             </Form>
         </Page>

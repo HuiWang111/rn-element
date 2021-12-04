@@ -9,8 +9,8 @@ import { Input } from '../input';
 function mapChildrenWithFindFormItem(c, formProps) {
     var _a;
     if (c.type === FormItem) {
-        const { initialValues, formValidateTrigger, formLabelCol, formWrapperCol, formInputComponent, formErrorHandler } = formProps;
-        const { name, initialValue, validateTrigger: formItemValidateTrigger, labelCol: formItemLabelCol, wrapperCol: formItemWrapperCol, errorHandler: formItemErrorHandler } = c.props;
+        const { initialValues, formValidateTrigger, formLabelCol, formWrapperCol, formWrapperStyle, formInputComponent, formErrorHandler } = formProps;
+        const { name, initialValue, validateTrigger: formItemValidateTrigger, labelCol: formItemLabelCol, wrapperCol: formItemWrapperCol, errorHandler: formItemErrorHandler, wrapperStyle: formItemWrapperStyle, inputComponent: formItemInputComponent } = c.props;
         const defaultValue = !initialValues || isNil(initialValues[name])
             ? initialValue
             : initialValues[name];
@@ -26,16 +26,20 @@ function mapChildrenWithFindFormItem(c, formProps) {
         const errorHandler = formItemErrorHandler
             ? formItemErrorHandler
             : formErrorHandler;
-        const inputComponent = c.props.inputComponent
-            ? c.props.inputComponent
+        const inputComponent = formItemInputComponent
+            ? formItemInputComponent
             : formInputComponent;
+        const wrapperStyle = formItemWrapperStyle
+            ? formItemWrapperStyle
+            : formWrapperStyle;
         return cloneElement(c, {
             initialValue: defaultValue,
             validateTrigger,
             labelCol,
             wrapperCol,
             errorHandler,
-            inputComponent
+            inputComponent,
+            wrapperStyle
         });
     }
     const children = (_a = c.props) === null || _a === void 0 ? void 0 : _a.children;
@@ -45,7 +49,7 @@ function mapChildrenWithFindFormItem(c, formProps) {
         }))
         : c;
 }
-export const Form = ({ initialValues, form, style, validateTrigger: formValidateTrigger = 'onChange', labelCol: formLabelCol, wrapperCol: formWrapperCol, errorHandler: formErrorHandler = Toast.show, inputComponent: formInputComponent = Input, children }) => {
+export const Form = ({ initialValues, form, style, wrapperStyle: formWrapperStyle, validateTrigger: formValidateTrigger = 'onChange', labelCol: formLabelCol, wrapperCol: formWrapperCol, errorHandler: formErrorHandler = Toast.show, inputComponent: formInputComponent = Input, children }) => {
     const formStyle = style ? [styles.form].concat(style) : [styles.form];
     return (React.createElement(FormContext.Provider, { value: form },
         React.createElement(View, { style: formStyle }, Children.map(children, (child) => {
@@ -55,6 +59,7 @@ export const Form = ({ initialValues, form, style, validateTrigger: formValidate
                 formValidateTrigger,
                 formLabelCol,
                 formWrapperCol,
+                formWrapperStyle,
                 formInputComponent,
                 formErrorHandler
             });

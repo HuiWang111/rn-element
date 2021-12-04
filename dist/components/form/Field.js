@@ -71,8 +71,8 @@ export class Field extends Component {
         if (!children) {
             return null;
         }
-        const { col, inputComponent } = this.props;
-        let fieldStyle = [{ justifyContent: 'center', alignItems: 'center' }];
+        const { col, inputComponent, style } = this.props;
+        let fieldStyle = [{ justifyContent: 'center', alignItems: 'center' }, style];
         if (col) {
             if (col.span) {
                 fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);

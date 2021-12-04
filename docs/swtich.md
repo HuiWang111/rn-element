@@ -28,14 +28,14 @@ const handleChange = (checked: boolean) => {
 ### style
 | type | default | required |
 | ---- | ---- | ---- |
-| ViewStyle | false | none |
+| ViewStyle | none | false |
 
 ### onChange
 | type | default | required |
 | ---- | ---- | ---- |
-| Function | none | none |
+| Function | none | false |
 
 ### onPress
 | type | default | required |
 | ---- | ---- | ---- |
-| Function | none | none |
+| Function | none | false |

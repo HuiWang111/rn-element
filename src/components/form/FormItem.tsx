@@ -22,6 +22,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     validateTrigger,
     labelCol,
     wrapperCol,
+    wrapperStyle,
     inputComponent,
     numeric = false,
     errorHandler,
@@ -57,6 +58,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
                 errorHandler={errorHandler}
                 inputComponent={inputComponent}
                 numeric={numeric}
+                style={wrapperStyle}
             >
                 { children }
             </Field>

@@ -55,6 +55,7 @@ export interface IFieldProps {
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
+    style?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
@@ -66,6 +67,7 @@ export interface IFormProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    wrapperStyle?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
@@ -80,6 +82,7 @@ export interface IFormItemProps<Values = ValueType> {
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    wrapperStyle?: ViewStyle;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
@@ -98,6 +101,7 @@ export interface IParentProps {
     formValidateTrigger?: ValidateTrigger;
     formLabelCol?: ICol;
     formWrapperCol?: ICol;
+    formWrapperStyle?: ViewStyle;
     formInputComponent?: ComponentType;
     formErrorHandler?: ErrorHandler;
 }
