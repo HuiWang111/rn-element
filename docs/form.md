@@ -120,7 +120,7 @@ label 标签的文本
 字段名，必填项
 | type | default | required |
 | ---- | ---- | ---- |
-| string | none | true |
+| string | none | false |
 
 ### valuePropName
 子节点值的属性
@@ -165,6 +165,12 @@ label标签布局，如 { span: 3, offset: 12 }，如果与Form的冲突，以Fo
 | type | default | required |
 | ---- | ---- | ---- |
 | ViewStyle | none | false |
+
+### shouldUpdate
+自定义字段更新逻辑
+| type | default | required |
+| ---- | ---- | ---- |
+| boolean or ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean) | false | false |
 
 ## rules
 以下参数可以去[ant-form](https://ant.design/components/form-cn/)的文档查看具体的含义
