@@ -17,6 +17,7 @@ export type FormInstance<Values = ValueType> = {
 }
 export type InternalHooks<Values = ValueType> = {
     registerField: (fieldEntity: IFieldEntity) => void,
+    unregisterField: (fieldEntity: IFieldEntity) => void,
     getForm: () => FormInstance,
     setFieldError: (field: string, message: string) => void,
     setInitialValue: (field: string, value: Values) => void,
@@ -66,20 +67,21 @@ export interface IFieldEntity {
     reRender: () => void;
     validateRules: (value: ValueType) => Promise<void>;
     props: {
-        name: string,
+        name?: string,
     };
 }
 
 type ErrorHandler = (message: string) => void;
 
 export interface IFieldProps {
-    name: string;
+    name?: string;
     rules: IRuleConfig[];
     valuePropName: string;
     changeMethodName: string;
     validateTrigger: ValidateTrigger;
     initialValue: ValueType;
     col?: ICol;
+    numeric?: boolean;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
@@ -101,13 +103,14 @@ export interface IFormItemProps<Values = ValueType> {
     initialValue?: Values;
     label?: string | ReactNode;
     labelAlign?: LabelAlign;
-    name: string;
+    name?: string;
     valuePropName?: string;
     changeMethodName?: string;
     rules?: Rule[];
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
+    numeric?: boolean;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }

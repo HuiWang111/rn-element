@@ -23,6 +23,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     labelCol,
     wrapperCol,
     inputComponent,
+    numeric = false,
     errorHandler,
     children
 }: PropsWithChildren<IFormItemProps>) => {
@@ -55,6 +56,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
                 col={wrapperCol}
                 errorHandler={errorHandler}
                 inputComponent={inputComponent}
+                numeric={numeric}
             >
                 { children }
             </Field>

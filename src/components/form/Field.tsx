@@ -19,8 +19,16 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
 
             this.init = true;
             registerField(this);
-            setInitialValue(name, initialValue);
+
+            if (name) {
+                setInitialValue(name, initialValue);
+            }
         }
+    }
+
+    componentWillUnmount() {
+        const { unregisterField } = this.context.getInternalHooks(HOOK_MARK);
+        unregisterField(this)
     }
 
     reRender = (): void => {
@@ -29,6 +37,10 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
 
     validateRules = async (value: ValueType): Promise<void> => {
         const { name, rules, errorHandler } = this.props;
+        if (!name) {
+            return
+        }
+
         const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
         const { getFieldError } = this.context;
 
@@ -51,15 +63,22 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             name,
             valuePropName,
             changeMethodName,
-            validateTrigger
+            validateTrigger,
+            numeric
         } = this.props;
         const { getFieldValue, setFieldValue } = this.context;
+
+        if (!name) {
+            return { ...childProps }
+        }
         
         return {
             ...childProps,
             [valuePropName]: getFieldValue(name),
-            [changeMethodName]: (value: string) => {
-                setFieldValue(name, value);
+            [changeMethodName]: (val: string) => {
+                const value = numeric ? Number(val) : val
+
+                setFieldValue(name, numeric ? Number(value) : value);
                 
                 if (validateTrigger === 'onChange') {
                     this.validateRules(value);
@@ -68,9 +87,12 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                 childProps[changeMethodName]?.(value);
             },
             onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+                // TODO: onBlur校验除Input组件外的其他组件
                 if (validateTrigger === 'onBlur') {
                     this.validateRules(e?.nativeEvent?.text);
                 }
+
+                childProps.onBlur?.(e);
             }
         };
     };

@@ -149,6 +149,12 @@ label标签布局，如 { span: 3, offset: 12 }，如果与Form的冲突，以Fo
 ### wrapperCol
 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol
 
+### numeric
+是否将输入框的值转化为数字，配合 `NumberInput` 组件使用更佳
+| type | default | required |
+| ---- | ---- | ---- |
+| boolean | false | false |
+
 ## rules
 以下参数可以去[ant-form](https://ant.design/components/form-cn/)的文档查看具体的含义
 ant有但是这里没列举的参数表示还未支持

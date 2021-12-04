@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { List, Modal, Page } from '../src';
+import { List, Modal, Page, Form, Input } from '../src';
 import { colors } from '../src/utils';
 
 const ListWithModal: FC = () => {
@@ -9,6 +9,7 @@ const ListWithModal: FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [confirmModalVisible, setConfirmModalVisible] = useState(false);
     const history = useHistory();
+    const [form] = Form.useForm()
     const handleChange = (activeIndex: number) => {
         setActiveIndex(activeIndex);
     }
@@ -134,17 +135,31 @@ const ListWithModal: FC = () => {
                                 <Text>showWarningModal - isActivable</Text>
                             </List.ActivableItem>
                         </List>
-                        <Modal
-                            title={<Text>modal title</Text>}
-                            onCancel={() => setModalVisible(false)}
-                            onOk={() => console.info('onOk')}
-                            onRequestClose={() => setModalVisible(false)}
-                            visible={modalVisible}
-                            okText='confirm'
-                            cancelText='cancel'
-                        >
-                            <Text>content</Text>
-                        </Modal>
+                        {/* 测试form内存泄漏问题 */}
+                        <Form form={form} wrapperCol={{ span: 22, offset: 1 }}>
+                            <Form.Item name='age'>
+                                <Input placeholder='fill your age' />
+                            </Form.Item>
+                        </Form>
+                        {
+                            modalVisible && (
+                                <Modal
+                                    title={<Text>modal title</Text>}
+                                    onCancel={() => setModalVisible(false)}
+                                    onOk={() => console.info('onOk')}
+                                    onRequestClose={() => setModalVisible(false)}
+                                    visible={modalVisible}
+                                    okText='confirm'
+                                    cancelText='cancel'
+                                >
+                                    <Form form={form} wrapperCol={{ span: 20, offset: 2 }}>
+                                        <Form.Item name='name'>
+                                            <Input placeholder='fill your name' />
+                                        </Form.Item>
+                                    </Form>
+                                </Modal>
+                            )
+                        }
                     </View>
                 )
             }

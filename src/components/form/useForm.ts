@@ -52,6 +52,7 @@ export class FormStore implements IFormStore, InternalHooks {
         if (mark === HOOK_MARK) {
             return {
                 registerField: this.registerField,
+                unregisterField: this.unregisterField,
                 getForm: this.getForm,
                 setFieldError: this.setFieldError,
                 setInitialValue: this.setInitialValue,
@@ -73,6 +74,10 @@ export class FormStore implements IFormStore, InternalHooks {
     registerField = (fieldEntity: IFieldEntity): void => {
         this.fieldEntities.push(fieldEntity);
     };
+
+    unregisterField = (fieldEntity: IFieldEntity): void => {
+        this.fieldEntities = this.fieldEntities.filter(f => f !== fieldEntity)
+    }
 
     getFieldsValue(fields?: string[]): StoreValue {
         if (fields == null) {
@@ -136,13 +141,7 @@ export class FormStore implements IFormStore, InternalHooks {
             return;
         }
         this.values[field] = value;
-        this.fieldEntities.some(entity => {
-            if (entity.props.name === field) {
-                entity.reRender();
-                return true;
-            }
-            return false;
-        })
+        this.fieldEntities.forEach(entity => entity.reRender());
     }
 
     setFieldError(field: string, message: string): void {
@@ -156,7 +155,7 @@ export class FormStore implements IFormStore, InternalHooks {
     async validateFields(fields?: string[]): Promise<ValueType> {
         let fieldEntities;
         if (fields) {
-            fieldEntities = this.fieldEntities.filter(entity => fields.includes(entity.props.name));
+            fieldEntities = this.fieldEntities.filter(entity => fields.includes(entity.props.name as string));
         } else {
             fieldEntities = [...this.fieldEntities];
         }
