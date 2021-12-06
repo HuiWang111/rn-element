@@ -12,7 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React, { useContext, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import { isUndefined, isString, isFunction } from '../../utils';
+import { isUndefined, isString, isFunction, isNull } from '../../utils';
 import { ThemeContext } from '../theme-provider';
 import { Button } from '../button';
 const screenWidth = Dimensions.get('window').width;
@@ -62,7 +62,9 @@ export const Modal = (_a) => {
                 children
                     ? (React.createElement(View, { style: [styles.body, commonStyle, bodyStyle] }, children))
                     : null,
-                React.createElement(View, { style: [styles.footer, commonStyle, footerStyle] }, getFooter(footer))))));
+                isNull(footer)
+                    ? null
+                    : (React.createElement(View, { style: [styles.footer, commonStyle, footerStyle] }, getFooter(footer)))))));
 };
 const styles = StyleSheet.create({
     centeredView: {

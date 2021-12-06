@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { ModalProps, ViewStyle } from 'react-native';
 export interface IModalFooterProps {
     okText?: string;
@@ -5,7 +6,7 @@ export interface IModalFooterProps {
     onCancel?: () => void;
     onOk?: () => void;
 }
-export declare type IModalFooter = string | JSX.Element | ((props: IModalFooterProps) => string | JSX.Element);
+export declare type IModalFooter = string | JSX.Element | null | ((props: IModalFooterProps) => string | JSX.Element);
 interface IModalBaseConfig extends IModalFooterProps {
     title?: string | JSX.Element | null;
     zIndex?: number;

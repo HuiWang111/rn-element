@@ -7,7 +7,7 @@ export interface IModalFooterProps {
     onOk?: () => void;
 }
 
-export type IModalFooter = string | JSX.Element | ((props: IModalFooterProps) => string | JSX.Element);
+export type IModalFooter = string | JSX.Element | null | ((props: IModalFooterProps) => string | JSX.Element);
 
 interface IModalBaseConfig extends IModalFooterProps {
     title?: string | JSX.Element | null;

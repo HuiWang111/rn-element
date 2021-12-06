@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren, ReactNode, useContext, useEffect } from '
 import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IModalProps, IModalFooter } from './interface';
-import { isUndefined, isString, isFunction } from '../../utils';
+import { isUndefined, isString, isFunction, isNull } from '../../utils';
 import { ThemeContext } from '../theme-provider';
 import { Button } from '../button';
 
@@ -107,9 +107,15 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                             )
                             : null
                     }
-                    <View style={[styles.footer, commonStyle, footerStyle]}>
-                        { getFooter(footer) }
-                    </View>
+                    {
+                        isNull(footer)
+                            ? null
+                            : (
+                                <View style={[styles.footer, commonStyle, footerStyle]}>
+                                    { getFooter(footer) }
+                                </View>
+                            )
+                    }
                 </View>
             </View>
         </ReactNativeModal>
