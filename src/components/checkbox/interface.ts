@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import { ViewStyle, TextStyle } from 'react-native';
 
 export interface ICheckListOption {
     label: string;
@@ -13,4 +13,14 @@ export interface ICheckListProps {
     activeColor?: string;
     style?: ViewStyle;
     itemStyle?: ViewStyle;
+}
+
+export interface ICheckboxProps {
+    checked?: boolean;
+    wrapperStyle?: ViewStyle;
+    iconStyle?: TextStyle;
+    contentStyle?: ViewStyle;
+    checkedColor?: string;
+    uncheckColor?: string;
+    onChange?: (checked: boolean) => void;
 }

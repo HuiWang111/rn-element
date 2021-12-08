@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ModalProps, ViewStyle } from 'react-native';
 export interface IModalFooterProps {
     okText?: string;

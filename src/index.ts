@@ -26,7 +26,7 @@ export { Input } from './components/input';
 
 export { Button } from './components/button';
 
-export { CheckList } from './components/checkbox'
+export { CheckList, Checkbox } from './components/checkbox'
 
 export { Switch, ISwitchProps } from './components/switch'
 
