@@ -2,16 +2,22 @@ import React, { useState, useEffect, useContext } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { View, StyleSheet, Text, Pressable } from 'react-native';
 import { ThemeContext } from '../theme-provider';
-import { isString } from '../../utils';
-export const Checkbox = ({ checked: propsChecked = false, wrapperStyle, iconStyle, contentStyle, checkedColor: chcolor, uncheckColor: uncolor, children, onChange }) => {
-    const [checked, setChecked] = useState(propsChecked);
+import { isString, isUndefined } from '../../utils';
+export const Checkbox = ({ checked: propsChecked, defaultChecked, wrapperStyle, iconStyle, contentStyle, checkedColor: chcolor, uncheckColor: uncolor, children, onChange }) => {
+    const [checked, setChecked] = useState(() => {
+        const c = isUndefined(propsChecked) ? defaultChecked : propsChecked;
+        return c !== null && c !== void 0 ? c : false;
+    });
     const colors = useContext(ThemeContext);
     const checkedColor = chcolor ? chcolor : colors.primary;
     const uncheckColor = uncolor ? uncolor : colors.border;
     useEffect(() => {
-        setChecked(propsChecked);
+        setChecked(propsChecked !== null && propsChecked !== void 0 ? propsChecked : false);
     }, [propsChecked]);
     const handleChange = () => {
+        if (isUndefined(propsChecked)) {
+            setChecked(!checked);
+        }
         onChange === null || onChange === void 0 ? void 0 : onChange(!checked);
     };
     return (React.createElement(Pressable, { style: [styles.container, wrapperStyle], onPress: handleChange },

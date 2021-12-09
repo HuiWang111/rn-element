@@ -3,10 +3,11 @@ import Icon from 'react-native-vector-icons/Feather'
 import { View, StyleSheet, Text, Pressable } from 'react-native'
 import { ICheckboxProps } from './interface'
 import { ThemeContext } from '../theme-provider'
-import { isString } from '../../utils'
+import { isString, isUndefined } from '../../utils'
 
 export const Checkbox: FC<PropsWithChildren<ICheckboxProps>> = ({
-    checked: propsChecked = false,
+    checked: propsChecked,
+    defaultChecked,
     wrapperStyle,
     iconStyle,
     contentStyle,
@@ -15,16 +16,23 @@ export const Checkbox: FC<PropsWithChildren<ICheckboxProps>> = ({
     children,
     onChange
 }: PropsWithChildren<ICheckboxProps>) => {
-    const [checked, setChecked] = useState(propsChecked)
+    const [checked, setChecked] = useState(() => {
+        const c = isUndefined(propsChecked) ? defaultChecked : propsChecked
+        return c ?? false
+    })
     const colors = useContext(ThemeContext)
     const checkedColor = chcolor ? chcolor : colors.primary
     const uncheckColor = uncolor ? uncolor : colors.border
 
     useEffect(() => {
-        setChecked(propsChecked)
+        setChecked(propsChecked ?? false)
     }, [propsChecked])
 
     const handleChange = () => {
+        if (isUndefined(propsChecked)) {
+            setChecked(!checked)
+        }
+
         onChange?.(!checked)
     }
 

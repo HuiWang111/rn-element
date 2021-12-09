@@ -1,26 +1,34 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
-import { isObject } from '../../utils';
+import { isObject, isUndefined } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { ThemeContext } from '../theme-provider';
 const { width } = Dimensions.get('window');
-export const CheckList = ({ value: propsValue, options, activeColor: selectedColor, style, itemStyle, onChange }) => {
-    const [value, setValue] = useState(propsValue || []);
+export const CheckList = ({ value: propsValue, defaultValue, options, activeColor: selectedColor, style, itemStyle, onChange }) => {
+    const [value, setValue] = useState(() => {
+        const v = isUndefined(propsValue) ? defaultValue : propsValue;
+        return v !== null && v !== void 0 ? v : [];
+    });
     const theme = useContext(ThemeContext);
     const activeColor = selectedColor || theme.primary;
     useEffect(() => {
-        setValue(propsValue || []);
+        setValue(propsValue !== null && propsValue !== void 0 ? propsValue : []);
     }, [propsValue]);
     const handleChange = (pressedValue, disabled = false) => {
         if (disabled) {
             return;
         }
+        let newValue;
         if (value.includes(pressedValue)) {
-            onChange === null || onChange === void 0 ? void 0 : onChange(value.filter(v => v !== pressedValue));
+            newValue = value.filter(v => v !== pressedValue);
         }
         else {
-            onChange === null || onChange === void 0 ? void 0 : onChange([...value, pressedValue]);
+            newValue = [...value, pressedValue];
         }
+        if (isUndefined(propsValue)) {
+            setValue(newValue);
+        }
+        onChange === null || onChange === void 0 ? void 0 : onChange(newValue);
     };
     const getItemStyles = (isActive, index) => {
         return [

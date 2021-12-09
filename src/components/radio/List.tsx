@@ -5,6 +5,7 @@ import { CheckList } from '../checkbox';
 
 export const RadioList: FC<IRadioListProps> = ({
     value,
+    defaultValue,
     onChange,
     ...rest
 }: IRadioListProps) => {
@@ -16,6 +17,7 @@ export const RadioList: FC<IRadioListProps> = ({
         <CheckList
             {...rest}
             value={value ? [value] : undefined}
+            defaultValue={defaultValue ? [defaultValue] : undefined}
             onChange={handleChange}
         />
     )

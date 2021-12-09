@@ -29,7 +29,8 @@ export const SwitchDemo: FC = () => {
                 ({ width, height }) => (
                     <View style={{ width, height: height - 30, paddingHorizontal: 10 }}>
                         <Switch checked={checked} onChange={handleChange} />
-                        <Switch checked={checked} onChange={handleChange} disabled style={{ marginTop: 10 }} />
+                        <Switch disabled style={{ marginTop: 10 }} />
+                        <Switch style={{ marginTop: 10 }} />
                     </View>
                 )
             }

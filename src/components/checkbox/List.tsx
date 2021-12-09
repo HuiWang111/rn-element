@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native';
 import { ICheckListProps } from './interface';
-import { isObject } from '../../utils';
+import { isObject, isUndefined } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { ThemeContext } from '../theme-provider';
 
@@ -9,18 +9,22 @@ const { width } = Dimensions.get('window');
 
 export const CheckList: FC<ICheckListProps> = ({
     value: propsValue,
+    defaultValue,
     options,
     activeColor: selectedColor,
     style,
     itemStyle,
     onChange
 }: ICheckListProps) => {
-    const [value, setValue] = useState<string[]>(propsValue || []);
+    const [value, setValue] = useState<string[]>(() => {
+        const v = isUndefined(propsValue) ? defaultValue : propsValue
+        return v ?? [] 
+    });
     const theme = useContext(ThemeContext);
     const activeColor = selectedColor || theme.primary;
 
     useEffect(() => {
-        setValue(propsValue || []);
+        setValue(propsValue ?? []);
     }, [propsValue]);
 
     const handleChange = (pressedValue: string, disabled = false): void => {
@@ -28,11 +32,18 @@ export const CheckList: FC<ICheckListProps> = ({
             return
         }
 
+        let newValue: string[]
         if (value.includes(pressedValue)) {
-            onChange?.(value.filter(v => v !== pressedValue));
+            newValue = value.filter(v => v !== pressedValue)
         } else {
-            onChange?.([...value, pressedValue]);
+            newValue = [...value, pressedValue]
         }
+
+        if (isUndefined(propsValue)) {
+            setValue(newValue)            
+        }
+
+        onChange?.(newValue)
     }
     const getItemStyles = (isActive: boolean, index: number): (ViewStyle | null | undefined)[] => {
         return [

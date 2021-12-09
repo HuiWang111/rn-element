@@ -1,17 +1,22 @@
 import React, { FC, useContext, useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, Pressable, Animated } from 'react-native'
+import { StyleSheet, Pressable, Animated } from 'react-native'
 import { ISwitchProps } from './interface'
 import { ThemeContext } from '../theme-provider'
+import { isUndefined } from '../../utils'
 
 export const Switch: FC<ISwitchProps> = ({
-    checked: propsChecked = false,
+    checked: propsChecked,
+    defaultChecked,
     disabled = false,
     style,
     onChange,
     onPress
 }: ISwitchProps) => {
     const { primary } = useContext(ThemeContext)
-    const [checked, setChecked] = useState<boolean>(propsChecked)
+    const [checked, setChecked] = useState<boolean>(() => {
+        const c = isUndefined(propsChecked) ? defaultChecked : propsChecked
+        return c ?? false
+    })
     const positionAnimate = useRef(new Animated.Value(2)).current
     const duration = 200
     const useNativeDriver = false
@@ -20,11 +25,19 @@ export const Switch: FC<ISwitchProps> = ({
 
     const handlePress = () => {
         if (!disabled) {
+            if (isUndefined(propsChecked)) {
+                setChecked(!checked)
+            }
+
             onChange?.(!checked)
         }
 
         onPress?.()
     }
+
+    useEffect(() => {
+        setChecked(propsChecked ?? false)
+    }, [propsChecked])
 
     useEffect(() => {
         const toRight = (): void => {
@@ -42,14 +55,12 @@ export const Switch: FC<ISwitchProps> = ({
             }).start()
         }
 
-        if (propsChecked) {
+        if (checked) {
             toRight()
         } else {
             toLeft()
         }
-
-        setChecked(propsChecked)
-    }, [propsChecked])
+    }, [checked])
 
     return (
         <Pressable

@@ -8,6 +8,7 @@ export interface ICheckListOption {
 
 export interface ICheckListProps {
     value?: string[];
+    defaultValue?: string[];
     options?: string[] | ICheckListOption[];
     onChange?: (value: string[]) => void;
     activeColor?: string;
@@ -17,6 +18,7 @@ export interface ICheckListProps {
 
 export interface ICheckboxProps {
     checked?: boolean;
+    defaultChecked?: boolean;
     wrapperStyle?: ViewStyle;
     iconStyle?: TextStyle;
     contentStyle?: ViewStyle;

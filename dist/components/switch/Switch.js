@@ -1,9 +1,13 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { StyleSheet, Pressable, Animated } from 'react-native';
 import { ThemeContext } from '../theme-provider';
-export const Switch = ({ checked: propsChecked = false, disabled = false, style, onChange, onPress }) => {
+import { isUndefined } from '../../utils';
+export const Switch = ({ checked: propsChecked, defaultChecked, disabled = false, style, onChange, onPress }) => {
     const { primary } = useContext(ThemeContext);
-    const [checked, setChecked] = useState(propsChecked);
+    const [checked, setChecked] = useState(() => {
+        const c = isUndefined(propsChecked) ? defaultChecked : propsChecked;
+        return c !== null && c !== void 0 ? c : false;
+    });
     const positionAnimate = useRef(new Animated.Value(2)).current;
     const duration = 200;
     const useNativeDriver = false;
@@ -11,10 +15,16 @@ export const Switch = ({ checked: propsChecked = false, disabled = false, style,
     const rightPosition = 24;
     const handlePress = () => {
         if (!disabled) {
+            if (isUndefined(propsChecked)) {
+                setChecked(!checked);
+            }
             onChange === null || onChange === void 0 ? void 0 : onChange(!checked);
         }
         onPress === null || onPress === void 0 ? void 0 : onPress();
     };
+    useEffect(() => {
+        setChecked(propsChecked !== null && propsChecked !== void 0 ? propsChecked : false);
+    }, [propsChecked]);
     useEffect(() => {
         const toRight = () => {
             Animated.timing(positionAnimate, {
@@ -30,14 +40,13 @@ export const Switch = ({ checked: propsChecked = false, disabled = false, style,
                 useNativeDriver
             }).start();
         };
-        if (propsChecked) {
+        if (checked) {
             toRight();
         }
         else {
             toLeft();
         }
-        setChecked(propsChecked);
-    }, [propsChecked]);
+    }, [checked]);
     return (React.createElement(Pressable, { style: [
             styles.switchContainer,
             style,
