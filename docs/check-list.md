@@ -48,7 +48,7 @@
 ### ICheckListOption
 ```ts
 interface ICheckListOption {
-    label: string;
+    label: string | ReactNode;
     value: string;
     disabled?: boolean;
 }

@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 
 export interface ICheckListOption {
-    label: string;
+    label: string | ReactNode;
     value: string;
     disabled?: boolean;
 }

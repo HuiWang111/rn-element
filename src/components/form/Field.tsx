@@ -127,7 +127,10 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                         return Children.map(children, c => {
                             if (c) {
                                 if (c.type === inputComponent) {
-                                    return cloneElement(c, this.getControlled({ ...c.props, showSoftInputOnFocus }));
+                                    return cloneElement(c, this.getControlled({
+                                        ...c.props,
+                                        showSoftInputOnFocus: c.props.showSoftInputOnFocus ?? showSoftInputOnFocus
+                                    }));
                                 }
 
                                 return cloneElement(c, this.getControlled(c.props))

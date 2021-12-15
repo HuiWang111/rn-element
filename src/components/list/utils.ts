@@ -20,9 +20,7 @@ export function mapChildrenWithRef<T>(
         if (c.type === inputComponent) {
             return cloneElement(c, {
                 ref,
-                showSoftInputOnFocus: isUndefined(c.props.showSoftInputOnFocus)
-                    ? config.showSoftInputOnFocus
-                    : c.props.showSoftInputOnFocus,
+                showSoftInputOnFocus: c.props.showSoftInputOnFocus ?? config.showSoftInputOnFocus,
                 onFocus: (e: NativeSyntheticEvent<TextInputFocusEventData>) => handleFocus(e, c.props)
             });
         }

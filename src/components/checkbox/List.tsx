@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native';
 import { ICheckListProps } from './interface';
-import { isObject, isUndefined } from '../../utils';
+import { isObject, isUndefined, isString } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { ThemeContext } from '../theme-provider';
 
@@ -74,16 +74,20 @@ export const CheckList: FC<ICheckListProps> = ({
                                     size={20}
                                     style={styles.checkIcon}
                                 />
-                                <Text
-                                    style={[
-                                        styles.itemText,
-                                        isActive ? styles.activeItemText : null,
-                                        option.disabled ? { color: theme.border } : null
-                                    ]}
-                                    numberOfLines={3}
-                                >
-                                    { option.label }
-                                </Text>
+                                {
+                                    isString(option.label) ? (
+                                        <Text
+                                            style={[
+                                                styles.itemText,
+                                                isActive ? styles.activeItemText : null,
+                                                option.disabled ? { color: theme.border } : null
+                                            ]}
+                                            numberOfLines={3}
+                                        >
+                                            { option.label }
+                                        </Text>
+                                    ) : option.label
+                                }
                             </Pressable>
                         );
                     }

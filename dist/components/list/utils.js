@@ -1,14 +1,12 @@
 import { Children, cloneElement } from 'react';
-import { isUndefined } from '../../utils';
 export function mapChildrenWithRef(children, ref, inputComponent, config, handleFocus) {
     return Children.map(children, child => {
+        var _a;
         const c = child;
         if (c.type === inputComponent) {
             return cloneElement(c, {
                 ref,
-                showSoftInputOnFocus: isUndefined(c.props.showSoftInputOnFocus)
-                    ? config.showSoftInputOnFocus
-                    : c.props.showSoftInputOnFocus,
+                showSoftInputOnFocus: (_a = c.props.showSoftInputOnFocus) !== null && _a !== void 0 ? _a : config.showSoftInputOnFocus,
                 onFocus: (e) => handleFocus(e, c.props)
             });
         }

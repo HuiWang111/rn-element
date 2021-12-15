@@ -101,9 +101,10 @@ export class Field extends Component {
                     return children(this.context);
                 }
                 return Children.map(children, c => {
+                    var _a;
                     if (c) {
                         if (c.type === inputComponent) {
-                            return cloneElement(c, this.getControlled(Object.assign(Object.assign({}, c.props), { showSoftInputOnFocus })));
+                            return cloneElement(c, this.getControlled(Object.assign(Object.assign({}, c.props), { showSoftInputOnFocus: (_a = c.props.showSoftInputOnFocus) !== null && _a !== void 0 ? _a : showSoftInputOnFocus })));
                         }
                         return cloneElement(c, this.getControlled(c.props));
                     }

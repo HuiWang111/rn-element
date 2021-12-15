@@ -113,7 +113,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
                                 {...omit(searchInputProps, ['value', 'onChangeText'])}
                                 value={keyword}
                                 onChangeText={handleKeywordChange}
-                                showSoftInputOnFocus={showSoftInputOnFocus}
+                                showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
                             />
                         </View>
                         : null

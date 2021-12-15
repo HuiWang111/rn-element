@@ -11,6 +11,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const containerWidth = screenWidth - 40;
 const containerHeight = screenHeight - 90;
 export const Picker = ({ zIndex, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, onSearch, onCancel, onConfirm }) => {
+    var _a;
     const values = Children.map(children, (item) => {
         var _a;
         return (_a = item.props) === null || _a === void 0 ? void 0 : _a.value;
@@ -60,7 +61,7 @@ export const Picker = ({ zIndex, maskStyle, children, value: propsValue, activeI
         React.createElement(View, { style: styles.container },
             showSearch
                 ? React.createElement(View, { style: styles.searchContainer },
-                    React.createElement(Input, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, onChangeText: handleKeywordChange, showSoftInputOnFocus: showSoftInputOnFocus })))
+                    React.createElement(Input, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, onChangeText: handleKeywordChange, showSoftInputOnFocus: (_a = searchInputProps === null || searchInputProps === void 0 ? void 0 : searchInputProps.showSoftInputOnFocus) !== null && _a !== void 0 ? _a : showSoftInputOnFocus })))
                 : null,
             React.createElement(ScrollView, { style: scrollViewStyle },
                 React.createElement(PickerContext.Provider, { value: { setValue, activeItemStyle, itemStyle } }, Children.map(children, (item) => {
