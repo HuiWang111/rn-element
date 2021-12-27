@@ -11,7 +11,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React from 'react';
 import { ThemeContext } from './context';
+import { colors } from '../../utils';
 export const ThemeProvider = (_a) => {
-    var { children } = _a, colors = __rest(_a, ["children"]);
-    return (React.createElement(ThemeContext.Provider, { value: Object.assign({}, colors) }, children));
+    var { children } = _a, propsColors = __rest(_a, ["children"]);
+    return (React.createElement(ThemeContext.Provider, { value: Object.assign(Object.assign({}, colors), propsColors) }, children));
 };
