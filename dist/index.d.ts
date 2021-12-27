@@ -16,3 +16,4 @@ export { CheckList, Checkbox } from './components/checkbox';
 export { Switch, ISwitchProps } from './components/switch';
 export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './hooks';
 export { KeyCode } from './constants';
+export { ThemeProvider } from './components/theme-provider';

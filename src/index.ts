@@ -34,4 +34,6 @@ export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnt
 
 export { KeyCode } from './constants';
 
+export { ThemeProvider } from './components/theme-provider'
+
 
