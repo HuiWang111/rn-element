@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { View, StyleSheet, Text, Pressable } from 'react-native';
-import { ThemeContext } from '../theme-provider';
 import { isString, isUndefined } from '../../utils';
+import { useTheme } from '../../hooks';
 export const Checkbox = ({ checked: propsChecked, defaultChecked, wrapperStyle, iconStyle, contentStyle, checkedColor: chcolor, uncheckColor: uncolor, children, onChange }) => {
     const [checked, setChecked] = useState(() => {
         const c = isUndefined(propsChecked) ? defaultChecked : propsChecked;
         return c !== null && c !== void 0 ? c : false;
     });
-    const colors = useContext(ThemeContext);
+    const colors = useTheme();
     const checkedColor = chcolor ? chcolor : colors.primary;
     const uncheckColor = uncolor ? uncolor : colors.border;
     useEffect(() => {

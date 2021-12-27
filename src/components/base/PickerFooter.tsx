@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import {
     View,
     StyleSheet,
@@ -6,14 +6,14 @@ import {
     Text
 } from 'react-native';
 import { IPickerFooterProps } from './interface';
-import { ThemeContext } from '../theme-provider';
+import { useTheme } from '../../hooks'
 
 export const PickerFooter: FC<IPickerFooterProps> = ({
     onCancel,
     onConfirm
 }: IPickerFooterProps) => {
     const activeOpacity = 0.7;
-    const colors = useContext(ThemeContext);
+    const colors = useTheme();
     const textStyle = {
         color: colors.primary
     };

@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Pressable, Animated } from 'react-native';
-import { ThemeContext } from '../theme-provider';
 import { isUndefined } from '../../utils';
+import { useTheme } from '../../hooks';
 export const Switch = ({ checked: propsChecked, defaultChecked, disabled = false, style, onChange, onPress }) => {
-    const { primary } = useContext(ThemeContext);
+    const { primary } = useTheme();
     const [checked, setChecked] = useState(() => {
         const c = isUndefined(propsChecked) ? defaultChecked : propsChecked;
         return c !== null && c !== void 0 ? c : false;

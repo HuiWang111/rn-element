@@ -1,9 +1,9 @@
-import React, { FC, useState, useEffect, useContext } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native';
 import { ICheckListProps } from './interface';
 import { isObject, isUndefined, isString } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { ThemeContext } from '../theme-provider';
+import { useTheme } from '../../hooks'
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ export const CheckList: FC<ICheckListProps> = ({
         const v = isUndefined(propsValue) ? defaultValue : propsValue
         return v ?? [] 
     });
-    const theme = useContext(ThemeContext);
+    const theme = useTheme();
     const activeColor = selectedColor || theme.primary;
 
     useEffect(() => {

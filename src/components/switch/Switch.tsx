@@ -1,8 +1,8 @@
-import React, { FC, useContext, useState, useEffect, useRef } from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import { StyleSheet, Pressable, Animated } from 'react-native'
 import { ISwitchProps } from './interface'
-import { ThemeContext } from '../theme-provider'
 import { isUndefined } from '../../utils'
+import { useTheme } from '../../hooks'
 
 export const Switch: FC<ISwitchProps> = ({
     checked: propsChecked,
@@ -12,7 +12,7 @@ export const Switch: FC<ISwitchProps> = ({
     onChange,
     onPress
 }: ISwitchProps) => {
-    const { primary } = useContext(ThemeContext)
+    const { primary } = useTheme()
     const [checked, setChecked] = useState<boolean>(() => {
         const c = isUndefined(propsChecked) ? defaultChecked : propsChecked
         return c ?? false

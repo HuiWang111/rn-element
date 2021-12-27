@@ -6,3 +6,5 @@ export {
     useArrowRight,
     useEnter
 } from './useKeyUp';
+
+export { useTheme } from './useTheme'

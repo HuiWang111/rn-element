@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { ThemeContext } from '../theme-provider';
+import { useTheme } from '../../hooks';
 export const Button = ({ type = 'default', danger = false, title, style, loading = false, disabled = false, spinnerStyle, titleStyle, onPress }) => {
-    const { primary, error } = useContext(ThemeContext);
+    const { primary, error } = useTheme();
     const isPrimary = type === 'primary';
     let spinnerColor = spinnerStyle && spinnerStyle.color
         ? spinnerStyle.color

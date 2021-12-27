@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { ThemeContext } from '../theme-provider';
+import { useTheme } from '../../hooks';
 export const PickerFooter = ({ onCancel, onConfirm }) => {
     const activeOpacity = 0.7;
-    const colors = useContext(ThemeContext);
+    const colors = useTheme();
     const textStyle = {
         color: colors.primary
     };

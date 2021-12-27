@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
 import { isObject, isUndefined, isString } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { ThemeContext } from '../theme-provider';
+import { useTheme } from '../../hooks';
 const { width } = Dimensions.get('window');
 export const CheckList = ({ value: propsValue, defaultValue, options, activeColor: selectedColor, style, itemStyle, onChange }) => {
     const [value, setValue] = useState(() => {
         const v = isUndefined(propsValue) ? defaultValue : propsValue;
         return v !== null && v !== void 0 ? v : [];
     });
-    const theme = useContext(ThemeContext);
+    const theme = useTheme();
     const activeColor = selectedColor || theme.primary;
     useEffect(() => {
         setValue(propsValue !== null && propsValue !== void 0 ? propsValue : []);

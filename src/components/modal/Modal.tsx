@@ -1,10 +1,10 @@
-import React, { FC, PropsWithChildren, ReactNode, useContext, useEffect } from 'react';
+import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
 import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IModalProps, IModalFooter } from './interface';
 import { isUndefined, isString, isFunction, isNull } from '../../utils';
-import { ThemeContext } from '../theme-provider';
 import { Button } from '../button';
+import { useTheme } from '../../hooks'
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -25,7 +25,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     ...restProps
 }: PropsWithChildren<IModalProps>) => {
     const { width } = useWindowDimensions();
-    const colors = useContext(ThemeContext);
+    const colors = useTheme();
     const commonStyle = {
         width: width - 80
     };

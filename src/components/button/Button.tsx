@@ -1,7 +1,7 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { IButtonProps } from './interface';
-import { ThemeContext } from '../theme-provider'
+import { useTheme } from '../../hooks'
 
 export const Button: FC<IButtonProps> = ({
     type = 'default',
@@ -14,7 +14,7 @@ export const Button: FC<IButtonProps> = ({
     titleStyle,
     onPress
 }: IButtonProps) => {
-    const { primary, error } = useContext(ThemeContext);
+    const { primary, error } = useTheme();
     const isPrimary = type === 'primary';
     let spinnerColor = spinnerStyle && spinnerStyle.color
         ? spinnerStyle.color

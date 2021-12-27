@@ -1,9 +1,9 @@
-import React, { FC, useState, useEffect, useContext, PropsWithChildren } from 'react'
+import React, { FC, useState, useEffect, PropsWithChildren } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import { View, StyleSheet, Text, Pressable } from 'react-native'
 import { ICheckboxProps } from './interface'
-import { ThemeContext } from '../theme-provider'
 import { isString, isUndefined } from '../../utils'
+import { useTheme } from '../../hooks'
 
 export const Checkbox: FC<PropsWithChildren<ICheckboxProps>> = ({
     checked: propsChecked,
@@ -20,7 +20,7 @@ export const Checkbox: FC<PropsWithChildren<ICheckboxProps>> = ({
         const c = isUndefined(propsChecked) ? defaultChecked : propsChecked
         return c ?? false
     })
-    const colors = useContext(ThemeContext)
+    const colors = useTheme()
     const checkedColor = chcolor ? chcolor : colors.primary
     const uncheckColor = uncolor ? uncolor : colors.border
 
