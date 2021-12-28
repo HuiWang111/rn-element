@@ -20,7 +20,7 @@ export { TreePicker } from './components/treePicker';
 
 export { ConfigProvider } from './components/config-provider';
 
-export { RadioList } from './components/radio';
+export { RadioList, Radio } from './components/radio';
 
 export { Input } from './components/input';
 
@@ -36,4 +36,4 @@ export { KeyCode } from './constants';
 
 export { ThemeProvider } from './components/theme-provider'
 
-
+export { Table, ITableProps } from './components/table'

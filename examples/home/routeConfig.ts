@@ -11,6 +11,7 @@ import { InputDemo } from '../Input';
 import { ButtonDemo } from '../Button';
 import { CheckListDemo } from '../CheckList'
 import { SwitchDemo } from '../Switch'
+import { TableDemo } from '../Table'
 
 interface IRouteConfig {
     path: string;
@@ -29,5 +30,6 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'input-demo', component: InputDemo },
     { path: 'button-demo', component: ButtonDemo },
     { path: 'check-list', component: CheckListDemo },
-    { path: 'switch', component: SwitchDemo }
+    { path: 'switch', component: SwitchDemo },
+    { path: 'table', component: TableDemo }
 ];
