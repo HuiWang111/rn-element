@@ -42,48 +42,50 @@ const TreePickerDemo: FC = () => {
     }
 
     return (
-        <Page
-            header={{
-                center: <Text>picker</Text>
-            }}
-            F1={{
-                label: <Text>F1 返回</Text>,
-                handler: () => {
-                    history.goBack();
+        <>
+            <Page
+                header={{
+                    center: <Text>picker</Text>
+                }}
+                F1={{
+                    label: <Text>F1 返回</Text>,
+                    handler: () => {
+                        history.goBack();
+                    }
+                }}
+            >
+                {
+                    ({ height }) => (
+                        <View style={{ height }}>
+                            <List
+                                activeIndex={index}
+                                onChange={handleChange}
+                                style={styles.list}
+                                itemStyle={styles.item}
+                                activeItemStyle={styles.activeItem}
+                                keyboard={!visible}
+                            >
+                                <List.ActivableItem onEnter={showPicker} onPress={showPicker}>
+                                    <Text>show tree-picker</Text>
+                                </List.ActivableItem>
+                                <List.ActivableItem>
+                                    <Text>1</Text>
+                                </List.ActivableItem>
+                            </List>
+                        </View>
+                    )
                 }
-            }}
-        >
-            {
-                ({ height }) => (
-                    <View style={{ height: height - 30 }}>
-                        <List
-                            activeIndex={index}
-                            onChange={handleChange}
-                            style={styles.list}
-                            itemStyle={styles.item}
-                            activeItemStyle={styles.activeItem}
-                            keyboard={!visible}
-                        >
-                            <List.ActivableItem onEnter={showPicker} onPress={showPicker}>
-                                <Text>show tree-picker</Text>
-                            </List.ActivableItem>
-                            <List.ActivableItem>
-                                <Text>1</Text>
-                            </List.ActivableItem>
-                        </List>
-                        <TreePicker
-                            itemStyle={styles.item}
-                            activeItemStyle={styles.activeItem}
-                            unfocusActiveItemStyle={styles.unfocusActiveItem}
-                            visible={visible}
-                            onConfirm={handleConfirm}
-                            onCancel={handleCancel}
-                            options={options}
-                        />
-                    </View>
-                )
-            }
-        </Page>
+            </Page>
+            <TreePicker
+                itemStyle={styles.item}
+                activeItemStyle={styles.activeItem}
+                unfocusActiveItemStyle={styles.unfocusActiveItem}
+                visible={visible}
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+                options={options}
+            />
+        </>
     );
 }
 

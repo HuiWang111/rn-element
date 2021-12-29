@@ -2,6 +2,7 @@ import { ViewStyle } from 'react-native'
 import { ReactNode } from 'react'
 
 export type Data = Record<string | symbol, any>;
+export type SelectionType = 'checkbox' | 'radio';
 
 export interface IExpandable {
     backgroundColor?: string;
@@ -12,6 +13,7 @@ export interface IExpandable {
 export interface IRowSelection {
     selectedRowKeys?: string[];
     defaultSelectedRowKeys?: string[];
+    type?: SelectionType;
     onChange?: (selectedRowKeys: string[]) => void;
     onSelectAll?: (selectedRowKeys: string[]) => void;
 }
@@ -21,7 +23,6 @@ export interface ITableColumn {
     title: string | ReactNode;
     style?: ViewStyle | ViewStyle[];
     align?: 'auto' | 'left' | 'right' | 'center' | 'justify' | undefined;
-    type?: 'normal' | 'checkbox' | 'radio';
     render?: (text: any, record: Data, index: number) => any;
 }
 
@@ -42,6 +43,7 @@ export interface ITableProps {
 export interface ITableHeadProps {
     columns: ITableColumn[];
     backgroundColor: string;
+    selectionType?: SelectionType;
     onSelect: (checked: boolean) => void;
 }
 
@@ -52,7 +54,8 @@ export interface ITableRowProps {
     expandable?: IExpandable;
     selectedKeys: string[];
     identifer: string;
+    selectionType?: SelectionType;
     onPress?: () => void;
-    onSelect: (type: 'radio' | 'checkbox', checked: boolean) => void;
+    onSelect: (type: SelectionType, checked: boolean) => void;
     onEnter?: (rowKey: string) => void;
 }

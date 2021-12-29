@@ -3,18 +3,21 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Text
+    Text,
+    TextStyle
 } from 'react-native';
 import { IPickerFooterProps } from './interface';
 import { useTheme } from '../../hooks'
 
 export const PickerFooter: FC<IPickerFooterProps> = ({
+    cancelText = '取消',
+    confirmText = '确认',
     onCancel,
     onConfirm
 }: IPickerFooterProps) => {
     const activeOpacity = 0.7;
     const colors = useTheme();
-    const textStyle = {
+    const textStyle: TextStyle = {
         color: colors.primary
     };
 
@@ -32,7 +35,9 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
                 activeOpacity={activeOpacity}
                 onPress={onCancel}
             >
-                <Text style={textStyle}>取消</Text>
+                <Text style={textStyle}>
+                    { cancelText }
+                </Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[
@@ -46,7 +51,7 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
                 onPress={onConfirm}
             >
                 <Text style={textStyle}>
-                    确认
+                    { confirmText }
                 </Text>
             </TouchableOpacity>
         </View>

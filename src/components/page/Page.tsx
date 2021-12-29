@@ -66,7 +66,7 @@ export const Page: FC<IPageProps> = ({
     }
     const displayFnBar = Boolean(F1 || F2 || F3 || F4);
     if (displayFnBar) {
-        restHeight -= 50;
+        restHeight -= 40;
     }
 
     const handlePressF1 = () => {
@@ -108,7 +108,7 @@ export const Page: FC<IPageProps> = ({
             }
             {
                 isFunction(children)
-                    ? children({ width, height: restHeight })
+                    ? children({ width, height: restHeight - 25 })
                     : children
             }
             {
@@ -181,8 +181,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden',
-        
+        overflow: 'hidden'
     },
     headerCenter: {
         flex: 1,
@@ -200,10 +199,10 @@ const styles = StyleSheet.create({
     },
     fnBar: {
         flexDirection: 'row',
-        flexBasis: 50
+        flexBasis: 40
     },
     fnCol: {
-        height: 50,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center'
     }

@@ -1,7 +1,7 @@
 import { ReactText } from 'react';
-import { IOption } from './interface';
+import { IOptionWithChildren } from './interface';
 
-export const getDefaultValue = (options: IOption[]): ReactText[] => {
+export const getDefaultValue = (options: IOptionWithChildren[]): ReactText[] => {
     const value: ReactText[] = [];
 
     if (options.length) {
@@ -22,8 +22,8 @@ export const getDefaultValue = (options: IOption[]): ReactText[] => {
     return value;
 }
 
-export const getDefaultColumns = (options: IOption[]): Array<Omit<IOption, 'children'>[]> => {
-    const value: Array<Omit<IOption, 'children'>[]> = [];
+export const getDefaultColumns = (options: IOptionWithChildren[]): Array<Omit<IOptionWithChildren, 'children'>[]> => {
+    const value: Array<Omit<IOptionWithChildren, 'children'>[]> = [];
 
     if (options.length) {
         const firstDepthOption = options[0];
@@ -40,4 +40,22 @@ export const getDefaultColumns = (options: IOption[]): Array<Omit<IOption, 'chil
     }
 
     return value;
+}
+
+export const getDepth = (options: IOptionWithChildren[]): number => {
+    if (!options.length) {
+        return 0
+    }
+
+    let depth = 1
+    const recursive = (item: IOptionWithChildren, acc = 1) => {
+        depth = Math.max(depth, acc)
+        if (item.children && item.children.length) {
+            item.children.forEach(c => recursive(c, acc + 1))    
+        }
+    }
+
+    options.forEach(option => recursive(option))
+
+    return depth;
 }

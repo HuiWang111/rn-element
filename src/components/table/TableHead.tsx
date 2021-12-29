@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { ITableHeadProps, ITableColumn } from './interface'
+import { ITableHeadProps, ITableColumn, SelectionType } from './interface'
 import { isString } from '../../utils'
 import { useTheme } from '../../hooks'
 import { Checkbox } from '../checkbox'
@@ -8,16 +8,20 @@ import { Checkbox } from '../checkbox'
 export const TableHead: FC<ITableHeadProps> = ({
     columns,
     backgroundColor,
+    selectionType,
     onSelect
 }: ITableHeadProps) => {
     const theme = useTheme()
 
-    const renderCell = (column: ITableColumn): ReactNode => {
-        if (column.type === 'radio') {
+    const renderSelectionCell = (type: SelectionType) => {
+        if (type === 'radio') {
             return null
-        } else if (column.type === 'checkbox') {
-            return <Checkbox onChange={onSelect} />
-        } else if (isString(column.title)) {
+        }
+
+        return <Checkbox onChange={onSelect} />
+    }
+    const renderCell = (column: ITableColumn): ReactNode => {
+        if (isString(column.title)) {
             return <Text style={[styles.cellText, { textAlign: column.align || 'center' }]}>{column.title}</Text>
         } 
         return column.title
@@ -34,6 +38,18 @@ export const TableHead: FC<ITableHeadProps> = ({
                 }
             ]}
         >
+            {
+                selectionType ? (
+                    <View
+                        style={[
+                            styles.cell,
+                            { flexBasis: 30, flexGrow: 0 }
+                        ]}
+                    >
+                        { renderSelectionCell(selectionType) }
+                    </View>
+                ) : null
+            }
             {
                 columns.map((column, index) => {
                     return (

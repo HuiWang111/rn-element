@@ -10,4 +10,6 @@ export interface IMaskProps {
 export interface IPickerFooterProps {
     onCancel?: () => void;
     onConfirm?: () => void;
+    cancelText?: string;
+    confirmText?: string;
 }

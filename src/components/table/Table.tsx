@@ -33,6 +33,9 @@ export const Table: FC<ITableProps> = ({
     const scrollViewRef = useRef<ScrollView>(null)
     const highlightColor = hColor || theme.primary
     const lastIndex = dataSource.length - 1
+    const selectionType = rowSelection
+        ? (rowSelection.type ?? 'checkbox')
+        : undefined
 
     useArrowUp(() => {
         if (!highlightable) {
@@ -87,6 +90,7 @@ export const Table: FC<ITableProps> = ({
             <TableHead
                 columns={columns}
                 backgroundColor={tableHeadBackgroundColor}
+                selectionType={selectionType}
                 onSelect={(checked) => {
                     if (!rowSelection || !rowSelection.selectedRowKeys) {
                         if (checked) {
@@ -116,6 +120,7 @@ export const Table: FC<ITableProps> = ({
                                 expandable={expandable}
                                 selectedKeys={selectedKeys}
                                 identifer={key}
+                                selectionType={selectionType}
                                 style={{
                                     borderTopColor: theme.border,
                                     borderTopWidth: index === 0 ? 0 : 1,

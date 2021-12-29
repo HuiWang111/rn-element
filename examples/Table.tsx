@@ -46,7 +46,6 @@ export const TableDemo: FC = () => {
                 dataSource={dataSource}
                 highlightable
                 columns={[
-                    { title: '', dataIndex: '', type: 'radio', style: { flexBasis: 30, flexGrow: 0 } },
                     { title: '需求单号', dataIndex: 'code' },
                     { title: '状态', dataIndex: 'status', render: t => STATUS[t] },
                     { title: '物料组', dataIndex: 'group' },
@@ -58,6 +57,7 @@ export const TableDemo: FC = () => {
                 }}
                 rowSelection={{
                     selectedRowKeys,
+                    // type: 'radio',
                     onChange: (selected) => {
                         setSelectedRowKeys(selected)
                     }

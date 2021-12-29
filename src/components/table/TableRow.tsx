@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { ITableRowProps, ITableColumn } from './interface'
+import { ITableRowProps, ITableColumn, SelectionType } from './interface'
 import { useTheme } from '../../hooks'
 import { isFunction, isString } from '../../utils'
 import { Checkbox } from '../checkbox'
@@ -14,6 +14,7 @@ export const TableRow: FC<ITableRowProps> = ({
     expandable,
     identifer,
     selectedKeys,
+    selectionType,
     onSelect,
     onPress,
     onEnter
@@ -27,14 +28,26 @@ export const TableRow: FC<ITableRowProps> = ({
         rowExpandable = false
     }
     
+    const renderSelectionCell = (type: SelectionType) => {
+        if (type === 'radio') {
+            return (
+                <Radio
+                    onChange={(checked) => onSelect(type, checked)}
+                    checked={selectedKeys.includes(identifer)}
+                />
+            )
+        }
+        return (
+            <Checkbox
+                onChange={(checked) => onSelect(type, checked)}
+                checked={selectedKeys.includes(identifer)}
+            />
+        )
+    }
     const renderCell = (column: ITableColumn, index: number): ReactNode => {
         const text = data[column.dataIndex];
 
-        if (column.type === 'radio') {
-            return <Radio onChange={(checked) => onSelect('radio', checked)} checked={selectedKeys.includes(identifer)} />
-        } else if (column.type === 'checkbox') {
-            return <Checkbox onChange={(checked) => onSelect('checkbox', checked)} checked={selectedKeys.includes(identifer)} />
-        } else if (isFunction(column.render)) {
+        if (isFunction(column.render)) {
             const renderRes = column.render(text, data, index)
             
             if (isString(renderRes)) {
@@ -102,13 +115,26 @@ export const TableRow: FC<ITableRowProps> = ({
                     ]}
                 >
                     {
+                        selectionType ? (
+                            <View
+                                style={[
+                                    styles.cell,
+                                    { flexBasis: 30, flexGrow: 0 }
+                                ]}
+                            >
+                                { renderSelectionCell(selectionType) }
+                            </View>
+                        )
+                            : null
+                    }
+                    {
                         columns.map((column, index) => {
                             return (
                                 <View
                                     key={column.dataIndex}
                                     style={[
                                         styles.cell,
-                                        { borderLeftColor: theme.border, borderLeftWidth: index === 0 ? 0 : 1 },
+                                        { borderLeftColor: theme.border, borderLeftWidth: !selectionType && index === 0 ? 0 : 1 },
                                         column.style
                                     ]}
                                 >

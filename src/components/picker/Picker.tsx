@@ -7,7 +7,8 @@ import React, {
     ReactText,
     useEffect,
     useState,
-    useContext
+    useContext,
+    useMemo
 } from 'react';
 import {
     View,
@@ -27,11 +28,9 @@ import { ConfigContext } from '../config-provider';
 import { Input } from '../input';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-const containerWidth = screenWidth - 40;
-const containerHeight = screenHeight - 90;
 
 export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
-    zIndex,
+    zIndex = 10,
     maskStyle,
     children,
     value: propsValue,
@@ -40,6 +39,8 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     visible = false,
     showSearch = false,
     searchInputProps,
+    fullScreen = true,
+    footerProps = {},
     onSearch,
     onCancel,
     onConfirm
@@ -50,6 +51,12 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     const [value, setValue] = useState<ReactText>(values[0] || '');
     const [keyword, setKeyword] = useState<string>('');
     const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const containerWidth = useMemo(() => {
+        return fullScreen ? screenWidth : screenWidth - 40
+    }, [fullScreen])
+    const containerHeight = useMemo(() => {
+        return fullScreen ? screenHeight : screenHeight - 90
+    }, [fullScreen])
     const scrollViewStyle: StyleProp<ViewStyle> = {
         height: containerHeight - 50
     };
@@ -105,17 +112,27 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
             style={maskStyle}
             visible={visible}
         >
-            <View style={styles.container}>
+            <View
+                style={[
+                    styles.container,
+                    {
+                        width: containerWidth,
+                        height: containerHeight
+                    }
+                ]}
+            >
                 {
                     showSearch
-                        ? <View style={styles.searchContainer}>
-                            <Input
-                                {...omit(searchInputProps, ['value', 'onChangeText'])}
-                                value={keyword}
-                                onChangeText={handleKeywordChange}
-                                showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
-                            />
-                        </View>
+                        ? (
+                            <View style={styles.searchContainer}>
+                                <Input
+                                    {...omit(searchInputProps, ['value', 'onChangeText'])}
+                                    value={keyword}
+                                    onChangeText={handleKeywordChange}
+                                    showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
+                                />
+                            </View>
+                        )
                         : null
                 }
                 <ScrollView style={scrollViewStyle}>
@@ -132,6 +149,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
                 <PickerFooter
                     onCancel={handleCancel}
                     onConfirm={handleConfirm}
+                    { ...footerProps }
                 />
             </View>
         </Mask>
@@ -140,13 +158,13 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
 
 const styles = StyleSheet.create({
     container: {
-        width: containerWidth,
-        height: containerHeight,
         backgroundColor: '#fff'
     },
     searchContainer: {
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 10
     }
 });
