@@ -20,7 +20,7 @@ export { TreePicker } from './components/tree-picker';
 
 export { ConfigProvider } from './components/config-provider';
 
-export { RadioList, Radio } from './components/radio';
+export { Radio } from './components/radio';
 
 export { Input } from './components/input';
 

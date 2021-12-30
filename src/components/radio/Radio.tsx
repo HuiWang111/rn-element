@@ -14,6 +14,7 @@ export const Radio: FC<PropsWithChildren<IRadioProps>> = ({
     checkedColor: chcolor,
     uncheckColor: uncolor,
     children,
+    disabled = false,
     onChange
 }: PropsWithChildren<IRadioProps>) => {
     const [checked, setChecked] = useState(() => {
@@ -21,36 +22,57 @@ export const Radio: FC<PropsWithChildren<IRadioProps>> = ({
         return c ?? false
     })
     const colors = useTheme()
-    const checkedColor = chcolor ? chcolor : colors.primary
-    const uncheckColor = uncolor ? uncolor : colors.border
+    let checkedColor = chcolor ? chcolor : colors.primary
+    let uncheckColor = uncolor ? uncolor : colors.border
+
+    if (disabled) {
+        uncheckColor = colors.disabled
+        checkedColor = colors.disabled
+    }
 
     useEffect(() => {
         setChecked(propsChecked ?? false)
     }, [propsChecked])
 
-    const handleChange = () => {
+    const handlePress = () => {
+        if (disabled) {
+            return
+        }
+
         if (isUndefined(propsChecked) && !checked) {
             setChecked(true)
         }
 
-        if (!checked) {
-            onChange?.(true)
-        }
+        onChange?.()
     }
 
     return (
-        <Pressable style={[styles.container, wrapperStyle]} onPress={handleChange}>
+        <Pressable
+            style={[
+                styles.container,
+                wrapperStyle,
+            ]}
+            onPress={handlePress}
+        >
             <Icon
                 style={[styles.icon, iconStyle]}
                 name={checked ? 'radio-button-checked' : 'radio-button-unchecked'}
                 color={checked ? checkedColor : uncheckColor}
-                onPress={handleChange}
                 size={18}
             />
             <View style={[styles.content, contentStyle]}>
                 {
                     isString(children)
-                        ? <Text style={{ color: '#000000d9', fontSize: 14 }}>{children}</Text>
+                        ? (
+                            <Text
+                                style={{
+                                    color: disabled ? colors.disabledText : '#000000d9',
+                                    fontSize: 14
+                                }}
+                            >
+                                {children}
+                            </Text>
+                        )
                         : children
                 }
             </View>
@@ -61,7 +83,8 @@ export const Radio: FC<PropsWithChildren<IRadioProps>> = ({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexWrap: 'nowrap'
     },
     icon: {},
     content: {

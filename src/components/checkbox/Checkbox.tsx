@@ -42,7 +42,6 @@ export const Checkbox: FC<PropsWithChildren<ICheckboxProps>> = ({
                 style={[styles.icon, iconStyle]}
                 name={checked ? 'check-square' : 'square'}
                 color={checked ? checkedColor : uncheckColor}
-                onPress={handleChange}
                 size={18}
             />
             <View style={[styles.content, contentStyle]}>

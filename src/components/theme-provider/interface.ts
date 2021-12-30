@@ -1,8 +1,3 @@
-export interface IThemeProps {
-    error?: string;
-    black?: string;
-    border?: string;
-    primary?: string;
-    warning?: string;
-    success?: string;
-}
+import { colors } from '../../utils'
+
+export type IThemeProps = Partial<typeof colors>

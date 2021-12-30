@@ -4,7 +4,9 @@ import {
     border,
     primary,
     warning,
-    success
+    success,
+    disabledText,
+    disabled
 } from './color';
 import regExp from './regExp';
 
@@ -32,7 +34,9 @@ export const colors = {
     border,
     primary,
     warning,
-    success
+    success,
+    disabledText,
+    disabled
 };
 
 export { styleUtils, mergeStyle } from './styles';

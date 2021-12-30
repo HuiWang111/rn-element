@@ -1,5 +1,6 @@
 import { ViewStyle, TextStyle } from 'react-native'
 import { ICheckListProps } from '../checkbox/interface'
+import { IBaseGroupProps } from '../base/interface'
 
 export interface IRadioListProps extends Omit<ICheckListProps, 'value' | 'onChange' | 'defaultValue'> {
     value?: string;
@@ -15,5 +16,13 @@ export interface IRadioProps {
     contentStyle?: ViewStyle;
     checkedColor?: string;
     uncheckColor?: string;
-    onChange?: (checked: boolean) => void;
+    disabled?: boolean;
+    value?: string;
+    onChange?: () => void;
+}
+
+export interface IRadioGroupProps extends Omit<IBaseGroupProps, 'defaultValue' | 'value' | 'onChange'> {
+    defaultValue?: string;
+    value?: string;
+    onChange?: (value: string) => void;
 }

@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { RadioList, Page } from '../src';
+import { Radio, Page } from '../src';
+
+const RadioList = Radio.List
 
 export const RadoList: FC = () => {
     const [checked, setChecked] = useState('');
@@ -33,20 +35,20 @@ export const RadoList: FC = () => {
                             options={[
                                 {
                                     label: '一一一一一一一一一一一一一一一一一一一一一一一一一一一一',
-                                    value: 1
+                                    value: '1'
                                 },
                                 {
                                     label: '二二二二二二二二二二二二二二二二二二二二二二二二二二二二',
-                                    value: 2
+                                    value: '2'
                                 },
                                 {
                                     label: '三三三三三三三三三三三三三三三三三三三三三三三三三三三三',
-                                    value: 3,
+                                    value: '3',
                                     disabled: true
                                 },
                                 {
                                     label: '四四四四四四四四四四四四四四四四四四四四四四四四四四四四',
-                                    value: 4
+                                    value: '4'
                                 }
                             ]}
                             onChange={handleChange}

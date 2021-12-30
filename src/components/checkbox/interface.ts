@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
+import { IBaseGroupProps } from '../base/interface'
 
 export interface ICheckListOption {
     label: string | ReactNode;
@@ -27,3 +28,5 @@ export interface ICheckboxProps {
     uncheckColor?: string;
     onChange?: (checked: boolean) => void;
 }
+
+export type ICheckboxGroupProps = Omit<IBaseGroupProps, 'disabled'>

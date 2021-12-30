@@ -27,45 +27,56 @@ export const FormDemo: FC = () => {
                 }
             }}
         >
-            <Form
-                form={form}
-                labelCol={{ span: 4 }}
-                wrapperCol={{ span: 18 }}
-                wrapperStyle={{ marginLeft: 10 }}
-            >
-                <Form.Item name='1' label='姓名'>
-                    <Input placeholder='张三' />
-                </Form.Item>
-                <Form.Item
-                    name='2'
-                    label='年龄'
-                    shouldUpdate={(prevValues, curValues) => {
-                        const res = curValues['3'] !== prevValues['3'] && curValues['3']
-                        return res
-                    }}
-                >
-                    {({ getFieldValue }) => {
-                        return (
-                            <View>
-                                {
-                                    getFieldValue('3')
-                                        ? <Input placeholder='18' />
-                                        : null
-                                }
-                            </View>
-                        )
-                    }}
-                </Form.Item>
-                <Form.Item name='3' label='是否展示年龄' valuePropName='checked' changeMethodName='onChange'>
-                    <Switch />
-                </Form.Item>
-                <Form.Item name='4' label='是否展示年龄' valuePropName='checked' changeMethodName='onChange'>
-                    <Checkbox>哈哈哈</Checkbox>
-                </Form.Item>
-                <Form.Item name='5' label='单选' valuePropName='checked' changeMethodName='onChange'>
-                    <Radio>哈哈哈</Radio>
-                </Form.Item>
-            </Form>
+            {
+                ({ height }) => (
+                    <Form
+                        form={form}
+                        labelCol={{ span: 4 }}
+                        wrapperCol={{ span: 18 }}
+                        wrapperStyle={{ marginLeft: 10 }}
+                        style={{ height, backgroundColor: '#fff' }}
+                        initialValues={{
+                            5: '1'
+                        }}
+                    >
+                        <Form.Item name='1' label='姓名'>
+                            <Input placeholder='张三' />
+                        </Form.Item>
+                        <Form.Item
+                            name='2'
+                            label='年龄'
+                            shouldUpdate={(prevValues, curValues) => {
+                                const res = curValues['3'] !== prevValues['3'] && curValues['3']
+                                return res
+                            }}
+                        >
+                            {({ getFieldValue }) => {
+                                return (
+                                    <View>
+                                        {
+                                            getFieldValue('3')
+                                                ? <Input placeholder='18' />
+                                                : null
+                                        }
+                                    </View>
+                                )
+                            }}
+                        </Form.Item>
+                        <Form.Item name='3' label='是否展示年龄' valuePropName='checked' changeMethodName='onChange'>
+                            <Switch />
+                        </Form.Item>
+                        <Form.Item name='4' label='是否展示年龄' valuePropName='checked' changeMethodName='onChange'>
+                            <Checkbox>哈哈哈</Checkbox>
+                        </Form.Item>
+                        <Form.Item name='5' label='性别' changeMethodName='onChange'>
+                            <Radio.Group>
+                                <Radio value='1'>男</Radio>
+                                <Radio value='2'>女</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                    </Form>
+                )
+            }
         </Page>
     )
 }
