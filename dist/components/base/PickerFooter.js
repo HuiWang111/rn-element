@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { useTheme } from '../../hooks';
-export const PickerFooter = ({ onCancel, onConfirm }) => {
+export const PickerFooter = ({ cancelText = '取消', confirmText = '确认', onCancel, onConfirm }) => {
     const activeOpacity = 0.7;
     const colors = useTheme();
     const textStyle = {
@@ -14,7 +14,7 @@ export const PickerFooter = ({ onCancel, onConfirm }) => {
             }
         ] },
         React.createElement(TouchableOpacity, { style: styles.btn, activeOpacity: activeOpacity, onPress: onCancel },
-            React.createElement(Text, { style: textStyle }, "\u53D6\u6D88")),
+            React.createElement(Text, { style: textStyle }, cancelText)),
         React.createElement(TouchableOpacity, { style: [
                 styles.btn,
                 styles.confirmBtn,
@@ -22,7 +22,7 @@ export const PickerFooter = ({ onCancel, onConfirm }) => {
                     borderLeftColor: colors.border
                 }
             ], activeOpacity: activeOpacity, onPress: onConfirm },
-            React.createElement(Text, { style: textStyle }, "\u786E\u8BA4"))));
+            React.createElement(Text, { style: textStyle }, confirmText))));
 };
 const styles = StyleSheet.create({
     footer: {

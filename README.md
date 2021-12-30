@@ -32,3 +32,6 @@ npm run version -- --major # break api
 - [theme-provider](https://github.com/HuiWang111/rn-element/blob/main/docs/theme-provider.md)
 - [toast](https://github.com/HuiWang111/rn-element/blob/main/docs/toast.md)
 - [webView](https://github.com/HuiWang111/rn-element/blob/main/docs/webView.md)
+
+## issues
+1. [React Native Common Issues](https://github.com/HuiWang111/rn-element/blob/main/docs/react-native-issue-records.md)

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
 import { routeConfig } from './routeConfig';
 const Home: FC = (): JSX.Element => {
     return (
-        <View>
+        <ScrollView>
             {
                 routeConfig.map((route, index) => {
                     return (
@@ -26,7 +26,7 @@ const Home: FC = (): JSX.Element => {
                     );
                 })
             }
-        </View>
+        </ScrollView>
     );
 }
 

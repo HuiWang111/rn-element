@@ -7,7 +7,8 @@ import React, {
     ReactText,
     useEffect,
     useState,
-    useContext
+    useContext,
+    useMemo
 } from 'react';
 import {
     View,
@@ -17,9 +18,8 @@ import {
     StyleProp,
     ViewStyle
 } from 'react-native';
-import { Mask } from '../base/Mask';
 import { IPickerProps } from './interface';
-import { PickerFooter } from '../base/PickerFooter';
+import { PickerFooter, Mask, Empty } from '../base';
 import { PickerContext } from './context';
 import { useArrowUp, useArrowDown } from '../../hooks';
 import { omit } from '../../utils';
@@ -27,11 +27,9 @@ import { ConfigContext } from '../config-provider';
 import { Input } from '../input';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-const containerWidth = screenWidth - 40;
-const containerHeight = screenHeight - 90;
 
 export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
-    zIndex,
+    zIndex = 10,
     maskStyle,
     children,
     value: propsValue,
@@ -40,28 +38,37 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     visible = false,
     showSearch = false,
     searchInputProps,
+    fullScreen = true,
+    footerProps = {},
     onSearch,
     onCancel,
     onConfirm
 }: PropsWithChildren<IPickerProps>) => {
-    const values: ReactText[] = Children.map(children, (item: ReactElement) => {
-        return item.props?.value;
-    }) || [];
-    const [value, setValue] = useState<ReactText>(values[0] || '');
+    const values = useMemo<ReactText[]>(() => {
+        return Children.map(children, (item: ReactElement) => {
+            return item.props?.value;
+        }) || []
+    }, [children]);
+    const [value, setValue] = useState<ReactText>(propsValue ?? (values[0] ?? ''));
     const [keyword, setKeyword] = useState<string>('');
     const { showSoftInputOnFocus } = useContext(ConfigContext);
-    const scrollViewStyle: StyleProp<ViewStyle> = {
+    const containerWidth = useMemo(() => {
+        return fullScreen ? screenWidth : screenWidth - 40
+    }, [fullScreen])
+    const containerHeight = useMemo(() => {
+        return fullScreen ? screenHeight - 20 : screenHeight - 90
+    }, [fullScreen])
+    const scrollViewStyle: StyleProp<ViewStyle> & { height: number, } = {
         height: containerHeight - 50
     };
 
     if (showSearch) {
-        (scrollViewStyle.height as number) -= 50;
+        scrollViewStyle.height -= 50;
     }
 
     useEffect(() => {
-        setValue(propsValue || '');
-    }, [propsValue]);
-
+        setValue(propsValue ?? (values[0] ?? ''));
+    }, [propsValue, values]);
     useArrowUp(() => {
         const index = values.findIndex(v => v === value);
         
@@ -69,7 +76,6 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
             setValue(values[index - 1]);
         }
     }, [value]);
-
     useArrowDown(() => {
         const index = values.findIndex(v => v === value);
         const maxIndex = values.length - 1;
@@ -82,56 +88,77 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     const resetState = () => {
         setValue(values[0] || '');
         setKeyword('');
+        onSearch?.('')
     }
-
     const handleConfirm = (): void => {
         onConfirm?.(value);
         resetState();
     };
-
     const handleCancel = (): void => {
         onCancel?.();
         resetState();
     }
-
     const handleKeywordChange = (value: string) => {
         setKeyword(value);
         onSearch?.(value);
     }
     
+    const renderItems = () => {
+        if (Children.count(children) === 0) {
+            return <Empty style={{ height: scrollViewStyle.height }} />
+        }
+
+        return (
+            <PickerContext.Provider value={{ setValue, activeItemStyle, itemStyle }}>
+                {
+                    Children.map(children, (item: ReactElement) => {
+                        return cloneElement(item, {
+                            isActive: value === item.props?.value
+                        })
+                    })
+                }
+            </PickerContext.Provider>
+        )
+    }
+
     return (
         <Mask
             zIndex={zIndex}
             style={maskStyle}
             visible={visible}
         >
-            <View style={styles.container}>
+            <View
+                style={[
+                    styles.container,
+                    {
+                        width: containerWidth,
+                        height: containerHeight
+                    }
+                ]}
+            >
                 {
                     showSearch
-                        ? <View style={styles.searchContainer}>
-                            <Input
-                                {...omit(searchInputProps, ['value', 'onChangeText'])}
-                                value={keyword}
-                                onChangeText={handleKeywordChange}
-                                showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
-                            />
-                        </View>
+                        ? (
+                            <View style={styles.searchContainer}>
+                                <Input
+                                    {...omit(searchInputProps, ['value', 'onChangeText'])}
+                                    value={keyword}
+                                    style={styles.searchInput}
+                                    wrapStyle={styles.searchInputWrap}
+                                    onChangeText={handleKeywordChange}
+                                    showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
+                                />
+                            </View>
+                        )
                         : null
                 }
                 <ScrollView style={scrollViewStyle}>
-                    <PickerContext.Provider value={{ setValue, activeItemStyle, itemStyle }}>
-                        {
-                            Children.map(children, (item: ReactElement) => {
-                                return cloneElement(item, {
-                                    isActive: value === item.props?.value
-                                })
-                            })
-                        }
-                    </PickerContext.Provider>
+                    { renderItems() }
                 </ScrollView>
                 <PickerFooter
                     onCancel={handleCancel}
                     onConfirm={handleConfirm}
+                    { ...footerProps }
                 />
             </View>
         </Mask>
@@ -140,13 +167,19 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
 
 const styles = StyleSheet.create({
     container: {
-        width: containerWidth,
-        height: containerHeight,
         backgroundColor: '#fff'
     },
     searchContainer: {
         height: 50,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 10
+    },
+    searchInput: {
+        height: 30,
+        padding: 0
+    },
+    searchInputWrap: {
+        height: 30
     }
 });

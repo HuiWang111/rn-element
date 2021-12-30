@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 import { useHistory } from 'react-router-native';
-import { Form, Toast, Page, Input, Switch, Checkbox } from '../src';
+import { Form, Toast, Page, Input, Switch, Checkbox, Radio } from '../src';
 
 export const FormDemo: FC = () => {
     const history = useHistory();
@@ -61,6 +61,9 @@ export const FormDemo: FC = () => {
                 </Form.Item>
                 <Form.Item name='4' label='是否展示年龄' valuePropName='checked' changeMethodName='onChange'>
                     <Checkbox>哈哈哈</Checkbox>
+                </Form.Item>
+                <Form.Item name='5' label='单选' valuePropName='checked' changeMethodName='onChange'>
+                    <Radio>哈哈哈</Radio>
                 </Form.Item>
             </Form>
         </Page>
