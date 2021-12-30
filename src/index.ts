@@ -16,7 +16,7 @@ export { NumberInput } from './components/number-input';
 
 export { Picker } from './components/picker';
 
-export { TreePicker } from './components/treePicker';
+export { TreePicker } from './components/tree-picker';
 
 export { ConfigProvider } from './components/config-provider';
 

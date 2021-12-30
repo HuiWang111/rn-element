@@ -2,7 +2,6 @@ import React, { FC, ReactText, useState } from 'react';
 import { StyleSheet, Dimensions, Text, View } from 'react-native';
 import { Picker, List, Toast, Page } from '../src';
 import { useHistory } from 'react-router-native';
-import { colors } from '../src/utils';
 
 const numbers = new Array(30).fill(undefined).map((_, index) => index + 1);
 
@@ -10,13 +9,15 @@ const PickerDemo: FC = () => {
     const [list, setList] = useState(numbers);
     const [index, setIndex] = useState(0);
     const [visible, setVisble] = useState(false);
+    const [value, setValue] = useState<ReactText>(1)
     const history = useHistory();
     const handleChange = (index: number) => {
         setIndex(index);
     }
     const showPicker = () => setVisble(true);
-    const handleConfirm = (value: ReactText) => {
-        Toast.show(`value is ${value}`);
+    const handleConfirm = (v: ReactText) => {
+        setValue(v)
+        Toast.show(`value is ${v}`);
         setVisble(false);
     }
     const handleCancel = () => {
@@ -69,12 +70,12 @@ const PickerDemo: FC = () => {
             <Picker
                 itemStyle={styles.item}
                 activeItemStyle={styles.activeItem}
-                value={1}
+                value={value}
                 visible={visible}
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
                 showSearch
-                fullScreen={false}
+                // fullScreen={false}
                 searchInputProps={{
                     placeholder: '请输入关键字搜索'
                 }}

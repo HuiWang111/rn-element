@@ -22,7 +22,7 @@ export interface IOptionWithChildren {
     }[];
 }
 
-export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfirm'> {
+export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfirm' | 'onSearch'> {
     value?: ReactText[];
     options?: IOptionWithChildren[];
     onConfirm?: (value: ReactText[]) => void;
@@ -32,4 +32,8 @@ export interface ITreePickerItemProps {
     style?: (ViewStyle | null | undefined)[];
     label: string;
     onPress: () => void;
+}
+
+export interface IOnSearchProps {
+    onSearch?: (val: string) => void;
 }

@@ -1,5 +1,6 @@
 import { ViewStyle, GestureResponderEvent, TextInputProps } from 'react-native';
 import { ReactNode, ReactText } from 'react';
+import { IPickerFooterProps } from '../base/interface';
 export interface IPickerItem {
     style?: ViewStyle;
     children?: ReactNode | undefined | (({ isActive: boolean }: {
@@ -18,6 +19,8 @@ export interface IPickerProps {
     visible?: boolean;
     showSearch?: boolean;
     searchInputProps?: TextInputProps;
+    fullScreen?: boolean;
+    footerProps?: Omit<IPickerFooterProps, 'onCancel' | 'onConfirm'>;
     onSearch?: (keyword: string) => void;
     onCancel?: () => void;
     onConfirm?: (value: ReactText) => void;

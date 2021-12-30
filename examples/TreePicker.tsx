@@ -1,12 +1,12 @@
 import React, { FC, useState, ReactText } from 'react';
 import { StyleSheet, Dimensions, Text, View } from 'react-native';
 import { TreePicker, List, Toast, Page } from '../src';
-import { IOption } from '../src/components/treePicker/interface';
+import { IOptionWithChildren } from '../src/components/treePicker/interface';
 import { useHistory } from 'react-router-native';
 import { colors } from '../src/utils';
 
 const numbers = new Array(30).fill(undefined).map((_, index) => index + 1);
-const options: IOption[] = numbers.map(n => {
+const options: IOptionWithChildren[] = numbers.map(n => {
     return {
         value: String(n),
         label: `选项${n}`,
@@ -79,11 +79,14 @@ const TreePickerDemo: FC = () => {
             <TreePicker
                 itemStyle={styles.item}
                 activeItemStyle={styles.activeItem}
-                unfocusActiveItemStyle={styles.unfocusActiveItem}
                 visible={visible}
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
                 options={options}
+                showSearch
+                searchInputProps={{
+                    placeholder: '请输入关键字搜索'
+                }}
             />
         </>
     );

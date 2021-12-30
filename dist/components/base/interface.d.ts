@@ -1,4 +1,4 @@
-import { ViewStyle } from 'react-native';
+import { ViewStyle, StyleProp, ImageRequireSource } from 'react-native';
 export interface IMaskProps {
     zIndex?: number;
     backgroundColor?: string;
@@ -8,4 +8,11 @@ export interface IMaskProps {
 export interface IPickerFooterProps {
     onCancel?: () => void;
     onConfirm?: () => void;
+    cancelText?: string;
+    confirmText?: string;
+}
+export interface IEmptyProps {
+    style?: StyleProp<ViewStyle>;
+    description?: string;
+    image?: ImageRequireSource;
 }

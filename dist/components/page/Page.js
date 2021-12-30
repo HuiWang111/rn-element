@@ -51,7 +51,7 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
     }
     const displayFnBar = Boolean(F1 || F2 || F3 || F4);
     if (displayFnBar) {
-        restHeight -= 50;
+        restHeight -= 40;
     }
     const handlePressF1 = () => {
         var _a, _b;
@@ -85,7 +85,7 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
                 React.createElement(View, { style: [styles.headerRight, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.right] }, header.right))
             : null,
         isFunction(children)
-            ? children({ width, height: restHeight })
+            ? children({ width, height: restHeight - 25 })
             : children,
         displayFnBar
             ? React.createElement(View, { style: [{ width }, styles.fnBar, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.bar] },
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden',
+        overflow: 'hidden'
     },
     headerCenter: {
         flex: 1,
@@ -144,10 +144,10 @@ const styles = StyleSheet.create({
     },
     fnBar: {
         flexDirection: 'row',
-        flexBasis: 50
+        flexBasis: 40
     },
     fnCol: {
-        height: 50,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center'
     }

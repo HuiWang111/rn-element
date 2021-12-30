@@ -5,6 +5,7 @@ import { TableHead } from './TableHead'
 import { TableRow } from './TableRow'
 import { useTheme, useArrowUp, useArrowDown } from '../../hooks'
 import { isUndefined } from '../../utils'
+import { Empty } from '../base'
 
 const { width } = Dimensions.get('window')
 
@@ -109,65 +110,67 @@ export const Table: FC<ITableProps> = ({
             />
             <ScrollView ref={scrollViewRef} style={{ height: tableBodyHeight }}>
                 {
-                    dataSource.map((record, index) => {
-                        const key = getRowKey(record)
-
-                        return (
-                            <TableRow
-                                key={key}
-                                columns={columns}
-                                data={record}
-                                expandable={expandable}
-                                selectedKeys={selectedKeys}
-                                identifer={key}
-                                selectionType={selectionType}
-                                style={{
-                                    borderTopColor: theme.border,
-                                    borderTopWidth: index === 0 ? 0 : 1,
-                                    backgroundColor: highlight === index
-                                        ? highlightColor
-                                        : undefined
-                                }}
-                                onEnter={onRowEnter}
-                                onPress={() => {
-                                    if (highlightable) {
-                                        setHighlight(index)
-                                    }
-                                }}
-                                onSelect={(type, checked) => {
-                                    const keys: string[] = checked
-                                        ? [...selectedKeys, key]
-                                        : selectedKeys.filter(k => k !== key)
-
-                                    if (!rowSelection) {
+                    dataSource.length
+                        ? dataSource.map((record, index) => {
+                            const key = getRowKey(record)
+    
+                            return (
+                                <TableRow
+                                    key={key}
+                                    columns={columns}
+                                    data={record}
+                                    expandable={expandable}
+                                    selectedKeys={selectedKeys}
+                                    identifer={key}
+                                    selectionType={selectionType}
+                                    style={{
+                                        borderTopColor: theme.border,
+                                        borderTopWidth: index === 0 ? 0 : 1,
+                                        backgroundColor: highlight === index
+                                            ? highlightColor
+                                            : undefined
+                                    }}
+                                    onEnter={onRowEnter}
+                                    onPress={() => {
+                                        if (highlightable) {
+                                            setHighlight(index)
+                                        }
+                                    }}
+                                    onSelect={(type, checked) => {
+                                        const keys: string[] = checked
+                                            ? [...selectedKeys, key]
+                                            : selectedKeys.filter(k => k !== key)
+    
+                                        if (!rowSelection) {
+                                            if (type === 'radio') {
+                                                setSelectedKeys([key])
+                                            } else {
+                                                setSelectedKeys(keys)
+                                            }
+                                            return
+                                        }
+    
+                                        const { selectedRowKeys, onChange } = rowSelection
+    
                                         if (type === 'radio') {
-                                            setSelectedKeys([key])
-                                        } else {
-                                            setSelectedKeys(keys)
+                                            if (isUndefined(selectedRowKeys)) {
+                                                setSelectedKeys([key])
+                                            } else {
+                                                onChange?.([key])
+                                            }
+                                            return
                                         }
-                                        return
-                                    }
-
-                                    const { selectedRowKeys, onChange } = rowSelection
-
-                                    if (type === 'radio') {
+    
                                         if (isUndefined(selectedRowKeys)) {
-                                            setSelectedKeys([key])
+                                            setSelectedKeys(keys)
                                         } else {
-                                            onChange?.([key])
+                                            onChange?.(keys)
                                         }
-                                        return
-                                    }
-
-                                    if (isUndefined(selectedRowKeys)) {
-                                        setSelectedKeys(keys)
-                                    } else {
-                                        onChange?.(keys)
-                                    }
-                                }}
-                            />
-                        )
-                    })
+                                    }}
+                                />
+                            )
+                        })
+                        : <Empty style={{ height: tableBodyHeight }} />
                 }
             </ScrollView>
         </View>
