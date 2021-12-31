@@ -10,6 +10,7 @@ import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';
 import { isFunction } from '../../utils';
+import { BaseHeight } from '../../constants'
 
 export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     initialValue,
@@ -25,6 +26,9 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     wrapperStyle,
     inputComponent,
     numeric = false,
+    style,
+    labelStyle,
+    labelTextStyle,
     errorHandler,
     shouldUpdate = false,
     children
@@ -36,7 +40,7 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
         : [];
 
     return (
-        <View style={[styles.formItem]}>
+        <View style={[styles.formItem, style]}>
             {
                 label
                     ? (
@@ -44,6 +48,8 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
                             label={label}
                             labelAlign={labelAlign}
                             col={labelCol}
+                            style={labelStyle}
+                            textStyle={labelTextStyle}
                         />
                     )
                     : null
@@ -87,6 +93,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 0,
         marginTop: 0,
         padding: 0,
-        height: 50
+        minHeight: BaseHeight
     }
-});
+})

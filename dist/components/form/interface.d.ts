@@ -1,5 +1,5 @@
 import { ComponentType, ReactNode } from 'react';
-import { ViewStyle } from 'react-native';
+import { ViewStyle, StyleProp, TextStyle } from 'react-native';
 export declare type ValueType = any | any[];
 export declare type StoreValue<Values = ValueType> = Record<string, Values>;
 export declare type FormInstance<Values = ValueType> = {
@@ -59,7 +59,7 @@ export interface IFieldProps<Values = ValueType> {
     initialValue: ValueType;
     col?: ICol;
     numeric?: boolean;
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
     shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
@@ -68,11 +68,11 @@ export declare type ValidateTrigger = 'onChange' | 'onBlur';
 export interface IFormProps<Values = ValueType> {
     initialValues?: StoreValue;
     form: FormInstance<Values>;
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     validateTrigger?: ValidateTrigger;
     labelCol?: ICol;
     wrapperCol?: ICol;
-    wrapperStyle?: ViewStyle;
+    wrapperStyle?: StyleProp<ViewStyle>;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
 }
@@ -88,7 +88,10 @@ export interface IFormItemProps<Values = ValueType> {
     labelCol?: ICol;
     wrapperCol?: ICol;
     numeric?: boolean;
-    wrapperStyle?: ViewStyle;
+    wrapperStyle?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
+    labelStyle?: StyleProp<ViewStyle>;
+    labelTextStyle?: StyleProp<TextStyle>;
     inputComponent?: ComponentType;
     errorHandler?: ErrorHandler;
     shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);
@@ -98,6 +101,8 @@ export interface IFormItemLabelProps {
     label: string | ReactNode;
     labelAlign?: LabelAlign;
     col?: ICol;
+    style?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
 }
 export interface ICol {
     span?: number;
@@ -108,7 +113,7 @@ export interface IParentProps {
     formValidateTrigger?: ValidateTrigger;
     formLabelCol?: ICol;
     formWrapperCol?: ICol;
-    formWrapperStyle?: ViewStyle;
+    formWrapperStyle?: StyleProp<ViewStyle>;
     formInputComponent?: ComponentType;
     formErrorHandler?: ErrorHandler;
 }

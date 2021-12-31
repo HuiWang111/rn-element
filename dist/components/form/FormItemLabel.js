@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { styleUtils, isString } from '../../utils';
-export const FormItemLabel = ({ label, labelAlign = 'right', col }) => {
-    let formItemLabelStyle = [styles.formItemLabel];
+export const FormItemLabel = ({ label, labelAlign = 'right', col, style, textStyle }) => {
+    let formItemLabelStyle = [styles.formItemLabel, style];
     if (col) {
         if (col.span) {
             formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`span-${col.span}`]);
@@ -14,6 +14,7 @@ export const FormItemLabel = ({ label, labelAlign = 'right', col }) => {
     return (React.createElement(View, { style: formItemLabelStyle }, isString(label)
         ? React.createElement(Text, { style: [
                 styles.formItemLabelText,
+                textStyle,
                 {
                     textAlign: labelAlign
                 }
@@ -24,10 +25,11 @@ const styles = StyleSheet.create({
     formItemLabel: {
         flexGrow: 0,
         overflow: 'hidden',
-        height: 48.8,
-        justifyContent: 'center'
+        minHeight: 32,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     formItemLabelText: {
-        fontSize: 18
+        fontSize: 14
     }
 });

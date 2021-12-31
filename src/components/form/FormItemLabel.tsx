@@ -6,9 +6,11 @@ import { styleUtils, isString } from '../../utils';
 export const FormItemLabel: FC<IFormItemLabelProps> = ({
     label,
     labelAlign = 'right',
-    col
+    col,
+    style,
+    textStyle
 }: IFormItemLabelProps) => {
-    let formItemLabelStyle = [styles.formItemLabel];
+    let formItemLabelStyle = [styles.formItemLabel, style];
     if (col) {
         if (col.span) {
             formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`span-${col.span}`] as never);
@@ -25,6 +27,7 @@ export const FormItemLabel: FC<IFormItemLabelProps> = ({
                     ? <Text
                         style={[
                             styles.formItemLabelText,
+                            textStyle,
                             {
                                 textAlign: labelAlign
                             }
@@ -42,10 +45,11 @@ const styles = StyleSheet.create({
     formItemLabel: {
         flexGrow: 0,
         overflow: 'hidden',
-        height: 48.8,
-        justifyContent: 'center'
+        minHeight: 32,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     formItemLabelText: {
-        fontSize: 18
-    } 
+        fontSize: 14
+    }
 });

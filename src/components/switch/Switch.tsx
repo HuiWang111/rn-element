@@ -60,7 +60,7 @@ export const Switch: FC<ISwitchProps> = ({
         } else {
             toLeft()
         }
-    }, [checked])
+    }, [checked, positionAnimate, useNativeDriver])
 
     return (
         <Pressable

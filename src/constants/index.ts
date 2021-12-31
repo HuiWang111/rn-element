@@ -1,1 +1,3 @@
-export { KeyCode } from './keyCode';
+export { KeyCode } from './keyCode'
+
+export { BaseHeight } from './style'

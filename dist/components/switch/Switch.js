@@ -46,7 +46,7 @@ export const Switch = ({ checked: propsChecked, defaultChecked, disabled = false
         else {
             toLeft();
         }
-    }, [checked]);
+    }, [checked, positionAnimate, useNativeDriver]);
     return (React.createElement(Pressable, { style: [
             styles.switchContainer,
             style,

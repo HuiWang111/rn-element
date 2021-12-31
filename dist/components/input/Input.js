@@ -13,6 +13,7 @@ import React, { forwardRef } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { colors } from '../../utils';
+import { BaseHeight } from '../../constants';
 export const Input = forwardRef((_a, ref) => {
     var { clearable = true, editable = true, style, wrapStyle, value, onChangeText } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "wrapStyle", "value", "onChangeText"]);
     const handleClear = () => {
@@ -27,7 +28,7 @@ export const Input = forwardRef((_a, ref) => {
                 styles.input,
                 style,
                 !editable ? styles.disabledInput : null,
-                clearable ? { paddingRight: 24 } : null
+                clearable ? { marginRight: 5 } : null
             ], value: value, onChangeText: onChangeText }, restProps)),
         clearable && editable && Boolean(value) && (React.createElement(View, { style: styles.closeIconWrap },
             React.createElement(Icon, { name: 'closecircle', style: styles.closeIcon, onPress: handleClear })))));
@@ -36,14 +37,13 @@ Input.displayName = 'Input';
 const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'row',
-        height: 40,
+        height: BaseHeight,
         width: '100%',
-        paddingHorizontal: 5,
         borderWidth: 1,
         borderColor: colors.border,
-        justifyContent: 'space-between',
         alignItems: 'center',
-        borderRadius: 2
+        borderRadius: 2,
+        paddingHorizontal: 10
     },
     disabledInputContainer: {
         backgroundColor: '#f5f5f5',
@@ -51,7 +51,9 @@ const styles = StyleSheet.create({
     },
     input: {
         color: '#000',
-        flex: 1
+        flex: 1,
+        height: BaseHeight,
+        padding: 0
     },
     disabledInput: {
         color: '#00000040'

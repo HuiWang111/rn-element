@@ -5,14 +5,15 @@ import { FormContext } from './contexts';
 import { FormItemLabel } from './FormItemLabel';
 import { Field } from './Field';
 import { isFunction } from '../../utils';
-export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName = 'value', changeMethodName = 'onChangeText', rules: ruleList, validateTrigger, labelCol, wrapperCol, wrapperStyle, inputComponent, numeric = false, errorHandler, shouldUpdate = false, children }) => {
+import { BaseHeight } from '../../constants';
+export const FormItem = ({ initialValue, label, labelAlign, name, valuePropName = 'value', changeMethodName = 'onChangeText', rules: ruleList, validateTrigger, labelCol, wrapperCol, wrapperStyle, inputComponent, numeric = false, style, labelStyle, labelTextStyle, errorHandler, shouldUpdate = false, children }) => {
     const form = useContext(FormContext);
     const rules = ruleList
         ? ruleList.map(rule => isFunction(rule) ? rule(form) : rule)
         : [];
-    return (React.createElement(View, { style: [styles.formItem] },
+    return (React.createElement(View, { style: [styles.formItem, style] },
         label
-            ? (React.createElement(FormItemLabel, { label: label, labelAlign: labelAlign, col: labelCol }))
+            ? (React.createElement(FormItemLabel, { label: label, labelAlign: labelAlign, col: labelCol, style: labelStyle, textStyle: labelTextStyle }))
             : null,
         React.createElement(Field, { name: name, rules: rules, valuePropName: valuePropName, changeMethodName: changeMethodName, validateTrigger: validateTrigger, initialValue: initialValue, col: wrapperCol, errorHandler: errorHandler, inputComponent: inputComponent, numeric: numeric, style: wrapperStyle, shouldUpdate: shouldUpdate }, children)));
 };
@@ -34,6 +35,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 0,
         marginTop: 0,
         padding: 0,
-        height: 50
+        minHeight: BaseHeight
     }
 });

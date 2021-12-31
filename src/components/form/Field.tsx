@@ -1,5 +1,5 @@
 import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react';
-import { NativeSyntheticEvent, TextInputFocusEventData, View, ViewStyle } from 'react-native'
+import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle } from 'react-native'
 import { FormContext } from './contexts';
 import { IFieldEntity, IFieldProps, ValueType } from './interface';
 import { HOOK_MARK } from './contexts';
@@ -106,7 +106,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
 
         const { col, inputComponent, style } = this.props;
 
-        let fieldStyle: (ViewStyle | undefined)[] = [{ justifyContent: 'center', alignItems: 'center' }, style];
+        let fieldStyle: StyleProp<ViewStyle> = [{ justifyContent: 'center', alignItems: 'center' }, style];
         if (col) {
             if (col.span) {
                 fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);
