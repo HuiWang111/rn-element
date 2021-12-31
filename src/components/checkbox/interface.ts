@@ -26,6 +26,7 @@ export interface ICheckboxProps {
     contentStyle?: ViewStyle;
     checkedColor?: string;
     uncheckColor?: string;
+    value?: string;
     onChange?: (checked: boolean) => void;
 }
 

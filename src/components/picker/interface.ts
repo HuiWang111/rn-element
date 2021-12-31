@@ -8,7 +8,7 @@ export interface IPickerItem {
     value: ReactText;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
     /**
-     * internal props
+     * @internal
      */
     isActive?: boolean;
 }

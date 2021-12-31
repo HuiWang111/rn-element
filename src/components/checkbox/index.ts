@@ -13,3 +13,5 @@ Checkbox.Group = CheckboxGroup
 Checkbox.List = CheckList
 
 export { Checkbox }
+
+export type { ICheckListProps, ICheckboxProps, ICheckboxGroupProps } from './interface'

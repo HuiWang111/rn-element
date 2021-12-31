@@ -21,7 +21,7 @@ export const Checkbox = ({ checked: propsChecked, defaultChecked, wrapperStyle, 
         onChange === null || onChange === void 0 ? void 0 : onChange(!checked);
     };
     return (React.createElement(Pressable, { style: [styles.container, wrapperStyle], onPress: handleChange },
-        React.createElement(Icon, { style: [styles.icon, iconStyle], name: checked ? 'check-square' : 'square', color: checked ? checkedColor : uncheckColor, onPress: handleChange, size: 18 }),
+        React.createElement(Icon, { style: [styles.icon, iconStyle], name: checked ? 'check-square' : 'square', color: checked ? checkedColor : uncheckColor, size: 18 }),
         React.createElement(View, { style: [styles.content, contentStyle] }, isString(children)
             ? React.createElement(Text, { style: { color: '#000000d9', fontSize: 14 } }, children)
             : children)));

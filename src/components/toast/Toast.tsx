@@ -3,7 +3,7 @@ import RootToast from 'react-native-root-toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Text, View, StyleSheet } from 'react-native';
 
-interface IShowToastOptions extends Record<string, unknown> {
+export interface IToastOptions {
     duration?: number;
     position?: number;
     shadow?: boolean;
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 export class Toast {
-    private static setDefaultOptions(options?: IShowToastOptions): IShowToastOptions {
+    private static setDefaultOptions(options?: IToastOptions): IToastOptions {
         options = options ? { ...options } : {};
         if (options.position == null) {
             options.position = RootToast.positions.CENTER;
@@ -49,11 +49,11 @@ export class Toast {
         return message.slice(0, 27);
     }
 
-    static show(message: string, options?: IShowToastOptions): void {
+    static show(message: string, options?: IToastOptions): void {
         RootToast.show(message, Toast.setDefaultOptions(options));
     }
 
-    static success(message: string, options?: IShowToastOptions): void {
+    static success(message: string, options?: IToastOptions): void {
         RootToast.show(
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -65,7 +65,7 @@ export class Toast {
         );
     }
     
-    static error(message: string, options?: IShowToastOptions): void {
+    static error(message: string, options?: IToastOptions): void {
         RootToast.show(
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -77,7 +77,7 @@ export class Toast {
         );
     }
 
-    static warning(message: string, options?: IShowToastOptions): void {
+    static warning(message: string, options?: IToastOptions): void {
         RootToast.show(
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore

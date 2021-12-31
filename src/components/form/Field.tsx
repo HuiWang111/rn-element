@@ -75,7 +75,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
         return {
             ...childProps,
             [valuePropName]: getFieldValue(name),
-            [changeMethodName]: (val: string) => {
+            [changeMethodName]: (val: any) => {
                 const value = numeric ? Number(val) : val
                 
                 setFieldValue(name, numeric ? Number(value) : value);

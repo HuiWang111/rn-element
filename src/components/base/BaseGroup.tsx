@@ -24,12 +24,12 @@ export const BaseGroup: FC<PropsWithChildren<IBaseGroupProps>> = ({
         } else {
             newValue = checked ? [...value, v] : value.filter(i => v !== i)
         }
-
+        
         if (isUndefined(propsValue)) {
             setValue(newValue)
-        } else if (onChange) {
-            onChange(newValue)
         }
+
+        onChange?.(newValue)
     }
 
     return (

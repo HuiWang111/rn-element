@@ -10,3 +10,4 @@ interface IModalType extends InternalModalType {
 }
 declare const Modal: IModalType;
 export { Modal };
+export type { IModalConfig, IModalProps } from './interface';

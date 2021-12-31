@@ -1,4 +1,3 @@
-import { ViewStyle } from 'react-native';
 import { ReactText } from 'react';
 import { IPickerProps } from '../picker/interface'
 
@@ -26,12 +25,6 @@ export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfir
     value?: ReactText[];
     options?: IOptionWithChildren[];
     onConfirm?: (value: ReactText[]) => void;
-}
-
-export interface ITreePickerItemProps {
-    style?: (ViewStyle | null | undefined)[];
-    label: string;
-    onPress: () => void;
 }
 
 export interface IOnSearchProps {

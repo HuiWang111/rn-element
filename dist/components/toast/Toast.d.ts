@@ -1,4 +1,4 @@
-interface IShowToastOptions extends Record<string, unknown> {
+export interface IToastOptions {
     duration?: number;
     position?: number;
     shadow?: boolean;
@@ -13,9 +13,8 @@ interface IShowToastOptions extends Record<string, unknown> {
 export declare class Toast {
     private static setDefaultOptions;
     private static handleMessage;
-    static show(message: string, options?: IShowToastOptions): void;
-    static success(message: string, options?: IShowToastOptions): void;
-    static error(message: string, options?: IShowToastOptions): void;
-    static warning(message: string, options?: IShowToastOptions): void;
+    static show(message: string, options?: IToastOptions): void;
+    static success(message: string, options?: IToastOptions): void;
+    static error(message: string, options?: IToastOptions): void;
+    static warning(message: string, options?: IToastOptions): void;
 }
-export {};

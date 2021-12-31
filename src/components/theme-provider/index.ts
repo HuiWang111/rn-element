@@ -1,3 +1,3 @@
-export { ThemeProvider } from './ThemeProvider';
-export { ThemeContext } from './context';
-export { IThemeProps } from './interface'
+export { ThemeProvider } from './ThemeProvider'
+export { ThemeContext } from './context'
+export type { IThemeProps } from './interface'

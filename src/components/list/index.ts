@@ -14,3 +14,5 @@ List.Item = ListItem;
 List.ActivableItem = ActivableListItem;
 
 export { List };
+
+export type { IListProps, IListItemProps } from './interface'

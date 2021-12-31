@@ -1,3 +1,11 @@
 /// <reference types="react" />
-import { IThemeProps } from './interface';
-export declare const ThemeContext: import("react").Context<IThemeProps>;
+export declare const ThemeContext: import("react").Context<Partial<{
+    error: string;
+    black: string;
+    border: string;
+    primary: string;
+    warning: string;
+    success: string;
+    disabledText: string;
+    disabled: string;
+}>>;

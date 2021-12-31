@@ -10,3 +10,5 @@ const Picker = InternalPicker as IPickerType;
 Picker.Item = PickerItem;
 
 export { Picker };
+
+export type { IPickerItem, IPickerProps } from './interface'

@@ -32,7 +32,7 @@ export const TableRow: FC<ITableRowProps> = ({
         if (type === 'radio') {
             return (
                 <Radio
-                    onChange={(checked) => onSelect(type, checked)}
+                    onChange={() => onSelect(type, true)}
                     checked={selectedKeys.includes(identifer)}
                 />
             )

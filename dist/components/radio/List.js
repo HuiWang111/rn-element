@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React from 'react';
 import { last } from '../../utils';
-import { CheckList } from '../checkbox';
+import { CheckList } from '../checkbox/List';
 export const RadioList = (_a) => {
     var { value, defaultValue, onChange } = _a, rest = __rest(_a, ["value", "defaultValue", "onChange"]);
     const handleChange = (value) => {

@@ -7,3 +7,4 @@ interface IListType extends InternalListType {
 }
 declare const List: IListType;
 export { List };
+export type { IListProps, IListItemProps } from './interface';

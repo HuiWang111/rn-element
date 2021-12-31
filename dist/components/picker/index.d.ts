@@ -6,3 +6,4 @@ interface IPickerType extends InternalPickerType {
 }
 declare const Picker: IPickerType;
 export { Picker };
+export type { IPickerItem, IPickerProps } from './interface';

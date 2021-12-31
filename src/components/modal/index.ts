@@ -21,3 +21,5 @@ Modal.success = success;
 Modal.error = error;
 
 export { Modal };
+
+export type { IModalConfig, IModalProps } from './interface'

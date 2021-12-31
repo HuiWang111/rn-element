@@ -14,4 +14,6 @@ Radio.Group = RadioGroup
 Radio.List = RadioList
 
 export { Radio }
+
+export type { IRadioGroupProps, IRadioListProps, IRadioProps } from './interface'
  

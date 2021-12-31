@@ -14,3 +14,5 @@ Form.Item = FormItem;
 Form.useForm = useForm;
 
 export { Form };
+
+export type { FormInstance, IFormProps, IFormItemProps } from './interface'

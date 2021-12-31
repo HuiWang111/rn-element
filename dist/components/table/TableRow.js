@@ -18,7 +18,7 @@ export const TableRow = ({ columns, style, data, expandable, identifer, selected
     }
     const renderSelectionCell = (type) => {
         if (type === 'radio') {
-            return (React.createElement(Radio, { onChange: (checked) => onSelect(type, checked), checked: selectedKeys.includes(identifer) }));
+            return (React.createElement(Radio, { onChange: () => onSelect(type, true), checked: selectedKeys.includes(identifer) }));
         }
         return (React.createElement(Checkbox, { onChange: (checked) => onSelect(type, checked), checked: selectedKeys.includes(identifer) }));
     };

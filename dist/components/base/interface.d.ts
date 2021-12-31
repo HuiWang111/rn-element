@@ -16,3 +16,10 @@ export interface IEmptyProps {
     description?: string;
     image?: ImageRequireSource;
 }
+export interface IBaseGroupProps {
+    defaultValue?: string[];
+    value?: string[];
+    disabled?: boolean;
+    style?: StyleProp<ViewStyle>;
+    onChange?: (value: string[]) => void;
+}

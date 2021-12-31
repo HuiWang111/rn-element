@@ -8,6 +8,8 @@ export declare const colors: {
     primary: string;
     warning: string;
     success: string;
+    disabledText: string;
+    disabled: string;
 };
 export { styleUtils, mergeStyle } from './styles';
 export { StyleType } from './interface';

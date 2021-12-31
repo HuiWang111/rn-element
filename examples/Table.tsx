@@ -43,7 +43,7 @@ export const TableDemo: FC = () => {
             }}
         >
             <Table
-                // dataSource={dataSource}
+                dataSource={dataSource}
                 highlightable
                 columns={[
                     { title: '需求单号', dataIndex: 'code' },
