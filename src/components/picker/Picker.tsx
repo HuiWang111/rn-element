@@ -89,14 +89,14 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
 
     useEffect(() => {
         setValue(propsValue ?? (values[0] ?? ''));
-    }, [propsValue, values]);
+    }, [propsValue, values])
     useArrowUp(() => {
         const index = values.findIndex(v => v === value);
         
         if (index > 0) {
             setValue(values[index - 1]);
         }
-    }, [value]);
+    }, [value])
     useArrowDown(() => {
         const index = values.findIndex(v => v === value);
         const maxIndex = values.length - 1;
@@ -104,7 +104,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
         if (index < maxIndex) {
             setValue(values[index + 1]);
         }
-    }, [value]);
+    }, [value])
 
     const resetState = () => {
         setValue(values[0] || '')
