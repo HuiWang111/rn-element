@@ -33,8 +33,8 @@ const TreePickerDemo: FC = () => {
         setIndex(index);
     }
     const showPicker = () => setVisble(true);
-    const handleConfirm = (value: ReactText[]) => {
-        Toast.show(`value is ${value}`);
+    const handleConfirm = (value: ReactText[], labels: string[]) => {
+        Toast.show(`value is ${value}, label is ${labels}`);
         setVisble(false);
     }
     const handleCancel = () => {

@@ -25,7 +25,7 @@ export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfir
     value?: ReactText[];
     options?: IOptionWithChildren[];
     title?: string | [string | undefined, string | undefined, string | undefined];
-    onConfirm?: (value: ReactText[]) => void;
+    onConfirm?: (value: ReactText[], labels: string[]) => void;
 }
 
 export interface IOnSearchProps {
