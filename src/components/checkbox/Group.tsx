@@ -14,3 +14,5 @@ export const CheckboxGroup: FC<PropsWithChildren<ICheckboxGroupProps>> = ({
         </BaseGroup>
     )
 }
+
+CheckboxGroup.displayName = 'CheckboxGroup'

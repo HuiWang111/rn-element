@@ -12,3 +12,5 @@ export const ConfigProvider: FC<PropsWithChildren<IConfigProps>> = ({
         </ConfigContext.Provider>
     );
 }
+
+ConfigProvider.displayName = 'ConfigProvider'

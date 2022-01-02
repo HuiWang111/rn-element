@@ -22,3 +22,5 @@ export const RadioList: FC<IRadioListProps> = ({
         />
     )
 }
+
+RadioList.displayName = 'RadioList'

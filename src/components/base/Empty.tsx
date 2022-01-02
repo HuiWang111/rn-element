@@ -25,6 +25,8 @@ export const Empty: FC<IEmptyProps> = ({
     )
 }
 
+Empty.displayName = 'Empty'
+
 const styles = StyleSheet.create({
     container: {
         width: '100%',

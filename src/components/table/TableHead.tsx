@@ -70,6 +70,8 @@ export const TableHead: FC<ITableHeadProps> = ({
     )
 }
 
+TableHead.displayName = 'TableHead'
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row'

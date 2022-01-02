@@ -9,6 +9,7 @@ import { ConfigContext } from '../config-provider';
 
 export class Field extends Component<PropsWithChildren<IFieldProps>> implements IFieldEntity {
     static contextType = FormContext;
+    static displayName = 'Field'
 
     init = false;
 

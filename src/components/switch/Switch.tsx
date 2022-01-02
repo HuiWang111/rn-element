@@ -83,6 +83,8 @@ export const Switch: FC<ISwitchProps> = ({
     )
 }
 
+Switch.displayName = 'Switch'
+
 const styles = StyleSheet.create({
     switchContainer: {
         position: 'relative',

@@ -27,6 +27,8 @@ export const Mask: FC<PropsWithChildren<IMaskProps>> = ({
     );    
 }
 
+Mask.displayName = 'Mask'
+
 const styles = StyleSheet.create({
     container: {
         ...StyleSheet.absoluteFillObject,

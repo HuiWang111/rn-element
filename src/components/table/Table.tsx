@@ -177,6 +177,8 @@ export const Table: FC<ITableProps> = ({
     )
 }
 
+Table.displayName = 'Table'
+
 const styles = StyleSheet.create({
     container: {
         width,

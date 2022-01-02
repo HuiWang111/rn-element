@@ -115,6 +115,8 @@ export const CheckList: FC<ICheckListProps> = ({
     );
 }
 
+CheckList.displayName = 'CheckList'
+
 const styles = StyleSheet.create({
     item: {
         width,

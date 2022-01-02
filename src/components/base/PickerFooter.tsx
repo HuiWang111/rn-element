@@ -58,6 +58,8 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
     );
 }
 
+PickerFooter.displayName = 'PickerFooter'
+
 const styles = StyleSheet.create({
     footer: {
         height: 50,

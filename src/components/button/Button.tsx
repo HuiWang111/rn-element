@@ -87,6 +87,8 @@ export const Button: FC<IButtonProps> = ({
     );
 }
 
+Button.displayName = 'Button'
+
 const styles = StyleSheet.create({
     button: {
         alignItems: 'center',

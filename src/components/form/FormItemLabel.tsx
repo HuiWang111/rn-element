@@ -41,6 +41,8 @@ export const FormItemLabel: FC<IFormItemLabelProps> = ({
     );
 }
 
+FormItemLabel.displayName = 'FormItemLabel'
+
 const styles = StyleSheet.create({
     formItemLabel: {
         flexGrow: 0,

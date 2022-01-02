@@ -3,12 +3,14 @@ import { Text } from 'react-native';
 import { ITreePickerProps, IOption, IOnSearchProps } from './interface';
 import { Picker } from '../picker';
 import { getDepth, getListByDepth } from './utils';
+import { isArray } from '../../utils'
 
 const PickerItem = Picker.Item
 
 export const TreePicker: FC<ITreePickerProps> = ({
     value: propsValue,
     options = [],
+    title,
     onConfirm,
     onCancel,
     ...restProps
@@ -49,6 +51,7 @@ export const TreePicker: FC<ITreePickerProps> = ({
     return (
         <Picker
             value={value[activeDepth]}
+            title={isArray(title) ? title[activeDepth] : title}
             onConfirm={v => {
                 const newValue = [...value]
                 newValue[activeDepth] = v
@@ -93,3 +96,5 @@ export const TreePicker: FC<ITreePickerProps> = ({
         </Picker>
     );
 }
+
+TreePicker.displayName = 'TreePicker'
