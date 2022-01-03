@@ -11,7 +11,7 @@ export interface IAsyncTreePickerProps extends Omit<IPickerProps, 'value' | 'tit
     options?: IOption[];
     title?: string | string[];
     depth: number;
-    onNext?: (value: ReactText) => Promise<void>;
-    onPrevious?: () => Promise<void>;
+    onNext?: (value: ReactText, activeDepth: number, values: ReactText[]) => Promise<void>;
+    onPrevious?: (activeDepth: number) => Promise<void>;
     onConfirm?: (value: ReactText[], labels: string[]) => void;
 }

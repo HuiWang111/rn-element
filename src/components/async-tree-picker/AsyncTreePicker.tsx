@@ -39,13 +39,15 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
                 newValue[activeDepth] = v
                 setValue(newValue)
 
+                const newActiveDepth = activeDepth + 1
+
                 if (isLastDepth) {
                     onConfirm?.([...newValue], [...labels.current])
                 } else {
                     setLoading(true)
-                    await onNext?.(v)
+                    await onNext?.(v, newActiveDepth, newValue)
                     setLoading(false)
-                    setActiveDepth(activeDepth + 1)
+                    setActiveDepth(newActiveDepth)
                 }
             }}
             onCancel={async () => {
@@ -59,13 +61,15 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
                 newValue.splice(activeDepth, 1)
                 setValue(newValue)
 
+                const newActiveDepth = activeDepth - 1
+
                 if (isFirstDepth) {
                     onCancel?.()
                 } else {
                     setLoading(true)
-                    await onPrevious?.()
+                    await onPrevious?.(newActiveDepth)
                     setLoading(false) 
-                    setActiveDepth(activeDepth - 1)
+                    setActiveDepth(newActiveDepth)
                 }
             }}
             footerProps={{

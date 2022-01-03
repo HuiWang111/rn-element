@@ -24,22 +24,32 @@ export const getListByDepth = (
     depth: number,
     options: IOptionWithChildren[],
     value: ReactText[],
-    keyword: string
+    keyword?: string
 ): IOption[] => {
     if (depth === 0) {
-        return filterList(options.map(o => omit(o, ['children']) as IOption), keyword)
+        const list = options.map(o => omit(o, ['children']) as IOption)
+
+        return keyword
+            ? filterList(list, keyword)
+            : list
     } else if (depth === 1) {
         const [firstValue] = value;
         const firstDepthChildren = options.find(o => o.value === firstValue)?.children
-        return filterList(firstDepthChildren
-            ?.map(c => omit(c, ['children']) as IOption) || [], keyword)
+        const list = firstDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
+
+        return keyword
+            ? filterList(list, keyword)
+            : list
     }
 
     const [firstValue, secondValue] = value;
     const firstDepthChildren = options.find(o => o.value === firstValue)?.children
     const secondDepthChildren = firstDepthChildren?.find(c => c.value === secondValue)?.children
-    return filterList(secondDepthChildren
-        ?.map(c => omit(c, ['children']) as IOption) || [], keyword)
+    const list = secondDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
+    
+    return keyword
+        ? filterList(list, keyword)
+        : list
 }
 
 const filterList = (list: IOption[], keyword: string) => {
