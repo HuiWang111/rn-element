@@ -1,19 +1,19 @@
-import { ViewStyle, GestureResponderEvent, TextInputProps } from 'react-native';
+import { ViewStyle, GestureResponderEvent, StyleProp } from 'react-native';
 import { ReactNode, ReactText } from 'react';
 import { IPickerFooterProps } from '../base/interface'
+import { IInputProps } from '../input'
 
 export interface IPickerItem {
     style?: ViewStyle;
     children?: ReactNode | undefined | (({ isActive: boolean }) => ReactNode | undefined);
     value: ReactText;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
-    /**
-     * @internal
-     */
     isActive?: boolean;
 }
 
 export interface IPickerProps {
+    title?: ReactNode;
+    headerStyle?: StyleProp<ViewStyle>;
     zIndex?: number;
     maskStyle?: ViewStyle;
     itemStyle?: ViewStyle;
@@ -21,7 +21,7 @@ export interface IPickerProps {
     value?: ReactText;
     visible?: boolean;
     showSearch?: boolean;
-    searchInputProps?: TextInputProps;
+    searchInputProps?: IInputProps;
     fullScreen?: boolean;
     footerProps?: Omit<IPickerFooterProps, 'onCancel' | 'onConfirm'>;
     onSearch?: (keyword: string) => void;

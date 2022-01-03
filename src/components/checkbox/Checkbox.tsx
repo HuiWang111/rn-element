@@ -55,6 +55,8 @@ export const Checkbox: FC<PropsWithChildren<ICheckboxProps>> = ({
     )
 }
 
+Checkbox.displayName = 'Checkbox'
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',

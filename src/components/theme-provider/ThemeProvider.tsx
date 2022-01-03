@@ -13,3 +13,5 @@ export const ThemeProvider: FC<PropsWithChildren<IThemeProps>> = ({
         </ThemeContext.Provider>
     );
 }
+
+ThemeProvider.displayName = 'ThemeProvider'

@@ -46,3 +46,5 @@ export const PickerItem: FC<IPickerItem> = ({
         </TouchableOpacity>
     );
 }
+
+PickerItem.displayName = 'PickerItem'

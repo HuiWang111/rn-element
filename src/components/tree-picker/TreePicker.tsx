@@ -1,21 +1,24 @@
-import React, { FC, ReactText, useState, useMemo } from 'react';
-import { Text } from 'react-native';
-import { ITreePickerProps, IOption, IOnSearchProps } from './interface';
-import { Picker } from '../picker';
-import { getDepth, getListByDepth } from './utils';
+import React, { FC, ReactText, useState, useMemo, useRef } from 'react'
+import { Text } from 'react-native'
+import { ITreePickerProps, IOption, IOnSearchProps } from './interface'
+import { Picker } from '../picker'
+import { getDepth, getListByDepth } from './utils'
+import { isArray } from '../../utils'
 
 const PickerItem = Picker.Item
 
 export const TreePicker: FC<ITreePickerProps> = ({
     value: propsValue,
     options = [],
+    title,
     onConfirm,
     onCancel,
     ...restProps
 }: ITreePickerProps) => {
-    const [value, setValue] = useState<ReactText[]>(propsValue ?? []);
+    const [value, setValue] = useState<ReactText[]>(propsValue ?? [])
+    const labels = useRef<string[]>([])
     const [activeDepth, setActiveDepth] = useState<number>(0)
-    const [keyword, setKeyword] = useState<string>('');
+    const [keyword, setKeyword] = useState<string>('')
 
     /**
      * 计算 options 有多少层
@@ -48,19 +51,26 @@ export const TreePicker: FC<ITreePickerProps> = ({
     
     return (
         <Picker
+            { ...restProps }
+            { ...onSearchProps }
             value={value[activeDepth]}
+            title={isArray(title) ? title[activeDepth] : title}
             onConfirm={v => {
+                labels.current[activeDepth] = list.find(i => i.value === v)?.label || ''
+
                 const newValue = [...value]
                 newValue[activeDepth] = v
                 setValue(newValue)
 
                 if (isLastDepth) {
-                    onConfirm?.([...newValue])
+                    onConfirm?.([...newValue], [...labels.current])
                 } else {
                     setActiveDepth(activeDepth + 1)
                 }
             }}
             onCancel={() => {
+                labels.current = labels.current.splice(activeDepth, 1)
+
                 const newValue = [...value]
                 newValue.splice(activeDepth, 1)
                 setValue(newValue)
@@ -75,8 +85,6 @@ export const TreePicker: FC<ITreePickerProps> = ({
                 cancelText: isFirstDepth ? undefined : '上一步',
                 confirmText: isLastDepth ? undefined : '下一步'
             }}
-            { ...restProps }
-            { ...onSearchProps }
         >
             {
                 list.map(item => {
@@ -93,3 +101,5 @@ export const TreePicker: FC<ITreePickerProps> = ({
         </Picker>
     );
 }
+
+TreePicker.displayName = 'TreePicker'

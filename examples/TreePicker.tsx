@@ -1,7 +1,7 @@
 import React, { FC, useState, ReactText } from 'react';
 import { StyleSheet, Dimensions, Text, View } from 'react-native';
 import { TreePicker, List, Toast, Page } from '../src';
-import { IOptionWithChildren } from '../src/components/treePicker/interface';
+import { IOptionWithChildren } from '../src/components/tree-picker/interface';
 import { useHistory } from 'react-router-native';
 import { colors } from '../src/utils';
 
@@ -33,8 +33,8 @@ const TreePickerDemo: FC = () => {
         setIndex(index);
     }
     const showPicker = () => setVisble(true);
-    const handleConfirm = (value: ReactText[]) => {
-        Toast.show(`value is ${value}`);
+    const handleConfirm = (value: ReactText[], labels: string[]) => {
+        Toast.show(`value is ${value}, label is ${labels}`);
         setVisble(false);
     }
     const handleCancel = () => {
@@ -77,6 +77,7 @@ const TreePickerDemo: FC = () => {
                 }
             </Page>
             <TreePicker
+                title={['标题1', '标题2', '标题3']}
                 itemStyle={styles.item}
                 activeItemStyle={styles.activeItem}
                 visible={visible}
@@ -104,8 +105,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 20,
         backgroundColor: '#fff',
-        borderBottomColor: colors.border,
-        borderBottomWidth: 1,
         position: 'relative'
     },
     activeItem: {

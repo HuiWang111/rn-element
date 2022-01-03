@@ -21,10 +21,11 @@ export interface IOptionWithChildren {
     }[];
 }
 
-export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfirm' | 'onSearch'> {
+export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfirm' | 'onSearch' | 'title'> {
     value?: ReactText[];
     options?: IOptionWithChildren[];
-    onConfirm?: (value: ReactText[]) => void;
+    title?: string | [string | undefined, string | undefined, string | undefined];
+    onConfirm?: (value: ReactText[], labels: string[]) => void;
 }
 
 export interface IOnSearchProps {

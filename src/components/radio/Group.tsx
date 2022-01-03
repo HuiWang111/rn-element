@@ -20,3 +20,5 @@ export const RadioGroup: FC<PropsWithChildren<IRadioGroupProps>> = ({
         </BaseGroup>
     )
 }
+
+RadioGroup.displayName = 'RadioGroup'

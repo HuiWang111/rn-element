@@ -54,3 +54,6 @@ export type { IThemeProps } from './components/theme-provider'
 
 export { Table } from './components/table'
 export type { ITableProps } from './components/table'
+
+export { AsyncTreePicker } from './components/async-tree-picker'
+export type { IAsyncTreePickerProps } from './components/async-tree-picker'

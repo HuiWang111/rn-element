@@ -150,6 +150,8 @@ export const TableRow: FC<ITableRowProps> = ({
     )
 }
 
+TableRow.displayName = 'TableRow'
+
 const styles = StyleSheet.create({
     container: {
         flex: 1

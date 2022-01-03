@@ -68,6 +68,7 @@ const PickerDemo: FC = () => {
                 }
             </Page>
             <Picker
+                title='标题标题'
                 itemStyle={styles.item}
                 activeItemStyle={styles.activeItem}
                 value={value}

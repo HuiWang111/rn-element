@@ -80,6 +80,8 @@ export const Radio: FC<PropsWithChildren<IRadioProps>> = ({
     )
 }
 
+Radio.displayName = 'Radio'
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',

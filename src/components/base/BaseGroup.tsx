@@ -54,6 +54,8 @@ export const BaseGroup: FC<PropsWithChildren<IBaseGroupProps>> = ({
     )
 }
 
+BaseGroup.displayName = 'BaseGroup'
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row'
