@@ -15,4 +15,4 @@ Form.useForm = useForm;
 
 export { Form };
 
-export type { FormInstance, IFormProps, IFormItemProps } from './interface'
+export type { FormInstance, IFormProps, IFormItemProps, Rule } from './interface'

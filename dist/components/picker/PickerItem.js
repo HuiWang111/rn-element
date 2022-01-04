@@ -27,3 +27,4 @@ export const PickerItem = ({ style, children, value, isActive, onPress }) => {
     const child = isFunction(children) ? children({ isActive }) : children;
     return (React.createElement(TouchableOpacity, { activeOpacity: activeOpacity, style: containerStyles, onPress: handlePress }, child));
 };
+PickerItem.displayName = 'PickerItem';

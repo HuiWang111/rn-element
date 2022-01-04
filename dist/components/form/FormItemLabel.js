@@ -21,6 +21,7 @@ export const FormItemLabel = ({ label, labelAlign = 'right', col, style, textSty
             ] }, label)
         : label));
 };
+FormItemLabel.displayName = 'FormItemLabel';
 const styles = StyleSheet.create({
     formItemLabel: {
         flexGrow: 0,

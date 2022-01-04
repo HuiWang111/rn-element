@@ -42,7 +42,7 @@ export declare type Rule = IRuleConfig | ((form: FormInstance) => IRuleConfig);
 export interface IFieldEntity<Values = ValueType> {
     getControlled: (childProps: Record<string, any>) => void;
     reRender: () => void;
-    validateRules: (value: ValueType) => Promise<void>;
+    validateRules: (value: ValueType) => Promise<boolean>;
     props: {
         name?: string;
         shouldUpdate?: boolean | ((prevValue: StoreValue<Values>, curValue: StoreValue<Values>) => boolean);

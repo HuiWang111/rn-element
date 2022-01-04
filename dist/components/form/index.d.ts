@@ -8,4 +8,4 @@ interface IFormType extends InternalFormType {
 }
 declare const Form: IFormType;
 export { Form };
-export type { FormInstance, IFormProps, IFormItemProps } from './interface';
+export type { FormInstance, IFormProps, IFormItemProps, Rule } from './interface';

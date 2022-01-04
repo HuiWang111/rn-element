@@ -15,3 +15,4 @@ export const ConfigProvider = (_a) => {
     var { children } = _a, restProps = __rest(_a, ["children"]);
     return (React.createElement(ConfigContext.Provider, { value: Object.assign({}, restProps) }, children));
 };
+ConfigProvider.displayName = 'ConfigProvider';

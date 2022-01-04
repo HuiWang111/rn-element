@@ -15,3 +15,4 @@ export const RadioGroup = (_a) => {
     var { defaultValue, value, children, onChange } = _a, rest = __rest(_a, ["defaultValue", "value", "children", "onChange"]);
     return (React.createElement(BaseGroup, Object.assign({ defaultValue: defaultValue ? [defaultValue] : undefined, value: value ? [value] : undefined, onChange: (value) => onChange === null || onChange === void 0 ? void 0 : onChange(value[0]) }, rest), children));
 };
+RadioGroup.displayName = 'RadioGroup';

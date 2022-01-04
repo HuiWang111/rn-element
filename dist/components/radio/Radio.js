@@ -39,6 +39,7 @@ export const Radio = ({ checked: propsChecked, defaultChecked = false, wrapperSt
                 } }, children))
             : children)));
 };
+Radio.displayName = 'Radio';
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',

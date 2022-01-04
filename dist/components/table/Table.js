@@ -130,6 +130,7 @@ export const Table = ({ highlightColor: hColor, highlightable = false, dataSourc
             })
             : React.createElement(Empty, { style: { height: tableBodyHeight } }))));
 };
+Table.displayName = 'Table';
 const styles = StyleSheet.create({
     container: {
         width,

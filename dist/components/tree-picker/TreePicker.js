@@ -9,14 +9,16 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { Text } from 'react-native';
 import { Picker } from '../picker';
 import { getDepth, getListByDepth } from './utils';
+import { isArray } from '../../utils';
 const PickerItem = Picker.Item;
 export const TreePicker = (_a) => {
-    var { value: propsValue, options = [], onConfirm, onCancel } = _a, restProps = __rest(_a, ["value", "options", "onConfirm", "onCancel"]);
+    var { value: propsValue, options = [], title, onConfirm, onCancel } = _a, restProps = __rest(_a, ["value", "options", "title", "onConfirm", "onCancel"]);
     const [value, setValue] = useState(propsValue !== null && propsValue !== void 0 ? propsValue : []);
+    const labels = useRef([]);
     const [activeDepth, setActiveDepth] = useState(0);
     const [keyword, setKeyword] = useState('');
     const depth = useMemo(() => getDepth(options), [options]);
@@ -36,17 +38,20 @@ export const TreePicker = (_a) => {
             }
         };
     }, [restProps.showSearch]);
-    return (React.createElement(Picker, Object.assign({ value: value[activeDepth], onConfirm: v => {
+    return (React.createElement(Picker, Object.assign({}, restProps, onSearchProps, { value: value[activeDepth], title: isArray(title) ? title[activeDepth] : title, onConfirm: v => {
+            var _a;
+            labels.current[activeDepth] = ((_a = list.find(i => i.value === v)) === null || _a === void 0 ? void 0 : _a.label) || '';
             const newValue = [...value];
             newValue[activeDepth] = v;
             setValue(newValue);
             if (isLastDepth) {
-                onConfirm === null || onConfirm === void 0 ? void 0 : onConfirm([...newValue]);
+                onConfirm === null || onConfirm === void 0 ? void 0 : onConfirm([...newValue], [...labels.current]);
             }
             else {
                 setActiveDepth(activeDepth + 1);
             }
         }, onCancel: () => {
+            labels.current = labels.current.splice(activeDepth, 1);
             const newValue = [...value];
             newValue.splice(activeDepth, 1);
             setValue(newValue);
@@ -59,8 +64,9 @@ export const TreePicker = (_a) => {
         }, footerProps: {
             cancelText: isFirstDepth ? undefined : '上一步',
             confirmText: isLastDepth ? undefined : '下一步'
-        } }, restProps, onSearchProps), list.map(item => {
+        } }), list.map(item => {
         return (React.createElement(PickerItem, { value: item.value, key: item.value },
             React.createElement(Text, null, item.label)));
     })));
 };
+TreePicker.displayName = 'TreePicker';

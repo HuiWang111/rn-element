@@ -26,6 +26,7 @@ export const Checkbox = ({ checked: propsChecked, defaultChecked, wrapperStyle, 
             ? React.createElement(Text, { style: { color: '#000000d9', fontSize: 14 } }, children)
             : children)));
 };
+Checkbox.displayName = 'Checkbox';
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',

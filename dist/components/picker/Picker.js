@@ -1,14 +1,16 @@
 import React, { Children, cloneElement, useEffect, useState, useContext, useMemo } from 'react';
-import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
 import { PickerFooter, Mask, Empty } from '../base';
 import { PickerContext } from './context';
-import { useArrowUp, useArrowDown } from '../../hooks';
-import { omit } from '../../utils';
+import { useArrowUp, useArrowDown, useTheme } from '../../hooks';
+import { isNumber, isString, omit } from '../../utils';
 import { ConfigContext } from '../config-provider';
 import { Input } from '../input';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-export const Picker = ({ zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, onSearch, onCancel, onConfirm }) => {
+const baseHeaderHeight = 40;
+export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, onSearch, onCancel, onConfirm }) => {
     var _a, _b;
+    const theme = useTheme();
     const values = useMemo(() => {
         return Children.map(children, (item) => {
             var _a;
@@ -24,12 +26,24 @@ export const Picker = ({ zIndex = 10, maskStyle, children, value: propsValue, ac
     const containerHeight = useMemo(() => {
         return fullScreen ? screenHeight - 20 : screenHeight - 90;
     }, [fullScreen]);
-    const scrollViewStyle = {
-        height: containerHeight - 50
-    };
-    if (showSearch) {
-        scrollViewStyle.height -= 50;
-    }
+    const headerHeight = useMemo(() => {
+        if (!title) {
+            return 0;
+        }
+        if (headerStyle && ('height' in headerStyle) && isNumber(headerStyle.height)) {
+            return headerStyle.height;
+        }
+        return baseHeaderHeight;
+    }, [title, headerStyle]);
+    const scrollViewStyle = useMemo(() => {
+        const style = {
+            height: containerHeight - 50 - headerHeight
+        };
+        if (showSearch) {
+            style.height -= 50;
+        }
+        return style;
+    }, [showSearch, containerHeight, headerHeight]);
     useEffect(() => {
         var _a;
         setValue(propsValue !== null && propsValue !== void 0 ? propsValue : ((_a = values[0]) !== null && _a !== void 0 ? _a : ''));
@@ -83,6 +97,14 @@ export const Picker = ({ zIndex = 10, maskStyle, children, value: propsValue, ac
                     height: containerHeight
                 }
             ] },
+            title ? (React.createElement(View, { style: [
+                    styles.header,
+                    {
+                        borderBottomColor: theme.border,
+                        borderBottomWidth: showSearch ? 1 : 0
+                    },
+                    headerStyle
+                ] }, isString(title) ? (React.createElement(Text, { style: styles.title }, title)) : title)) : null,
             showSearch
                 ? (React.createElement(View, { style: styles.searchContainer },
                     React.createElement(Input, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, style: styles.searchInput, wrapStyle: styles.searchInputWrap, onChangeText: handleKeywordChange, showSoftInputOnFocus: (_b = searchInputProps === null || searchInputProps === void 0 ? void 0 : searchInputProps.showSoftInputOnFocus) !== null && _b !== void 0 ? _b : showSoftInputOnFocus }))))
@@ -90,15 +112,26 @@ export const Picker = ({ zIndex = 10, maskStyle, children, value: propsValue, ac
             React.createElement(ScrollView, { style: scrollViewStyle }, renderItems()),
             React.createElement(PickerFooter, Object.assign({ onCancel: handleCancel, onConfirm: handleConfirm }, footerProps)))));
 };
+Picker.displayName = 'Picker';
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff'
+    },
+    header: {
+        height: baseHeaderHeight,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold'
     },
     searchContainer: {
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10
+        paddingHorizontal: 10
     },
     searchInput: {
         height: 30,

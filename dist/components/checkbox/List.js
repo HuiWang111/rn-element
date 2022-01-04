@@ -56,6 +56,7 @@ export const CheckList = ({ value: propsValue, defaultValue, options, activeColo
             React.createElement(Text, { style: isActive ? styles.activeItemText : null }, option)));
     })));
 };
+CheckList.displayName = 'CheckList';
 const styles = StyleSheet.create({
     item: {
         width,

@@ -188,7 +188,15 @@ export class FormStore implements IFormStore, InternalHooks {
             const { name } = entity.props;
 
             if (name) {
-                await entity.validateRules(this.values[name]);
+                try {
+                    const hasError = await entity.validateRules(this.values[name]);
+                    if (hasError) {
+                        break
+                    }
+                } catch(e) {
+                    console.info(`Unknow Error in validateFields: ${e}`)
+                    break
+                }
             }
         }
 

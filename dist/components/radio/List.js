@@ -19,3 +19,4 @@ export const RadioList = (_a) => {
     };
     return (React.createElement(CheckList, Object.assign({}, rest, { value: value ? [value] : undefined, defaultValue: defaultValue ? [defaultValue] : undefined, onChange: handleChange })));
 };
+RadioList.displayName = 'RadioList';

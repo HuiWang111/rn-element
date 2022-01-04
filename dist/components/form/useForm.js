@@ -158,7 +158,16 @@ export class FormStore {
             for (const entity of fieldEntities) {
                 const { name } = entity.props;
                 if (name) {
-                    yield entity.validateRules(this.values[name]);
+                    try {
+                        const hasError = yield entity.validateRules(this.values[name]);
+                        if (hasError) {
+                            break;
+                        }
+                    }
+                    catch (e) {
+                        console.info(`Unknow Error in validateFields: ${e}`);
+                        break;
+                    }
                 }
             }
             return new Promise((resolve, reject) => {

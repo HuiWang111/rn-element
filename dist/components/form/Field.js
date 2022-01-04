@@ -24,7 +24,7 @@ export class Field extends Component {
         this.validateRules = (value) => __awaiter(this, void 0, void 0, function* () {
             const { name, rules, errorHandler } = this.props;
             if (!name) {
-                return;
+                return false;
             }
             const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
             const { getFieldError } = this.context;
@@ -37,9 +37,11 @@ export class Field extends Component {
                 else if (getFieldError(name)) {
                     removeFieldError(name);
                 }
+                return hasError;
             }
             catch (e) {
                 console.error(e);
+                return Promise.reject();
             }
         });
         this.getControlled = (childProps) => {
@@ -114,3 +116,4 @@ export class Field extends Component {
     }
 }
 Field.contextType = FormContext;
+Field.displayName = 'Field';

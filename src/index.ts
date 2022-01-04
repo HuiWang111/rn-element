@@ -10,7 +10,7 @@ export { Modal } from './components/modal'
 export type { IModalConfig, IModalProps } from './components/modal'
 
 export { Form } from './components/form'
-export type { FormInstance, IFormProps, IFormItemProps } from './components/form'
+export type { FormInstance, IFormProps, IFormItemProps, Rule } from './components/form'
 
 export { Enterable } from './components/enterable'
 export type { IEnterableProps } from './components/enterable'

@@ -50,6 +50,7 @@ export const Button = ({ type = 'default', danger = false, title, style, loading
                 disabled ? styles.disabledText : null
             ] }, title)));
 };
+Button.displayName = 'Button';
 const styles = StyleSheet.create({
     button: {
         alignItems: 'center',

@@ -6,6 +6,7 @@ export const Empty = ({ style, description = '暂无数据', image }) => {
             image ? (React.createElement(Image, { source: image, style: { marginBottom: 8 } })) : null,
             React.createElement(Text, { style: styles.desc }, description))));
 };
+Empty.displayName = 'Empty';
 const styles = StyleSheet.create({
     container: {
         width: '100%',

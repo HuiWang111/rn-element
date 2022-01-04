@@ -37,6 +37,7 @@ export const TableHead = ({ columns, backgroundColor, selectionType, onSelect })
                 ] }, renderCell(column)));
         })));
 };
+TableHead.displayName = 'TableHead';
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row'

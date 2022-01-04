@@ -15,3 +15,4 @@ export const CheckboxGroup = (_a) => {
     var { children } = _a, rest = __rest(_a, ["children"]);
     return (React.createElement(BaseGroup, Object.assign({}, rest), children));
 };
+CheckboxGroup.displayName = 'CheckboxGroup';

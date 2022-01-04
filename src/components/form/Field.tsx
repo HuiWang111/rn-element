@@ -36,10 +36,10 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
         this.forceUpdate();
     }
 
-    validateRules = async (value: ValueType): Promise<void> => {
+    validateRules = async (value: ValueType): Promise<boolean> => {
         const { name, rules, errorHandler } = this.props;
         if (!name) {
-            return
+            return false
         }
 
         const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
@@ -54,8 +54,10 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             } else if (getFieldError(name)) {
                 removeFieldError(name);
             }
+            return hasError
         } catch (e) {
             console.error(e);
+            return Promise.reject()
         }
     }
 

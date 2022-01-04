@@ -18,3 +18,4 @@ export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnt
 export { KeyCode } from './constants';
 export { ThemeProvider } from './components/theme-provider';
 export { Table } from './components/table';
+export { AsyncTreePicker } from './components/async-tree-picker';

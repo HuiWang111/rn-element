@@ -79,6 +79,7 @@ export const TableRow = ({ columns, style, data, expandable, identifer, selected
                 })),
             renderExpandRow(rowExpandable))));
 };
+TableRow.displayName = 'TableRow';
 const styles = StyleSheet.create({
     container: {
         flex: 1

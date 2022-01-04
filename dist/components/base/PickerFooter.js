@@ -24,6 +24,7 @@ export const PickerFooter = ({ cancelText = '取消', confirmText = '确认', on
             ], activeOpacity: activeOpacity, onPress: onConfirm },
             React.createElement(Text, { style: textStyle }, confirmText))));
 };
+PickerFooter.displayName = 'PickerFooter';
 const styles = StyleSheet.create({
     footer: {
         height: 50,

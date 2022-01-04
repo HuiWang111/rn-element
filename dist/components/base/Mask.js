@@ -12,6 +12,7 @@ export const Mask = ({ zIndex = 10, backgroundColor = 'rgba(0, 0, 0, 0.3)', styl
     }
     return (React.createElement(View, { style: maskContainerStyles }, children));
 };
+Mask.displayName = 'Mask';
 const styles = StyleSheet.create({
     container: Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { justifyContent: 'center', alignItems: 'center' })
 });

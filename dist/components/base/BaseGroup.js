@@ -32,6 +32,7 @@ export const BaseGroup = ({ defaultValue, value: propsValue, disabled = false, c
         return c;
     })));
 };
+BaseGroup.displayName = 'BaseGroup';
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row'

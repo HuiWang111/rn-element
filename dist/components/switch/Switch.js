@@ -58,6 +58,7 @@ export const Switch = ({ checked: propsChecked, defaultChecked, disabled = false
                 { left: positionAnimate }
             ] })));
 };
+Switch.displayName = 'Switch';
 const styles = StyleSheet.create({
     switchContainer: {
         position: 'relative',

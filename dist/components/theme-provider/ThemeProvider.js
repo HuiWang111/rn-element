@@ -16,3 +16,4 @@ export const ThemeProvider = (_a) => {
     var { children } = _a, propsColors = __rest(_a, ["children"]);
     return (React.createElement(ThemeContext.Provider, { value: Object.assign(Object.assign({}, colors), propsColors) }, children));
 };
+ThemeProvider.displayName = 'ThemeProvider';
