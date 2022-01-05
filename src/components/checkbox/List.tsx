@@ -1,7 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, ReactNode } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native';
 import { ICheckListProps } from './interface';
-import { isObject, isUndefined, isString } from '../../utils';
+import { isObject, isUndefined, isString, isFunction } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useTheme } from '../../hooks'
 
@@ -55,6 +55,25 @@ export const CheckList: FC<ICheckListProps> = ({
         ];
     }
 
+    const renderLabel = (label: ReactNode, disabled: boolean, isActive: boolean) => {
+        if (isString(label)) {
+            return (
+                <Text
+                    style={[
+                        styles.itemText,
+                        isActive ? styles.activeItemText : null,
+                        disabled ? { color: theme.border } : null
+                    ]}
+                    numberOfLines={3}
+                >
+                    { label }
+                </Text>
+            )
+        }
+
+        return label
+    }
+
     return (
         <View style={style}>
             {
@@ -75,18 +94,9 @@ export const CheckList: FC<ICheckListProps> = ({
                                     style={styles.checkIcon}
                                 />
                                 {
-                                    isString(option.label) ? (
-                                        <Text
-                                            style={[
-                                                styles.itemText,
-                                                isActive ? styles.activeItemText : null,
-                                                option.disabled ? { color: theme.border } : null
-                                            ]}
-                                            numberOfLines={3}
-                                        >
-                                            { option.label }
-                                        </Text>
-                                    ) : option.label
+                                    isFunction(option.label)
+                                        ? renderLabel(option.label({ isActive }), option.disabled, isActive)
+                                        : renderLabel(option.label, option.disabled, isActive)
                                 }
                             </Pressable>
                         );

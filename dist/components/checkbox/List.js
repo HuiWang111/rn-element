@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
-import { isObject, isUndefined, isString } from '../../utils';
+import { isObject, isUndefined, isString, isFunction } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useTheme } from '../../hooks';
 const { width } = Dimensions.get('window');
@@ -39,16 +39,24 @@ export const CheckList = ({ value: propsValue, defaultValue, options, activeColo
             itemStyle
         ];
     };
+    const renderLabel = (label, disabled, isActive) => {
+        if (isString(label)) {
+            return (React.createElement(Text, { style: [
+                    styles.itemText,
+                    isActive ? styles.activeItemText : null,
+                    disabled ? { color: theme.border } : null
+                ], numberOfLines: 3 }, label));
+        }
+        return label;
+    };
     return (React.createElement(View, { style: style }, options === null || options === void 0 ? void 0 : options.map((option, index) => {
         if (isObject(option)) {
             const isActive = value.includes(option.value);
             return (React.createElement(Pressable, { key: option.value, onPress: () => handleChange(option.value, option.disabled), style: getItemStyles(isActive, index) },
                 React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
-                isString(option.label) ? (React.createElement(Text, { style: [
-                        styles.itemText,
-                        isActive ? styles.activeItemText : null,
-                        option.disabled ? { color: theme.border } : null
-                    ], numberOfLines: 3 }, option.label)) : option.label));
+                isFunction(option.label)
+                    ? renderLabel(option.label({ isActive }), option.disabled, isActive)
+                    : renderLabel(option.label, option.disabled, isActive)));
         }
         const isActive = value.includes(option);
         return (React.createElement(Pressable, { key: option, onPress: () => handleChange(option), style: getItemStyles(isActive, index) },

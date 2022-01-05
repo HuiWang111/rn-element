@@ -2,8 +2,11 @@ import { ReactNode } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 import { IBaseGroupProps } from '../base/interface'
 
+interface ILabelRenderParams {
+    isActive: boolean;
+}
 export interface ICheckListOption {
-    label: string | ReactNode;
+    label: ReactNode | ((params: ILabelRenderParams) => ReactNode);
     value: string;
     disabled?: boolean;
 }
