@@ -2,14 +2,14 @@ import React, {
     FC,
     PropsWithChildren,
     useContext
-} from 'react';
-import { View, StyleSheet } from 'react-native';
-import { FormInstance, IFormItemProps, ValidateTrigger, IRuleConfig } from './interface';
-import PropTypes from 'prop-types';
-import { FormContext } from './contexts';
-import { FormItemLabel } from './FormItemLabel';
-import { Field } from './Field';
-import { isFunction } from '../../utils';
+} from 'react'
+import { View, StyleSheet } from 'react-native'
+import { FormInstance, IFormItemProps, ValidateTrigger, IRuleConfig } from './interface'
+import PropTypes from 'prop-types'
+import { FormContext } from './contexts'
+import { FormItemLabel } from './FormItemLabel'
+import { Field } from './Field'
+import { isFunction } from '../../utils'
 import { BaseHeight } from '../../constants'
 
 export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
@@ -33,11 +33,11 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
     shouldUpdate = false,
     children
 }: PropsWithChildren<IFormItemProps>) => {
-    const form = useContext(FormContext);
+    const form = useContext(FormContext)
 
     const rules = ruleList
         ? ruleList.map(rule => isFunction<IRuleConfig>(rule) ? rule(form as FormInstance) : rule)
-        : [];
+        : []
 
     return (
         <View style={[styles.formItem, style]}>
@@ -71,10 +71,10 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
                 { children }
             </Field>
         </View>
-    );
+    )
 }
 
-FormItem.displayName = 'FormItem';
+FormItem.displayName = 'FormItem'
 FormItem.propTypes = {
     initialValue: PropTypes.any,
     label: PropTypes.oneOfType([
@@ -85,7 +85,7 @@ FormItem.propTypes = {
     name: PropTypes.string,
     valuePropName: PropTypes.string,
     rules: PropTypes.array
-};
+}
 
 const styles = StyleSheet.create({
     formItem: {

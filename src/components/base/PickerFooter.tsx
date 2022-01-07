@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
 import {
     View,
     StyleSheet,
     TouchableOpacity,
     Text,
     TextStyle
-} from 'react-native';
-import { IPickerFooterProps } from './interface';
+} from 'react-native'
+import { IPickerFooterProps } from './interface'
 import { useTheme } from '../../hooks'
 
 export const PickerFooter: FC<IPickerFooterProps> = ({
@@ -15,11 +15,11 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
     onCancel,
     onConfirm
 }: IPickerFooterProps) => {
-    const activeOpacity = 0.7;
-    const colors = useTheme();
+    const activeOpacity = 0.7
+    const colors = useTheme()
     const textStyle: TextStyle = {
         color: colors.primary
-    };
+    }
 
     return (
         <View
@@ -55,7 +55,7 @@ export const PickerFooter: FC<IPickerFooterProps> = ({
                 </Text>
             </TouchableOpacity>
         </View>
-    );
+    )
 }
 
 PickerFooter.displayName = 'PickerFooter'
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
     confirmBtn: {
         borderLeftWidth: 1
     }
-});
+})

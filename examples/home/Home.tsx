@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { Link } from 'react-router-native';
-import { routeConfig } from './routeConfig';
+import React, { FC } from 'react'
+import { View, Text, ScrollView } from 'react-native'
+import { Link } from 'react-router-native'
+import { routeConfig } from './routeConfig'
 const Home: FC = (): JSX.Element => {
     return (
         <ScrollView>
@@ -23,11 +23,11 @@ const Home: FC = (): JSX.Element => {
                                 <Text>{route.path}</Text>
                             </Link>
                         </View>
-                    );
+                    )
                 })
             }
         </ScrollView>
-    );
+    )
 }
 
-export default Home;
+export default Home

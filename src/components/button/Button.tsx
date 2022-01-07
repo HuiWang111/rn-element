@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { IButtonProps } from './interface';
+import React, { FC } from 'react'
+import { StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { IButtonProps } from './interface'
 import { useTheme } from '../../hooks'
 
 export const Button: FC<IButtonProps> = ({
@@ -14,36 +14,36 @@ export const Button: FC<IButtonProps> = ({
     titleStyle,
     onPress
 }: IButtonProps) => {
-    const { primary, error } = useTheme();
-    const isPrimary = type === 'primary';
+    const { primary, error } = useTheme()
+    const isPrimary = type === 'primary'
     let spinnerColor = spinnerStyle && spinnerStyle.color
         ? spinnerStyle.color
-        : '#000000d9';
-    let activeOpacity = 0.2;
+        : '#000000d9'
+    let activeOpacity = 0.2
 
     if (danger) {
-        spinnerColor = error;
+        spinnerColor = error
 
         if (isPrimary) {
-            spinnerColor = '#fff';
+            spinnerColor = '#fff'
         }
     } else if (isPrimary) {
-        spinnerColor = '#fff';
+        spinnerColor = '#fff'
     }
 
     if (loading) {
-        activeOpacity = 0.5;
+        activeOpacity = 0.5
     }
     if (disabled) {
-        activeOpacity = 1;
+        activeOpacity = 1
     }
 
     const handlePress = () => {
         if (loading || disabled) {
-            return;
+            return
         }
 
-        onPress?.();
+        onPress?.()
     }
 
     return (
@@ -84,7 +84,7 @@ export const Button: FC<IButtonProps> = ({
                 { title }
             </Text>
         </TouchableOpacity>
-    );
+    )
 }
 
 Button.displayName = 'Button'
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
     spinner: {
         marginRight: 10
     }
-});
+})

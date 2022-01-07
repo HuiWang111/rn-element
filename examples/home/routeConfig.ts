@@ -1,13 +1,13 @@
-import { ComponentType } from 'react';
-import ListWithModal from '../ListWithModal';
-import ListWithForm from '../ListWithForm';
+import { ComponentType } from 'react'
+import ListWithModal from '../ListWithModal'
+import ListWithForm from '../ListWithForm'
 // import { NumberInputDemo } from '../NumberInput';
-import PickerDemo from '../Picker';
-import TreePickerDemo from '../TreePicker';
-import { RadoList } from '../RadoList';
-import { FormDemo } from '../Form';
-import { InputDemo } from '../Input';
-import { ButtonDemo } from '../Button';
+import PickerDemo from '../Picker'
+import TreePickerDemo from '../TreePicker'
+import { RadoList } from '../RadoList'
+import { FormDemo } from '../Form'
+import { InputDemo } from '../Input'
+import { ButtonDemo } from '../Button'
 import { CheckListDemo } from '../CheckList'
 import { SwitchDemo } from '../Switch'
 import { TableDemo } from '../Table'
@@ -32,4 +32,4 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'check-list', component: CheckListDemo },
     { path: 'switch', component: SwitchDemo },
     { path: 'table', component: TableDemo }
-];
+]

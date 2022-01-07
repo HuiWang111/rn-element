@@ -1,7 +1,7 @@
-import { createContext } from 'react';
-import { IThemeProps } from './interface';
-import { colors } from '../../utils';
+import { createContext } from 'react'
+import { ThemeProps } from './interface'
+import { colors } from '../../utils'
 
-export const ThemeContext = createContext<IThemeProps>({
+export const ThemeContext = createContext<ThemeProps>({
     ...colors
-});
+})

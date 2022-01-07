@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react'
-import { Button } from 'react-native';
-import { NumberInput, Toast } from '../src';
+import { Button } from 'react-native'
+import { NumberInput, Toast } from '../src'
 
 export const NumberInputDemo: FC = () => {
-    const [value, setValue] = useState<number | undefined>();
+    const [value, setValue] = useState<number | undefined>()
     const handleChange = (val) => {
-        setValue(val);
+        setValue(val)
     }
     
     return (
@@ -17,5 +17,5 @@ export const NumberInputDemo: FC = () => {
             />
             <Button onPress={() => Toast.show(typeof value)} title='show value type'></Button>
         </>
-    );
+    )
 }

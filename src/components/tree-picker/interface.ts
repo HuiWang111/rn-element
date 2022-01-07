@@ -1,4 +1,4 @@
-import { ReactText } from 'react';
+import { ReactText } from 'react'
 import { IPickerProps } from '../picker/interface'
 
 // 最多支持三层

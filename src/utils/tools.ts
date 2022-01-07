@@ -1,23 +1,23 @@
-import { isArray, isString, isFunction } from './validate';
+import { isArray, isString, isFunction } from './validate'
 
 export function omit(object?: Record<string, any>, omitKeys?: string[]): Record<string, any> {
     if (!object) {
-        return {};
+        return {}
     }
 
     if (!omitKeys || !omitKeys.length) {
-        return object;
+        return object
     }
 
-    const res = {};
-    const set = new Set(omitKeys);
+    const res = {}
+    const set = new Set(omitKeys)
     for (const key in object) {
         if (!set.has(key)) {
-            res[key] = object[key];
+            res[key] = object[key]
         }
     }
 
-    return res;
+    return res
 }
 
 export function keyBy<T extends Record<string, any>>(
@@ -25,17 +25,17 @@ export function keyBy<T extends Record<string, any>>(
     iteratee: string | ((item: T) => void)
 ): Record<string, any> {
     if (!isArray(collection)) {
-        throw new Error('[keyBy] param `collection` must be an array');
+        throw new Error('[keyBy] param `collection` must be an array')
     }
     if (!isString(iteratee) && !isFunction(iteratee)) {
-        throw new Error('[keyBy] param `iteratee` must be a string or function');
+        throw new Error('[keyBy] param `iteratee` must be a string or function')
     }
 
     return collection.reduce((map, item): Record<string, unknown> => {
-        const key = isString(iteratee) ? item[iteratee] : iteratee(item);
-        map[key] = item;
-        return map;
-    }, {});
+        const key = isString(iteratee) ? item[iteratee] : iteratee(item)
+        map[key] = item
+        return map
+    }, {})
 }
 
 export function isArrayShallowEqual(arr1: any[], arr2: any[]) {

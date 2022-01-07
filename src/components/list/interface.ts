@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
-import { GestureResponderEvent } from 'react-native';
-import { StyleType } from '../../utils';
+import { ComponentType, ReactNode } from 'react'
+import { GestureResponderEvent } from 'react-native'
+import { StyleType } from '../../utils'
 
 type ActiveChangeHandler = (activeIndex: number) => void;
 

@@ -1,6 +1,6 @@
-import React, { FC, PropsWithChildren } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
-import { IMaskProps } from './interface';
+import React, { FC, PropsWithChildren } from 'react'
+import { StyleSheet, View, ViewStyle } from 'react-native'
+import { IMaskProps } from './interface'
 
 export const Mask: FC<PropsWithChildren<IMaskProps>> = ({
     zIndex = 10,
@@ -9,22 +9,22 @@ export const Mask: FC<PropsWithChildren<IMaskProps>> = ({
     visible = false,
     children
 }: PropsWithChildren<IMaskProps>) => {
-    if (!visible) return null;
+    if (!visible) return null
 
     const maskContainerStyles: ViewStyle[] = [
         styles.container,
         { zIndex, backgroundColor }
-    ];
+    ]
 
     if (style) {
-        maskContainerStyles.push(style);
+        maskContainerStyles.push(style)
     }
     
     return (
         <View style={maskContainerStyles}>
             { children }
         </View>
-    );    
+    )    
 }
 
 Mask.displayName = 'Mask'
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     }
-});
+})

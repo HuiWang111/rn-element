@@ -1,62 +1,62 @@
-import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react';
+import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle } from 'react-native'
-import { FormContext } from './contexts';
-import { IFieldEntity, IFieldProps, ValueType } from './interface';
-import { HOOK_MARK } from './contexts';
-import { validateField } from './utils';
-import { styleUtils } from '../../utils';
-import { ConfigContext } from '../config-provider';
+import { FormContext } from './contexts'
+import { IFieldEntity, IFieldProps, ValueType } from './interface'
+import { HOOK_MARK } from './contexts'
+import { validateField } from './utils'
+import { styleUtils } from '../../utils'
+import { ConfigContext } from '../config-provider'
 
 export class Field extends Component<PropsWithChildren<IFieldProps>> implements IFieldEntity {
-    static contextType = FormContext;
+    static contextType = FormContext
     static displayName = 'Field'
 
-    init = false;
+    init = false
 
     componentDidMount(): void {
         if (!this.init) {
-            const { name, initialValue } = this.props;
-            const { registerField, setInitialValue } = this.context.getInternalHooks(HOOK_MARK);
+            const { name, initialValue } = this.props
+            const { registerField, setInitialValue } = this.context.getInternalHooks(HOOK_MARK)
 
-            this.init = true;
-            registerField(this);
+            this.init = true
+            registerField(this)
 
             if (name) {
-                setInitialValue(name, initialValue);
+                setInitialValue(name, initialValue)
             }
         }
     }
 
     componentWillUnmount() {
-        const { unregisterField } = this.context.getInternalHooks(HOOK_MARK);
+        const { unregisterField } = this.context.getInternalHooks(HOOK_MARK)
         unregisterField(this)
     }
 
     reRender = (): void => {
-        this.forceUpdate();
+        this.forceUpdate()
     }
 
     validateRules = async (value: ValueType): Promise<boolean> => {
-        const { name, rules, errorHandler } = this.props;
+        const { name, rules, errorHandler } = this.props
         if (!name) {
             return false
         }
 
-        const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK);
-        const { getFieldError } = this.context;
+        const { setFieldError, removeFieldError } = this.context.getInternalHooks(HOOK_MARK)
+        const { getFieldError } = this.context
 
         try {
-            const [hasError, message] = await validateField(value, this.context, name, rules);
+            const [hasError, message] = await validateField(value, this.context, name, rules)
             
             if (hasError) {
-                errorHandler?.(message);
-                setFieldError(name, message);
+                errorHandler?.(message)
+                setFieldError(name, message)
             } else if (getFieldError(name)) {
-                removeFieldError(name);
+                removeFieldError(name)
             }
             return hasError
         } catch (e) {
-            console.error(e);
+            console.error(e)
             return Promise.reject()
         }
     }
@@ -68,8 +68,8 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             changeMethodName,
             validateTrigger,
             numeric
-        } = this.props;
-        const { getFieldValue, setFieldValue } = this.context;
+        } = this.props
+        const { getFieldValue, setFieldValue } = this.context
 
         if (!name) {
             return { ...childProps }
@@ -81,41 +81,41 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
             [changeMethodName]: (val: any) => {
                 const value = numeric ? Number(val) : val
                 
-                setFieldValue(name, numeric ? Number(value) : value);
+                setFieldValue(name, numeric ? Number(value) : value)
                 
                 if (validateTrigger === 'onChange') {
-                    this.validateRules(value);
+                    this.validateRules(value)
                 }
 
-                childProps[changeMethodName]?.(value);
+                childProps[changeMethodName]?.(value)
             },
             onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
                 // TODO: onBlur校验除Input组件外的其他组件
                 if (validateTrigger === 'onBlur') {
-                    this.validateRules(e?.nativeEvent?.text);
+                    this.validateRules(e?.nativeEvent?.text)
                 }
 
-                childProps.onBlur?.(e);
+                childProps.onBlur?.(e)
             }
-        };
-    };
+        }
+    }
 
     render(): ReactElement | null {
-        const children: any = this.props.children;
+        const children: any = this.props.children
         
         if (!children) {
-            return null;
+            return null
         }
 
-        const { col, inputComponent, style } = this.props;
+        const { col, inputComponent, style } = this.props
 
-        let fieldStyle: StyleProp<ViewStyle> = [{ justifyContent: 'center', alignItems: 'center' }, style];
+        let fieldStyle: StyleProp<ViewStyle> = [{ justifyContent: 'center', alignItems: 'center' }, style]
         if (col) {
             if (col.span) {
-                fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`]);
+                fieldStyle = fieldStyle.concat(styleUtils[`span-${col.span}`])
             }
             if (col.offset) {
-                fieldStyle = fieldStyle.concat(styleUtils[`offset-${col.offset}`]);
+                fieldStyle = fieldStyle.concat(styleUtils[`offset-${col.offset}`])
             }
         }
         
@@ -133,7 +133,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                                     return cloneElement(c, this.getControlled({
                                         ...c.props,
                                         showSoftInputOnFocus: c.props.showSoftInputOnFocus ?? showSoftInputOnFocus
-                                    }));
+                                    }))
                                 }
 
                                 return cloneElement(c, this.getControlled(c.props))

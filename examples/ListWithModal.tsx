@@ -1,21 +1,21 @@
-import React, { FC, useState } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { List, Modal, Page, Form, Input } from '../src';
-import { colors } from '../src/utils';
+import React, { FC, useState } from 'react'
+import { Text, StyleSheet, View } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { List, Modal, Page, Form, Input } from '../src'
+import { colors } from '../src/utils'
 
 const ListWithModal: FC = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-    const history = useHistory();
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [modalVisible, setModalVisible] = useState(false)
+    const [confirmModalVisible, setConfirmModalVisible] = useState(false)
+    const history = useHistory()
     const [form] = Form.useForm()
     const handleChange = (activeIndex: number) => {
-        setActiveIndex(activeIndex);
+        setActiveIndex(activeIndex)
     }
 
     const showModal = () => {
-        setModalVisible(true);
+        setModalVisible(true)
     }
 
     const showConfirmModal = () => {
@@ -23,15 +23,15 @@ const ListWithModal: FC = () => {
             title: <Text>alert</Text>,
             content: <Text>are you kidding me?are you kidding me?are you kidding me?are you kidding me?are you kidding me?</Text>,
             onOk: () => {
-                console.info('ok');
+                console.info('ok')
             },
             onCancel: () => {
-                console.info('cancel');
+                console.info('cancel')
             },
             onVisibleChange: (visible) => {
-                setConfirmModalVisible(visible);
+                setConfirmModalVisible(visible)
             }
-        });
+        })
     }
 
     const showInfoModal = () => {
@@ -39,7 +39,7 @@ const ListWithModal: FC = () => {
             title: <Text>通知</Text>,
             content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
             onOk: () => {
-                console.info('ok');
+                console.info('ok')
             }
         })
     }
@@ -49,7 +49,7 @@ const ListWithModal: FC = () => {
             title: <Text>出错了</Text>,
             content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
             onOk: () => {
-                console.info('ok');
+                console.info('ok')
             }
         })
     }
@@ -59,7 +59,7 @@ const ListWithModal: FC = () => {
             title: <Text>成功了</Text>,
             content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
             onOk: () => {
-                console.info('ok');
+                console.info('ok')
             }
         })
     }
@@ -69,7 +69,7 @@ const ListWithModal: FC = () => {
             title: <Text>警告警告</Text>,
             content: <Text>你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？你知道吗？</Text>,
             onOk: () => {
-                console.info('ok');
+                console.info('ok')
             }
         })
     }
@@ -84,7 +84,7 @@ const ListWithModal: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >
@@ -164,10 +164,10 @@ const ListWithModal: FC = () => {
                 )
             }
         </Page>
-    );
+    )
 }
 
-export default ListWithModal;
+export default ListWithModal
 
 const styles = StyleSheet.create({
     item: {
@@ -184,4 +184,4 @@ const styles = StyleSheet.create({
     lastItem: {
         borderBottomWidth: 0
     }
-});
+})

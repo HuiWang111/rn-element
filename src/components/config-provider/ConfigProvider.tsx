@@ -1,6 +1,6 @@
-import React, { FC, PropsWithChildren } from 'react';
-import { ConfigContext } from './context';
-import { IConfigProps } from './interface';
+import React, { FC, PropsWithChildren } from 'react'
+import { ConfigContext } from './context'
+import { IConfigProps } from './interface'
 
 export const ConfigProvider: FC<PropsWithChildren<IConfigProps>> = ({
     children,
@@ -10,7 +10,7 @@ export const ConfigProvider: FC<PropsWithChildren<IConfigProps>> = ({
         <ConfigContext.Provider value={{ ...restProps }}>
             { children }
         </ConfigContext.Provider>
-    );
+    )
 }
 
 ConfigProvider.displayName = 'ConfigProvider'

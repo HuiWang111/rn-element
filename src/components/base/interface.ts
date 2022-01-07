@@ -1,4 +1,4 @@
-import { ViewStyle, StyleProp, ImageRequireSource  } from 'react-native';
+import { ViewStyle, StyleProp, ImageRequireSource  } from 'react-native'
 
 export interface IMaskProps {
     zIndex?: number;

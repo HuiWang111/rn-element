@@ -1,15 +1,15 @@
-import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
-import RootSiblings from 'react-native-root-siblings';
+import React from 'react'
+import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
+import RootSiblings from 'react-native-root-siblings'
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 
 export class Loading {
-    private static sibling: null | RootSiblings = null;
+    private static sibling: null | RootSiblings = null
 
     static show(): void {
         if (Loading.sibling) {
-            return;
+            return
         }
 
         Loading.sibling = new RootSiblings(
@@ -18,16 +18,16 @@ export class Loading {
                     <ActivityIndicator size='large' color='white' />
                 </View>
             </View>
-        );
+        )
     }
 
     static hide(): void {
         if (!Loading.sibling) {
-            return;
+            return
         }
 
-        Loading.sibling.destroy();
-        Loading.sibling = null;
+        Loading.sibling.destroy()
+        Loading.sibling = null
     }
 }
 
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
     }
-});
+})

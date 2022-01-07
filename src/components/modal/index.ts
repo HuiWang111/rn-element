@@ -1,6 +1,6 @@
-import { Modal as InrernalModal } from './Modal';
-import { confirm, info, warning, success, error } from './methods';
-import { IModalConfig } from './interface';
+import { Modal as InrernalModal } from './Modal'
+import { confirm, info, warning, success, error } from './methods'
+import { IModalConfig } from './interface'
 
 type InternalModalType = typeof InrernalModal;
 
@@ -12,14 +12,14 @@ interface IModalType extends InternalModalType {
     error: (confirm: IModalConfig) => void;
 }
 
-const Modal = InrernalModal as IModalType;
+const Modal = InrernalModal as IModalType
 
-Modal.confirm = confirm;
-Modal.info = info;
-Modal.warning = warning;
-Modal.success = success;
-Modal.error = error;
+Modal.confirm = confirm
+Modal.info = info
+Modal.warning = warning
+Modal.success = success
+Modal.error = error
 
-export { Modal };
+export { Modal }
 
 export type { IModalConfig, IModalProps } from './interface'

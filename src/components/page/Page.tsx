@@ -1,5 +1,5 @@
-import React, { FC, useMemo } from 'react'
-import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity } from 'react-native'
+import React, { FC, ReactNode, useMemo } from 'react'
+import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity, TextStyle } from 'react-native'
 import PropTypes from 'prop-types'
 import { IPageProps, IFn } from './interface'
 import { KeyCode } from '../../constants'
@@ -26,7 +26,15 @@ export const Page: FC<IPageProps> = ({
     children
 }: IPageProps) => {
     const { width, height } = useWindowDimensions()
-    const theme = useTheme()
+    const { page } = useTheme()
+    const headerTextStyle: TextStyle = {
+        color: page.headerTextColor,
+        fontSize: page.headerTextSize
+    }
+    const bottomTextStyle: TextStyle = {
+        color: page.bottomTextColor,
+        fontSize: page.bottomTextSize
+    }
 
     const F1KeyCodes = useMemo<number[]>(() => {
         if (!mockFn || !keyborad) return [KeyCode.F1]
@@ -86,21 +94,45 @@ export const Page: FC<IPageProps> = ({
                             style={[
                                 {
                                     width,
-                                    backgroundColor: theme.primary
+                                    backgroundColor: page.headerBackgroundColor
                                 },
                                 styles.header,
                                 headerStyle?.container
                             ]}
                         >
-                            <View style={[styles.headerLeft, headerStyle?.left]}>
-                                { header.left }
-                            </View>
-                            <View style={[styles.headerCenter, headerStyle?.center]}>
-                                { header.center }
-                            </View>
-                            <View style={[styles.headerRight, headerStyle?.right]}>
-                                { header.right }
-                            </View>
+                            {
+                                header.left ? (
+                                    <View style={[styles.headerLeft, headerStyle?.left]}>
+                                        {
+                                            isString(header.left)
+                                                ? <Text style={headerTextStyle}>{ header.left }</Text>
+                                                : header.left
+                                        }
+                                    </View>
+                                ) : null
+                            }
+                            {
+                                header.center ? (
+                                    <View style={[styles.headerCenter, headerStyle?.center]}>
+                                        {
+                                            isString(header.center)
+                                                ? <Text style={headerTextStyle}>{ header.center }</Text>
+                                                : header.center
+                                        }
+                                    </View>
+                                ) : null
+                            }
+                            {
+                                header.right ? (
+                                    <View style={[styles.headerRight, headerStyle?.right]}>
+                                        {
+                                            isString(header.right)
+                                                ? <Text style={headerTextStyle}>{ header.right }</Text>
+                                                : header.right
+                                        }
+                                    </View>
+                                ) : null
+                            }
                         </View>
                     )
                     : null
@@ -112,13 +144,13 @@ export const Page: FC<IPageProps> = ({
             }
             {
                 displayFnBar
-                    ? <View style={[{ width }, styles.fnBar, FnStyle?.bar]}>
+                    ? <View style={[{ width, backgroundColor: page.bottomBackgroundColor }, styles.fnBar, FnStyle?.bar]}>
                         {
                             F1
                                 ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F1)}>
                                     {
                                         isString(F1.label)
-                                            ? <Text>{F1.label}</Text>
+                                            ? <Text style={bottomTextStyle}>{F1.label}</Text>
                                             : F1.label
                                     }
                                 </TouchableOpacity>
@@ -129,7 +161,7 @@ export const Page: FC<IPageProps> = ({
                                 ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F2)}>
                                     {
                                         isString(F2.label)
-                                            ? <Text>{F2.label}</Text>
+                                            ? <Text style={bottomTextStyle}>{F2.label}</Text>
                                             : F2.label
                                     }
                                 </TouchableOpacity>
@@ -140,7 +172,7 @@ export const Page: FC<IPageProps> = ({
                                 ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F3)}>
                                     {
                                         isString(F3.label)
-                                            ? <Text>{F3.label}</Text>
+                                            ? <Text style={bottomTextStyle}>{F3.label}</Text>
                                             : F3.label
                                     }
                                 </TouchableOpacity>
@@ -151,7 +183,7 @@ export const Page: FC<IPageProps> = ({
                                 ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F4)}>
                                     {
                                         isString(F4.label)
-                                            ? <Text>{F4.label}</Text>
+                                            ? <Text style={bottomTextStyle}>{F4.label}</Text>
                                             : F4.label
                                     }
                                 </TouchableOpacity>

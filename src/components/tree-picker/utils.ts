@@ -1,5 +1,5 @@
-import { ReactText } from 'react';
-import { IOption, IOptionWithChildren } from './interface';
+import { ReactText } from 'react'
+import { IOption, IOptionWithChildren } from './interface'
 import { omit } from '../../utils'
 
 export const getDepth = (options: IOptionWithChildren[]): number => {
@@ -17,7 +17,7 @@ export const getDepth = (options: IOptionWithChildren[]): number => {
 
     options.forEach(option => recursive(option))
 
-    return depth;
+    return depth
 }
 
 export const getListByDepth = (
@@ -33,7 +33,7 @@ export const getListByDepth = (
             ? filterList(list, keyword)
             : list
     } else if (depth === 1) {
-        const [firstValue] = value;
+        const [firstValue] = value
         const firstDepthChildren = options.find(o => o.value === firstValue)?.children
         const list = firstDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
 
@@ -42,7 +42,7 @@ export const getListByDepth = (
             : list
     }
 
-    const [firstValue, secondValue] = value;
+    const [firstValue, secondValue] = value
     const firstDepthChildren = options.find(o => o.value === firstValue)?.children
     const secondDepthChildren = firstDepthChildren?.find(c => c.value === secondValue)?.children
     const list = secondDepthChildren?.map(c => omit(c, ['children']) as IOption) || []

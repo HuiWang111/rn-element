@@ -1,4 +1,4 @@
-import { ModalProps, ViewStyle } from 'react-native';
+import { ModalProps, ViewStyle } from 'react-native'
 
 export interface IModalFooterProps {
     okText?: string;

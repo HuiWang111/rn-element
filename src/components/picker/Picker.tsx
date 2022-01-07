@@ -9,7 +9,7 @@ import React, {
     useState,
     useContext,
     useMemo
-} from 'react';
+} from 'react'
 import {
     View,
     StyleSheet,
@@ -18,16 +18,16 @@ import {
     StyleProp,
     ViewStyle,
     Text
-} from 'react-native';
-import { IPickerProps } from './interface';
-import { PickerFooter, Mask, Empty } from '../base';
-import { PickerContext } from './context';
-import { useArrowUp, useArrowDown, useTheme } from '../../hooks';
-import { isNumber, isString, omit } from '../../utils';
-import { ConfigContext } from '../config-provider';
-import { Input } from '../input';
+} from 'react-native'
+import { IPickerProps } from './interface'
+import { PickerFooter, Mask, Empty } from '../base'
+import { PickerContext } from './context'
+import { useArrowUp, useArrowDown, useTheme } from '../../hooks'
+import { isNumber, isString, omit } from '../../utils'
+import { ConfigContext } from '../config-provider'
+import { Input } from '../input'
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 const baseHeaderHeight = 40
 
 export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
@@ -51,12 +51,12 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     const theme = useTheme()
     const values = useMemo<ReactText[]>(() => {
         return Children.map(children, (item: ReactElement) => {
-            return item.props?.value;
+            return item.props?.value
         }) || []
-    }, [children]);
-    const [value, setValue] = useState<ReactText>(propsValue ?? (values[0] ?? ''));
-    const [keyword, setKeyword] = useState<string>('');
-    const { showSoftInputOnFocus } = useContext(ConfigContext);
+    }, [children])
+    const [value, setValue] = useState<ReactText>(propsValue ?? (values[0] ?? ''))
+    const [keyword, setKeyword] = useState<string>('')
+    const { showSoftInputOnFocus } = useContext(ConfigContext)
 
     const containerWidth = useMemo(() => {
         return fullScreen ? screenWidth : screenWidth - 40
@@ -73,7 +73,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
             return headerStyle.height
         }
 
-        return baseHeaderHeight;
+        return baseHeaderHeight
     }, [title, headerStyle])
     const scrollViewStyle = useMemo(() => {
         const style: StyleProp<ViewStyle> & { height: number, } = {
@@ -88,21 +88,21 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     }, [showSearch, containerHeight, headerHeight])
 
     useEffect(() => {
-        setValue(propsValue ?? (values[0] ?? ''));
+        setValue(propsValue ?? (values[0] ?? ''))
     }, [propsValue, values])
     useArrowUp(() => {
-        const index = values.findIndex(v => v === value);
+        const index = values.findIndex(v => v === value)
         
         if (index > 0) {
-            setValue(values[index - 1]);
+            setValue(values[index - 1])
         }
     }, [value])
     useArrowDown(() => {
-        const index = values.findIndex(v => v === value);
-        const maxIndex = values.length - 1;
+        const index = values.findIndex(v => v === value)
+        const maxIndex = values.length - 1
         
         if (index < maxIndex) {
-            setValue(values[index + 1]);
+            setValue(values[index + 1])
         }
     }, [value])
 
@@ -112,16 +112,16 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
         onSearch?.('')
     }
     const handleConfirm = (): void => {
-        onConfirm?.(value);
-        resetState();
+        onConfirm?.(value)
+        resetState()
     }
     const handleCancel = (): void => {
-        onCancel?.();
-        resetState();
+        onCancel?.()
+        resetState()
     }
     const handleKeywordChange = (value: string) => {
-        setKeyword(value);
-        onSearch?.(value);
+        setKeyword(value)
+        onSearch?.(value)
     }
     
     const renderItems = () => {
@@ -203,7 +203,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
                 />
             </View>
         </Mask>
-    );
+    )
 }
 
 Picker.displayName = 'Picker'
@@ -235,4 +235,4 @@ const styles = StyleSheet.create({
     searchInputWrap: {
         height: 30
     }
-});
+})

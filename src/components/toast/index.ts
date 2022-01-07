@@ -1,1 +1,1 @@
-export { Toast, IToastOptions } from './Toast';
+export { Toast, IToastOptions } from './Toast'

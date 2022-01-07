@@ -7,8 +7,8 @@ import {
     success,
     disabledText,
     disabled
-} from './color';
-import regExp from './regExp';
+} from './color'
+import regExp from './regExp'
 
 export {
     isArray,
@@ -24,9 +24,9 @@ export {
     isInteger,
     isFloat,
     getType
-} from './validate';
+} from './validate'
 
-export { warning } from './warning';
+export { warning } from './warning'
 
 export const colors = {
     error,
@@ -37,12 +37,12 @@ export const colors = {
     success,
     disabledText,
     disabled
-};
+}
 
-export { styleUtils, mergeStyle } from './styles';
+export { styleUtils, mergeStyle } from './styles'
 
-export { StyleType } from './interface';
+export { StyleType } from './interface'
 
-export { omit, keyBy, isArrayShallowEqual, last } from './tools';
+export { omit, keyBy, isArrayShallowEqual, last } from './tools'
 
-export { regExp };
+export { regExp }

@@ -1,5 +1,5 @@
-import { ViewStyle, GestureResponderEvent, StyleProp } from 'react-native';
-import { ReactNode, ReactText } from 'react';
+import { ViewStyle, GestureResponderEvent, StyleProp } from 'react-native'
+import { ReactNode, ReactText } from 'react'
 import { IPickerFooterProps } from '../base/interface'
 import { IInputProps } from '../input'
 
