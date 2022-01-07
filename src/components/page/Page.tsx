@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useMemo } from 'react'
+import React, { FC, useMemo } from 'react'
 import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity, TextStyle } from 'react-native'
 import PropTypes from 'prop-types'
 import { IPageProps, IFn } from './interface'
@@ -22,7 +22,7 @@ export const Page: FC<IPageProps> = ({
     header,
     headerStyle,
     style,
-    FnStyle,
+    fnStyle,
     children
 }: IPageProps) => {
     const { width, height } = useWindowDimensions()
@@ -35,6 +35,7 @@ export const Page: FC<IPageProps> = ({
         color: page.bottomTextColor,
         fontSize: page.bottomTextSize
     }
+    const quarter = width / 4
 
     const F1KeyCodes = useMemo<number[]>(() => {
         if (!mockFn || !keyborad) return [KeyCode.F1]
@@ -144,52 +145,63 @@ export const Page: FC<IPageProps> = ({
             }
             {
                 displayFnBar
-                    ? <View style={[{ width, backgroundColor: page.bottomBackgroundColor }, styles.fnBar, FnStyle?.bar]}>
-                        {
-                            F1
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F1)}>
-                                    {
-                                        isString(F1.label)
-                                            ? <Text style={bottomTextStyle}>{F1.label}</Text>
-                                            : F1.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                        {
-                            F2
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F2)}>
-                                    {
-                                        isString(F2.label)
-                                            ? <Text style={bottomTextStyle}>{F2.label}</Text>
-                                            : F2.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                        {
-                            F3
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F3)}>
-                                    {
-                                        isString(F3.label)
-                                            ? <Text style={bottomTextStyle}>{F3.label}</Text>
-                                            : F3.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                        {
-                            F4
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F4)}>
-                                    {
-                                        isString(F4.label)
-                                            ? <Text style={bottomTextStyle}>{F4.label}</Text>
-                                            : F4.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                    </View>
+                    ? (
+                        <View
+                            style={[
+                                {
+                                    width,
+                                    backgroundColor: page.bottomBackgroundColor
+                                },
+                                styles.fnBar,
+                                fnStyle?.bar
+                            ]}
+                        >
+                            {
+                                F1
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F1)}>
+                                        {
+                                            isString(F1.label)
+                                                ? <Text style={bottomTextStyle}>{F1.label}</Text>
+                                                : F1.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                            {
+                                F2
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F2)}>
+                                        {
+                                            isString(F2.label)
+                                                ? <Text style={bottomTextStyle}>{F2.label}</Text>
+                                                : F2.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                            {
+                                F3
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F3)}>
+                                        {
+                                            isString(F3.label)
+                                                ? <Text style={bottomTextStyle}>{F3.label}</Text>
+                                                : F3.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                            {
+                                F4
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F4)}>
+                                        {
+                                            isString(F4.label)
+                                                ? <Text style={bottomTextStyle}>{F4.label}</Text>
+                                                : F4.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                        </View>
+                    )
                     : null
             }
         </View>
@@ -206,6 +218,8 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         flexBasis: 50,
+        flexGrow: 0,
+        flexShrink: 0
     },
     headerLeft: {
         flexBasis: 100,
@@ -230,7 +244,9 @@ const styles = StyleSheet.create({
     },
     fnBar: {
         flexDirection: 'row',
-        flexBasis: 40
+        flexBasis: 40,
+        flexGrow: 0,
+        flexShrink: 0
     },
     fnCol: {
         height: 40,
