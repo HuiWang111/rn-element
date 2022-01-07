@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, Pressable, useWindowDimensions, Text } from 'react-native';
+import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { KeyCode } from '../../constants';
-import { useKeyUp } from '../../hooks';
+import { useKeyUp, useTheme } from '../../hooks';
 import { isFunction, isString } from '../../utils';
 export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKeyMap = {
     F1: KeyCode.Z,
@@ -11,6 +11,7 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
     F4: KeyCode.V
 }, header, headerStyle, style, FnStyle, children }) => {
     const { width, height } = useWindowDimensions();
+    const theme = useTheme();
     const F1KeyCodes = useMemo(() => {
         if (!mockFn || !keyborad)
             return [KeyCode.F1];
@@ -53,36 +54,26 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
     if (displayFnBar) {
         restHeight -= 40;
     }
-    const handlePressF1 = () => {
-        var _a, _b;
-        if (F1.disabled)
+    const handlePressFn = (fn) => {
+        var _a;
+        if (fn.disabled) {
             return;
-        (_b = (_a = F1).handler) === null || _b === void 0 ? void 0 : _b.call(_a);
-    };
-    const handlePressF2 = () => {
-        var _a, _b;
-        if (F2.disabled)
-            return;
-        (_b = (_a = F2).handler) === null || _b === void 0 ? void 0 : _b.call(_a);
-    };
-    const handlePressF3 = () => {
-        var _a, _b;
-        if (F3.disabled)
-            return;
-        (_b = (_a = F3).handler) === null || _b === void 0 ? void 0 : _b.call(_a);
-    };
-    const handlePressF4 = () => {
-        var _a, _b;
-        if (F4.disabled)
-            return;
-        (_b = (_a = F4).handler) === null || _b === void 0 ? void 0 : _b.call(_a);
+        }
+        (_a = fn.handler) === null || _a === void 0 ? void 0 : _a.call(fn);
     };
     return (React.createElement(View, { style: [{ width, height, display: 'flex' }, style] },
         header
-            ? React.createElement(View, { style: [{ width }, styles.header, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.container] },
+            ? (React.createElement(View, { style: [
+                    {
+                        width,
+                        backgroundColor: theme.primary
+                    },
+                    styles.header,
+                    headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.container
+                ] },
                 React.createElement(View, { style: [styles.headerLeft, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.left] }, header.left),
                 React.createElement(View, { style: [styles.headerCenter, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.center] }, header.center),
-                React.createElement(View, { style: [styles.headerRight, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.right] }, header.right))
+                React.createElement(View, { style: [styles.headerRight, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.right] }, header.right)))
             : null,
         isFunction(children)
             ? children({ width, height: restHeight - 25 })
@@ -90,22 +81,22 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
         displayFnBar
             ? React.createElement(View, { style: [{ width }, styles.fnBar, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.bar] },
                 F1
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF1 }, isString(F1.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F1) }, isString(F1.label)
                         ? React.createElement(Text, null, F1.label)
                         : F1.label)
                     : null,
                 F2
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF2 }, isString(F2.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F2) }, isString(F2.label)
                         ? React.createElement(Text, null, F2.label)
                         : F2.label)
                     : null,
                 F3
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF3 }, isString(F3.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F3) }, isString(F3.label)
                         ? React.createElement(Text, null, F3.label)
                         : F3.label)
                     : null,
                 F4
-                    ? React.createElement(Pressable, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: handlePressF4 }, isString(F4.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F4) }, isString(F4.label)
                         ? React.createElement(Text, null, F4.label)
                         : F4.label)
                     : null)

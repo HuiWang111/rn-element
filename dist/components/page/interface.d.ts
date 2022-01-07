@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 import { ViewStyle } from 'react-native';
-interface IFn {
+export interface IFn {
     label: string | ReactNode;
     disabled?: boolean;
     handler?: () => void;

@@ -81,6 +81,7 @@ module.exports = {
         'no-empty': 2,
         'no-nested-ternary': 0,
         'react-hooks/rules-of-hooks': 'error',
-        'react-hooks/exhaustive-deps': 'warn'
+        'react-hooks/exhaustive-deps': 'warn',
+        'semi': [2, 'never']
     }
-};
+}
