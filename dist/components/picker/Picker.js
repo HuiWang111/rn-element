@@ -8,7 +8,7 @@ import { ConfigContext } from '../config-provider';
 import { Input } from '../input';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const baseHeaderHeight = 40;
-export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, onSearch, onCancel, onConfirm }) => {
+export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, confirmOnSelect = false, onSearch, onCancel, onConfirm }) => {
     var _a, _b;
     const theme = useTheme();
     const values = useMemo(() => {
@@ -82,7 +82,7 @@ export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, v
         if (Children.count(children) === 0) {
             return React.createElement(Empty, { style: { height: scrollViewStyle.height } });
         }
-        return (React.createElement(PickerContext.Provider, { value: { setValue, activeItemStyle, itemStyle } }, Children.map(children, (item) => {
+        return (React.createElement(PickerContext.Provider, { value: { setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm } }, Children.map(children, (item) => {
             var _a;
             return cloneElement(item, {
                 isActive: value === ((_a = item.props) === null || _a === void 0 ? void 0 : _a.value)

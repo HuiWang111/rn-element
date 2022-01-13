@@ -6,17 +6,20 @@ import { useTheme } from '../../hooks';
 export const PickerItem = ({ style, children, value, isActive, onPress }) => {
     const theme = useTheme();
     const activeOpacity = 0.7;
-    const { setValue, activeItemStyle, itemStyle } = useContext(PickerContext);
+    const { setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm } = useContext(PickerContext);
     const handlePress = (e) => {
         setValue === null || setValue === void 0 ? void 0 : setValue(value);
         onPress === null || onPress === void 0 ? void 0 : onPress(e);
+        if (confirmOnSelect && onConfirm) {
+            onConfirm(value);
+        }
     };
     const baseStyle = useMemo(() => {
         return {
             borderTopColor: theme.border,
             borderTopWidth: 1
         };
-    }, []);
+    }, [theme.border]);
     const containerStyles = [baseStyle, itemStyle];
     if (style) {
         containerStyles.push(style);

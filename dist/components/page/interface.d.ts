@@ -40,7 +40,7 @@ export interface IPageProps {
     header?: null | IHeaderConfig;
     mockFnKeyMap?: IFnKeyMap;
     headerStyle?: IHeaderStyle;
-    FnStyle?: IFnStyle;
+    fnStyle?: IFnStyle;
     style?: ViewStyle;
     children?: ReactNode | undefined | ((params: IChildrenParams) => ReactNode | undefined);
 }

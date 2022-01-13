@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     disabledInputContainer: {
         backgroundColor: '#f5f5f5',
-        borderColor: '#d9d9d9'
+        borderColor: colors.border
     },
     input: {
         color: '#000',

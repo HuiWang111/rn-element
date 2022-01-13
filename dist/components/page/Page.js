@@ -9,9 +9,18 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
     F2: KeyCode.X,
     F3: KeyCode.C,
     F4: KeyCode.V
-}, header, headerStyle, style, FnStyle, children }) => {
+}, header, headerStyle, style, fnStyle, children }) => {
     const { width, height } = useWindowDimensions();
-    const theme = useTheme();
+    const { page } = useTheme();
+    const headerTextStyle = {
+        color: page === null || page === void 0 ? void 0 : page.headerTextColor,
+        fontSize: page === null || page === void 0 ? void 0 : page.headerTextSize
+    };
+    const bottomTextStyle = {
+        color: page === null || page === void 0 ? void 0 : page.bottomTextColor,
+        fontSize: page === null || page === void 0 ? void 0 : page.bottomTextSize
+    };
+    const quarter = width / 4;
     const F1KeyCodes = useMemo(() => {
         if (!mockFn || !keyborad)
             return [KeyCode.F1];
@@ -66,40 +75,53 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
             ? (React.createElement(View, { style: [
                     {
                         width,
-                        backgroundColor: theme.primary
+                        backgroundColor: page === null || page === void 0 ? void 0 : page.headerBackgroundColor
                     },
                     styles.header,
                     headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.container
                 ] },
-                React.createElement(View, { style: [styles.headerLeft, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.left] }, header.left),
-                React.createElement(View, { style: [styles.headerCenter, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.center] }, header.center),
-                React.createElement(View, { style: [styles.headerRight, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.right] }, header.right)))
+                header.left ? (React.createElement(View, { style: [styles.headerLeft, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.left] }, isString(header.left)
+                    ? React.createElement(Text, { style: headerTextStyle }, header.left)
+                    : header.left)) : null,
+                header.center ? (React.createElement(View, { style: [styles.headerCenter, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.center] }, isString(header.center)
+                    ? React.createElement(Text, { style: headerTextStyle }, header.center)
+                    : header.center)) : null,
+                header.right ? (React.createElement(View, { style: [styles.headerRight, headerStyle === null || headerStyle === void 0 ? void 0 : headerStyle.right] }, isString(header.right)
+                    ? React.createElement(Text, { style: headerTextStyle }, header.right)
+                    : header.right)) : null))
             : null,
         isFunction(children)
             ? children({ width, height: restHeight - 25 })
             : children,
         displayFnBar
-            ? React.createElement(View, { style: [{ width }, styles.fnBar, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.bar] },
+            ? (React.createElement(View, { style: [
+                    {
+                        width,
+                        backgroundColor: page === null || page === void 0 ? void 0 : page.bottomBackgroundColor
+                    },
+                    styles.fnBar,
+                    fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.bar
+                ] },
                 F1
-                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F1) }, isString(F1.label)
-                        ? React.createElement(Text, null, F1.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F1) }, isString(F1.label)
+                        ? React.createElement(Text, { style: bottomTextStyle }, F1.label)
                         : F1.label)
                     : null,
                 F2
-                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F2) }, isString(F2.label)
-                        ? React.createElement(Text, null, F2.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F2) }, isString(F2.label)
+                        ? React.createElement(Text, { style: bottomTextStyle }, F2.label)
                         : F2.label)
                     : null,
                 F3
-                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F3) }, isString(F3.label)
-                        ? React.createElement(Text, null, F3.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F3) }, isString(F3.label)
+                        ? React.createElement(Text, { style: bottomTextStyle }, F3.label)
                         : F3.label)
                     : null,
                 F4
-                    ? React.createElement(TouchableOpacity, { style: [{ width: width / 4 }, styles.fnCol, FnStyle === null || FnStyle === void 0 ? void 0 : FnStyle.col], onPress: () => handlePressFn(F4) }, isString(F4.label)
-                        ? React.createElement(Text, null, F4.label)
+                    ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F4) }, isString(F4.label)
+                        ? React.createElement(Text, { style: bottomTextStyle }, F4.label)
                         : F4.label)
-                    : null)
+                    : null))
             : null));
 };
 Page.displayName = 'Page';
@@ -111,6 +133,8 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         flexBasis: 50,
+        flexGrow: 0,
+        flexShrink: 0
     },
     headerLeft: {
         flexBasis: 100,
@@ -135,7 +159,9 @@ const styles = StyleSheet.create({
     },
     fnBar: {
         flexDirection: 'row',
-        flexBasis: 40
+        flexBasis: 40,
+        flexGrow: 0,
+        flexShrink: 0
     },
     fnCol: {
         height: 40,

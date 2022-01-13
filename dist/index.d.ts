@@ -32,7 +32,7 @@ export type { ISwitchProps } from './components/switch';
 export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './hooks';
 export { KeyCode } from './constants';
 export { ThemeProvider } from './components/theme-provider';
-export type { IThemeProps } from './components/theme-provider';
+export type { ThemeProps } from './components/theme-provider';
 export { Table } from './components/table';
 export type { ITableProps } from './components/table';
 export { AsyncTreePicker } from './components/async-tree-picker';

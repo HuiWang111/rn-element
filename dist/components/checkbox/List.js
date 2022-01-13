@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
 import { isObject, isUndefined, isString, isFunction } from '../../utils';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Feather';
 import { useTheme } from '../../hooks';
 const { width } = Dimensions.get('window');
 export const CheckList = ({ value: propsValue, defaultValue, options, activeColor: selectedColor, style, itemStyle, onChange }) => {
@@ -53,14 +53,14 @@ export const CheckList = ({ value: propsValue, defaultValue, options, activeColo
         if (isObject(option)) {
             const isActive = value.includes(option.value);
             return (React.createElement(Pressable, { key: option.value, onPress: () => handleChange(option.value, option.disabled), style: getItemStyles(isActive, index) },
-                React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
+                React.createElement(Icon, { name: isActive ? 'check-square' : 'square', color: isActive ? '#fff' : theme.border, size: 20, style: styles.checkIcon }),
                 isFunction(option.label)
                     ? renderLabel(option.label({ isActive }), option.disabled, isActive)
                     : renderLabel(option.label, option.disabled, isActive)));
         }
         const isActive = value.includes(option);
         return (React.createElement(Pressable, { key: option, onPress: () => handleChange(option), style: getItemStyles(isActive, index) },
-            React.createElement(Icon, { name: 'check', color: '#fff', size: 20, style: styles.checkIcon }),
+            React.createElement(Icon, { name: isActive ? 'check-square' : 'square', color: isActive ? '#fff' : theme.border, size: 20, style: styles.checkIcon }),
             React.createElement(Text, { style: isActive ? styles.activeItemText : null }, option)));
     })));
 };
