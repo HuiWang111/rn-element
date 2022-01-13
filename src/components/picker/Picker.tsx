@@ -7,7 +7,6 @@ import React, {
     ReactText,
     useEffect,
     useState,
-    useContext,
     useMemo
 } from 'react'
 import {
@@ -22,9 +21,8 @@ import {
 import { IPickerProps } from './interface'
 import { PickerFooter, Mask, Empty } from '../base'
 import { PickerContext } from './context'
-import { useArrowUp, useArrowDown, useTheme } from '../../hooks'
+import { useArrowUp, useArrowDown, useTheme, useConfig } from '../../hooks'
 import { isNumber, isString, omit } from '../../utils'
-import { ConfigContext } from '../config-provider'
 import { Input } from '../input'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -57,7 +55,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     }, [children])
     const [value, setValue] = useState<ReactText>(propsValue ?? (values[0] ?? ''))
     const [keyword, setKeyword] = useState<string>('')
-    const { showSoftInputOnFocus } = useContext(ConfigContext)
+    const { showSoftInputOnFocus } = useConfig()
 
     const containerWidth = useMemo(() => {
         return fullScreen ? screenWidth : screenWidth - 40

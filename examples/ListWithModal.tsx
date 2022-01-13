@@ -1,8 +1,16 @@
 import React, { FC, useState } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import { useHistory } from 'react-router-native'
-import { List, Modal, Page, Form, Input } from '../src'
+import { List, Modal, Page, Form, Input, Loading } from '../src'
 import { colors } from '../src/utils'
+
+const wait = (ms: number) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(undefined)
+        }, ms)
+    })
+}
 
 const ListWithModal: FC = () => {
     const [activeIndex, setActiveIndex] = useState(0)
@@ -146,7 +154,12 @@ const ListWithModal: FC = () => {
                                 <Modal
                                     title={<Text>modal title</Text>}
                                     onCancel={() => setModalVisible(false)}
-                                    onOk={() => console.info('onOk')}
+                                    onOk={async () => {
+                                        console.info('onOk')
+                                        Loading.show()
+                                        await wait(2000)
+                                        Loading.hide()
+                                    }}
                                     onRequestClose={() => setModalVisible(false)}
                                     visible={modalVisible}
                                     okText='confirm'

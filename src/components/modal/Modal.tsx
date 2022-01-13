@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import { IModalProps, IModalFooter } from './interface'
 import { isUndefined, isString, isFunction, isNull } from '../../utils'
 import { Button } from '../button'
-import { useTheme } from '../../hooks'
+import { useTheme, useConfig } from '../../hooks'
 
 const screenWidth = Dimensions.get('window').width
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
     footer,
-    zIndex,
+    zIndex: propsZIndex,
     okText = '确定',
     cancelText = '取消',
     titleStyle,
@@ -26,9 +26,12 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
 }: PropsWithChildren<IModalProps>) => {
     const { width } = useWindowDimensions()
     const colors = useTheme()
+    const { modalZIndex } = useConfig()
     const commonStyle = {
         width: width - 80
     }
+    const zIndex = propsZIndex ?? modalZIndex
+
     const getFooter = (footer?: IModalFooter): ReactNode | null | undefined => {
         if (isUndefined(footer)) {
             return (
