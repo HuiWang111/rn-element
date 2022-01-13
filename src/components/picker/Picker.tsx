@@ -18,6 +18,7 @@ import {
     ViewStyle,
     Text
 } from 'react-native'
+import { RootSiblingPortal } from 'react-native-root-siblings'
 import { IPickerProps } from './interface'
 import { PickerFooter, Mask, Empty } from '../base'
 import { PickerContext } from './context'
@@ -142,66 +143,68 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     }
 
     return (
-        <Mask
-            zIndex={zIndex}
-            style={maskStyle}
-            visible={visible}
-        >
-            <View
-                style={[
-                    styles.container,
-                    {
-                        width: containerWidth,
-                        height: containerHeight
-                    }
-                ]}
+        <RootSiblingPortal>
+            <Mask
+                zIndex={zIndex}
+                style={maskStyle}
+                visible={visible}
             >
-                {
-                    title ? (
-                        <View
-                            style={[
-                                styles.header,
+                <View
+                    style={[
+                        styles.container,
+                        {
+                            width: containerWidth,
+                            height: containerHeight
+                        }
+                    ]}
+                >
+                    {
+                        title ? (
+                            <View
+                                style={[
+                                    styles.header,
+                                    {
+                                        borderBottomColor: theme.border,
+                                        borderBottomWidth: showSearch ? 1 : 0
+                                    },
+                                    headerStyle
+                                ]}
+                            >
                                 {
-                                    borderBottomColor: theme.border,
-                                    borderBottomWidth: showSearch ? 1 : 0
-                                },
-                                headerStyle
-                            ]}
-                        >
-                            {
-                                isString(title) ? (
-                                    <Text style={styles.title}>{title}</Text>
-                                ) : title
-                            }
-                        </View>
-                    ) : null
-                }
-                {
-                    showSearch
-                        ? (
-                            <View style={styles.searchContainer}>
-                                <Input
-                                    {...omit(searchInputProps, ['value', 'onChangeText'])}
-                                    value={keyword}
-                                    style={styles.searchInput}
-                                    wrapStyle={styles.searchInputWrap}
-                                    onChangeText={handleKeywordChange}
-                                    showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
-                                />
+                                    isString(title) ? (
+                                        <Text style={styles.title}>{title}</Text>
+                                    ) : title
+                                }
                             </View>
-                        )
-                        : null
-                }
-                <ScrollView style={scrollViewStyle}>
-                    { renderItems() }
-                </ScrollView>
-                <PickerFooter
-                    onCancel={handleCancel}
-                    onConfirm={handleConfirm}
-                    { ...footerProps }
-                />
-            </View>
-        </Mask>
+                        ) : null
+                    }
+                    {
+                        showSearch
+                            ? (
+                                <View style={styles.searchContainer}>
+                                    <Input
+                                        {...omit(searchInputProps, ['value', 'onChangeText'])}
+                                        value={keyword}
+                                        style={styles.searchInput}
+                                        wrapStyle={styles.searchInputWrap}
+                                        onChangeText={handleKeywordChange}
+                                        showSoftInputOnFocus={searchInputProps?.showSoftInputOnFocus ?? showSoftInputOnFocus}
+                                    />
+                                </View>
+                            )
+                            : null
+                    }
+                    <ScrollView style={scrollViewStyle}>
+                        { renderItems() }
+                    </ScrollView>
+                    <PickerFooter
+                        onCancel={handleCancel}
+                        onConfirm={handleConfirm}
+                        { ...footerProps }
+                    />
+                </View>
+            </Mask>
+        </RootSiblingPortal>
     )
 }
 
