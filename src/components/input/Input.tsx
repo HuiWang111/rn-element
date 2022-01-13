@@ -1,7 +1,7 @@
-import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react';
-import { TextInput, View, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { IInputProps } from './interface';
+import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react'
+import { TextInput, View, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/AntDesign'
+import { IInputProps } from './interface'
 import { colors } from '../../utils'
 import { BaseHeight } from '../../constants'
 
@@ -15,7 +15,7 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
     ...restProps
 }: IInputProps, ref: ForwardedRef<TextInput>) => {
     const handleClear = () => {
-        onChangeText?.('');
+        onChangeText?.('')
     }
 
     return (
@@ -43,10 +43,10 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
                 </View>
             ) }
         </View>
-    );
+    )
 })
 
-Input.displayName = 'Input';
+Input.displayName = 'Input'
 
 const styles = StyleSheet.create({
     inputContainer: {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     disabledInputContainer: {
         backgroundColor: '#f5f5f5',
-        borderColor: '#d9d9d9'
+        borderColor: colors.border
     },
     input: {
         color: '#000',
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
     closeIcon: {
         color: '#00000040'
     }
-});
+})

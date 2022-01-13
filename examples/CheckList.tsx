@@ -1,14 +1,16 @@
-import React, { FC, useState } from 'react';
-import { Text, View } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { CheckList, Page } from '../src';
+import React, { FC, useState } from 'react'
+import { Text, View } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { Checkbox, Page } from '../src'
+
+const CheckList = Checkbox.List
 
 export const CheckListDemo: FC = () => {
-    const [checked, setChecked] = useState<string[]>([]);
-    const history = useHistory();
+    const [checked, setChecked] = useState<string[]>([])
+    const history = useHistory()
 
     const handleChange = (value) => {
-        setChecked(value);
+        setChecked(value)
     }
 
     return (
@@ -21,7 +23,7 @@ export const CheckListDemo: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >
@@ -55,5 +57,5 @@ export const CheckListDemo: FC = () => {
                 )
             }
         </Page>
-    );
+    )
 }
