@@ -1,15 +1,15 @@
-import React, { FC, useState } from 'react';
-import { Text, StyleSheet, Dimensions } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { List, Form, Toast, Page, NumberInput, Input } from '../src';
-import { colors } from '../src/utils';
+import React, { FC, useState } from 'react'
+import { Text, StyleSheet, Dimensions } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { List, Form, Toast, Page, NumberInput, Input } from '../src'
+import { colors } from '../src/utils'
 
 const ListWithForm: FC = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [form] = Form.useForm();
-    const history = useHistory();
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [form] = Form.useForm()
+    const history = useHistory()
     const handleChange = (activeIndex: number) => {
-        setActiveIndex(activeIndex);
+        setActiveIndex(activeIndex)
     }
 
     return (
@@ -22,13 +22,13 @@ const ListWithForm: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
             F2={{
                 label: <Text>F1 提交</Text>,
                 handler: () => {
-                    Toast.show(JSON.stringify(form.getFieldsValue()));
+                    Toast.show(JSON.stringify(form.getFieldsValue()))
                 }
             }}
         >
@@ -69,7 +69,7 @@ const ListWithForm: FC = () => {
                                 <Text>6</Text>
                             </List.Item>
                             <List.ActivableItem autoFocus inputComponent={NumberInput}>
-                                <Form.Item name='age' rules={[{ required: true, message: '必填' }]}>
+                                <Form.Item name='age' rules={[{ required: true, message: '必填' }]} style={{ width: '100%' }}>
                                     <NumberInput placeholder='7 - isActivable age' />
                                 </Form.Item>
                             </List.ActivableItem>
@@ -123,10 +123,10 @@ const ListWithForm: FC = () => {
                 )
             }
         </Page>
-    );
+    )
 }
 
-export default ListWithForm;
+export default ListWithForm
 
 const styles = StyleSheet.create({
     list: {
@@ -146,4 +146,4 @@ const styles = StyleSheet.create({
     lastItem: {
         borderBottomWidth: 0
     }
-});
+})

@@ -1,11 +1,11 @@
-import React, { FC, useState, useEffect, ReactNode } from 'react';
-import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native';
-import { ICheckListProps } from './interface';
-import { isObject, isUndefined, isString, isFunction } from '../../utils';
-import Icon from 'react-native-vector-icons/AntDesign';
+import React, { FC, useState, useEffect, ReactNode } from 'react'
+import { View, StyleSheet, Pressable, Text, Dimensions, ViewStyle } from 'react-native'
+import { ICheckListProps } from './interface'
+import { isObject, isUndefined, isString, isFunction } from '../../utils'
+import Icon from 'react-native-vector-icons/Feather'
 import { useTheme } from '../../hooks'
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window')
 
 export const CheckList: FC<ICheckListProps> = ({
     value: propsValue,
@@ -19,13 +19,13 @@ export const CheckList: FC<ICheckListProps> = ({
     const [value, setValue] = useState<string[]>(() => {
         const v = isUndefined(propsValue) ? defaultValue : propsValue
         return v ?? [] 
-    });
-    const theme = useTheme();
-    const activeColor = selectedColor || theme.primary;
+    })
+    const theme = useTheme()
+    const activeColor = selectedColor || theme.primary
 
     useEffect(() => {
-        setValue(propsValue ?? []);
-    }, [propsValue]);
+        setValue(propsValue ?? [])
+    }, [propsValue])
 
     const handleChange = (pressedValue: string, disabled = false): void => {
         if (disabled) {
@@ -52,7 +52,7 @@ export const CheckList: FC<ICheckListProps> = ({
             isActive && activeColor ? { backgroundColor: activeColor } : null,
             index === 0 ? { borderTopWidth: 0 } : null,
             itemStyle
-        ];
+        ]
     }
 
     const renderLabel = (label: ReactNode, disabled: boolean, isActive: boolean) => {
@@ -79,7 +79,7 @@ export const CheckList: FC<ICheckListProps> = ({
             {
                 options?.map((option, index) => {
                     if (isObject(option)) {
-                        const isActive = value.includes(option.value);
+                        const isActive = value.includes(option.value)
 
                         return (
                             <Pressable
@@ -88,8 +88,8 @@ export const CheckList: FC<ICheckListProps> = ({
                                 style={getItemStyles(isActive, index)}
                             >
                                 <Icon
-                                    name='check'
-                                    color='#fff'
+                                    name={isActive ? 'check-square' : 'square'}
+                                    color={isActive ? '#fff' : theme.border}
                                     size={20}
                                     style={styles.checkIcon}
                                 />
@@ -99,10 +99,10 @@ export const CheckList: FC<ICheckListProps> = ({
                                         : renderLabel(option.label, option.disabled, isActive)
                                 }
                             </Pressable>
-                        );
+                        )
                     }
 
-                    const isActive = value.includes(option);
+                    const isActive = value.includes(option)
 
                     return (
                         <Pressable
@@ -111,18 +111,18 @@ export const CheckList: FC<ICheckListProps> = ({
                             style={getItemStyles(isActive, index)}
                         >
                             <Icon
-                                name='check'
-                                color='#fff'
+                                name={isActive ? 'check-square' : 'square'}
+                                color={isActive ? '#fff' : theme.border}
                                 size={20}
                                 style={styles.checkIcon}
                             />
                             <Text style={isActive ? styles.activeItemText : null}>{ option }</Text>
                         </Pressable>
-                    );
+                    )
                 })
             }
         </View>
-    );
+    )
 }
 
 CheckList.displayName = 'CheckList'
@@ -147,4 +147,4 @@ const styles = StyleSheet.create({
     checkIcon: {
         marginRight: 10
     }
-});
+})
