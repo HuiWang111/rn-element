@@ -1,7 +1,7 @@
-import { cloneElement, FC, PropsWithChildren, ReactElement } from 'react';
-import { useEnter } from '../../hooks';
-import { IEnterableProps } from './interface';
-import PropTypes from 'prop-types';
+import { cloneElement, FC, PropsWithChildren, ReactElement } from 'react'
+import { useEnter } from '../../hooks'
+import { IEnterableProps } from './interface'
+import PropTypes from 'prop-types'
 
 export const Enterable: FC<PropsWithChildren<IEnterableProps>> = ({
     onEnter,
@@ -11,18 +11,18 @@ export const Enterable: FC<PropsWithChildren<IEnterableProps>> = ({
 }: PropsWithChildren<IEnterableProps>) => {
     useEnter(() => {
         if (isEnterable) {
-            onEnter?.();
+            onEnter?.()
         }
-    }, [isEnterable]);
+    }, [isEnterable])
 
     return cloneElement(children as ReactElement, {
         ...restProps
-    });
+    })
 }
 
-Enterable.displayName = 'Enterable';
+Enterable.displayName = 'Enterable'
 
 Enterable.propTypes = {
     onEnter: PropTypes.func,
     isEnterable: PropTypes.bool
-};
+}

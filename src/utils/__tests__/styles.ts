@@ -1,4 +1,4 @@
-import { mergeStyle } from '../styles';
+import { mergeStyle } from '../styles'
 
 describe('test styles util', () => {
     it('mergeStyle should work', () => {
@@ -20,7 +20,7 @@ describe('test styles util', () => {
             test: {
                 color: 'red'
             }
-        });
+        })
 
         expect(
             mergeStyle(
@@ -46,7 +46,7 @@ describe('test styles util', () => {
             }
         })
 
-        expect(mergeStyle(null, null)).toBe(null);
+        expect(mergeStyle(null, null)).toBe(null)
 
         expect(
             mergeStyle(null, { test: { width: 100 } })
@@ -55,5 +55,5 @@ describe('test styles util', () => {
         expect(
             mergeStyle({ test: { width: 100 } }, null)
         ).toEqual({ test: { width: 100 } })
-    });
-});
+    })
+})

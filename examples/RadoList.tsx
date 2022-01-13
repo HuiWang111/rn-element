@@ -1,16 +1,16 @@
-import React, { FC, useState } from 'react';
-import { Text, View } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { Radio, Page } from '../src';
+import React, { FC, useState } from 'react'
+import { Text, View } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { Radio, Page } from '../src'
 
 const RadioList = Radio.List
 
 export const RadoList: FC = () => {
-    const [checked, setChecked] = useState('');
-    const history = useHistory();
+    const [checked, setChecked] = useState('')
+    const history = useHistory()
 
     const handleChange = (value) => {
-        setChecked(value);
+        setChecked(value)
     }
 
     return (
@@ -23,7 +23,7 @@ export const RadoList: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >
@@ -57,5 +57,5 @@ export const RadoList: FC = () => {
                 )
             }
         </Page>
-    );
+    )
 }

@@ -1,14 +1,14 @@
-import React, { FC, useState } from 'react';
-import { Text, View } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { Switch, Page } from '../src';
+import React, { FC, useState } from 'react'
+import { Text, View } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { Switch, Page } from '../src'
 
 export const SwitchDemo: FC = () => {
-    const [checked, setChecked] = useState(false);
-    const history = useHistory();
+    const [checked, setChecked] = useState(false)
+    const history = useHistory()
 
     const handleChange = (checked: boolean) => {
-        setChecked(checked);
+        setChecked(checked)
     }
 
     return (
@@ -21,7 +21,7 @@ export const SwitchDemo: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >
@@ -35,5 +35,5 @@ export const SwitchDemo: FC = () => {
                 )
             }
         </Page>
-    );
+    )
 }

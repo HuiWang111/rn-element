@@ -1,27 +1,27 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import RootSiblings from 'react-native-root-siblings';
-import { Modal } from './Modal';
-import { IModalConfig, IModalType } from './interface';
-import { omit, colors } from '../../utils';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { Button } from '../button';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import RootSiblings from 'react-native-root-siblings'
+import { Modal } from './Modal'
+import { IModalConfig, IModalType } from './interface'
+import { omit, colors } from '../../utils'
+import Icon from 'react-native-vector-icons/AntDesign'
+import { Button } from '../button'
 
-let sibling: null | RootSiblings = null;
+let sibling: null | RootSiblings = null
 const typeMapIcon = {
     confirm: 'questioncircleo',
     info: 'infocirlceo',
     error: 'closecircle',
     warning: 'exclamationcircleo',
     success: 'checkcircleo'
-};
+}
 const typeMapIconColor = {
     confirm: colors.warning,
     info: colors.primary,
     error: colors.error,
     warning: colors.warning,
     success: colors.success
-};
+}
 
 const styles = StyleSheet.create({
     titleContainer: {
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
     button: {
         flex: 1
     }
-});
+})
 
 const method = (type: IModalType, config: IModalConfig): void => {
-    if (sibling || !config) return;
+    if (sibling || !config) return
 
     if (config.onVisibleChange) {
-        config.onVisibleChange(true);
+        config.onVisibleChange(true)
     }
 
     sibling = new RootSiblings(
@@ -54,40 +54,40 @@ const method = (type: IModalType, config: IModalConfig): void => {
             }}
             onCancel={() => {
                 if (sibling) {
-                    sibling.destroy();
+                    sibling.destroy()
                 }
 
                 if (config.onCancel) {
-                    config.onCancel();
+                    config.onCancel()
                 }
 
                 if (config.onVisibleChange) {
-                    config.onVisibleChange(false);
+                    config.onVisibleChange(false)
                 }
-                sibling = null;
+                sibling = null
             }}
             onOk={() => {
                 if (sibling) {
-                    sibling.destroy();
+                    sibling.destroy()
                 }
 
                 if (config.onOk) {
-                    config.onOk();
+                    config.onOk()
                 }
 
                 if (config.onVisibleChange) {
-                    config.onVisibleChange(false);
+                    config.onVisibleChange(false)
                 }
-                sibling = null;
+                sibling = null
             }}
             onRequestClose={() => {
                 if (sibling) {
-                    sibling.destroy();
-                    sibling = null;
+                    sibling.destroy()
+                    sibling = null
                 }
 
                 if (config.onVisibleChange) {
-                    config.onVisibleChange(false);
+                    config.onVisibleChange(false)
                 }
             }}
             visible={true}
@@ -108,7 +108,7 @@ const method = (type: IModalType, config: IModalConfig): void => {
 }
 
 export const confirm = (config: IModalConfig) => {
-    return method('confirm', config);
+    return method('confirm', config)
 }
 
 const customizedFooter = ({ onOk, okText }) => (
@@ -125,26 +125,26 @@ export const info = (config: IModalConfig) => {
     return method('info', {
         ...config,
         footer: customizedFooter
-    });
+    })
 }
 
 export const error = (config: IModalConfig) => {
     return method('error', {
         ...config,
         footer: customizedFooter
-    });
+    })
 }
 
 export const success = (config: IModalConfig) => {
     return method('success', {
         ...config,
         footer: customizedFooter
-    });
+    })
 }
 
 export const warning = (config: IModalConfig) => {
     return method('warning', {
         ...config,
         footer: customizedFooter
-    });
+    })
 }

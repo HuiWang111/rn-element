@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react'
-import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity, TextStyle } from 'react-native'
 import PropTypes from 'prop-types'
 import { IPageProps, IFn } from './interface'
 import { KeyCode } from '../../constants'
@@ -22,11 +22,21 @@ export const Page: FC<IPageProps> = ({
     header,
     headerStyle,
     style,
-    FnStyle,
+    fnStyle,
     children
 }: IPageProps) => {
     const { width, height } = useWindowDimensions()
-    const theme = useTheme()
+    const { page } = useTheme()
+    
+    const headerTextStyle: TextStyle = {
+        color: page?.headerTextColor,
+        fontSize: page?.headerTextSize
+    }
+    const bottomTextStyle: TextStyle = {
+        color: page?.bottomTextColor,
+        fontSize: page?.bottomTextSize
+    }
+    const quarter = width / 4
 
     const F1KeyCodes = useMemo<number[]>(() => {
         if (!mockFn || !keyborad) return [KeyCode.F1]
@@ -86,21 +96,45 @@ export const Page: FC<IPageProps> = ({
                             style={[
                                 {
                                     width,
-                                    backgroundColor: theme.primary
+                                    backgroundColor: page?.headerBackgroundColor
                                 },
                                 styles.header,
                                 headerStyle?.container
                             ]}
                         >
-                            <View style={[styles.headerLeft, headerStyle?.left]}>
-                                { header.left }
-                            </View>
-                            <View style={[styles.headerCenter, headerStyle?.center]}>
-                                { header.center }
-                            </View>
-                            <View style={[styles.headerRight, headerStyle?.right]}>
-                                { header.right }
-                            </View>
+                            {
+                                header.left ? (
+                                    <View style={[styles.headerLeft, headerStyle?.left]}>
+                                        {
+                                            isString(header.left)
+                                                ? <Text style={headerTextStyle}>{ header.left }</Text>
+                                                : header.left
+                                        }
+                                    </View>
+                                ) : null
+                            }
+                            {
+                                header.center ? (
+                                    <View style={[styles.headerCenter, headerStyle?.center]}>
+                                        {
+                                            isString(header.center)
+                                                ? <Text style={headerTextStyle}>{ header.center }</Text>
+                                                : header.center
+                                        }
+                                    </View>
+                                ) : null
+                            }
+                            {
+                                header.right ? (
+                                    <View style={[styles.headerRight, headerStyle?.right]}>
+                                        {
+                                            isString(header.right)
+                                                ? <Text style={headerTextStyle}>{ header.right }</Text>
+                                                : header.right
+                                        }
+                                    </View>
+                                ) : null
+                            }
                         </View>
                     )
                     : null
@@ -112,52 +146,63 @@ export const Page: FC<IPageProps> = ({
             }
             {
                 displayFnBar
-                    ? <View style={[{ width }, styles.fnBar, FnStyle?.bar]}>
-                        {
-                            F1
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F1)}>
-                                    {
-                                        isString(F1.label)
-                                            ? <Text>{F1.label}</Text>
-                                            : F1.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                        {
-                            F2
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F2)}>
-                                    {
-                                        isString(F2.label)
-                                            ? <Text>{F2.label}</Text>
-                                            : F2.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                        {
-                            F3
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F3)}>
-                                    {
-                                        isString(F3.label)
-                                            ? <Text>{F3.label}</Text>
-                                            : F3.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                        {
-                            F4
-                                ? <TouchableOpacity style={[{ width: width/4 }, styles.fnCol, FnStyle?.col]} onPress={() => handlePressFn(F4)}>
-                                    {
-                                        isString(F4.label)
-                                            ? <Text>{F4.label}</Text>
-                                            : F4.label
-                                    }
-                                </TouchableOpacity>
-                                : null
-                        }
-                    </View>
+                    ? (
+                        <View
+                            style={[
+                                {
+                                    width,
+                                    backgroundColor: page?.bottomBackgroundColor
+                                },
+                                styles.fnBar,
+                                fnStyle?.bar
+                            ]}
+                        >
+                            {
+                                F1
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F1)}>
+                                        {
+                                            isString(F1.label)
+                                                ? <Text style={bottomTextStyle}>{F1.label}</Text>
+                                                : F1.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                            {
+                                F2
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F2)}>
+                                        {
+                                            isString(F2.label)
+                                                ? <Text style={bottomTextStyle}>{F2.label}</Text>
+                                                : F2.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                            {
+                                F3
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F3)}>
+                                        {
+                                            isString(F3.label)
+                                                ? <Text style={bottomTextStyle}>{F3.label}</Text>
+                                                : F3.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                            {
+                                F4
+                                    ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F4)}>
+                                        {
+                                            isString(F4.label)
+                                                ? <Text style={bottomTextStyle}>{F4.label}</Text>
+                                                : F4.label
+                                        }
+                                    </TouchableOpacity>
+                                    : null
+                            }
+                        </View>
+                    )
                     : null
             }
         </View>
@@ -174,6 +219,8 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         flexBasis: 50,
+        flexGrow: 0,
+        flexShrink: 0
     },
     headerLeft: {
         flexBasis: 100,
@@ -198,7 +245,9 @@ const styles = StyleSheet.create({
     },
     fnBar: {
         flexDirection: 'row',
-        flexBasis: 40
+        flexBasis: 40,
+        flexGrow: 0,
+        flexShrink: 0
     },
     fnCol: {
         height: 40,

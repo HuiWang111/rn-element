@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { IFormItemLabelProps } from './interface';
-import { styleUtils, isString } from '../../utils';
+import React, { FC } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { IFormItemLabelProps } from './interface'
+import { styleUtils, isString } from '../../utils'
 
 export const FormItemLabel: FC<IFormItemLabelProps> = ({
     label,
@@ -10,13 +10,13 @@ export const FormItemLabel: FC<IFormItemLabelProps> = ({
     style,
     textStyle
 }: IFormItemLabelProps) => {
-    let formItemLabelStyle = [styles.formItemLabel, style];
+    let formItemLabelStyle = [styles.formItemLabel, style]
     if (col) {
         if (col.span) {
-            formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`span-${col.span}`] as never);
+            formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`span-${col.span}`] as never)
         }
         if (col.offset) {
-            formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`offset-${col.offset}`] as never);
+            formItemLabelStyle = formItemLabelStyle.concat(styleUtils[`offset-${col.offset}`] as never)
         }
     }
 
@@ -38,7 +38,7 @@ export const FormItemLabel: FC<IFormItemLabelProps> = ({
                     : label
             }
         </View>
-    );
+    )
 }
 
 FormItemLabel.displayName = 'FormItemLabel'
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     formItemLabelText: {
         fontSize: 14
     }
-});
+})

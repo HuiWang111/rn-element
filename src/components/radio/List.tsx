@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { IRadioListProps } from './interface';
-import { last } from '../../utils';
-import { CheckList } from '../checkbox/List';
+import React, { FC } from 'react'
+import { IRadioListProps } from './interface'
+import { last } from '../../utils'
+import { CheckList } from '../checkbox/List'
 
 export const RadioList: FC<IRadioListProps> = ({
     value,

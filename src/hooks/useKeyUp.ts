@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
-import { KeyCode } from '../constants';
+import { useEffect } from 'react'
+import { DeviceEventEmitter, EmitterSubscription } from 'react-native'
+import { KeyCode } from '../constants'
 
 interface IEventType {
     which: number;
@@ -9,130 +9,130 @@ interface IEventType {
 
 type EventListener = (event: IEventType) => void;
 
-const KeyUpEventName = 'keyup';
+const KeyUpEventName = 'keyup'
 
 export function useKeyUp(listener: EventListener, deps: any[] = []): void {
     useEffect(() => {
-        let subscription: EmitterSubscription | undefined;
+        let subscription: EmitterSubscription | undefined
         const didMount = () => {
-            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
         }
         const willUnmount = () => {
-            subscription?.remove();
+            subscription?.remove()
         }
 
-        didMount();
+        didMount()
 
-        return willUnmount;
-    }, [listener, ...deps]);
+        return willUnmount
+    }, [listener, ...deps])
 }
 
 export function useEnter(callback: () => void, deps: any[] = []): void {
     useEffect(() => {
-        let subscription: EmitterSubscription | undefined;
+        let subscription: EmitterSubscription | undefined
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Enter) {
-                callback();
+                callback()
             }
-        };
+        }
 
         const didMount = () => {
-            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
         }
         const willUnmount = () => {
-            subscription?.remove();
+            subscription?.remove()
         }
 
-        didMount();
+        didMount()
 
-        return willUnmount;
-    }, [callback, ...deps]);
+        return willUnmount
+    }, [callback, ...deps])
 }
 
 export function useArrowUp(callback: () => void, deps: any[] = []): void {
     useEffect(() => {
-        let subscription: EmitterSubscription | undefined;
+        let subscription: EmitterSubscription | undefined
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Up) {
-                callback();
+                callback()
             }
-        };
+        }
 
         const didMount = () => {
-            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
         }
         const willUnmount = () => {
-            subscription?.remove();
+            subscription?.remove()
         }
 
-        didMount();
+        didMount()
 
-        return willUnmount;
-    }, [callback, ...deps]);
+        return willUnmount
+    }, [callback, ...deps])
 }
 
 export function useArrowDown(callback: () => void, deps: any[] = []): void {
-    let subscription: EmitterSubscription | undefined;
+    let subscription: EmitterSubscription | undefined
     useEffect(() => {
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Down) {
-                callback();
+                callback()
             }
-        };
+        }
 
         const didMount = () => {
-            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
         }
         const willUnmount = () => {
-            subscription?.remove();
+            subscription?.remove()
         }
 
-        didMount();
+        didMount()
 
-        return willUnmount;
-    }, [callback, ...deps]);
+        return willUnmount
+    }, [callback, ...deps])
 }
 
 export function useArrowLeft(callback: () => void, deps: any[] = []): void {
-    let subscription: EmitterSubscription | undefined;
+    let subscription: EmitterSubscription | undefined
     useEffect(() => {
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Left) {
-                callback();
+                callback()
             }
-        };
+        }
 
         const didMount = () => {
-            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
         }
         const willUnmount = () => {
-            subscription?.remove();
+            subscription?.remove()
         }
 
-        didMount();
+        didMount()
 
-        return willUnmount;
-    }, [callback, ...deps]);
+        return willUnmount
+    }, [callback, ...deps])
 }
 
 export function useArrowRight(callback: () => void, deps: any[] = []): void {
-    let subscription: EmitterSubscription | undefined;
+    let subscription: EmitterSubscription | undefined
     useEffect(() => {
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Right) {
-                callback();
+                callback()
             }
-        };
+        }
 
         const didMount = () => {
-            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener);
+            subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
         }
         const willUnmount = () => {
-            subscription?.remove();
+            subscription?.remove()
         }
 
-        didMount();
+        didMount()
 
-        return willUnmount;
-    }, [callback, ...deps]);
+        return willUnmount
+    }, [callback, ...deps])
 }

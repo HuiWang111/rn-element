@@ -1,4 +1,4 @@
-import { ViewProps } from 'react-native';
+import { ViewProps } from 'react-native'
 
 export interface IEnterableProps extends ViewProps {
     onEnter?: () => void;

@@ -1,12 +1,12 @@
-import React, { FC, useState, ReactText } from 'react';
-import { StyleSheet, Dimensions, Text, View } from 'react-native';
-import { AsyncTreePicker, List, Toast, Page, Loading } from '../src';
-import { IOptionWithChildren } from '../src/components/tree-picker/interface';
-import { getListByDepth } from '../src/components/tree-picker/utils';
-import { useHistory } from 'react-router-native';
-import { colors } from '../src/utils';
+import React, { FC, useState, ReactText } from 'react'
+import { StyleSheet, Dimensions, Text, View } from 'react-native'
+import { AsyncTreePicker, List, Toast, Page, Loading } from '../src'
+import { IOptionWithChildren } from '../src/components/tree-picker/interface'
+import { getListByDepth } from '../src/components/tree-picker/utils'
+import { useHistory } from 'react-router-native'
+import { colors } from '../src/utils'
 
-const numbers = new Array(30).fill(undefined).map((_, index) => index + 1);
+const numbers = new Array(30).fill(undefined).map((_, index) => index + 1)
 const options: IOptionWithChildren[] = numbers.map(n => {
     return {
         value: String(n),
@@ -19,35 +19,35 @@ const options: IOptionWithChildren[] = numbers.map(n => {
                     return {
                         value: `${n}-${i}-${v}`,
                         label: `选项${n}-${i}-${v}`
-                    };
+                    }
                 })
-            };
+            }
         })
-    };
-});
+    }
+})
 const wait = (ms: number) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(undefined);
+            resolve(undefined)
         }, ms)
     })
 }
 
 export const AsyncTreePickerDemo: FC = () => {
-    const [index, setIndex] = useState(0);
-    const [visible, setVisble] = useState(false);
+    const [index, setIndex] = useState(0)
+    const [visible, setVisble] = useState(false)
     const [list, setList] = useState(options.map(o => ({ value: o.value, label: o.label })))
-    const history = useHistory();
+    const history = useHistory()
     const handleChange = (index: number) => {
-        setIndex(index);
+        setIndex(index)
     }
-    const showPicker = () => setVisble(true);
+    const showPicker = () => setVisble(true)
     const handleConfirm = (value: ReactText[], labels: string[]) => {
-        Toast.show(`value is ${value}, label is ${labels}`);
-        setVisble(false);
+        Toast.show(`value is ${value}, label is ${labels}`)
+        setVisble(false)
     }
     const handleCancel = () => {
-        setVisble(false);
+        setVisble(false)
     }
 
     return (
@@ -59,7 +59,7 @@ export const AsyncTreePickerDemo: FC = () => {
                 F1={{
                     label: <Text>F1 返回</Text>,
                     handler: () => {
-                        history.goBack();
+                        history.goBack()
                     }
                 }}
             >
@@ -106,7 +106,7 @@ export const AsyncTreePickerDemo: FC = () => {
                 }}
             />
         </>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
     lastItem: {
         borderBottomWidth: 0
     }
-});
+})

@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
-import { Text, View } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { Input, Page } from '../src';
+import React, { FC, useState } from 'react'
+import { Text, View } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { Input, Page } from '../src'
 
 export const InputDemo: FC = () => {
     const history = useHistory()
@@ -20,7 +20,7 @@ export const InputDemo: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >

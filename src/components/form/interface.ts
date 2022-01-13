@@ -1,5 +1,5 @@
-import { ComponentType, ReactNode } from 'react';
-import { ViewStyle, StyleProp, TextStyle } from 'react-native';
+import { ComponentType, ReactNode } from 'react'
+import { ViewStyle, StyleProp, TextStyle } from 'react-native'
 
 export type ValueType = any | any[];
 export type StoreValue<Values = ValueType> = Record<string, Values>;

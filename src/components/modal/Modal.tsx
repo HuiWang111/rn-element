@@ -1,12 +1,12 @@
-import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
-import PropTypes from 'prop-types';
-import { IModalProps, IModalFooter } from './interface';
-import { isUndefined, isString, isFunction, isNull } from '../../utils';
-import { Button } from '../button';
+import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react'
+import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native'
+import PropTypes from 'prop-types'
+import { IModalProps, IModalFooter } from './interface'
+import { isUndefined, isString, isFunction, isNull } from '../../utils'
+import { Button } from '../button'
 import { useTheme } from '../../hooks'
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get('window').width
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
@@ -24,11 +24,11 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     onVisibleChange,
     ...restProps
 }: PropsWithChildren<IModalProps>) => {
-    const { width } = useWindowDimensions();
-    const colors = useTheme();
+    const { width } = useWindowDimensions()
+    const colors = useTheme()
     const commonStyle = {
         width: width - 80
-    };
+    }
     const getFooter = (footer?: IModalFooter): ReactNode | null | undefined => {
         if (isUndefined(footer)) {
             return (
@@ -47,7 +47,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                         />
                     </View>
                 </>
-            );
+            )
         }
 
         if (isFunction(footer)) {
@@ -56,15 +56,15 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                 cancelText,
                 onOk,
                 onCancel
-            });
+            })
         }
 
-        return footer;
+        return footer
     }
 
     useEffect(() => {
-        onVisibleChange?.(visible);
-    }, [visible, onVisibleChange]);
+        onVisibleChange?.(visible)
+    }, [visible, onVisibleChange])
     
     return (
         <ReactNativeModal
@@ -119,7 +119,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
                 </View>
             </View>
         </ReactNativeModal>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 10
     }
-});
+})
 
 Modal.displayName = 'Modal'
 

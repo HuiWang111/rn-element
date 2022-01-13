@@ -1,6 +1,6 @@
-import { Form as InternalForm } from './Form';
-import { FormItem } from './FormItem';
-import { useForm } from './useForm';
+import { Form as InternalForm } from './Form'
+import { FormItem } from './FormItem'
+import { useForm } from './useForm'
 
 type InternalFormType = typeof InternalForm;
 interface IFormType extends InternalFormType {
@@ -8,11 +8,11 @@ interface IFormType extends InternalFormType {
     useForm: typeof useForm;
 }
 
-const Form = InternalForm as IFormType;
+const Form = InternalForm as IFormType
 
-Form.Item = FormItem;
-Form.useForm = useForm;
+Form.Item = FormItem
+Form.useForm = useForm
 
-export { Form };
+export { Form }
 
 export type { FormInstance, IFormProps, IFormItemProps, Rule } from './interface'

@@ -1,34 +1,34 @@
-import React, { FC, ReactText, useState } from 'react';
-import { StyleSheet, Dimensions, Text, View } from 'react-native';
-import { Picker, List, Toast, Page } from '../src';
-import { useHistory } from 'react-router-native';
+import React, { FC, ReactText, useState } from 'react'
+import { StyleSheet, Dimensions, Text, View } from 'react-native'
+import { Picker, List, Toast, Page } from '../src'
+import { useHistory } from 'react-router-native'
 
-const numbers = new Array(30).fill(undefined).map((_, index) => index + 1);
+const numbers = new Array(30).fill(undefined).map((_, index) => index + 1)
 
 const PickerDemo: FC = () => {
-    const [list, setList] = useState(numbers);
-    const [index, setIndex] = useState(0);
-    const [visible, setVisble] = useState(false);
+    const [list, setList] = useState(numbers)
+    const [index, setIndex] = useState(0)
+    const [visible, setVisble] = useState(false)
     const [value, setValue] = useState<ReactText>(1)
-    const history = useHistory();
+    const history = useHistory()
     const handleChange = (index: number) => {
-        setIndex(index);
+        setIndex(index)
     }
-    const showPicker = () => setVisble(true);
+    const showPicker = () => setVisble(true)
     const handleConfirm = (v: ReactText) => {
         setValue(v)
-        Toast.show(`value is ${v}`);
-        setVisble(false);
+        Toast.show(`value is ${v}`)
+        setVisble(false)
     }
     const handleCancel = () => {
-        setVisble(false);
+        setVisble(false)
     }
 
     const handelSearch = (keyword: string) => {
         if (keyword) {
-            setList(numbers.filter(n => String(n).includes(keyword)));
+            setList(numbers.filter(n => String(n).includes(keyword)))
         } else {
-            setList(numbers);
+            setList(numbers)
         }
     }
     
@@ -36,12 +36,12 @@ const PickerDemo: FC = () => {
         <>
             <Page
                 header={{
-                    center: <Text>picker</Text>
+                    center: 'picker'
                 }}
                 F1={{
                     label: <Text>F1 返回</Text>,
                     handler: () => {
-                        history.goBack();
+                        history.goBack()
                     }
                 }}
             >
@@ -77,6 +77,7 @@ const PickerDemo: FC = () => {
                 onCancel={handleCancel}
                 showSearch
                 // fullScreen={false}
+                confirmOnSelect
                 searchInputProps={{
                     placeholder: '请输入关键字搜索'
                 }}
@@ -91,15 +92,15 @@ const PickerDemo: FC = () => {
                             >
                                 <Text>选项{n}</Text>
                             </Picker.Item>
-                        );
+                        )
                     })
                 }
             </Picker>
         </>
-    );
+    )
 }
 
-export default PickerDemo;
+export default PickerDemo
 
 const styles = StyleSheet.create({
     list: {
@@ -116,4 +117,4 @@ const styles = StyleSheet.create({
     activeItem: {
         backgroundColor: 'yellow'
     }
-});
+})

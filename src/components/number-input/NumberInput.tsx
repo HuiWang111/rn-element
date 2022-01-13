@@ -1,8 +1,8 @@
-import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react';
-import { TextInput } from 'react-native';
-import { INumberInputProps } from './interface';
-import { regExp } from '../../utils';
-import { Input } from '../input';
+import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react'
+import { TextInput } from 'react-native'
+import { INumberInputProps } from './interface'
+import { regExp } from '../../utils'
+import { Input } from '../input'
 
 /**
  * 主要用于配合Form.Item的numeric属性使用，
@@ -16,15 +16,15 @@ const NumberInput: FC<INumberInputProps & ClassAttributes<TextInput>> = forwardR
 }: INumberInputProps, ref: ForwardedRef<TextInput>) => {
     const handleChangeText = (val: string) => {
         if (!onChangeText) {
-            return;
+            return
         }
 
-        const allowInputChars = ['-', ''];
+        const allowInputChars = ['-', '']
         if (!allowInputChars.includes(val) && !regExp.number.test(val)) {
-            return;
+            return
         }
 
-        onChangeText(val);
+        onChangeText(val)
     }
     
     return (
@@ -34,9 +34,9 @@ const NumberInput: FC<INumberInputProps & ClassAttributes<TextInput>> = forwardR
             ref={ref}
             { ...restPropos }
         />
-    );
+    )
 })
 
-NumberInput.displayName = 'NumberInput';
+NumberInput.displayName = 'NumberInput'
 
-export default NumberInput;
+export default NumberInput

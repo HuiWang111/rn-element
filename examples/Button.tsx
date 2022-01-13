@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import { Text, View, ScrollView } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { Button, Page } from '../src';
+import React, { FC } from 'react'
+import { Text, View, ScrollView } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { Button, Page } from '../src'
 
 export const ButtonDemo: FC = () => {
     const history = useHistory()
@@ -17,7 +17,7 @@ export const ButtonDemo: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >

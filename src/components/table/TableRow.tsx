@@ -45,7 +45,7 @@ export const TableRow: FC<ITableRowProps> = ({
         )
     }
     const renderCell = (column: ITableColumn, index: number): ReactNode => {
-        const text = data[column.dataIndex];
+        const text = data[column.dataIndex]
 
         if (isFunction(column.render)) {
             const renderRes = column.render(text, data, index)

@@ -1,11 +1,11 @@
-import React, { FC, useState, ReactText } from 'react';
-import { StyleSheet, Dimensions, Text, View } from 'react-native';
-import { TreePicker, List, Toast, Page } from '../src';
-import { IOptionWithChildren } from '../src/components/tree-picker/interface';
-import { useHistory } from 'react-router-native';
-import { colors } from '../src/utils';
+import React, { FC, useState, ReactText } from 'react'
+import { StyleSheet, Dimensions, Text, View } from 'react-native'
+import { TreePicker, List, Toast, Page } from '../src'
+import { IOptionWithChildren } from '../src/components/tree-picker/interface'
+import { useHistory } from 'react-router-native'
+import { colors } from '../src/utils'
 
-const numbers = new Array(30).fill(undefined).map((_, index) => index + 1);
+const numbers = new Array(30).fill(undefined).map((_, index) => index + 1)
 const options: IOptionWithChildren[] = numbers.map(n => {
     return {
         value: String(n),
@@ -18,27 +18,27 @@ const options: IOptionWithChildren[] = numbers.map(n => {
                     return {
                         value: `${n}-${i}-${v}`,
                         label: `选项${n}-${i}-${v}`
-                    };
+                    }
                 })
-            };
+            }
         })
-    };
-});
+    }
+})
 
 const TreePickerDemo: FC = () => {
-    const [index, setIndex] = useState(0);
-    const [visible, setVisble] = useState(false);
-    const history = useHistory();
+    const [index, setIndex] = useState(0)
+    const [visible, setVisble] = useState(false)
+    const history = useHistory()
     const handleChange = (index: number) => {
-        setIndex(index);
+        setIndex(index)
     }
-    const showPicker = () => setVisble(true);
+    const showPicker = () => setVisble(true)
     const handleConfirm = (value: ReactText[], labels: string[]) => {
-        Toast.show(`value is ${value}, label is ${labels}`);
-        setVisble(false);
+        Toast.show(`value is ${value}, label is ${labels}`)
+        setVisble(false)
     }
     const handleCancel = () => {
-        setVisble(false);
+        setVisble(false)
     }
 
     return (
@@ -50,7 +50,7 @@ const TreePickerDemo: FC = () => {
                 F1={{
                     label: <Text>F1 返回</Text>,
                     handler: () => {
-                        history.goBack();
+                        history.goBack()
                     }
                 }}
             >
@@ -90,10 +90,10 @@ const TreePickerDemo: FC = () => {
                 }}
             />
         </>
-    );
+    )
 }
 
-export default TreePickerDemo;
+export default TreePickerDemo
 
 const styles = StyleSheet.create({
     list: {
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
     lastItem: {
         borderBottomWidth: 0
     }
-});
+})

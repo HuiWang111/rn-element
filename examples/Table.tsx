@@ -38,7 +38,7 @@ export const TableDemo: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
         >

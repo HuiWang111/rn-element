@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-import { Text, View } from 'react-native';
-import { useHistory } from 'react-router-native';
-import { Form, Toast, Page, Input, Switch, Checkbox, Radio } from '../src';
+import React, { FC } from 'react'
+import { Text, View } from 'react-native'
+import { useHistory } from 'react-router-native'
+import { Form, Toast, Page, Input, Switch, Checkbox, Radio } from '../src'
 
 export const FormDemo: FC = () => {
-    const history = useHistory();
-    const [form] = Form.useForm();
+    const history = useHistory()
+    const [form] = Form.useForm()
 
     return (
         <Page
@@ -17,13 +17,13 @@ export const FormDemo: FC = () => {
             F1={{
                 label: <Text>F1 返回</Text>,
                 handler: () => {
-                    history.goBack();
+                    history.goBack()
                 }
             }}
             F2={{
                 label: <Text>F1 提交</Text>,
                 handler: () => {
-                    Toast.show(JSON.stringify(form.getFieldsValue()));
+                    Toast.show(JSON.stringify(form.getFieldsValue()))
                 }
             }}
         >
