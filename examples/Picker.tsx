@@ -36,7 +36,7 @@ const PickerDemo: FC = () => {
         <>
             <Page
                 header={{
-                    center: <Text>picker</Text>
+                    center: 'picker'
                 }}
                 F1={{
                     label: <Text>F1 返回</Text>,
@@ -77,6 +77,7 @@ const PickerDemo: FC = () => {
                 onCancel={handleCancel}
                 showSearch
                 // fullScreen={false}
+                confirmOnSelect
                 searchInputProps={{
                     placeholder: '请输入关键字搜索'
                 }}

@@ -27,13 +27,14 @@ export const Page: FC<IPageProps> = ({
 }: IPageProps) => {
     const { width, height } = useWindowDimensions()
     const { page } = useTheme()
+    
     const headerTextStyle: TextStyle = {
-        color: page.headerTextColor,
-        fontSize: page.headerTextSize
+        color: page?.headerTextColor,
+        fontSize: page?.headerTextSize
     }
     const bottomTextStyle: TextStyle = {
-        color: page.bottomTextColor,
-        fontSize: page.bottomTextSize
+        color: page?.bottomTextColor,
+        fontSize: page?.bottomTextSize
     }
     const quarter = width / 4
 
@@ -95,7 +96,7 @@ export const Page: FC<IPageProps> = ({
                             style={[
                                 {
                                     width,
-                                    backgroundColor: page.headerBackgroundColor
+                                    backgroundColor: page?.headerBackgroundColor
                                 },
                                 styles.header,
                                 headerStyle?.container
@@ -150,7 +151,7 @@ export const Page: FC<IPageProps> = ({
                             style={[
                                 {
                                     width,
-                                    backgroundColor: page.bottomBackgroundColor
+                                    backgroundColor: page?.bottomBackgroundColor
                                 },
                                 styles.fnBar,
                                 fnStyle?.bar

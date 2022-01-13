@@ -14,10 +14,14 @@ export const PickerItem: FC<IPickerItem> = ({
 }: IPickerItem) => {
     const theme = useTheme()
     const activeOpacity = 0.7
-    const { setValue, activeItemStyle, itemStyle } = useContext(PickerContext)
+    const { setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm } = useContext(PickerContext)
     const handlePress = (e: GestureResponderEvent) => {
         setValue?.(value)
         onPress?.(e)
+
+        if (confirmOnSelect && onConfirm) {
+            onConfirm(value)
+        }
     }
     const baseStyle = useMemo<ViewStyle>(() => {
         return {

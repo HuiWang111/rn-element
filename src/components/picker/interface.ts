@@ -24,13 +24,16 @@ export interface IPickerProps {
     searchInputProps?: IInputProps;
     fullScreen?: boolean;
     footerProps?: Omit<IPickerFooterProps, 'onCancel' | 'onConfirm'>;
+    confirmOnSelect?: boolean;
     onSearch?: (keyword: string) => void;
     onCancel?: () => void;
     onConfirm?: (value: ReactText) => void;
 }
 
 export interface IInternalProps {
-    setValue?: (value: ReactText) => void;
     activeItemStyle?: ViewStyle;
     itemStyle?: ViewStyle;
+    confirmOnSelect?: boolean;
+    setValue?: (value: ReactText) => void;
+    onConfirm?: (value: ReactText) => void;
 }

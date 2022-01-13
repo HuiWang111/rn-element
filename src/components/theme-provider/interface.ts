@@ -2,7 +2,7 @@ import { colors } from '../../utils'
 import { ColorValue } from 'react-native'
 
 export type ThemeProps = Partial<typeof colors> & {
-    page: IThemedPage,
+    page?: IThemedPage,
 }
 
 export interface IThemedPage {

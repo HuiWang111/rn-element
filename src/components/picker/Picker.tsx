@@ -44,6 +44,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     searchInputProps,
     fullScreen = true,
     footerProps = {},
+    confirmOnSelect = false,
     onSearch,
     onCancel,
     onConfirm
@@ -130,7 +131,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
         }
 
         return (
-            <PickerContext.Provider value={{ setValue, activeItemStyle, itemStyle }}>
+            <PickerContext.Provider value={{ setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm }}>
                 {
                     Children.map(children, (item: ReactElement) => {
                         return cloneElement(item, {
