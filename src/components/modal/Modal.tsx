@@ -1,17 +1,19 @@
 import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react'
-import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native'
+import { RootSiblingPortal } from 'react-native-root-siblings'
 import PropTypes from 'prop-types'
 import { IModalProps, IModalFooter } from './interface'
 import { isUndefined, isString, isFunction, isNull } from '../../utils'
 import { Button } from '../button'
-import { useTheme } from '../../hooks'
+import { useTheme, useConfig } from '../../hooks'
+import { Mask } from '../base'
 
 const screenWidth = Dimensions.get('window').width
 
 export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     title,
     footer,
-    zIndex,
+    zIndex: propsZIndex,
     okText = '确定',
     cancelText = '取消',
     titleStyle,
@@ -21,14 +23,16 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     onCancel,
     children,
     visible = false,
-    onVisibleChange,
-    ...restProps
+    onVisibleChange
 }: PropsWithChildren<IModalProps>) => {
     const { width } = useWindowDimensions()
     const colors = useTheme()
+    const { modalZIndex } = useConfig()
+    const zIndex = propsZIndex ?? modalZIndex
     const commonStyle = {
         width: width - 80
     }
+
     const getFooter = (footer?: IModalFooter): ReactNode | null | undefined => {
         if (isUndefined(footer)) {
             return (
@@ -67,58 +71,55 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
     }, [visible, onVisibleChange])
     
     return (
-        <ReactNativeModal
-            animationType='slide'
-            transparent={true}
-            style={{
-                zIndex
-            }}
-            visible={visible}
-            {...restProps}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    {
-                        title
-                            ? (
-                                <View
-                                    style={[
-                                        styles.title,
-                                        { borderBottomColor: colors.border },
-                                        commonStyle,
-                                        titleStyle
-                                    ]}
-                                >
-                                    {
-                                        isString(title)
-                                            ? <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{title}</Text>
-                                            : title
-                                    }
-                                </View>
-                            )
-                            : null
-                    }
-                    {
-                        children
-                            ? (
-                                <View style={[styles.body, commonStyle, bodyStyle]}>
-                                    { children }
-                                </View>
-                            )
-                            : null
-                    }
-                    {
-                        isNull(footer)
-                            ? null
-                            : (
-                                <View style={[styles.footer, commonStyle, footerStyle]}>
-                                    { getFooter(footer) }
-                                </View>
-                            )
-                    }
+        <RootSiblingPortal>
+            <Mask
+                zIndex={zIndex}
+                visible={visible}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        {
+                            title
+                                ? (
+                                    <View
+                                        style={[
+                                            styles.title,
+                                            { borderBottomColor: colors.border },
+                                            commonStyle,
+                                            titleStyle
+                                        ]}
+                                    >
+                                        {
+                                            isString(title)
+                                                ? <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{title}</Text>
+                                                : title
+                                        }
+                                    </View>
+                                )
+                                : null
+                        }
+                        {
+                            children
+                                ? (
+                                    <View style={[styles.body, commonStyle, bodyStyle]}>
+                                        { children }
+                                    </View>
+                                )
+                                : null
+                        }
+                        {
+                            isNull(footer)
+                                ? null
+                                : (
+                                    <View style={[styles.footer, commonStyle, footerStyle]}>
+                                        { getFooter(footer) }
+                                    </View>
+                                )
+                        }
+                    </View>
                 </View>
-            </View>
-        </ReactNativeModal>
+            </Mask>
+        </RootSiblingPortal>
     )
 }
 

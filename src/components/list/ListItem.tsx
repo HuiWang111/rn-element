@@ -10,10 +10,9 @@ import {
 } from 'react-native'
 import { IInternalListItemProps, IListItemProps } from './interface'
 import { mapChildrenWithRef } from './utils'
-import { useKeyUp } from '../../hooks'
+import { useKeyUp, useConfig } from '../../hooks'
 import { KeyCode } from '../../constants'
 import PropTypes from 'prop-types'
-import { ConfigContext } from '../config-provider'
 import { isFunction } from '../../utils'
 import { ListContext } from './context'
 
@@ -34,7 +33,7 @@ const InternalListItem: FC<IInternalListItemProps> = ({
      * 因此这里做一个标记，避免onEnter时同时触发onPress
      */
     const isTabEnter = useRef(false)
-    const { showSoftInputOnFocus } = useContext(ConfigContext)
+    const { showSoftInputOnFocus } = useConfig()
     const { onChange, activeItemStyle, keyboard } = useContext(ListContext)
     
     const handlePress = (e: GestureResponderEvent) => {
@@ -97,7 +96,7 @@ const InternalListItem: FC<IInternalListItemProps> = ({
                         inputRef,
                         inputComponent as ComponentType,
                         {
-                            showSoftInputOnFocus: showSoftInputOnFocus as boolean
+                            showSoftInputOnFocus
                         },
                         handleFocus
                     )

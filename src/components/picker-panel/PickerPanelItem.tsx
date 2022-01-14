@@ -1,17 +1,17 @@
 import React, { FC, useContext, useMemo } from 'react'
 import { TouchableOpacity, GestureResponderEvent, ViewStyle } from 'react-native'
-import { IPickerItem } from './interface'
+import { IPickerPanelItem } from './interface'
 import { PickerContext } from './context'
 import { isFunction } from '../../utils'
 import { useTheme } from '../../hooks'
 
-export const PickerItem: FC<IPickerItem> = ({
+export const PickerItem: FC<IPickerPanelItem> = ({
     style,
     children,
     value,
     isActive,
     onPress
-}: IPickerItem) => {
+}: IPickerPanelItem) => {
     const theme = useTheme()
     const activeOpacity = 0.7
     const { setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm } = useContext(PickerContext)

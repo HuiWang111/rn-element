@@ -3,7 +3,7 @@ import { ReactNode, ReactText } from 'react'
 import { IPickerFooterProps } from '../base/interface'
 import { IInputProps } from '../input'
 
-export interface IPickerItem {
+export interface IPickerPanelItem {
     style?: ViewStyle;
     children?: ReactNode | undefined | (({ isActive: boolean }) => ReactNode | undefined);
     value: ReactText;
@@ -11,7 +11,7 @@ export interface IPickerItem {
     isActive?: boolean;
 }
 
-export interface IPickerProps {
+export interface IPickerPanelProps {
     title?: ReactNode;
     headerStyle?: StyleProp<ViewStyle>;
     zIndex?: number;

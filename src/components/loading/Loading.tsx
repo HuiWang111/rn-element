@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
 import RootSiblings from 'react-native-root-siblings'
+import { ConfigContext } from '../config-provider'
 
 const { width, height } = Dimensions.get('window')
 
@@ -13,11 +14,19 @@ export class Loading {
         }
 
         Loading.sibling = new RootSiblings(
-            <View style={styles.maskStyle}>
-                <View style={styles.backViewStyle}>
-                    <ActivityIndicator size='large' color='white' />
-                </View>
-            </View>
+            <ConfigContext.Consumer>
+                {
+                    ({ loadingZIndex }) => {
+                        return (
+                            <View style={[styles.maskStyle, { zIndex: loadingZIndex }]}>
+                                <View style={styles.backViewStyle}>
+                                    <ActivityIndicator size='large' color='white' />
+                                </View>
+                            </View>
+                        )
+                    }
+                }
+            </ConfigContext.Consumer>
         )
     }
 
