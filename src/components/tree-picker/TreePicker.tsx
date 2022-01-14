@@ -1,11 +1,11 @@
 import React, { FC, ReactText, useState, useMemo, useRef } from 'react'
 import { Text } from 'react-native'
 import { ITreePickerProps, IOption, IOnSearchProps } from './interface'
-import { Picker } from '../picker'
+import { PickerPanel } from '../picker-panel'
 import { getDepth, getListByDepth } from './utils'
 import { isArray } from '../../utils'
 
-const PickerItem = Picker.Item
+const PickerPanelItem = PickerPanel.Item
 
 export const TreePicker: FC<ITreePickerProps> = ({
     value: propsValue,
@@ -50,7 +50,7 @@ export const TreePicker: FC<ITreePickerProps> = ({
     }, [restProps.showSearch])
     
     return (
-        <Picker
+        <PickerPanel
             { ...restProps }
             { ...onSearchProps }
             value={value[activeDepth]}
@@ -89,17 +89,17 @@ export const TreePicker: FC<ITreePickerProps> = ({
             {
                 list.map(item => {
                     return (
-                        <PickerItem
+                        <PickerPanelItem
                             value={item.value}
                             key={item.value}
                         >
                             <Text>{item.label}</Text>
-                        </PickerItem>
+                        </PickerPanelItem>
                     )
                 })
             }   
-        </Picker>
-    );
+        </PickerPanel>
+    )
 }
 
 TreePicker.displayName = 'TreePicker'

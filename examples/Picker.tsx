@@ -1,6 +1,6 @@
 import React, { FC, ReactText, useState } from 'react'
 import { StyleSheet, Dimensions, Text, View } from 'react-native'
-import { Picker, List, Toast, Page } from '../src'
+import { PickerPanel, List, Toast, Page } from '../src'
 import { useHistory } from 'react-router-native'
 
 const numbers = new Array(30).fill(undefined).map((_, index) => index + 1)
@@ -67,7 +67,7 @@ const PickerDemo: FC = () => {
                     )
                 }
             </Page>
-            <Picker
+            <PickerPanel
                 title='标题标题'
                 itemStyle={styles.item}
                 activeItemStyle={styles.activeItem}
@@ -86,16 +86,16 @@ const PickerDemo: FC = () => {
                 {
                     list.map(n => {
                         return (
-                            <Picker.Item
+                            <PickerPanel.Item
                                 value={n}
                                 key={n}
                             >
                                 <Text>选项{n}</Text>
-                            </Picker.Item>
+                            </PickerPanel.Item>
                         )
                     })
                 }
-            </Picker>
+            </PickerPanel>
         </>
     )
 }

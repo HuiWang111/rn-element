@@ -21,8 +21,8 @@ export type { IPageProps } from './components/page'
 export { NumberInput } from './components/number-input'
 export type { INumberInputProps } from './components/number-input'
 
-export { Picker } from './components/picker'
-export type { IPickerItem, IPickerProps } from './components/picker'
+export { PickerPanel } from './components/picker-panel'
+export type { IPickerPanelItem, IPickerPanelProps } from './components/picker-panel'
 
 export { TreePicker } from './components/tree-picker'
 export type { ITreePickerProps } from './components/tree-picker'

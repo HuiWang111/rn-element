@@ -1,6 +1,6 @@
 import React, { FC, useState, useRef, useMemo } from 'react'
 import { Text } from 'react-native'
-import { Picker } from '../picker'
+import { PickerPanel } from '../picker-panel'
 import { IAsyncTreePickerProps } from './interface'
 import { isArray } from '../../utils'
 
@@ -24,7 +24,7 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
     }, [activeDepth, depth])
 
     return (
-        <Picker
+        <PickerPanel
             { ...restProps }
             value={value[activeDepth]}
             title={isArray(title) ? title[activeDepth] : title}
@@ -82,15 +82,15 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
                     const { label, value: val } = option
 
                     return (
-                        <Picker.Item
+                        <PickerPanel.Item
                             key={val}
                             value={val}
                         >
                             <Text>{label}</Text>
-                        </Picker.Item>
+                        </PickerPanel.Item>
                     )
                 })
             }
-        </Picker>
+        </PickerPanel>
     )
 }

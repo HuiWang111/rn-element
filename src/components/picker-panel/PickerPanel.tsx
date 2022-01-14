@@ -19,7 +19,7 @@ import {
     Text
 } from 'react-native'
 import { RootSiblingPortal } from 'react-native-root-siblings'
-import { IPickerProps } from './interface'
+import { IPickerPanelProps } from './interface'
 import { PickerFooter, Mask, Empty } from '../base'
 import { PickerContext } from './context'
 import { useArrowUp, useArrowDown, useTheme, useConfig } from '../../hooks'
@@ -29,7 +29,7 @@ import { Input } from '../input'
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 const baseHeaderHeight = 40
 
-export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
+export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     title,
     headerStyle,
     zIndex = 10,
@@ -47,7 +47,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     onSearch,
     onCancel,
     onConfirm
-}: PropsWithChildren<IPickerProps>) => {
+}: PropsWithChildren<IPickerPanelProps>) => {
     const theme = useTheme()
     const values = useMemo<ReactText[]>(() => {
         return Children.map(children, (item: ReactElement) => {
@@ -208,7 +208,7 @@ export const Picker: FC<PropsWithChildren<IPickerProps>> = ({
     )
 }
 
-Picker.displayName = 'Picker'
+PickerPanel.displayName = 'PickerPanel'
 
 const styles = StyleSheet.create({
     container: {
