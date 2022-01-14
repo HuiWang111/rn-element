@@ -1,4 +1,5 @@
 import { ViewStyle, StyleProp, ImageRequireSource  } from 'react-native'
+import { IInputProps } from '../input'
 
 export interface IMaskProps {
     zIndex?: number;
@@ -26,4 +27,9 @@ export interface IBaseGroupProps {
     disabled?: boolean;
     style?: StyleProp<ViewStyle>;
     onChange?: (value: string[]) => void;
+}
+
+export interface IPickerInputProps extends Omit<IInputProps, 'value'> {
+    value?: string[];
+    separater?: string;
 }
