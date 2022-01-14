@@ -1,14 +1,14 @@
-import React, { Children, cloneElement, useEffect, useState, useContext, useMemo } from 'react';
+import React, { Children, cloneElement, useEffect, useState, useMemo } from 'react';
 import { View, StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
+import { RootSiblingPortal } from 'react-native-root-siblings';
 import { PickerFooter, Mask, Empty } from '../base';
 import { PickerContext } from './context';
-import { useArrowUp, useArrowDown, useTheme } from '../../hooks';
+import { useArrowUp, useArrowDown, useTheme, useConfig } from '../../hooks';
 import { isNumber, isString, omit } from '../../utils';
-import { ConfigContext } from '../config-provider';
 import { Input } from '../input';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const baseHeaderHeight = 40;
-export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, confirmOnSelect = false, onSearch, onCancel, onConfirm }) => {
+export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, confirmOnSelect = false, onSearch, onCancel, onConfirm }) => {
     var _a, _b;
     const theme = useTheme();
     const values = useMemo(() => {
@@ -19,7 +19,7 @@ export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, v
     }, [children]);
     const [value, setValue] = useState(propsValue !== null && propsValue !== void 0 ? propsValue : ((_a = values[0]) !== null && _a !== void 0 ? _a : ''));
     const [keyword, setKeyword] = useState('');
-    const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const { showSoftInputOnFocus } = useConfig();
     const containerWidth = useMemo(() => {
         return fullScreen ? screenWidth : screenWidth - 40;
     }, [fullScreen]);
@@ -89,30 +89,31 @@ export const Picker = ({ title, headerStyle, zIndex = 10, maskStyle, children, v
             });
         })));
     };
-    return (React.createElement(Mask, { zIndex: zIndex, style: maskStyle, visible: visible },
-        React.createElement(View, { style: [
-                styles.container,
-                {
-                    width: containerWidth,
-                    height: containerHeight
-                }
-            ] },
-            title ? (React.createElement(View, { style: [
-                    styles.header,
+    return (React.createElement(RootSiblingPortal, null,
+        React.createElement(Mask, { zIndex: zIndex, style: maskStyle, visible: visible },
+            React.createElement(View, { style: [
+                    styles.container,
                     {
-                        borderBottomColor: theme.border,
-                        borderBottomWidth: showSearch ? 1 : 0
-                    },
-                    headerStyle
-                ] }, isString(title) ? (React.createElement(Text, { style: styles.title }, title)) : title)) : null,
-            showSearch
-                ? (React.createElement(View, { style: styles.searchContainer },
-                    React.createElement(Input, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, style: styles.searchInput, wrapStyle: styles.searchInputWrap, onChangeText: handleKeywordChange, showSoftInputOnFocus: (_b = searchInputProps === null || searchInputProps === void 0 ? void 0 : searchInputProps.showSoftInputOnFocus) !== null && _b !== void 0 ? _b : showSoftInputOnFocus }))))
-                : null,
-            React.createElement(ScrollView, { style: scrollViewStyle }, renderItems()),
-            React.createElement(PickerFooter, Object.assign({ onCancel: handleCancel, onConfirm: handleConfirm }, footerProps)))));
+                        width: containerWidth,
+                        height: containerHeight
+                    }
+                ] },
+                title ? (React.createElement(View, { style: [
+                        styles.header,
+                        {
+                            borderBottomColor: theme.border,
+                            borderBottomWidth: showSearch ? 1 : 0
+                        },
+                        headerStyle
+                    ] }, isString(title) ? (React.createElement(Text, { style: styles.title }, title)) : title)) : null,
+                showSearch
+                    ? (React.createElement(View, { style: styles.searchContainer },
+                        React.createElement(Input, Object.assign({}, omit(searchInputProps, ['value', 'onChangeText']), { value: keyword, style: styles.searchInput, wrapStyle: styles.searchInputWrap, onChangeText: handleKeywordChange, showSoftInputOnFocus: (_b = searchInputProps === null || searchInputProps === void 0 ? void 0 : searchInputProps.showSoftInputOnFocus) !== null && _b !== void 0 ? _b : showSoftInputOnFocus }))))
+                    : null,
+                React.createElement(ScrollView, { style: scrollViewStyle }, renderItems()),
+                React.createElement(PickerFooter, Object.assign({ onCancel: handleCancel, onConfirm: handleConfirm }, footerProps))))));
 };
-Picker.displayName = 'Picker';
+PickerPanel.displayName = 'PickerPanel';
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff'

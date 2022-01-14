@@ -2,7 +2,7 @@ import { ViewStyle, GestureResponderEvent, StyleProp } from 'react-native';
 import { ReactNode, ReactText } from 'react';
 import { IPickerFooterProps } from '../base/interface';
 import { IInputProps } from '../input';
-export interface IPickerItem {
+export interface IPickerPanelItem {
     style?: ViewStyle;
     children?: ReactNode | undefined | (({ isActive: boolean }: {
         isActive: any;
@@ -11,7 +11,7 @@ export interface IPickerItem {
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
     isActive?: boolean;
 }
-export interface IPickerProps {
+export interface IPickerPanelProps {
     title?: ReactNode;
     headerStyle?: StyleProp<ViewStyle>;
     zIndex?: number;

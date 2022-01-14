@@ -12,16 +12,15 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React, { useEffect, useRef, useContext } from 'react';
 import { Pressable, View } from 'react-native';
 import { mapChildrenWithRef } from './utils';
-import { useKeyUp } from '../../hooks';
+import { useKeyUp, useConfig } from '../../hooks';
 import { KeyCode } from '../../constants';
 import PropTypes from 'prop-types';
-import { ConfigContext } from '../config-provider';
 import { isFunction } from '../../utils';
 import { ListContext } from './context';
 const InternalListItem = ({ isActive, style, children, autoFocus, inputComponent, isActivable, index, onPress, onEnter }) => {
     const inputRef = useRef(null);
     const isTabEnter = useRef(false);
-    const { showSoftInputOnFocus } = useContext(ConfigContext);
+    const { showSoftInputOnFocus } = useConfig();
     const { onChange, activeItemStyle, keyboard } = useContext(ListContext);
     const handlePress = (e) => {
         if (!isTabEnter.current) {
@@ -68,7 +67,7 @@ const InternalListItem = ({ isActive, style, children, autoFocus, inputComponent
     const child = isFunction(children) ? children({ isActive }) : children;
     return isActivable ? (React.createElement(Pressable, { style: [style, isActive ? activeItemStyle : null], onPress: handlePress }, autoFocus
         ? mapChildrenWithRef(child, inputRef, inputComponent, {
-            showSoftInputOnFocus: showSoftInputOnFocus
+            showSoftInputOnFocus
         }, handleFocus)
         : child)) : (React.createElement(View, { style: style }, child));
 };

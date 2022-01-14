@@ -1,5 +1,5 @@
 import { ReactText } from 'react';
-import { IPickerProps } from '../picker/interface';
+import { IPickerPanelProps } from '../picker-panel/interface';
 export interface IOption {
     label: string;
     value: ReactText;
@@ -17,7 +17,7 @@ export interface IOptionWithChildren {
         }[];
     }[];
 }
-export interface ITreePickerProps extends Omit<IPickerProps, 'value' | 'onConfirm' | 'onSearch' | 'title'> {
+export interface ITreePickerProps extends Omit<IPickerPanelProps, 'value' | 'onConfirm' | 'onSearch' | 'title'> {
     value?: ReactText[];
     options?: IOptionWithChildren[];
     title?: string | [string | undefined, string | undefined, string | undefined];

@@ -1,15 +1,18 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
+import { ConfigContext } from '../config-provider';
 const { width, height } = Dimensions.get('window');
 export class Loading {
     static show() {
         if (Loading.sibling) {
             return;
         }
-        Loading.sibling = new RootSiblings(React.createElement(View, { style: styles.maskStyle },
-            React.createElement(View, { style: styles.backViewStyle },
-                React.createElement(ActivityIndicator, { size: 'large', color: 'white' }))));
+        Loading.sibling = new RootSiblings(React.createElement(ConfigContext.Consumer, null, ({ loadingZIndex }) => {
+            return (React.createElement(View, { style: [styles.maskStyle, { zIndex: loadingZIndex }] },
+                React.createElement(View, { style: styles.backViewStyle },
+                    React.createElement(ActivityIndicator, { size: 'large', color: 'white' }))));
+        }));
     }
     static hide() {
         if (!Loading.sibling) {

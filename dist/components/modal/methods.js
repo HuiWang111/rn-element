@@ -64,14 +64,6 @@ const method = (type, config) => {
                 config.onVisibleChange(false);
             }
             sibling = null;
-        }, onRequestClose: () => {
-            if (sibling) {
-                sibling.destroy();
-                sibling = null;
-            }
-            if (config.onVisibleChange) {
-                config.onVisibleChange(false);
-            }
         }, visible: true }),
         React.createElement(React.Fragment, null,
             React.createElement(View, { style: styles.titleContainer },

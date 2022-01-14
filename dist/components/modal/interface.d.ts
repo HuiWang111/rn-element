@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { ModalProps, ViewStyle } from 'react-native';
+import { ViewStyle, StyleProp } from 'react-native';
 export interface IModalFooterProps {
     okText?: string;
     cancelText?: string;
@@ -16,10 +16,11 @@ interface IModalBaseConfig extends IModalFooterProps {
 export interface IModalConfig extends IModalBaseConfig {
     content?: string | JSX.Element;
 }
-export interface IModalProps extends ModalProps, IModalBaseConfig {
-    titleStyle?: ViewStyle;
-    bodyStyle?: ViewStyle;
-    footerStyle?: ViewStyle;
+export interface IModalProps extends IModalBaseConfig {
+    titleStyle?: StyleProp<ViewStyle>;
+    bodyStyle?: StyleProp<ViewStyle>;
+    footerStyle?: StyleProp<ViewStyle>;
+    visible?: boolean;
 }
 export declare type IModalType = 'confirm' | 'error' | 'info' | 'warning' | 'success';
 export {};

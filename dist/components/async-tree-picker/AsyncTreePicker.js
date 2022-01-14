@@ -20,7 +20,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React, { useState, useRef, useMemo } from 'react';
 import { Text } from 'react-native';
-import { Picker } from '../picker';
+import { PickerPanel } from '../picker-panel';
 import { isArray } from '../../utils';
 export const AsyncTreePicker = (_a) => {
     var { value: propsValue, depth, title, options = [], onConfirm, onNext, onPrevious, onCancel } = _a, restProps = __rest(_a, ["value", "depth", "title", "options", "onConfirm", "onNext", "onPrevious", "onCancel"]);
@@ -31,7 +31,7 @@ export const AsyncTreePicker = (_a) => {
     const [isFirstDepth, isLastDepth] = useMemo(() => {
         return [activeDepth === 0, activeDepth === depth - 1];
     }, [activeDepth, depth]);
-    return (React.createElement(Picker, Object.assign({}, restProps, { value: value[activeDepth], title: isArray(title) ? title[activeDepth] : title, onConfirm: (v) => __awaiter(void 0, void 0, void 0, function* () {
+    return (React.createElement(PickerPanel, Object.assign({}, restProps, { value: value[activeDepth], title: isArray(title) ? title[activeDepth] : title, onConfirm: (v) => __awaiter(void 0, void 0, void 0, function* () {
             var _b;
             if (loading) {
                 return;
@@ -73,7 +73,7 @@ export const AsyncTreePicker = (_a) => {
             confirmText: isLastDepth ? undefined : '下一步'
         } }), options.map(option => {
         const { label, value: val } = option;
-        return (React.createElement(Picker.Item, { key: val, value: val },
+        return (React.createElement(PickerPanel.Item, { key: val, value: val },
             React.createElement(Text, null, label)));
     })));
 };

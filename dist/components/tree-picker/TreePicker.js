@@ -11,10 +11,10 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React, { useState, useMemo, useRef } from 'react';
 import { Text } from 'react-native';
-import { Picker } from '../picker';
+import { PickerPanel } from '../picker-panel';
 import { getDepth, getListByDepth } from './utils';
 import { isArray } from '../../utils';
-const PickerItem = Picker.Item;
+const PickerPanelItem = PickerPanel.Item;
 export const TreePicker = (_a) => {
     var { value: propsValue, options = [], title, onConfirm, onCancel } = _a, restProps = __rest(_a, ["value", "options", "title", "onConfirm", "onCancel"]);
     const [value, setValue] = useState(propsValue !== null && propsValue !== void 0 ? propsValue : []);
@@ -38,7 +38,7 @@ export const TreePicker = (_a) => {
             }
         };
     }, [restProps.showSearch]);
-    return (React.createElement(Picker, Object.assign({}, restProps, onSearchProps, { value: value[activeDepth], title: isArray(title) ? title[activeDepth] : title, onConfirm: v => {
+    return (React.createElement(PickerPanel, Object.assign({}, restProps, onSearchProps, { value: value[activeDepth], title: isArray(title) ? title[activeDepth] : title, onConfirm: v => {
             var _a;
             labels.current[activeDepth] = ((_a = list.find(i => i.value === v)) === null || _a === void 0 ? void 0 : _a.label) || '';
             const newValue = [...value];
@@ -65,7 +65,7 @@ export const TreePicker = (_a) => {
             cancelText: isFirstDepth ? undefined : '上一步',
             confirmText: isLastDepth ? undefined : '下一步'
         } }), list.map(item => {
-        return (React.createElement(PickerItem, { value: item.value, key: item.value },
+        return (React.createElement(PickerPanelItem, { value: item.value, key: item.value },
             React.createElement(Text, null, item.label)));
     })));
 };

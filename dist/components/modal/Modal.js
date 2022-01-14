@@ -1,25 +1,17 @@
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 import React, { useEffect } from 'react';
-import { Modal as ReactNativeModal, View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, useWindowDimensions, Text, Dimensions } from 'react-native';
+import { RootSiblingPortal } from 'react-native-root-siblings';
 import PropTypes from 'prop-types';
 import { isUndefined, isString, isFunction, isNull } from '../../utils';
 import { Button } from '../button';
-import { useTheme } from '../../hooks';
+import { useTheme, useConfig } from '../../hooks';
+import { Mask } from '../base';
 const screenWidth = Dimensions.get('window').width;
-export const Modal = (_a) => {
-    var { title, footer, zIndex, okText = '确定', cancelText = '取消', titleStyle, bodyStyle, footerStyle, onOk, onCancel, children, visible = false, onVisibleChange } = _a, restProps = __rest(_a, ["title", "footer", "zIndex", "okText", "cancelText", "titleStyle", "bodyStyle", "footerStyle", "onOk", "onCancel", "children", "visible", "onVisibleChange"]);
+export const Modal = ({ title, footer, zIndex: propsZIndex, okText = '确定', cancelText = '取消', titleStyle, bodyStyle, footerStyle, onOk, onCancel, children, visible = false, onVisibleChange }) => {
     const { width } = useWindowDimensions();
     const colors = useTheme();
+    const { modalZIndex } = useConfig();
+    const zIndex = propsZIndex !== null && propsZIndex !== void 0 ? propsZIndex : modalZIndex;
     const commonStyle = {
         width: width - 80
     };
@@ -44,27 +36,26 @@ export const Modal = (_a) => {
     useEffect(() => {
         onVisibleChange === null || onVisibleChange === void 0 ? void 0 : onVisibleChange(visible);
     }, [visible, onVisibleChange]);
-    return (React.createElement(ReactNativeModal, Object.assign({ animationType: 'slide', transparent: true, style: {
-            zIndex
-        }, visible: visible }, restProps),
-        React.createElement(View, { style: styles.centeredView },
-            React.createElement(View, { style: styles.modalView },
-                title
-                    ? (React.createElement(View, { style: [
-                            styles.title,
-                            { borderBottomColor: colors.border },
-                            commonStyle,
-                            titleStyle
-                        ] }, isString(title)
-                        ? React.createElement(Text, { style: { fontSize: 18, fontWeight: 'bold' } }, title)
-                        : title))
-                    : null,
-                children
-                    ? (React.createElement(View, { style: [styles.body, commonStyle, bodyStyle] }, children))
-                    : null,
-                isNull(footer)
-                    ? null
-                    : (React.createElement(View, { style: [styles.footer, commonStyle, footerStyle] }, getFooter(footer)))))));
+    return (React.createElement(RootSiblingPortal, null,
+        React.createElement(Mask, { zIndex: zIndex, visible: visible },
+            React.createElement(View, { style: styles.centeredView },
+                React.createElement(View, { style: styles.modalView },
+                    title
+                        ? (React.createElement(View, { style: [
+                                styles.title,
+                                { borderBottomColor: colors.border },
+                                commonStyle,
+                                titleStyle
+                            ] }, isString(title)
+                            ? React.createElement(Text, { style: { fontSize: 18, fontWeight: 'bold' } }, title)
+                            : title))
+                        : null,
+                    children
+                        ? (React.createElement(View, { style: [styles.body, commonStyle, bodyStyle] }, children))
+                        : null,
+                    isNull(footer)
+                        ? null
+                        : (React.createElement(View, { style: [styles.footer, commonStyle, footerStyle] }, getFooter(footer))))))));
 };
 const styles = StyleSheet.create({
     centeredView: {

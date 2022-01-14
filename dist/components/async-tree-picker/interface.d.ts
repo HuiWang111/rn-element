@@ -1,10 +1,10 @@
 import { ReactText } from 'react';
-import { IPickerProps } from '../picker';
+import { IPickerPanelProps } from '../picker-panel';
 export interface IOption {
     label: string;
     value: ReactText;
 }
-export interface IAsyncTreePickerProps extends Omit<IPickerProps, 'value' | 'title' | 'onConfirm'> {
+export interface IAsyncTreePickerProps extends Omit<IPickerPanelProps, 'value' | 'title' | 'onConfirm'> {
     value?: ReactText[];
     options?: IOption[];
     title?: string | string[];

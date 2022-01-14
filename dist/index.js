@@ -6,7 +6,7 @@ export { Form } from './components/form';
 export { Enterable } from './components/enterable';
 export { Page } from './components/page';
 export { NumberInput } from './components/number-input';
-export { Picker } from './components/picker';
+export { PickerPanel } from './components/picker-panel';
 export { TreePicker } from './components/tree-picker';
 export { ConfigProvider } from './components/config-provider';
 export { Radio } from './components/radio';

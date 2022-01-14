@@ -80,16 +80,6 @@ const method = (type: IModalType, config: IModalConfig): void => {
                 }
                 sibling = null
             }}
-            onRequestClose={() => {
-                if (sibling) {
-                    sibling.destroy()
-                    sibling = null
-                }
-
-                if (config.onVisibleChange) {
-                    config.onVisibleChange(false)
-                }
-            }}
             visible={true}
         >
             <>
