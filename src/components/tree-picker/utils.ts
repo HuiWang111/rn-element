@@ -1,4 +1,3 @@
-import { ReactText } from 'react'
 import { IOption, IOptionWithChildren } from './interface'
 import { omit } from '../../utils'
 
@@ -23,7 +22,7 @@ export const getDepth = (options: IOptionWithChildren[]): number => {
 export const getListByDepth = (
     depth: number,
     options: IOptionWithChildren[],
-    value: ReactText[],
+    value: string[],
     keyword?: string
 ): IOption[] => {
     if (depth === 0) {

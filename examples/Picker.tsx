@@ -1,27 +1,18 @@
-import React, { FC, ReactText, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { StyleSheet, Dimensions, Text, View } from 'react-native'
-import { PickerPanel, List, Toast, Page } from '../src'
+import { List, Page, Picker } from '../src'
 import { useHistory } from 'react-router-native'
 
-const numbers = new Array(30).fill(undefined).map((_, index) => index + 1)
+const numbers = new Array(30).fill(undefined).map((_, index) => String(index + 1))
 
 const PickerDemo: FC = () => {
     const [list, setList] = useState(numbers)
     const [index, setIndex] = useState(0)
     const [visible, setVisble] = useState(false)
-    const [value, setValue] = useState<ReactText>(1)
+    const [value, setValue] = useState('1')
     const history = useHistory()
     const handleChange = (index: number) => {
         setIndex(index)
-    }
-    const showPicker = () => setVisble(true)
-    const handleConfirm = (v: ReactText) => {
-        setValue(v)
-        Toast.show(`value is ${v}`)
-        setVisble(false)
-    }
-    const handleCancel = () => {
-        setVisble(false)
     }
 
     const handelSearch = (keyword: string) => {
@@ -56,8 +47,33 @@ const PickerDemo: FC = () => {
                                 activeItemStyle={styles.activeItem}
                                 keyboard={!visible}
                             >
-                                <List.ActivableItem onEnter={showPicker} onPress={showPicker}>
-                                    <Text>show picker</Text>
+                                <List.ActivableItem>
+                                    <Picker
+                                        value={value}
+                                        onChange={(val) => setValue(val)}
+                                        panelProps={{
+                                            title: '标题标题',
+                                            itemStyle: styles.item,
+                                            activeItemStyle: styles.activeItem,
+                                            showSearch: true,
+                                            confirmOnSelect: true,
+                                            searchInputProps: {
+                                                placeholder: '请输入关键字搜索'
+                                            },
+                                            onSearch: handelSearch
+                                        }}
+                                        options={
+                                            list.map(n => {
+                                                return {
+                                                    label: n,
+                                                    value: n
+                                                }
+                                            })
+                                        }
+                                        onVisibleChange={(visible) => {
+                                            setVisble(visible)
+                                        }}
+                                    />
                                 </List.ActivableItem>
                                 <List.ActivableItem>
                                     <Text>1</Text>
@@ -67,35 +83,6 @@ const PickerDemo: FC = () => {
                     )
                 }
             </Page>
-            <PickerPanel
-                title='标题标题'
-                itemStyle={styles.item}
-                activeItemStyle={styles.activeItem}
-                value={value}
-                visible={visible}
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
-                showSearch
-                // fullScreen={false}
-                confirmOnSelect
-                searchInputProps={{
-                    placeholder: '请输入关键字搜索'
-                }}
-                onSearch={handelSearch}
-            >
-                {
-                    list.map(n => {
-                        return (
-                            <PickerPanel.Item
-                                value={n}
-                                key={n}
-                            >
-                                <Text>选项{n}</Text>
-                            </PickerPanel.Item>
-                        )
-                    })
-                }
-            </PickerPanel>
         </>
     )
 }

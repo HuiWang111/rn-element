@@ -1,4 +1,4 @@
-import React, { FC, ReactText, useState, useMemo, useRef } from 'react'
+import React, { FC, useState, useMemo, useRef } from 'react'
 import { Text } from 'react-native'
 import { ITreePickerProps, IOption, IOnSearchProps } from './interface'
 import { PickerPanel } from '../picker-panel'
@@ -15,7 +15,7 @@ export const TreePicker: FC<ITreePickerProps> = ({
     onCancel,
     ...restProps
 }: ITreePickerProps) => {
-    const [value, setValue] = useState<ReactText[]>(propsValue ?? [])
+    const [value, setValue] = useState<string[]>(propsValue ?? [])
     const labels = useRef<string[]>([])
     const [activeDepth, setActiveDepth] = useState<number>(0)
     const [keyword, setKeyword] = useState<string>('')

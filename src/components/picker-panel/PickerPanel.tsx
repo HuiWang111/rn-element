@@ -4,7 +4,6 @@ import React, {
     FC,
     PropsWithChildren,
     ReactElement,
-    ReactText,
     useEffect,
     useState,
     useMemo
@@ -29,6 +28,13 @@ import { Input } from '../input'
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 const baseHeaderHeight = 40
 
+/**
+ * TODO: 
+ * 1. 上下切换不触发onConfirm
+ * 2. 点击item触发onConfirm
+ * 3. 回车触发onConfirm
+ * 4. 点击确认触发onConfirm
+ */
 export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     title,
     headerStyle,
@@ -49,12 +55,12 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     onConfirm
 }: PropsWithChildren<IPickerPanelProps>) => {
     const theme = useTheme()
-    const values = useMemo<ReactText[]>(() => {
+    const values = useMemo<string[]>(() => {
         return Children.map(children, (item: ReactElement) => {
             return item.props?.value
         }) || []
     }, [children])
-    const [value, setValue] = useState<ReactText>(propsValue ?? (values[0] ?? ''))
+    // const [value, setValue] = useState<string>(propsValue ?? (values[0] ?? ''))
     const [keyword, setKeyword] = useState<string>('')
     const { showSoftInputOnFocus } = useConfig()
 
@@ -87,32 +93,31 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
         return style
     }, [showSearch, containerHeight, headerHeight])
 
-    useEffect(() => {
-        setValue(propsValue ?? (values[0] ?? ''))
-    }, [propsValue, values])
+    // useEffect(() => {
+    //     setValue(propsValue ?? (values[0] ?? ''))
+    // }, [propsValue, values])
     useArrowUp(() => {
-        const index = values.findIndex(v => v === value)
+        const index = values.findIndex(v => v === propsValue)
         
         if (index > 0) {
-            setValue(values[index - 1])
+            onConfirm?.(values[index - 1])
         }
-    }, [value])
+    }, [propsValue])
     useArrowDown(() => {
-        const index = values.findIndex(v => v === value)
+        const index = values.findIndex(v => v === propsValue)
         const maxIndex = values.length - 1
         
         if (index < maxIndex) {
-            setValue(values[index + 1])
+            onConfirm?.(values[index + 1])
         }
-    }, [value])
+    }, [propsValue])
 
     const resetState = () => {
-        setValue(values[0] || '')
         setKeyword('')
         onSearch?.('')
     }
     const handleConfirm = (): void => {
-        onConfirm?.(value)
+        // onConfirm?.(value)
         resetState()
     }
     const handleCancel = (): void => {
@@ -130,11 +135,11 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
         }
 
         return (
-            <PickerContext.Provider value={{ setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm }}>
+            <PickerContext.Provider value={{ activeItemStyle, itemStyle, confirmOnSelect, onConfirm }}>
                 {
                     Children.map(children, (item: ReactElement) => {
                         return cloneElement(item, {
-                            isActive: value === item.props?.value
+                            isActive: propsValue === item.props?.value
                         })
                     })
                 }

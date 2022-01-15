@@ -45,7 +45,7 @@ export type { ICheckListProps, ICheckboxProps, ICheckboxGroupProps } from './com
 export { Switch } from './components/switch'
 export type { ISwitchProps } from './components/switch'
 
-export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './hooks'
+export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter, useVisible } from './hooks'
 
 export { KeyCode } from './constants'
 
@@ -57,3 +57,6 @@ export type { ITableProps } from './components/table'
 
 export { AsyncTreePicker } from './components/async-tree-picker'
 export type { IAsyncTreePickerProps } from './components/async-tree-picker'
+
+export { Picker } from './components/picker'
+export type { IPickerProps } from './components/picker'
