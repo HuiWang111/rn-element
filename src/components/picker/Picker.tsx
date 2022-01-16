@@ -7,12 +7,13 @@ import { useVisible } from '../../hooks'
 import { isUndefined } from '../../utils'
 
 export const Picker: FC<IPickerProps> = ({
-    onChange,
     options = [],
     value: propsValue,
     defaultValue,
     panelProps,
+    onChange,
     onVisibleChange,
+    onFocus,
     ...restProps
 }: IPickerProps) => {
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
@@ -24,9 +25,9 @@ export const Picker: FC<IPickerProps> = ({
     }, [propsValue])
 
     const handleInputFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-        showPanel()
-        restProps.onFocus?.(e)
         inputRef.current?.blur()
+        showPanel()
+        onFocus?.(e)
     }
     const handleCancel = () => {
         hidePanel()

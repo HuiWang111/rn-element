@@ -6,8 +6,9 @@ export interface IOption {
     value: string;
 }
 
-export interface IAsyncTreePickerProps extends Omit<IPickerInputProps, 'value' | 'onChange'> {
+export interface IAsyncTreePickerProps extends Omit<IPickerInputProps, 'value' | 'onChange' | 'defaultValue'> {
     value?: string[];
+    defaultValue?: string[];
     options?: IOption[];
     title?: string | string[];
     depth: number;

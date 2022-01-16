@@ -36,6 +36,7 @@ const wait = (ms: number) => {
 export const AsyncTreePickerDemo: FC = () => {
     const [index, setIndex] = useState(0)
     const [visible, setVisible] = useState(false)
+    const [value, setValue] = useState([])
     const [list, setList] = useState(options.map(o => ({ value: o.value, label: o.label })))
     const history = useHistory()
     const handleChange = (index: number) => {
@@ -43,6 +44,7 @@ export const AsyncTreePickerDemo: FC = () => {
     }
     const handleConfirm = (value: ReactText[], labels: string[]) => {
         Toast.show(`value is ${value}, label is ${labels}`)
+        setValue(value)
     }
 
     return (
@@ -80,6 +82,7 @@ export const AsyncTreePickerDemo: FC = () => {
                                                 placeholder: '请输入关键字搜索'
                                             }
                                         }}
+                                        value={value}
                                         onChange={handleConfirm}
                                         options={list}
                                         depth={3}

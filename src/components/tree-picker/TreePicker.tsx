@@ -14,12 +14,14 @@ export const TreePicker: FC<ITreePickerProps> = ({
     defaultValue,
     options = [],
     title,
+    panelProps,
     onChange,
     onVisibleChange,
-    panelProps,
+    onFocus,
     ...restProps
 }: ITreePickerProps) => {
     const [value, setValue] = useState<string[]>(defaultValue ?? propsValue ?? [])
+    const [panelValue, setPanelValue] = useState<string[]>(defaultValue ?? propsValue ?? [])
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
     const labels = useRef<string[]>([])
     const [activeDepth, setActiveDepth] = useState<number>(0)
@@ -44,8 +46,8 @@ export const TreePicker: FC<ITreePickerProps> = ({
      * 获取当前显示的list
      */
     const list = useMemo<IOption[]>(() => {
-        return getListByDepth(activeDepth, options, value, keyword)
-    }, [activeDepth, options, value, keyword])
+        return getListByDepth(activeDepth, options, panelValue, keyword)
+    }, [activeDepth, options, panelValue, keyword])
 
     const onSearchProps = useMemo<IOnSearchProps>(() => {
         if (!panelProps?.showSearch) {
@@ -62,12 +64,12 @@ export const TreePicker: FC<ITreePickerProps> = ({
     const handleInputFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         inputRef.current?.blur()
         showPanel()
-        restProps.onFocus?.(e)
+        onFocus?.(e)
     }
     const handleConfirm = (v: string) => {
         labels.current[activeDepth] = list.find(i => i.value === v)?.label || ''
 
-        const newValue = [...value]
+        const newValue = [...panelValue]
         newValue[activeDepth] = v
 
         if (isLastDepth) {
@@ -78,16 +80,16 @@ export const TreePicker: FC<ITreePickerProps> = ({
             onChange?.([...newValue], [...labels.current])
             hidePanel()
         } else {
-            setValue(newValue)
+            setPanelValue(newValue)
             setActiveDepth(activeDepth + 1)
         }
     }
     const handleCancel = () => {
         labels.current = labels.current.splice(activeDepth, 1)
-
-        const newValue = [...value]
+        
+        const newValue = [...panelValue]
         newValue.splice(activeDepth, 1)
-
+        
         if (isFirstDepth) {
             if (isUndefined(propsValue)) {
                 setValue(newValue)
@@ -95,7 +97,7 @@ export const TreePicker: FC<ITreePickerProps> = ({
             panelProps?.onCancel?.()
             hidePanel()
         } else {
-            setValue(newValue)
+            setPanelValue(newValue)
             setActiveDepth(activeDepth - 1)
         }
     }
@@ -115,7 +117,7 @@ export const TreePicker: FC<ITreePickerProps> = ({
                 { ...panelProps }
                 { ...onSearchProps }
                 visible={visible}
-                value={value[activeDepth]}
+                value={panelValue[activeDepth]}
                 title={isArray(title) ? title[activeDepth] : title}
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}

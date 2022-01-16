@@ -1,4 +1,4 @@
-import React, { FC, useState, ReactText } from 'react'
+import React, { FC, useState } from 'react'
 import { StyleSheet, Dimensions, Text, View } from 'react-native'
 import { TreePicker, List, Toast, Page } from '../src'
 import { IOptionWithChildren } from '../src/components/tree-picker/interface'
@@ -28,7 +28,7 @@ const options: IOptionWithChildren[] = numbers.map(n => {
 const TreePickerDemo: FC = () => {
     const [index, setIndex] = useState(0)
     const [visible, setVisible] = useState(false)
-    const [value, setValue] = useState(['1'])
+    const [value, setValue] = useState([])
     const history = useHistory()
     const handleChange = (index: number) => {
         setIndex(index)
@@ -42,7 +42,7 @@ const TreePickerDemo: FC = () => {
         <>
             <Page
                 header={{
-                    center: <Text>picker</Text>
+                    center: <Text>tree-picker</Text>
                 }}
                 F1={{
                     label: <Text>F1 返回</Text>,
