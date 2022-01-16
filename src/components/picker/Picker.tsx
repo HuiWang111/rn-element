@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef } from 'react'
+import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
 import { Text, NativeSyntheticEvent, TextInputFocusEventData, TextInput } from 'react-native'
 import { PickerInput } from '../base'
 import { PickerPanel } from '../picker-panel'
@@ -19,6 +19,14 @@ export const Picker: FC<IPickerProps> = ({
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
     const [value, setValue] = useState(defaultValue ?? propsValue ?? '')
     const inputRef = useRef<TextInput | null>(null)
+    const label = useMemo<string[]>(() => {
+        if (!value) {
+            return []
+        }
+
+        const l = options.find(o => o.value === value)?.label ?? value
+        return [l]
+    }, [value, options])
 
     useEffect(() => {
         setValue(propsValue ?? '')
@@ -46,7 +54,7 @@ export const Picker: FC<IPickerProps> = ({
             <PickerInput
                 clearable={false}
                 { ...restProps }
-                value={[value].filter(Boolean)}
+                value={label}
                 onFocus={handleInputFocus}
                 showSoftInputOnFocus={false}
                 ref={inputRef}

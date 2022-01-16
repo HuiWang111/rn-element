@@ -26,7 +26,7 @@ export interface ITreePickerProps extends Omit<IPickerInputProps, 'value' | 'onC
     defaultValue?: string[];
     options?: IOptionWithChildren[];
     title?: string | [string | undefined, string | undefined, string | undefined];
-    onChange?: (value: string[], labels: string[]) => void;
+    onChange?: (value: string[]) => void;
     panelProps?: Omit<IPickerPanelProps, 'value' | 'onConfirm' | 'onSearch' | 'title'>;
     onVisibleChange?: (visible: boolean) => void;
 }

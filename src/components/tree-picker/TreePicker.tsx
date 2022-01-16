@@ -1,9 +1,9 @@
-import React, { FC, useState, useMemo, useRef, useEffect } from 'react'
+import React, { FC, useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import { ITreePickerProps, IOption, IOnSearchProps } from './interface'
 import { PickerPanel } from '../picker-panel'
 import { PickerInput } from '../base'
-import { getDepth, getListByDepth } from './utils'
+import { getDepth, getListByDepth, getLabelsByValue } from './utils'
 import { isArray, isUndefined } from '../../utils'
 import { useVisible } from '../../hooks'
 
@@ -20,17 +20,26 @@ export const TreePicker: FC<ITreePickerProps> = ({
     onFocus,
     ...restProps
 }: ITreePickerProps) => {
-    const [value, setValue] = useState<string[]>(defaultValue ?? propsValue ?? [])
+    const [label, setLabel] = useState<string[]>(() => {
+        return getLabelsByValue(options, defaultValue ?? propsValue ?? [])
+    })
     const [panelValue, setPanelValue] = useState<string[]>(defaultValue ?? propsValue ?? [])
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
-    const labels = useRef<string[]>([])
-    const [activeDepth, setActiveDepth] = useState<number>(0)
+    const getActiveDepth = useCallback(() => {
+        if (!propsValue) {
+            return 0
+        } else if (!propsValue.length) {
+            return 0
+        } 
+        return propsValue.length - 1
+    }, [propsValue])
+    const [activeDepth, setActiveDepth] = useState<number>(getActiveDepth)
     const [keyword, setKeyword] = useState<string>('')
     const inputRef = useRef<TextInput | null>(null)
 
     useEffect(() => {
-        setValue(propsValue ?? [])
-    }, [propsValue])
+        setLabel(getLabelsByValue(options, propsValue ?? []))
+    }, [propsValue, options])
 
     /**
      * 计算 options 有多少层
@@ -67,17 +76,15 @@ export const TreePicker: FC<ITreePickerProps> = ({
         onFocus?.(e)
     }
     const handleConfirm = (v: string) => {
-        labels.current[activeDepth] = list.find(i => i.value === v)?.label || ''
-
         const newValue = [...panelValue]
         newValue[activeDepth] = v
 
         if (isLastDepth) {
             if (isUndefined(propsValue)) {
-                setValue(newValue)
+                setLabel(getLabelsByValue(options, newValue))
             }
             
-            onChange?.([...newValue], [...labels.current])
+            onChange?.([...newValue])
             hidePanel()
         } else {
             setPanelValue(newValue)
@@ -85,17 +92,14 @@ export const TreePicker: FC<ITreePickerProps> = ({
         }
     }
     const handleCancel = () => {
-        labels.current = labels.current.splice(activeDepth, 1)
-        
         const newValue = [...panelValue]
         newValue.splice(activeDepth, 1)
         
         if (isFirstDepth) {
-            if (isUndefined(propsValue)) {
-                setValue(newValue)
-            }
             panelProps?.onCancel?.()
             hidePanel()
+            setActiveDepth(getActiveDepth())
+            setPanelValue(propsValue ?? [])
         } else {
             setPanelValue(newValue)
             setActiveDepth(activeDepth - 1)
@@ -107,11 +111,11 @@ export const TreePicker: FC<ITreePickerProps> = ({
             <PickerInput
                 clearable={false}
                 { ...restProps }
-                value={value}
+                value={label}
                 onFocus={handleInputFocus}
                 ref={inputRef}
                 showSoftInputOnFocus={false}
-                onClear={() => onChange?.([], [])}
+                onClear={() => onChange?.([])}
             />
             <PickerPanel
                 { ...panelProps }

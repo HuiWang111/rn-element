@@ -54,3 +54,31 @@ export const getListByDepth = (
 const filterList = (list: IOption[], keyword: string) => {
     return list.filter(item => item.label.includes(keyword))
 }
+
+export const getLabelsByValue = (
+    options: IOptionWithChildren[],
+    value: string[]
+): string[] => {
+    if (!value.length || !options.length) {
+        return []
+    }
+
+    const labels: string[] = []
+
+    const loop = (list: IOptionWithChildren[], ls: string[], val: string[], index = 0): void => {
+        for (const item of list) {
+            if (item.value === val[index]) {
+                ls[index] = item.label
+                loop(item.children || [], ls, val, index + 1)
+                break
+            }
+        }
+
+        if (!ls[index]) {
+            ls[index] = val[index]
+        }
+    }
+
+    loop(options, labels, value)
+    return labels.filter(Boolean)
+}

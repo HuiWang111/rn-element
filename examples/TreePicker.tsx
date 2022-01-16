@@ -28,13 +28,13 @@ const options: IOptionWithChildren[] = numbers.map(n => {
 const TreePickerDemo: FC = () => {
     const [index, setIndex] = useState(0)
     const [visible, setVisible] = useState(false)
-    const [value, setValue] = useState([])
+    const [value, setValue] = useState(['1', '1-5', '1-5-3'])
     const history = useHistory()
     const handleChange = (index: number) => {
         setIndex(index)
     }
-    const handleConfirm = (value: string[], labels: string[]) => {
-        Toast.show(`value is ${value}, label is ${labels}`)
+    const handleConfirm = (value: string[]) => {
+        Toast.show(`value is ${value}`)
         setValue(value)
     }
 

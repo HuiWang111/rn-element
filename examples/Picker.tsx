@@ -9,7 +9,7 @@ const PickerDemo: FC = () => {
     const [list, setList] = useState(numbers)
     const [index, setIndex] = useState(0)
     const [visible, setVisble] = useState(false)
-    const [value, setValue] = useState('1')
+    const [value, setValue] = useState('8')
     const history = useHistory()
     const handleChange = (index: number) => {
         setIndex(index)
@@ -65,7 +65,7 @@ const PickerDemo: FC = () => {
                                         options={
                                             list.map(n => {
                                                 return {
-                                                    label: n,
+                                                    label: `选项${n}`,
                                                     value: n
                                                 }
                                             })

@@ -15,6 +15,6 @@ export interface IAsyncTreePickerProps extends Omit<IPickerInputProps, 'value' |
     panelProps?: Omit<IPickerPanelProps, 'value' | 'title' | 'onConfirm'>;
     onNext?: (value: string, activeDepth: number, values: string[]) => Promise<void>;
     onPrevious?: (activeDepth: number) => Promise<void>;
-    onChange?: (value: string[], labels: string[]) => void;
+    onChange?: (value: string[]) => void;
     onVisibleChange?: (visible: boolean) => void;
 }
