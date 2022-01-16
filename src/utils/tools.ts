@@ -38,7 +38,7 @@ export function keyBy<T extends Record<string, any>>(
     }, {})
 }
 
-export function isArrayShallowEqual(arr1: any[], arr2: any[]) {
+export function isArrayShallowEqual(arr1: any, arr2: any) {
     if (!isArray(arr1) || !isArray(arr2)) {
         return false
     }

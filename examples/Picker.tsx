@@ -73,6 +73,7 @@ const PickerDemo: FC = () => {
                                         onVisibleChange={(visible) => {
                                             setVisble(visible)
                                         }}
+                                        placeholder='请选择'
                                     />
                                 </List.ActivableItem>
                                 <List.ActivableItem>

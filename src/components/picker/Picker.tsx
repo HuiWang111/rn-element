@@ -4,17 +4,19 @@ import { PickerInput } from '../base'
 import { PickerPanel } from '../picker-panel'
 import { IPickerProps } from './interface'
 import { useVisible } from '../../hooks'
+import { isUndefined } from '../../utils'
 
 export const Picker: FC<IPickerProps> = ({
     onChange,
     options = [],
     value: propsValue,
+    defaultValue,
     panelProps,
     onVisibleChange,
     ...restProps
 }: IPickerProps) => {
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
-    const [value, setValue] = useState(propsValue ?? '')
+    const [value, setValue] = useState(defaultValue ?? propsValue ?? '')
     const inputRef = useRef<TextInput | null>(null)
 
     useEffect(() => {
@@ -31,6 +33,9 @@ export const Picker: FC<IPickerProps> = ({
         panelProps?.onCancel?.()
     }
     const handleConfirm = (val: string) => {
+        if (isUndefined(propsValue)) {
+            setValue(val)
+        }
         onChange?.(val)
         hidePanel()
     }
@@ -38,11 +43,13 @@ export const Picker: FC<IPickerProps> = ({
     return (
         <>
             <PickerInput
+                clearable={false}
                 { ...restProps }
-                value={[value]}
+                value={[value].filter(Boolean)}
                 onFocus={handleInputFocus}
                 showSoftInputOnFocus={false}
                 ref={inputRef}
+                onClear={() => onChange?.('')}
             />
             <PickerPanel
                 { ...panelProps }

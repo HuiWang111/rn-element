@@ -27,18 +27,15 @@ const options: IOptionWithChildren[] = numbers.map(n => {
 
 const TreePickerDemo: FC = () => {
     const [index, setIndex] = useState(0)
-    const [visible, setVisble] = useState(false)
+    const [visible, setVisible] = useState(false)
+    const [value, setValue] = useState(['1'])
     const history = useHistory()
     const handleChange = (index: number) => {
         setIndex(index)
     }
-    const showPicker = () => setVisble(true)
-    const handleConfirm = (value: ReactText[], labels: string[]) => {
+    const handleConfirm = (value: string[], labels: string[]) => {
         Toast.show(`value is ${value}, label is ${labels}`)
-        setVisble(false)
-    }
-    const handleCancel = () => {
-        setVisble(false)
+        setValue(value)
     }
 
     return (
@@ -65,8 +62,23 @@ const TreePickerDemo: FC = () => {
                                 activeItemStyle={styles.activeItem}
                                 keyboard={!visible}
                             >
-                                <List.ActivableItem onEnter={showPicker} onPress={showPicker}>
-                                    <Text>show tree-picker</Text>
+                                <List.ActivableItem>
+                                    <TreePicker
+                                        title={['标题1', '标题2', '标题3']}
+                                        panelProps={{
+                                            itemStyle: styles.item,
+                                            activeItemStyle: styles.activeItem,
+                                            showSearch: true,
+                                            searchInputProps: {
+                                                placeholder: '请输入关键字搜索'
+                                            }
+                                        }}
+                                        value={value}
+                                        onChange={handleConfirm}
+                                        options={options}
+                                        onVisibleChange={v => setVisible(v)}
+                                        placeholder='请选择'
+                                    />
                                 </List.ActivableItem>
                                 <List.ActivableItem>
                                     <Text>1</Text>
@@ -76,19 +88,6 @@ const TreePickerDemo: FC = () => {
                     )
                 }
             </Page>
-            <TreePicker
-                title={['标题1', '标题2', '标题3']}
-                itemStyle={styles.item}
-                activeItemStyle={styles.activeItem}
-                visible={visible}
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
-                options={options}
-                showSearch
-                searchInputProps={{
-                    placeholder: '请输入关键字搜索'
-                }}
-            />
         </>
     )
 }

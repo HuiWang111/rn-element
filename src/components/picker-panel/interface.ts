@@ -34,6 +34,6 @@ export interface IInternalProps {
     activeItemStyle?: ViewStyle;
     itemStyle?: ViewStyle;
     confirmOnSelect?: boolean;
-    // setValue?: (value: string) => void;
+    setValue?: (value: string) => void;
     onConfirm?: (value: string) => void;
 }

@@ -1,4 +1,5 @@
 import { IPickerPanelProps } from '../picker-panel/interface'
+import type { IPickerInputProps } from '../base'
 
 // 最多支持三层
 export interface IOption {
@@ -20,11 +21,14 @@ export interface IOptionWithChildren {
     }[];
 }
 
-export interface ITreePickerProps extends Omit<IPickerPanelProps, 'value' | 'onConfirm' | 'onSearch' | 'title'> {
+export interface ITreePickerProps extends Omit<IPickerInputProps, 'value' | 'onChange' | 'defaultValue'> {
     value?: string[];
+    defaultValue?: string[];
     options?: IOptionWithChildren[];
     title?: string | [string | undefined, string | undefined, string | undefined];
-    onConfirm?: (value: string[], labels: string[]) => void;
+    onChange?: (value: string[], labels: string[]) => void;
+    panelProps?: Omit<IPickerPanelProps, 'value' | 'onConfirm' | 'onSearch' | 'title'>;
+    onVisibleChange?: (visible: boolean) => void;
 }
 
 export interface IOnSearchProps {

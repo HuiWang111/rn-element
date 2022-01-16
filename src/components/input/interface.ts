@@ -5,4 +5,5 @@ export interface IInputProps extends TextInputProps {
     clearable?: boolean;
     wrapStyle?: ViewStyle;
     rightIcon?: ReactNode;
+    onClear?: () => void;
 }

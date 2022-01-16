@@ -28,13 +28,6 @@ import { Input } from '../input'
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 const baseHeaderHeight = 40
 
-/**
- * TODO: 
- * 1. 上下切换不触发onConfirm
- * 2. 点击item触发onConfirm
- * 3. 回车触发onConfirm
- * 4. 点击确认触发onConfirm
- */
 export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     title,
     headerStyle,
@@ -60,7 +53,7 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
             return item.props?.value
         }) || []
     }, [children])
-    // const [value, setValue] = useState<string>(propsValue ?? (values[0] ?? ''))
+    const [value, setValue] = useState<string>(propsValue ?? (values[0] ?? ''))
     const [keyword, setKeyword] = useState<string>('')
     const { showSoftInputOnFocus } = useConfig()
 
@@ -93,31 +86,31 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
         return style
     }, [showSearch, containerHeight, headerHeight])
 
-    // useEffect(() => {
-    //     setValue(propsValue ?? (values[0] ?? ''))
-    // }, [propsValue, values])
+    useEffect(() => {
+        setValue(propsValue ?? (values[0] ?? ''))
+    }, [propsValue, values])
     useArrowUp(() => {
-        const index = values.findIndex(v => v === propsValue)
+        const index = values.findIndex(v => v === value)
         
         if (index > 0) {
-            onConfirm?.(values[index - 1])
+            setValue(values[index - 1])
         }
-    }, [propsValue])
+    }, [value])
     useArrowDown(() => {
-        const index = values.findIndex(v => v === propsValue)
+        const index = values.findIndex(v => v === value)
         const maxIndex = values.length - 1
         
         if (index < maxIndex) {
-            onConfirm?.(values[index + 1])
+            setValue(values[index + 1])
         }
-    }, [propsValue])
+    }, [value])
 
     const resetState = () => {
         setKeyword('')
         onSearch?.('')
     }
     const handleConfirm = (): void => {
-        // onConfirm?.(value)
+        onConfirm?.(value)
         resetState()
     }
     const handleCancel = (): void => {
@@ -135,11 +128,11 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
         }
 
         return (
-            <PickerContext.Provider value={{ activeItemStyle, itemStyle, confirmOnSelect, onConfirm }}>
+            <PickerContext.Provider value={{ setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm }}>
                 {
                     Children.map(children, (item: ReactElement) => {
                         return cloneElement(item, {
-                            isActive: propsValue === item.props?.value
+                            isActive: value === item.props?.value
                         })
                     })
                 }

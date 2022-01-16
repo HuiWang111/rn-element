@@ -10,6 +10,7 @@ export interface IPickerProps extends Omit<IPickerInputProps, 'onChange' | 'valu
     onChange?: (value: string) => void;
     options?: IOption[];
     value?: string;
+    defaultValue?: string;
     panelProps?: Omit<IPickerPanelProps, 'onConfirm' | 'visible'>;
     onVisibleChange?: (visible: boolean) => void;
 }

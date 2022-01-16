@@ -13,10 +13,12 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
     value,
     rightIcon,
     onChangeText,
+    onClear,
     ...restProps
 }: IInputProps, ref: ForwardedRef<TextInput>) => {
     const handleClear = () => {
         onChangeText?.('')
+        onClear?.()
     }
     const renderIcon = (
         clearable: boolean,
