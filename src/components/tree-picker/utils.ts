@@ -1,4 +1,3 @@
-import { ReactText } from 'react'
 import { IOption, IOptionWithChildren } from './interface'
 import { omit } from '../../utils'
 
@@ -23,14 +22,15 @@ export const getDepth = (options: IOptionWithChildren[]): number => {
 export const getListByDepth = (
     depth: number,
     options: IOptionWithChildren[],
-    value: ReactText[],
+    value: string[],
+    filterOption: (k: string, o: IOption) => boolean,
     keyword?: string
 ): IOption[] => {
     if (depth === 0) {
         const list = options.map(o => omit(o, ['children']) as IOption)
 
         return keyword
-            ? filterList(list, keyword)
+            ? filterList(list, keyword, filterOption)
             : list
     } else if (depth === 1) {
         const [firstValue] = value
@@ -38,7 +38,7 @@ export const getListByDepth = (
         const list = firstDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
 
         return keyword
-            ? filterList(list, keyword)
+            ? filterList(list, keyword, filterOption)
             : list
     }
 
@@ -48,10 +48,38 @@ export const getListByDepth = (
     const list = secondDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
     
     return keyword
-        ? filterList(list, keyword)
+        ? filterList(list, keyword, filterOption)
         : list
 }
 
-const filterList = (list: IOption[], keyword: string) => {
-    return list.filter(item => item.label.includes(keyword))
+const filterList = (list: IOption[], keyword: string, filterOption: (k: string, o: IOption) => boolean) => {
+    return list.filter(item => filterOption(keyword, item))
+}
+
+export const getLabelsByValue = (
+    options: IOptionWithChildren[],
+    value: string[]
+): string[] => {
+    if (!value.length || !options.length) {
+        return []
+    }
+
+    const labels: string[] = []
+
+    const loop = (list: IOptionWithChildren[], ls: string[], val: string[], index = 0): void => {
+        for (const item of list) {
+            if (item.value === val[index]) {
+                ls[index] = item.label
+                loop(item.children || [], ls, val, index + 1)
+                break
+            }
+        }
+
+        if (!ls[index]) {
+            ls[index] = val[index]
+        }
+    }
+
+    loop(options, labels, value)
+    return labels.filter(Boolean)
 }

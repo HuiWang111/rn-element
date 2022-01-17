@@ -1,17 +1,26 @@
-import { ReactText } from 'react'
-import { IPickerPanelProps } from '../picker-panel'
+import type { IPickerPanelProps } from '../picker-panel'
+import type { IPickerInputProps } from '../base'
 
 export interface IOption {
     label: string;
-    value: ReactText;
+    value: string;
 }
 
-export interface IAsyncTreePickerProps extends Omit<IPickerPanelProps, 'value' | 'title' | 'onConfirm'> {
-    value?: ReactText[];
+export interface IAsyncTreePickerProps extends Omit<IPickerInputProps, 'value' | 'onChange' | 'defaultValue'> {
+    value?: string[];
+    defaultValue?: string[];
     options?: IOption[];
     title?: string | string[];
     depth: number;
-    onNext?: (value: ReactText, activeDepth: number, values: ReactText[]) => Promise<void>;
+    panelProps?: Omit<IPickerPanelProps, 'value' | 'title' | 'onConfirm'>;
+    onNext?: (value: string, activeDepth: number, values: string[]) => Promise<void>;
     onPrevious?: (activeDepth: number) => Promise<void>;
-    onConfirm?: (value: ReactText[], labels: string[]) => void;
+    onChange?: (value: string[]) => void;
+    onVisibleChange?: (visible: boolean) => void;
+    labelRender?: (labels: string[]) => string;
+    filterOption?: (keyword: string, option: IOption) => boolean;
+}
+
+export interface IOnSearchProps {
+    onSearch?: (val: string) => void;
 }

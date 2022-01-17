@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, ForwardedRef, ClassAttributes } from 'react'
+import React, { FC, forwardRef, ForwardedRef, ClassAttributes, ReactNode, isValidElement, cloneElement } from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { IInputProps } from './interface'
@@ -11,11 +11,42 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
     style,
     wrapStyle,
     value,
+    rightIcon,
     onChangeText,
+    onClear,
     ...restProps
 }: IInputProps, ref: ForwardedRef<TextInput>) => {
     const handleClear = () => {
         onChangeText?.('')
+        onClear?.()
+    }
+    const renderIcon = (
+        clearable: boolean,
+        editable: boolean,
+        hasValue: boolean,
+        IconNode?: ReactNode
+    ): ReactNode => {
+        if (clearable && editable && hasValue) {
+            return (
+                <View style={styles.closeIconWrap}>
+                    <Icon name='closecircle' style={styles.icon} onPress={handleClear} />
+                </View>
+            )
+        } else if (isValidElement(IconNode)) {
+            return (
+                <View style={styles.closeIconWrap}>
+                    {
+                        cloneElement(IconNode, {
+                            style: [
+                                styles.icon,
+                                IconNode.props.style
+                            ]
+                        })
+                    }
+                </View>
+            )
+        }
+        return null
     }
 
     return (
@@ -37,11 +68,14 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
                 onChangeText={onChangeText}
                 { ...restProps }
             />
-            { clearable && editable && Boolean(value) && (
-                <View style={styles.closeIconWrap}>
-                    <Icon name='closecircle' style={styles.closeIcon} onPress={handleClear} />
-                </View>
-            ) }
+            {
+                renderIcon(
+                    clearable,
+                    editable,
+                    Boolean(value),
+                    rightIcon
+                )
+            }
         </View>
     )
 })
@@ -78,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    closeIcon: {
+    icon: {
         color: '#00000040'
     }
 })

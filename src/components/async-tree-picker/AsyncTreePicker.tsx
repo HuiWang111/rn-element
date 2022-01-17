@@ -1,96 +1,168 @@
 import React, { FC, useState, useRef, useMemo } from 'react'
-import { Text } from 'react-native'
+import { Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import { PickerPanel } from '../picker-panel'
-import { IAsyncTreePickerProps } from './interface'
+import { IAsyncTreePickerProps, IOption, IOnSearchProps } from './interface'
 import { isArray } from '../../utils'
+import { useVisible } from '../../hooks'
+import { PickerInput } from '../base'
 
+/**
+ * TODO: AsyncTreePicker暂不支持默认值的label展示
+ * 目前设置了默认值只会展示对应的value
+ */
 export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
     value: propsValue,
+    defaultValue,
     depth,
     title,
     options = [],
-    onConfirm,
+    panelProps,
+    onChange,
     onNext,
     onPrevious,
-    onCancel,
+    onFocus,
+    labelRender = (labels: string[]) => labels.join(' / '),
+    filterOption = (k: string, o: IOption) => o.label.includes(k),
     ...restProps
 }: IAsyncTreePickerProps) => {
-    const [value, setValue] = useState(propsValue ?? [])
-    const labels = useRef<string[]>([])
+    const [labels, setLabels] = useState(defaultValue ?? propsValue ?? [])
+    const [panelValue, setPanelValue] = useState(defaultValue ?? propsValue ?? [])
+    const [visible, showPanel, hidePanel] = useVisible()
     const [activeDepth, setActiveDepth] = useState<number>(0)
     const [loading, setLoading] = useState(false)
+    const inputRef = useRef<TextInput | null>(null)
+    const [keyword, setKeyword] = useState<string>('')
     const [isFirstDepth, isLastDepth] = useMemo(() => {
         return [activeDepth === 0, activeDepth === depth - 1]
     }, [activeDepth, depth])
+    const onSearchProps = useMemo<IOnSearchProps>(() => {
+        if (!panelProps?.showSearch) {
+            return {}
+        }
+
+        return {
+            onSearch: (val) => {
+                setKeyword(val)
+            }
+        }
+    }, [panelProps?.showSearch])
+    const filteredList = useMemo<IOption[]>(() => {
+        if (!keyword) {
+            return options
+        }
+
+        return options.filter(item => filterOption(keyword, item))
+    }, [options, keyword, filterOption])
+    // const getLabels = useCallback((val?: string[]) => {
+    //     if (!val || !val.length) {
+    //         return []
+    //     }
+
+    //     const labels = val.slice(0, val.length - 1)
+    //     const lastValue = val[val.length - 1]
+    //     const label = options.find(o => o.value === lastValue)?.label ?? lastValue
+    //     labels.push(label)
+    //     return labels
+    // }, [options])
+
+    // useEffect(() => {
+    //     setLabels(getLabels(propsValue))
+    // }, [getLabels, propsValue])
+
+    const handleInputFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        inputRef.current?.blur()
+        showPanel()
+        onFocus?.(e)
+    }
+    const handleConfirm = async (v: string) => {
+        if (loading) {
+            return
+        }
+
+        const newValue = [...panelValue]
+        newValue[activeDepth] = v
+
+        const newActiveDepth = activeDepth + 1
+
+        const newLabels = [...labels]
+        newLabels[activeDepth] = options.find(o => o.value === v)?.label ?? v
+        setLabels(newLabels)
+
+        if (isLastDepth) {
+            // if (isUndefined(propsValue)) {
+            //     setLabels(getLabels(newValue))
+            // }
+            onChange?.(newValue)
+            hidePanel()
+        } else {
+            setLoading(true)
+            setPanelValue(newValue)
+            await onNext?.(v, newActiveDepth, newValue)
+            setActiveDepth(newActiveDepth)
+            setLoading(false)
+        }
+    }
+    const handleCancel = async () => {
+        if (loading) {
+            return
+        }
+
+        const newValue = [...panelValue]
+        newValue.splice(activeDepth, 1)
+
+        const newActiveDepth = activeDepth - 1
+
+        if (isFirstDepth) {
+            panelProps?.onCancel?.()
+            hidePanel()
+        } else {
+            setPanelValue(newValue)
+            setLoading(true)
+            await onPrevious?.(newActiveDepth)
+            setLoading(false) 
+            setActiveDepth(newActiveDepth)
+        }
+    }
 
     return (
-        <PickerPanel
-            { ...restProps }
-            value={value[activeDepth]}
-            title={isArray(title) ? title[activeDepth] : title}
-            onConfirm={async v => {
-                if (loading) {
-                    return
+        <>
+            <PickerInput
+                clearable={false}
+                { ...restProps }
+                value={labelRender(labels)}
+                onFocus={handleInputFocus}
+                ref={inputRef}
+                showSoftInputOnFocus={false}
+                onClear={() => onChange?.([])}
+            />
+            <PickerPanel
+                { ...panelProps }
+                { ...onSearchProps }
+                visible={visible}
+                value={panelValue[activeDepth]}
+                title={isArray(title) ? title[activeDepth] : title}
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+                footerProps={{
+                    cancelText: isFirstDepth ? undefined : '上一步',
+                    confirmText: isLastDepth ? undefined : '下一步'
+                }}
+            >
+                {
+                    filteredList.map(option => {
+                        const { label, value: val } = option
+
+                        return (
+                            <PickerPanel.Item
+                                key={val}
+                                value={val}
+                            >
+                                <Text>{label}</Text>
+                            </PickerPanel.Item>
+                        )
+                    })
                 }
-
-                labels.current[activeDepth] = options.find(i => i.value === v)?.label || ''
-
-                const newValue = [...value]
-                newValue[activeDepth] = v
-                setValue(newValue)
-
-                const newActiveDepth = activeDepth + 1
-
-                if (isLastDepth) {
-                    onConfirm?.([...newValue], [...labels.current])
-                } else {
-                    setLoading(true)
-                    await onNext?.(v, newActiveDepth, newValue)
-                    setLoading(false)
-                    setActiveDepth(newActiveDepth)
-                }
-            }}
-            onCancel={async () => {
-                if (loading) {
-                    return
-                }
-
-                labels.current = labels.current.splice(activeDepth, 1)
-
-                const newValue = [...value]
-                newValue.splice(activeDepth, 1)
-                setValue(newValue)
-
-                const newActiveDepth = activeDepth - 1
-
-                if (isFirstDepth) {
-                    onCancel?.()
-                } else {
-                    setLoading(true)
-                    await onPrevious?.(newActiveDepth)
-                    setLoading(false) 
-                    setActiveDepth(newActiveDepth)
-                }
-            }}
-            footerProps={{
-                cancelText: isFirstDepth ? undefined : '上一步',
-                confirmText: isLastDepth ? undefined : '下一步'
-            }}
-        >
-            {
-                options.map(option => {
-                    const { label, value: val } = option
-
-                    return (
-                        <PickerPanel.Item
-                            key={val}
-                            value={val}
-                        >
-                            <Text>{label}</Text>
-                        </PickerPanel.Item>
-                    )
-                })
-            }
-        </PickerPanel>
+            </PickerPanel>
+        </>
     )
 }

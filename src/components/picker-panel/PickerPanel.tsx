@@ -4,7 +4,6 @@ import React, {
     FC,
     PropsWithChildren,
     ReactElement,
-    ReactText,
     useEffect,
     useState,
     useMemo
@@ -49,12 +48,12 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     onConfirm
 }: PropsWithChildren<IPickerPanelProps>) => {
     const theme = useTheme()
-    const values = useMemo<ReactText[]>(() => {
+    const values = useMemo<string[]>(() => {
         return Children.map(children, (item: ReactElement) => {
             return item.props?.value
         }) || []
     }, [children])
-    const [value, setValue] = useState<ReactText>(propsValue ?? (values[0] ?? ''))
+    const [value, setValue] = useState<string>(propsValue ?? (values[0] ?? ''))
     const [keyword, setKeyword] = useState<string>('')
     const { showSoftInputOnFocus } = useConfig()
 
@@ -107,7 +106,6 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     }, [value])
 
     const resetState = () => {
-        setValue(values[0] || '')
         setKeyword('')
         onSearch?.('')
     }
