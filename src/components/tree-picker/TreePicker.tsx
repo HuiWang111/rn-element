@@ -18,6 +18,8 @@ export const TreePicker: FC<ITreePickerProps> = ({
     onChange,
     onVisibleChange,
     onFocus,
+    labelRender = (labels: string[]) => labels.join(' / '),
+    filterOption = (k: string, o: IOption) => o.label.includes(k),
     ...restProps
 }: ITreePickerProps) => {
     const [label, setLabel] = useState<string[]>(() => {
@@ -55,8 +57,8 @@ export const TreePicker: FC<ITreePickerProps> = ({
      * 获取当前显示的list
      */
     const list = useMemo<IOption[]>(() => {
-        return getListByDepth(activeDepth, options, panelValue, keyword)
-    }, [activeDepth, options, panelValue, keyword])
+        return getListByDepth(activeDepth, options, panelValue, filterOption, keyword)
+    }, [activeDepth, options, panelValue, keyword, filterOption])
 
     const onSearchProps = useMemo<IOnSearchProps>(() => {
         if (!panelProps?.showSearch) {
@@ -111,7 +113,7 @@ export const TreePicker: FC<ITreePickerProps> = ({
             <PickerInput
                 clearable={false}
                 { ...restProps }
-                value={label}
+                value={labelRender(label)}
                 onFocus={handleInputFocus}
                 ref={inputRef}
                 showSoftInputOnFocus={false}

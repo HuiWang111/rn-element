@@ -6,21 +6,12 @@ import { useHistory } from 'react-router-native'
 const numbers = new Array(30).fill(undefined).map((_, index) => String(index + 1))
 
 const PickerDemo: FC = () => {
-    const [list, setList] = useState(numbers)
     const [index, setIndex] = useState(0)
     const [visible, setVisble] = useState(false)
     const [value, setValue] = useState('8')
     const history = useHistory()
     const handleChange = (index: number) => {
         setIndex(index)
-    }
-
-    const handelSearch = (keyword: string) => {
-        if (keyword) {
-            setList(numbers.filter(n => String(n).includes(keyword)))
-        } else {
-            setList(numbers)
-        }
     }
     
     return (
@@ -59,11 +50,10 @@ const PickerDemo: FC = () => {
                                             confirmOnSelect: true,
                                             searchInputProps: {
                                                 placeholder: '请输入关键字搜索'
-                                            },
-                                            onSearch: handelSearch
+                                            }
                                         }}
                                         options={
-                                            list.map(n => {
+                                            numbers.map(n => {
                                                 return {
                                                     label: `选项${n}`,
                                                     value: n

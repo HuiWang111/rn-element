@@ -1,7 +1,7 @@
 import React, { FC, useState, ReactText } from 'react'
 import { StyleSheet, Dimensions, Text, View } from 'react-native'
 import { AsyncTreePicker, List, Toast, Page, Loading } from '../src'
-import { IOptionWithChildren } from '../src/components/tree-picker/interface'
+import { IOption, IOptionWithChildren } from '../src/components/tree-picker/interface'
 import { getListByDepth } from '../src/components/tree-picker/utils'
 import { useHistory } from 'react-router-native'
 import { colors } from '../src/utils'
@@ -42,8 +42,8 @@ export const AsyncTreePickerDemo: FC = () => {
     const handleChange = (index: number) => {
         setIndex(index)
     }
-    const handleConfirm = (value: ReactText[], labels: string[]) => {
-        Toast.show(`value is ${value}, label is ${labels}`)
+    const handleConfirm = (value: ReactText[]) => {
+        Toast.show(`value is ${value}`)
         setValue(value)
     }
 
@@ -51,7 +51,7 @@ export const AsyncTreePickerDemo: FC = () => {
         <>
             <Page
                 header={{
-                    center: <Text>picker</Text>
+                    center: <Text>async-tree-picker</Text>
                 }}
                 F1={{
                     label: <Text>F1 返回</Text>,
@@ -89,7 +89,7 @@ export const AsyncTreePickerDemo: FC = () => {
                                         onNext={async (value, activeDepth, values) => {
                                             Loading.show()
                                             await wait(2000)
-                                            setList(getListByDepth(activeDepth, options, values))
+                                            setList(getListByDepth(activeDepth, options, values, (k: string, o: IOption) => o.label.includes(k)))
                                             Loading.hide()
                                         }}
                                         placeholder='请选择'

@@ -1,13 +1,13 @@
 import React, { FC, useState, useRef, useMemo } from 'react'
 import { Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import { PickerPanel } from '../picker-panel'
-import { IAsyncTreePickerProps } from './interface'
+import { IAsyncTreePickerProps, IOption, IOnSearchProps } from './interface'
 import { isArray } from '../../utils'
 import { useVisible } from '../../hooks'
 import { PickerInput } from '../base'
 
 /**
- * TODO: AsyncTreePicker暂不支持默认值得label
+ * TODO: AsyncTreePicker暂不支持默认值的label展示
  * 目前设置了默认值只会展示对应的value
  */
 export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
@@ -16,11 +16,13 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
     depth,
     title,
     options = [],
+    panelProps,
     onChange,
     onNext,
     onPrevious,
     onFocus,
-    panelProps,
+    labelRender = (labels: string[]) => labels.join(' / '),
+    filterOption = (k: string, o: IOption) => o.label.includes(k),
     ...restProps
 }: IAsyncTreePickerProps) => {
     const [labels, setLabels] = useState(defaultValue ?? propsValue ?? [])
@@ -29,9 +31,28 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
     const [activeDepth, setActiveDepth] = useState<number>(0)
     const [loading, setLoading] = useState(false)
     const inputRef = useRef<TextInput | null>(null)
+    const [keyword, setKeyword] = useState<string>('')
     const [isFirstDepth, isLastDepth] = useMemo(() => {
         return [activeDepth === 0, activeDepth === depth - 1]
     }, [activeDepth, depth])
+    const onSearchProps = useMemo<IOnSearchProps>(() => {
+        if (!panelProps?.showSearch) {
+            return {}
+        }
+
+        return {
+            onSearch: (val) => {
+                setKeyword(val)
+            }
+        }
+    }, [panelProps?.showSearch])
+    const filteredList = useMemo<IOption[]>(() => {
+        if (!keyword) {
+            return options
+        }
+
+        return options.filter(item => filterOption(keyword, item))
+    }, [options, keyword, filterOption])
     // const getLabels = useCallback((val?: string[]) => {
     //     if (!val || !val.length) {
     //         return []
@@ -108,7 +129,7 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
             <PickerInput
                 clearable={false}
                 { ...restProps }
-                value={labels}
+                value={labelRender(labels)}
                 onFocus={handleInputFocus}
                 ref={inputRef}
                 showSoftInputOnFocus={false}
@@ -116,6 +137,7 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
             />
             <PickerPanel
                 { ...panelProps }
+                { ...onSearchProps }
                 visible={visible}
                 value={panelValue[activeDepth]}
                 title={isArray(title) ? title[activeDepth] : title}
@@ -127,7 +149,7 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
                 }}
             >
                 {
-                    options.map(option => {
+                    filteredList.map(option => {
                         const { label, value: val } = option
 
                         return (

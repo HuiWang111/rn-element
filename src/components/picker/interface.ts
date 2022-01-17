@@ -7,10 +7,15 @@ export interface IOption {
 }
 
 export interface IPickerProps extends Omit<IPickerInputProps, 'onChange' | 'value'> {
-    onChange?: (value: string) => void;
     options?: IOption[];
     value?: string;
     defaultValue?: string;
     panelProps?: Omit<IPickerPanelProps, 'onConfirm' | 'visible'>;
+    onChange?: (value: string) => void;
     onVisibleChange?: (visible: boolean) => void;
+    filterOption?: (keyword: string, option: IOption) => boolean;
+}
+
+export interface IOnSearchProps {
+    onSearch?: (val: string) => void;
 }

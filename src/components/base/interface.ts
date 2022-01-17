@@ -29,7 +29,4 @@ export interface IBaseGroupProps {
     onChange?: (value: string[]) => void;
 }
 
-export interface IPickerInputProps extends Omit<IInputProps, 'value'> {
-    value?: string[];
-    separater?: string;
-}
+export type IPickerInputProps = IInputProps;

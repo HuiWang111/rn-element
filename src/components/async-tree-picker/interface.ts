@@ -17,4 +17,10 @@ export interface IAsyncTreePickerProps extends Omit<IPickerInputProps, 'value' |
     onPrevious?: (activeDepth: number) => Promise<void>;
     onChange?: (value: string[]) => void;
     onVisibleChange?: (visible: boolean) => void;
+    labelRender?: (labels: string[]) => string;
+    filterOption?: (keyword: string, option: IOption) => boolean;
+}
+
+export interface IOnSearchProps {
+    onSearch?: (val: string) => void;
 }

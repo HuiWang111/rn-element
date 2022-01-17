@@ -23,13 +23,14 @@ export const getListByDepth = (
     depth: number,
     options: IOptionWithChildren[],
     value: string[],
+    filterOption: (k: string, o: IOption) => boolean,
     keyword?: string
 ): IOption[] => {
     if (depth === 0) {
         const list = options.map(o => omit(o, ['children']) as IOption)
 
         return keyword
-            ? filterList(list, keyword)
+            ? filterList(list, keyword, filterOption)
             : list
     } else if (depth === 1) {
         const [firstValue] = value
@@ -37,7 +38,7 @@ export const getListByDepth = (
         const list = firstDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
 
         return keyword
-            ? filterList(list, keyword)
+            ? filterList(list, keyword, filterOption)
             : list
     }
 
@@ -47,12 +48,12 @@ export const getListByDepth = (
     const list = secondDepthChildren?.map(c => omit(c, ['children']) as IOption) || []
     
     return keyword
-        ? filterList(list, keyword)
+        ? filterList(list, keyword, filterOption)
         : list
 }
 
-const filterList = (list: IOption[], keyword: string) => {
-    return list.filter(item => item.label.includes(keyword))
+const filterList = (list: IOption[], keyword: string, filterOption: (k: string, o: IOption) => boolean) => {
+    return list.filter(item => filterOption(keyword, item))
 }
 
 export const getLabelsByValue = (
