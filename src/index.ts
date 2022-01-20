@@ -1,3 +1,8 @@
+import dayjs from 'dayjs'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+
+dayjs.extend(weekOfYear)
+
 export { Loading } from './components/loading'
 
 export { Toast } from './components/toast'

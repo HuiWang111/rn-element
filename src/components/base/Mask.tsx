@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { StyleSheet, View, ViewStyle } from 'react-native'
+import { StyleSheet, View, ViewStyle, StyleProp } from 'react-native'
 import { IMaskProps } from './interface'
 
 export const Mask: FC<PropsWithChildren<IMaskProps>> = ({
@@ -11,13 +11,13 @@ export const Mask: FC<PropsWithChildren<IMaskProps>> = ({
 }: PropsWithChildren<IMaskProps>) => {
     if (!visible) return null
 
-    const maskContainerStyles: ViewStyle[] = [
+    let maskContainerStyles: StyleProp<ViewStyle> = [
         styles.container,
         { zIndex, backgroundColor }
     ]
 
     if (style) {
-        maskContainerStyles.push(style)
+        maskContainerStyles = maskContainerStyles.concat(style)
     }
     
     return (
