@@ -1,3 +1,4 @@
+import { func } from 'prop-types'
 import { isArray, isString, isFunction } from './validate'
 
 export function omit(object?: Record<string, any>, omitKeys?: string[]): Record<string, any> {
@@ -60,4 +61,12 @@ export function isArrayShallowEqual(arr1: any, arr2: any) {
 
 export function last(arr: any[]): any {
     return arr[arr.length - 1]
+}
+
+export function wait(ms?: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve() 
+        }, ms)  
+    })
 }

@@ -10,7 +10,7 @@ export function exec(cmd, options) {
 
             proc.stdout.on('data', (chunk) => {
                 if (showProcess) {
-                    console.info('data');
+                    console.info(chunk);
                 } else {
                     data += chunk;
                 }

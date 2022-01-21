@@ -12,6 +12,7 @@ import { CheckListDemo } from '../CheckList'
 import { SwitchDemo } from '../Switch'
 import { TableDemo } from '../Table'
 import { AsyncTreePickerDemo } from '../AsyncTreePicker'
+import DatePickerDemo from '../DatePicker'
 
 interface IRouteConfig {
     path: string;
@@ -25,6 +26,7 @@ export const routeConfig: IRouteConfig[] = [
     { path: 'picker-demo', component: PickerDemo },
     { path: 'tree-picker-demo', component: TreePickerDemo },
     { path: 'async-tree-picker-demo', component: AsyncTreePickerDemo },
+    { path: 'date-picker', component: DatePickerDemo },
     { path: 'radio-list', component: RadoList },
     { path: 'form-demo', component: FormDemo },
     { path: 'input-demo', component: InputDemo },

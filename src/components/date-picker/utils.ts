@@ -3,18 +3,20 @@ import { IDateInformation } from './interface'
 import { isNil } from '../../utils'
 
 export function getPanelDays(
-    year = dayjs().year(),
-    month = dayjs().month(),
-) {
+    year: number = dayjs().year(),
+    m: number = dayjs().month(),
+): IDateInformation[] {
+    const month = m + 1
     const currentMonthDays = getMonthDays(year, month, month)
     const currentMonthDayCount = currentMonthDays.length
 
     const [previousYear, previousMonth] = getPrevious(year, month)
-    const needPreviousMonthDayCount = currentMonthDays[0].week - 1
+    const needPreviousMonthDayCount = currentMonthDays[0].day - 1
+    
     const previousMonthDays = getMonthDays(previousYear, previousMonth, month, needPreviousMonthDayCount, true)
 
     const [nextYear, nextMonth] = getNext(year, month)
-    let needNextMonthDayCount = 7 - currentMonthDays[currentMonthDayCount - 1].week
+    let needNextMonthDayCount = 7 - currentMonthDays[currentMonthDayCount - 1].day
     if (currentMonthDayCount + needPreviousMonthDayCount + needNextMonthDayCount < 42) {
         needNextMonthDayCount += 7
     }
@@ -40,7 +42,7 @@ export function getMonthDays(
     count?: number,
     tail?: boolean
 ): IDateInformation[] {
-    const dateStr = year + '-' + month
+    const dateStr = year + '-' + fill(month)
     const dayInstance = dayjs(dateStr)
     
     if (!dayInstance.isValid()) {
@@ -49,14 +51,15 @@ export function getMonthDays(
     }
 
     const dayCount = dayInstance.daysInMonth()
-    const days = new Array(dayInstance.daysInMonth())
+    const days = new Array(dayCount)
         .fill(undefined)
         .map((o, i) => {
             const date = i + 1
-            const format = dateStr + '-' + date
+            const format = dateStr + '-' + fill(date)
+            const day = dayjs(format).day()
             return {
                 format,
-                week: dayjs(format).week(),
+                day: day === 0 ? 7 : day,
                 month,
                 year,
                 date,
@@ -88,6 +91,10 @@ export function getNext(year: number, month: number): [number, number] {
 
     return [
         isLastMonth ? year + 1 : year,
-        isLastMonth ? 1 : year + 1
+        isLastMonth ? 1 : month + 1
     ]
 }
+
+function fill(n: number): string {
+    return (n > 9 ? '' : '0') + n
+} 

@@ -18,19 +18,35 @@ export const DatePickerPanelHeader: FC<IDatePickerPanelHeaderProps> = ({
 
     return (
         <View style={[styles.container, { borderBottomColor: theme.border, borderBottomWidth: 1 }]}>
-            <View style={styles.left}>
-                <Icon name='doubleleft' onPress={() => onPreviousYear(year - 1)} />
-                <Icon name='left' onPress={() => onPreviousMonth(month - 1)} />
+            <View style={styles.beside}>
+                <Icon
+                    name='doubleleft'
+                    onPress={() => onPreviousYear()}
+                    style={styles.icon}
+                />
+                <Icon
+                    name='left'
+                    onPress={() => onPreviousMonth()}
+                    style={[styles.icon, { marginLeft: 10 }]}
+                />
             </View>
             <View style={styles.center}>
                 <Text style={styles.numberText}>{year}</Text>
                 <Text>年</Text>
-                <Text style={[styles.numberText, { marginLeft: 10 }]}>{month}</Text>
+                <Text style={[styles.numberText, { marginLeft: 10 }]}>{month + 1}</Text>
                 <Text>月</Text>
             </View>
-            <View style={styles.right}>
-                <Icon name='right' onPress={() => onNextMonth(month + 1)} />
-                <Icon name='doubleright' onPress={() => onNextYear(year + 1)} />
+            <View style={[styles.beside, styles.right]}>
+                <Icon
+                    name='doubleright'
+                    onPress={() => onNextYear()}
+                    style={styles.icon}
+                />
+                <Icon
+                    name='right'
+                    onPress={() => onNextMonth()}
+                    style={[styles.icon, { marginRight: 10 }]}
+                />
             </View>
         </View>
     )    
@@ -40,19 +56,29 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         width,
-        height: 40
+        height: 40,
+        flexGrow: 0
     },
-    left: {
-        flexDirection: 'row'
-    },
-    center: {
-        flexDirection: 'row'
+    beside: {
+        flexDirection: 'row',
+        flexBasis: 100,
+        flexGrow: 0,
+        flexShrink: 0,
+        alignItems: 'center',
+        paddingHorizontal: 10
     },
     right: {
-        flexDirection: 'row'
+        flexDirection: 'row-reverse'
+    },
+    center: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     icon: {
-        color: '#00000040'
+        color: '#00000040',
+        fontSize: 20
     },
     numberText: {
         fontWeight: '600'
