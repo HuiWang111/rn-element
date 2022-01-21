@@ -4,7 +4,7 @@ import { IInputProps } from '../input'
 export interface IMaskProps {
     zIndex?: number;
     backgroundColor?: string;
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     visible?: boolean;
 }
 

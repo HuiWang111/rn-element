@@ -1,3 +1,8 @@
+import dayjs from 'dayjs'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+
+dayjs.extend(weekOfYear)
+
 export { Loading } from './components/loading'
 
 export { Toast } from './components/toast'
@@ -60,3 +65,6 @@ export type { IAsyncTreePickerProps } from './components/async-tree-picker'
 
 export { Picker } from './components/picker'
 export type { IPickerProps } from './components/picker'
+
+export { DatePicker } from './components/date-picker'
+export type { IDatePickerProps } from './components/date-picker'

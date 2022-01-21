@@ -4,7 +4,7 @@ import { IPickerFooterProps } from '../base/interface'
 import { IInputProps } from '../input'
 
 export interface IPickerPanelItem {
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     children?: ReactNode | undefined | (({ isActive: boolean }) => ReactNode | undefined);
     value: string;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -15,9 +15,9 @@ export interface IPickerPanelProps {
     title?: ReactNode;
     headerStyle?: StyleProp<ViewStyle>;
     zIndex?: number;
-    maskStyle?: ViewStyle;
-    itemStyle?: ViewStyle;
-    activeItemStyle?: ViewStyle;
+    maskStyle?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<ViewStyle>;
+    activeItemStyle?: StyleProp<ViewStyle>;
     value?: string;
     visible?: boolean;
     showSearch?: boolean;
@@ -31,8 +31,8 @@ export interface IPickerPanelProps {
 }
 
 export interface IInternalProps {
-    activeItemStyle?: ViewStyle;
-    itemStyle?: ViewStyle;
+    activeItemStyle?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<ViewStyle>;
     confirmOnSelect?: boolean;
     setValue?: (value: string) => void;
     onConfirm?: (value: string) => void;

@@ -12,3 +12,5 @@ export { useTheme } from './useTheme'
 export { useConfig } from './useConfig'
 
 export { useVisible } from './useVisible'
+
+export { useMergedState } from './useMergedState'
