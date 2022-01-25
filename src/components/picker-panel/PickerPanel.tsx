@@ -21,7 +21,7 @@ import { RootSiblingPortal } from 'react-native-root-siblings'
 import { IPickerPanelProps } from './interface'
 import { PickerFooter, Mask, Empty } from '../base'
 import { PickerContext } from './context'
-import { useArrowUp, useArrowDown, useTheme, useConfig } from '../../hooks'
+import { useArrowUp, useArrowDown, useTheme, useConfig, useEnter } from '../../hooks'
 import { isNumber, isString, omit } from '../../utils'
 import { Input } from '../input'
 
@@ -43,6 +43,7 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     fullScreen = true,
     footerProps = {},
     confirmOnSelect = false,
+    confirmOnEnter = true,
     onSearch,
     onCancel,
     onConfirm
@@ -104,6 +105,13 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
             setValue(values[index + 1])
         }
     }, [value])
+    useEnter(() => {
+        if (!visible || !confirmOnEnter) {
+            return
+        }
+
+        onConfirm?.(value)
+    }, [visible, confirmOnEnter, onConfirm])
 
     const resetState = () => {
         setKeyword('')

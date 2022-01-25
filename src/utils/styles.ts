@@ -1,6 +1,5 @@
-import { StyleSheet, ViewStyle } from 'react-native'
+import { StyleSheet, ViewStyle, StyleProp } from 'react-native'
 import { isArray } from './validate'
-import { StyleType } from './interface'
 
 type StyleUtils = Record<string, ViewStyle>
 
@@ -27,38 +26,38 @@ export const styleUtils = StyleSheet.create({
     ...createPercentStyleUtils()
 })
 
-export function mergeStyle(style1?: StyleType | null, style2?: StyleType | null): Record<string, unknown> | null {
+export function mergeStyle(style1?: StyleProp<ViewStyle> | null, style2?: StyleProp<ViewStyle> | null): StyleProp<ViewStyle> | null {
     if (!style1 && !style2) {
         return null
     }
     if (!style1) {
         return isArray(style2) 
-            ? style2.reduce((style: Record<string, unknown>, item: Record<string, unknown>) => {
+            ? style2.reduce<ViewStyle>((style: ViewStyle, item: ViewStyle) => {
                 return Object.assign(style, item)
             }, {})
             : style2 || null
     }
     if (!style2) {
         return isArray(style1) 
-            ? style1.reduce((style: Record<string, unknown>, item: Record<string, unknown>) => {
+            ? style1.reduce<ViewStyle>((style: ViewStyle, item: ViewStyle) => {
                 return Object.assign(style, item)
             }, {})
             : style1
     }
 
     const firstStyle = isArray(style1) 
-        ? style1.reduce((style: Record<string, unknown>, item: Record<string, unknown>) => {
+        ? style1.reduce<ViewStyle>((style: ViewStyle, item: ViewStyle) => {
             return Object.assign(style, item)
         }, {})
         : style1
     const secondStyle = isArray(style2) 
-        ? style2.reduce((style: Record<string, unknown>, item: Record<string, unknown>) => {
+        ? style2.reduce<ViewStyle>((style: ViewStyle, item: ViewStyle) => {
             return Object.assign(style, item)
         }, {})
         : style2
 
     return {
-        ...firstStyle,
-        ...secondStyle
+        ...(firstStyle as object),
+        ...(secondStyle as object)
     }
 }

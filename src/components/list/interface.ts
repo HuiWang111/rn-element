@@ -1,22 +1,21 @@
 import { ComponentType, ReactNode } from 'react'
-import { GestureResponderEvent } from 'react-native'
-import { StyleType } from '../../utils'
+import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native'
 
 type ActiveChangeHandler = (activeIndex: number) => void;
 
 export interface IListProps {
     activeIndex?: number;
     loop?: boolean;
-    style?: StyleType;
-    itemStyle?: StyleType;
-    activeItemStyle?: StyleType;
+    style?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<ViewStyle>;
+    activeItemStyle?: StyleProp<ViewStyle>;
     keyboard?: boolean;
     inputComponent?: ComponentType;
     onChange?: ActiveChangeHandler;
 }
 
 export interface IListItemProps {
-    style?: StyleType;
+    style?: StyleProp<ViewStyle>;
     autoFocus?: boolean;
     children?: ReactNode | undefined | (({ isActive: boolean }) => ReactNode | undefined);
     inputComponent?: ComponentType;
@@ -33,7 +32,7 @@ export interface IListItemProps {
 
 export interface IInternalProps {
     onChange?: ActiveChangeHandler;
-    activeItemStyle?: StyleType;
+    activeItemStyle?: StyleProp<ViewStyle>;
     keyboard?: boolean;
 }
 
@@ -49,6 +48,6 @@ export interface IParentProps {
     activeIndex: number;
     inputComponent?: ComponentType;
     index: number;
-    itemStyle?: StyleType;
+    itemStyle?: StyleProp<ViewStyle>;
     onChange?: ActiveChangeHandler;
 }

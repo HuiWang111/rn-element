@@ -1,1 +1,0 @@
-export type StyleType = Record<string, unknown> | Record<string, unknown>[];
