@@ -12,6 +12,5 @@ export declare const colors: {
     disabled: string;
 };
 export { styleUtils, mergeStyle } from './styles';
-export { StyleType } from './interface';
 export { omit, keyBy, isArrayShallowEqual, last, wait } from './tools';
 export { regExp };

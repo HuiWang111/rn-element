@@ -3,12 +3,12 @@ import { View, StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
 import { RootSiblingPortal } from 'react-native-root-siblings';
 import { PickerFooter, Mask, Empty } from '../base';
 import { PickerContext } from './context';
-import { useArrowUp, useArrowDown, useTheme, useConfig } from '../../hooks';
+import { useArrowUp, useArrowDown, useTheme, useConfig, useEnter } from '../../hooks';
 import { isNumber, isString, omit } from '../../utils';
 import { Input } from '../input';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const baseHeaderHeight = 40;
-export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, confirmOnSelect = false, onSearch, onCancel, onConfirm }) => {
+export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, confirmOnSelect = false, confirmOnEnter = true, onSearch, onCancel, onConfirm }) => {
     var _a, _b;
     const theme = useTheme();
     const values = useMemo(() => {
@@ -61,6 +61,12 @@ export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, childr
             setValue(values[index + 1]);
         }
     }, [value]);
+    useEnter(() => {
+        if (!visible || !confirmOnEnter) {
+            return;
+        }
+        onConfirm === null || onConfirm === void 0 ? void 0 : onConfirm(value);
+    }, [visible, confirmOnEnter, onConfirm]);
     const resetState = () => {
         setKeyword('');
         onSearch === null || onSearch === void 0 ? void 0 : onSearch('');

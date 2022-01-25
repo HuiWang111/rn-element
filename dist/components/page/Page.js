@@ -3,8 +3,8 @@ import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity } from 'r
 import PropTypes from 'prop-types';
 import { KeyCode } from '../../constants';
 import { useKeyUp, useTheme } from '../../hooks';
-import { isFunction, isString } from '../../utils';
-export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKeyMap = {
+import { isFunction, isString, isUndefined } from '../../utils';
+export const Page = ({ Component = View, componentProps, F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKeyMap = {
     F1: KeyCode.Z,
     F2: KeyCode.X,
     F3: KeyCode.C,
@@ -70,7 +70,7 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
         }
         (_a = fn.handler) === null || _a === void 0 ? void 0 : _a.call(fn);
     };
-    return (React.createElement(View, { style: [{ width, height, display: 'flex' }, style] },
+    return (React.createElement(Component, Object.assign({}, componentProps, { style: [{ width, height, display: 'flex' }, style] }),
         header
             ? (React.createElement(View, { style: [
                     {
@@ -102,29 +102,28 @@ export const Page = ({ F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKey
                     styles.fnBar,
                     fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.bar
                 ] },
-                F1
+                F1 && (isUndefined(F1.shouldDisplay) || F1.shouldDisplay === true)
                     ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F1) }, isString(F1.label)
                         ? React.createElement(Text, { style: bottomTextStyle }, F1.label)
                         : F1.label)
                     : null,
-                F2
+                F2 && (isUndefined(F2.shouldDisplay) || F2.shouldDisplay === true)
                     ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F2) }, isString(F2.label)
                         ? React.createElement(Text, { style: bottomTextStyle }, F2.label)
                         : F2.label)
                     : null,
-                F3
+                F3 && (isUndefined(F3.shouldDisplay) || F3.shouldDisplay === true)
                     ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F3) }, isString(F3.label)
                         ? React.createElement(Text, { style: bottomTextStyle }, F3.label)
                         : F3.label)
                     : null,
-                F4
+                F4 && (isUndefined(F4.shouldDisplay) || F4.shouldDisplay === true)
                     ? React.createElement(TouchableOpacity, { style: [{ flexBasis: quarter }, styles.fnCol, fnStyle === null || fnStyle === void 0 ? void 0 : fnStyle.col], onPress: () => handlePressFn(F4) }, isString(F4.label)
                         ? React.createElement(Text, { style: bottomTextStyle }, F4.label)
                         : F4.label)
                     : null))
             : null));
 };
-Page.displayName = 'Page';
 Page.propTypes = {
     mockFn: PropTypes.bool,
     keyborad: PropTypes.bool
