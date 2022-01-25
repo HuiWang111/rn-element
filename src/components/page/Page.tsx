@@ -4,9 +4,11 @@ import PropTypes from 'prop-types'
 import { IPageProps, IFn } from './interface'
 import { KeyCode } from '../../constants'
 import { useKeyUp, useTheme } from '../../hooks'
-import { isFunction, isString } from '../../utils'
+import { isFunction, isString, isUndefined } from '../../utils'
 
 export const Page: FC<IPageProps> = ({
+    Component = View,
+    componentProps,
     F1,
     F2,
     F3,
@@ -88,7 +90,10 @@ export const Page: FC<IPageProps> = ({
     }
 
     return (
-        <View style={[{ width, height, display: 'flex' }, style]}>
+        <Component
+            { ...componentProps }
+            style={[{ width, height, display: 'flex' }, style]}
+        >
             {
                 header
                     ? (
@@ -158,7 +163,7 @@ export const Page: FC<IPageProps> = ({
                             ]}
                         >
                             {
-                                F1
+                                F1 && (isUndefined(F1.shouldDisplay) || F1.shouldDisplay === true)
                                     ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F1)}>
                                         {
                                             isString(F1.label)
@@ -169,7 +174,7 @@ export const Page: FC<IPageProps> = ({
                                     : null
                             }
                             {
-                                F2
+                                F2 && (isUndefined(F2.shouldDisplay) || F2.shouldDisplay === true)
                                     ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F2)}>
                                         {
                                             isString(F2.label)
@@ -180,7 +185,7 @@ export const Page: FC<IPageProps> = ({
                                     : null
                             }
                             {
-                                F3
+                                F3 && (isUndefined(F3.shouldDisplay) || F3.shouldDisplay === true)
                                     ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F3)}>
                                         {
                                             isString(F3.label)
@@ -191,7 +196,7 @@ export const Page: FC<IPageProps> = ({
                                     : null
                             }
                             {
-                                F4
+                                F4 && (isUndefined(F4.shouldDisplay) || F4.shouldDisplay === true)
                                     ? <TouchableOpacity style={[{ flexBasis: quarter }, styles.fnCol, fnStyle?.col]} onPress={() => handlePressFn(F4)}>
                                         {
                                             isString(F4.label)
@@ -205,11 +210,10 @@ export const Page: FC<IPageProps> = ({
                     )
                     : null
             }
-        </View>
+        </Component>
     )
 }
 
-Page.displayName = 'Page'
 Page.propTypes = {
     mockFn: PropTypes.bool,
     keyborad: PropTypes.bool

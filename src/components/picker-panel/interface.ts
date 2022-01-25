@@ -25,6 +25,7 @@ export interface IPickerPanelProps {
     fullScreen?: boolean;
     footerProps?: Omit<IPickerFooterProps, 'onCancel' | 'onConfirm'>;
     confirmOnSelect?: boolean;
+    confirmOnEnter?: boolean;
     onSearch?: (keyword: string) => void;
     onCancel?: () => void;
     onConfirm?: (value: string) => void;

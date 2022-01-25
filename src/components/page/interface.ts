@@ -1,10 +1,11 @@
-import { ReactElement, ReactNode } from 'react'
-import { ViewStyle } from 'react-native'
+import { ReactElement, ReactNode, Component } from 'react'
+import { ViewStyle, StyleProp } from 'react-native'
 
 export interface IFn {
     label: string | ReactNode;
     disabled?: boolean;
     handler?: () => void;
+    shouldDisplay?: boolean;
 }
 
 interface IFnKeyMap {
@@ -21,10 +22,10 @@ interface IHeaderConfig {
 }
 
 interface IHeaderStyle {
-    left?: ViewStyle;
-    center?: ViewStyle;
-    right?: ViewStyle;
-    container?: ViewStyle;
+    left?: StyleProp<ViewStyle>;
+    center?: StyleProp<ViewStyle>;
+    right?: StyleProp<ViewStyle>;
+    container?: StyleProp<ViewStyle>;
 }
 
 interface IChildrenParams {
@@ -33,8 +34,8 @@ interface IChildrenParams {
 }
 
 interface IFnStyle {
-    bar: ViewStyle;
-    col: ViewStyle;
+    bar: StyleProp<ViewStyle>;
+    col: StyleProp<ViewStyle>;
 }
 
 export interface IPageProps {
@@ -48,6 +49,9 @@ export interface IPageProps {
     mockFnKeyMap?: IFnKeyMap;
     headerStyle?: IHeaderStyle;
     fnStyle?: IFnStyle;
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     children?: ReactNode | undefined | ((params: IChildrenParams) => ReactNode | undefined);
+    Component?: typeof Component;
+    // TODO: 实现约束componentProps
+    componentProps?: any;
 }
