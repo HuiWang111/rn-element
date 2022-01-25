@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import RootSiblings from 'react-native-root-siblings'
 import { Modal } from './Modal'
 import { IModalConfig, IModalType } from './interface'
-import { omit, colors } from '../../utils'
+import { omit, colors, isString } from '../../utils'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { Button } from '../button'
 
@@ -89,9 +89,17 @@ const method = (type: IModalType, config: IModalConfig): void => {
                         size={20}
                         style={[styles.titleIcon, { color: typeMapIconColor[type] }]}
                     />
-                    { config.title }
+                    {
+                        isString(config.title)
+                            ? <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{config.title}</Text>
+                            : config.title
+                    }
                 </View>
-                { config.content }
+                {
+                    isString(config.content)
+                        ? <Text>{config.content}</Text>
+                        : config.content
+                }
             </>
         </Modal>
     )
