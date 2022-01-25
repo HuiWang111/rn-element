@@ -6,7 +6,7 @@ import { useTheme } from '../../hooks';
 export const PickerItem = ({ style, children, value, isActive, onPress }) => {
     const theme = useTheme();
     const activeOpacity = 0.7;
-    const { setValue, activeItemStyle, itemStyle, confirmOnSelect, onConfirm } = useContext(PickerContext);
+    const { activeItemStyle, itemStyle, confirmOnSelect, onConfirm, setValue } = useContext(PickerContext);
     const handlePress = (e) => {
         setValue === null || setValue === void 0 ? void 0 : setValue(value);
         onPress === null || onPress === void 0 ? void 0 : onPress(e);

@@ -1,5 +1,5 @@
-/// <reference types="react" />
 import { ViewStyle, StyleProp } from 'react-native';
+import { ReactNode } from 'react';
 export interface IModalFooterProps {
     okText?: string;
     cancelText?: string;
@@ -8,13 +8,13 @@ export interface IModalFooterProps {
 }
 export declare type IModalFooter = string | JSX.Element | null | ((props: IModalFooterProps) => string | JSX.Element);
 interface IModalBaseConfig extends IModalFooterProps {
-    title?: string | JSX.Element | null;
+    title?: ReactNode;
     zIndex?: number;
     footer?: IModalFooter;
     onVisibleChange?: (visible: boolean) => void;
 }
 export interface IModalConfig extends IModalBaseConfig {
-    content?: string | JSX.Element;
+    content?: ReactNode;
 }
 export interface IModalProps extends IModalBaseConfig {
     titleStyle?: StyleProp<ViewStyle>;

@@ -46,3 +46,10 @@ export function isArrayShallowEqual(arr1, arr2) {
 export function last(arr) {
     return arr[arr.length - 1];
 }
+export function wait(ms) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, ms);
+    });
+}

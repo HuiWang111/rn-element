@@ -1,13 +1,13 @@
 import { ViewStyle, GestureResponderEvent, StyleProp } from 'react-native';
-import { ReactNode, ReactText } from 'react';
+import { ReactNode } from 'react';
 import { IPickerFooterProps } from '../base/interface';
 import { IInputProps } from '../input';
 export interface IPickerPanelItem {
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     children?: ReactNode | undefined | (({ isActive: boolean }: {
         isActive: any;
     }) => ReactNode | undefined);
-    value: ReactText;
+    value: string;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
     isActive?: boolean;
 }
@@ -15,10 +15,10 @@ export interface IPickerPanelProps {
     title?: ReactNode;
     headerStyle?: StyleProp<ViewStyle>;
     zIndex?: number;
-    maskStyle?: ViewStyle;
-    itemStyle?: ViewStyle;
-    activeItemStyle?: ViewStyle;
-    value?: ReactText;
+    maskStyle?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<ViewStyle>;
+    activeItemStyle?: StyleProp<ViewStyle>;
+    value?: string;
     visible?: boolean;
     showSearch?: boolean;
     searchInputProps?: IInputProps;
@@ -27,12 +27,12 @@ export interface IPickerPanelProps {
     confirmOnSelect?: boolean;
     onSearch?: (keyword: string) => void;
     onCancel?: () => void;
-    onConfirm?: (value: ReactText) => void;
+    onConfirm?: (value: string) => void;
 }
 export interface IInternalProps {
-    activeItemStyle?: ViewStyle;
-    itemStyle?: ViewStyle;
+    activeItemStyle?: StyleProp<ViewStyle>;
+    itemStyle?: StyleProp<ViewStyle>;
     confirmOnSelect?: boolean;
-    setValue?: (value: ReactText) => void;
-    onConfirm?: (value: ReactText) => void;
+    setValue?: (value: string) => void;
+    onConfirm?: (value: string) => void;
 }

@@ -13,5 +13,5 @@ export const colors = {
     disabled
 };
 export { styleUtils, mergeStyle } from './styles';
-export { omit, keyBy, isArrayShallowEqual, last } from './tools';
+export { omit, keyBy, isArrayShallowEqual, last, wait } from './tools';
 export { regExp };

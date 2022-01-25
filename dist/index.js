@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+dayjs.extend(weekOfYear);
 export { Loading } from './components/loading';
 export { Toast } from './components/toast';
 export { List } from './components/list';
@@ -14,8 +17,10 @@ export { Input } from './components/input';
 export { Button } from './components/button';
 export { Checkbox } from './components/checkbox';
 export { Switch } from './components/switch';
-export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter } from './hooks';
+export { useKeyUp, useArrowDown, useArrowUp, useArrowLeft, useArrowRight, useEnter, useVisible } from './hooks';
 export { KeyCode } from './constants';
 export { ThemeProvider } from './components/theme-provider';
 export { Table } from './components/table';
 export { AsyncTreePicker } from './components/async-tree-picker';
+export { Picker } from './components/picker';
+export { DatePicker } from './components/date-picker';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import RootSiblings from 'react-native-root-siblings';
 import { Modal } from './Modal';
-import { omit, colors } from '../../utils';
+import { omit, colors, isString } from '../../utils';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Button } from '../button';
 let sibling = null;
@@ -68,8 +68,12 @@ const method = (type, config) => {
         React.createElement(React.Fragment, null,
             React.createElement(View, { style: styles.titleContainer },
                 React.createElement(Icon, { name: typeMapIcon[type], size: 20, style: [styles.titleIcon, { color: typeMapIconColor[type] }] }),
-                config.title),
-            config.content)));
+                isString(config.title)
+                    ? React.createElement(Text, { style: { fontSize: 18, fontWeight: 'bold' } }, config.title)
+                    : config.title),
+            isString(config.content)
+                ? React.createElement(Text, null, config.content)
+                : config.content)));
 };
 export const confirm = (config) => {
     return method('confirm', config);

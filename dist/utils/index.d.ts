@@ -13,5 +13,5 @@ export declare const colors: {
 };
 export { styleUtils, mergeStyle } from './styles';
 export { StyleType } from './interface';
-export { omit, keyBy, isArrayShallowEqual, last } from './tools';
+export { omit, keyBy, isArrayShallowEqual, last, wait } from './tools';
 export { regExp };

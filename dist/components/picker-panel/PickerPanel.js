@@ -62,7 +62,6 @@ export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, childr
         }
     }, [value]);
     const resetState = () => {
-        setValue(values[0] || '');
         setKeyword('');
         onSearch === null || onSearch === void 0 ? void 0 : onSearch('');
     };

@@ -3,12 +3,12 @@ import { StyleSheet, View } from 'react-native';
 export const Mask = ({ zIndex = 10, backgroundColor = 'rgba(0, 0, 0, 0.3)', style, visible = false, children }) => {
     if (!visible)
         return null;
-    const maskContainerStyles = [
+    let maskContainerStyles = [
         styles.container,
         { zIndex, backgroundColor }
     ];
     if (style) {
-        maskContainerStyles.push(style);
+        maskContainerStyles = maskContainerStyles.concat(style);
     }
     return (React.createElement(View, { style: maskContainerStyles }, children));
 };

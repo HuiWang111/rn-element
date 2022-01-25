@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     footer: {
         height: 50,
         borderTopWidth: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flexGrow: 0
     },
     btn: {
         flex: 1,

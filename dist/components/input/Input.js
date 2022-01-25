@@ -9,15 +9,31 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { forwardRef } from 'react';
+import React, { forwardRef, isValidElement, cloneElement } from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { colors } from '../../utils';
 import { BaseHeight } from '../../constants';
 export const Input = forwardRef((_a, ref) => {
-    var { clearable = true, editable = true, style, wrapStyle, value, onChangeText } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "wrapStyle", "value", "onChangeText"]);
+    var { clearable = true, editable = true, style, wrapStyle, value, rightIcon, onChangeText, onClear } = _a, restProps = __rest(_a, ["clearable", "editable", "style", "wrapStyle", "value", "rightIcon", "onChangeText", "onClear"]);
     const handleClear = () => {
         onChangeText === null || onChangeText === void 0 ? void 0 : onChangeText('');
+        onClear === null || onClear === void 0 ? void 0 : onClear();
+    };
+    const renderIcon = (clearable, editable, hasValue, IconNode) => {
+        if (clearable && editable && hasValue) {
+            return (React.createElement(View, { style: styles.closeIconWrap },
+                React.createElement(Icon, { name: 'closecircle', style: styles.icon, onPress: handleClear })));
+        }
+        else if (isValidElement(IconNode)) {
+            return (React.createElement(View, { style: styles.closeIconWrap }, cloneElement(IconNode, {
+                style: [
+                    styles.icon,
+                    IconNode.props.style
+                ]
+            })));
+        }
+        return null;
     };
     return (React.createElement(View, { style: [
             styles.inputContainer,
@@ -30,8 +46,7 @@ export const Input = forwardRef((_a, ref) => {
                 !editable ? styles.disabledInput : null,
                 clearable ? { marginRight: 5 } : null
             ], value: value, onChangeText: onChangeText }, restProps)),
-        clearable && editable && Boolean(value) && (React.createElement(View, { style: styles.closeIconWrap },
-            React.createElement(Icon, { name: 'closecircle', style: styles.closeIcon, onPress: handleClear })))));
+        renderIcon(clearable, editable, Boolean(value), rightIcon)));
 });
 Input.displayName = 'Input';
 const styles = StyleSheet.create({
@@ -64,7 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    closeIcon: {
+    icon: {
         color: '#00000040'
     }
 });
