@@ -160,7 +160,6 @@ const ListWithModal: FC = () => {
                                         await wait(2000)
                                         Loading.hide()
                                     }}
-                                    onRequestClose={() => setModalVisible(false)}
                                     visible={modalVisible}
                                     okText='confirm'
                                     cancelText='cancel'

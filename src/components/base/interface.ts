@@ -30,3 +30,9 @@ export interface IBaseGroupProps {
 }
 
 export type IPickerInputProps = IInputProps;
+
+export interface IPickerRef {
+    isFocused: () => boolean;
+    focus: () => void;
+    blur: () => void;
+}

@@ -1,13 +1,13 @@
-import React, { FC, useEffect, useState, useRef, useMemo } from 'react'
+import React, { FC, useEffect, useState, useRef, useMemo, forwardRef, useImperativeHandle, RefAttributes, ForwardedRef } from 'react'
 import { Text, NativeSyntheticEvent, TextInputFocusEventData, TextInput } from 'react-native'
-import { PickerInput } from '../base'
+import { PickerInput, IPickerRef } from '../base'
 import { PickerPanel } from '../picker-panel'
 import { IPickerProps, IOnSearchProps } from './interface'
 import { useVisible } from '../../hooks'
 import { isUndefined } from '../../utils'
 import { IOption } from '../tree-picker/interface'
 
-export const Picker: FC<IPickerProps> = ({
+export const Picker: FC<IPickerProps & RefAttributes<IPickerRef>> = forwardRef(({
     options = [],
     value: propsValue,
     defaultValue,
@@ -17,7 +17,7 @@ export const Picker: FC<IPickerProps> = ({
     onFocus,
     filterOption = (k: string, o: IOption) => o.label.includes(k),
     ...restProps
-}: IPickerProps) => {
+}: IPickerProps, ref: ForwardedRef<IPickerRef>) => {
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
     const [value, setValue] = useState(defaultValue ?? propsValue ?? '')
     const [keyword, setKeyword] = useState<string>('')
@@ -46,6 +46,18 @@ export const Picker: FC<IPickerProps> = ({
 
         return options.filter(item => filterOption(keyword, item))
     }, [options, keyword, filterOption])
+
+    useImperativeHandle(ref, () => ({
+        blur() {
+            inputRef.current?.blur()
+        },
+        focus() {
+            inputRef.current?.focus()
+        },
+        isFocused() {
+            return inputRef.current?.isFocused() || false
+        }
+    }), [])
 
     useEffect(() => {
         setValue(propsValue ?? '')
@@ -99,6 +111,6 @@ export const Picker: FC<IPickerProps> = ({
             </PickerPanel>
         </>
     )
-}
+})
 
 Picker.displayName = 'Picker'

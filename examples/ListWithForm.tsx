@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Text, StyleSheet, Dimensions } from 'react-native'
 import { useHistory } from 'react-router-native'
-import { List, Form, Toast, Page, NumberInput, Input } from '../src'
+import { List, Form, Toast, Page, NumberInput, Input, Radio, AsyncTreePicker } from '../src'
 import { colors } from '../src/utils'
 
 const ListWithForm: FC = () => {
@@ -41,6 +41,9 @@ const ListWithForm: FC = () => {
                             gender: 'male',
                             age: 11
                         }}
+                        wrapperCol={{
+                            span: 24
+                        }}
                     >
                         <List
                             activeIndex={activeIndex}
@@ -74,13 +77,18 @@ const ListWithForm: FC = () => {
                                 </Form.Item>
                             </List.ActivableItem>
                             <List.Item>
-                                <Text>8</Text>
+                                <Form.Item name='numbers' style={{ width: '100%' }}>
+                                    <Radio.Group>
+                                        <Radio value='1'>1</Radio>
+                                        <Radio value='2'>2</Radio>
+                                    </Radio.Group>
+                                </Form.Item>
                             </List.Item>
                             <List.Item>
                                 <Text>10</Text>
                             </List.Item>
-                            <List.ActivableItem>
-                                <Text>11 - isActivable</Text>
+                            <List.ActivableItem autoFocus inputComponent={AsyncTreePicker}>
+                                <AsyncTreePicker placeholder='请选择' depth={1} />
                             </List.ActivableItem>
                             <List.Item>
                                 <Text>12</Text>

@@ -1,16 +1,16 @@
-import React, { FC, useState, useRef, useMemo } from 'react'
+import React, { FC, useState, useRef, useMemo, forwardRef, useImperativeHandle, RefAttributes, ForwardedRef } from 'react'
 import { Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import { PickerPanel } from '../picker-panel'
 import { IAsyncTreePickerProps, IOption, IOnSearchProps } from './interface'
 import { isArray } from '../../utils'
 import { useVisible } from '../../hooks'
-import { PickerInput } from '../base'
+import { PickerInput, IPickerRef } from '../base'
 
 /**
  * TODO: AsyncTreePicker暂不支持默认值的label展示
  * 目前设置了默认值只会展示对应的value
  */
-export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
+export const AsyncTreePicker: FC<IAsyncTreePickerProps & RefAttributes<IPickerRef>> = forwardRef(({
     value: propsValue,
     defaultValue,
     depth,
@@ -24,7 +24,7 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
     labelRender = (labels: string[]) => labels.join(' / '),
     filterOption = (k: string, o: IOption) => o.label.includes(k),
     ...restProps
-}: IAsyncTreePickerProps) => {
+}: IAsyncTreePickerProps, ref: ForwardedRef<IPickerRef>) => {
     const [labels, setLabels] = useState(defaultValue ?? propsValue ?? [])
     const [panelValue, setPanelValue] = useState(defaultValue ?? propsValue ?? [])
     const [visible, showPanel, hidePanel] = useVisible()
@@ -68,6 +68,18 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
     // useEffect(() => {
     //     setLabels(getLabels(propsValue))
     // }, [getLabels, propsValue])
+
+    useImperativeHandle(ref, () => ({
+        blur() {
+            inputRef.current?.blur()
+        },
+        focus() {
+            inputRef.current?.focus()
+        },
+        isFocused() {
+            return inputRef.current?.isFocused() || false
+        }
+    }), [])
 
     const handleInputFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
         inputRef.current?.blur()
@@ -165,4 +177,6 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps> = ({
             </PickerPanel>
         </>
     )
-}
+})
+
+AsyncTreePicker.displayName = 'AsyncTreePicker'
