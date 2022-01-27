@@ -90,9 +90,8 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                 childProps[changeMethodName]?.(value)
             },
             onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-                // TODO: onBlur校验除Input组件外的其他组件
                 if (validateTrigger === 'onBlur') {
-                    this.validateRules(e?.nativeEvent?.text)
+                    this.validateRules(getFieldValue(name))
                 }
 
                 childProps.onBlur?.(e)
