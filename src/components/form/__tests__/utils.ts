@@ -377,4 +377,21 @@ describe('test form Utils', () => {
             } }]
         )).toEqual([true, '年龄不能大于5'])
     })
+
+    it('when rules.length large then 1', async () => {
+        expect(await validateField(
+            6,
+            form,
+            'age',
+            [
+                { required: true, message: '请输入年龄' },
+                { validator: (rule, value) => {
+                    if (value > 5) {
+                        return Promise.reject('年龄不能大于5')
+                    }
+                    return Promise.resolve()
+                } }
+            ]
+        )).toEqual([true, '年龄不能大于5'])
+    })
 })

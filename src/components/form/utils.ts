@@ -54,8 +54,6 @@ export async function validateField(
                 } else if (pattern && !pattern.test(value)) {
                     return [true, message || `field ${name} is not match pattern`]
                 }
-
-                return [false, '']
             } else if (['number', 'integer', 'float'].includes(type)) {
                 if (required && isNil(value)) {
                     return [true, message || `field ${name} is required`]
@@ -70,16 +68,12 @@ export async function validateField(
                 } else if (type === 'float' && !isFloat(value)) {
                     return [true, message || genError(getType(value, true), type, name, 'type')]
                 }
-
-                return [false, '']
             } else if (type === 'boolean') {
                 if (required && isNil(value)) {
                     return [true, message || `field ${name} is required`]
                 } else if (valueType !== 'boolean') {
                     return [true, message || genError(valueType, type, name, 'type')]
                 }
-
-                return [false, '']
             } else if (type === 'array') {
                 const valueLength = value?.length
 
@@ -94,19 +88,13 @@ export async function validateField(
                 } else if (!isNil(min) && valueLength < min) {
                     return [true, message || genError(valueLength, min, name, 'minlength')]
                 }
-
-                return [false, '']
             } else if (type === 'enum') {
                 if (required && isNil(value)) {
                     return [true, message || `field ${name} is required`]
                 } else if (enumerate && !enumerate.includes(value)) {
                     return [true, message || `field ${name} should includes by ${JSON.stringify(enumerate)}`]
                 }
-
-                return [false, '']
             }
-
-            return [false, '']
         } else if (required && !value) {
             return [true, message || `field ${name} is required`]
         } else if (required && whitespace && value.trim && value.trim() === '') {
@@ -116,13 +104,10 @@ export async function validateField(
         if (validator) {
             try {
                 await validator(ruleConfig, value)
-                return [false, '']
             } catch(msg) {
                 return [true, msg]
             }
         }
-
-        return [false, '']
     }
 
     return [false, '']

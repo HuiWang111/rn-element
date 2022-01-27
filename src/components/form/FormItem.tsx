@@ -56,9 +56,9 @@ export const FormItem: FC<PropsWithChildren<IFormItemProps>> = ({
             }
             <Field
                 name={name}
-                rules={rules as IRuleConfig[]}
-                valuePropName={valuePropName as string}
-                changeMethodName={changeMethodName as string}
+                rules={rules}
+                valuePropName={valuePropName}
+                changeMethodName={changeMethodName}
                 validateTrigger={validateTrigger as ValidateTrigger}
                 initialValue={initialValue}
                 col={wrapperCol}
