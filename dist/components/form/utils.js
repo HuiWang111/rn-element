@@ -46,7 +46,6 @@ export function validateField(value, form, name, rules) {
                     else if (pattern && !pattern.test(value)) {
                         return [true, message || `field ${name} is not match pattern`];
                     }
-                    return [false, ''];
                 }
                 else if (['number', 'integer', 'float'].includes(type)) {
                     if (required && isNil(value)) {
@@ -67,7 +66,6 @@ export function validateField(value, form, name, rules) {
                     else if (type === 'float' && !isFloat(value)) {
                         return [true, message || genError(getType(value, true), type, name, 'type')];
                     }
-                    return [false, ''];
                 }
                 else if (type === 'boolean') {
                     if (required && isNil(value)) {
@@ -76,7 +74,6 @@ export function validateField(value, form, name, rules) {
                     else if (valueType !== 'boolean') {
                         return [true, message || genError(valueType, type, name, 'type')];
                     }
-                    return [false, ''];
                 }
                 else if (type === 'array') {
                     const valueLength = value === null || value === void 0 ? void 0 : value.length;
@@ -95,7 +92,6 @@ export function validateField(value, form, name, rules) {
                     else if (!isNil(min) && valueLength < min) {
                         return [true, message || genError(valueLength, min, name, 'minlength')];
                     }
-                    return [false, ''];
                 }
                 else if (type === 'enum') {
                     if (required && isNil(value)) {
@@ -104,9 +100,7 @@ export function validateField(value, form, name, rules) {
                     else if (enumerate && !enumerate.includes(value)) {
                         return [true, message || `field ${name} should includes by ${JSON.stringify(enumerate)}`];
                     }
-                    return [false, ''];
                 }
-                return [false, ''];
             }
             else if (required && !value) {
                 return [true, message || `field ${name} is required`];
@@ -117,13 +111,11 @@ export function validateField(value, form, name, rules) {
             if (validator) {
                 try {
                     yield validator(ruleConfig, value);
-                    return [false, ''];
                 }
                 catch (msg) {
                     return [true, msg];
                 }
             }
-            return [false, ''];
         }
         return [false, ''];
     });
