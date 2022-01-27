@@ -59,11 +59,11 @@ export class Field extends Component {
                     }
                     (_a = childProps[changeMethodName]) === null || _a === void 0 ? void 0 : _a.call(childProps, value);
                 }, onBlur: (e) => {
-                    var _a, _b;
+                    var _a;
                     if (validateTrigger === 'onBlur') {
-                        this.validateRules((_a = e === null || e === void 0 ? void 0 : e.nativeEvent) === null || _a === void 0 ? void 0 : _a.text);
+                        this.validateRules(getFieldValue(name));
                     }
-                    (_b = childProps.onBlur) === null || _b === void 0 ? void 0 : _b.call(childProps, e);
+                    (_a = childProps.onBlur) === null || _a === void 0 ? void 0 : _a.call(childProps, e);
                 } });
         };
     }
