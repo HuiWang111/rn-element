@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { IPageProps, IFn } from './interface'
 import { KeyCode } from '../../constants'
 import { useKeyUp, useTheme } from '../../hooks'
-import { isFunction, isString, isUndefined } from '../../utils'
+import { isFunction, isString, isUndefined, defaultPageFnKeyMap } from '../../utils'
 
 export const Page: FC<IPageProps> = ({
     Component = View,
@@ -15,12 +15,7 @@ export const Page: FC<IPageProps> = ({
     F4,
     mockFn = true,
     keyborad = true,
-    mockFnKeyMap = {
-        F1: KeyCode.Z,
-        F2: KeyCode.X,
-        F3: KeyCode.C,
-        F4: KeyCode.V
-    },
+    mockFnKeyMap = defaultPageFnKeyMap,
     header,
     headerStyle,
     style,

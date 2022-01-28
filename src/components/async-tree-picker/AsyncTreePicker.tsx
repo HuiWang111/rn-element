@@ -2,7 +2,7 @@ import React, { FC, useState, useRef, useMemo, forwardRef, useImperativeHandle, 
 import { Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import { PickerPanel } from '../picker-panel'
 import { IAsyncTreePickerProps, IOption, IOnSearchProps } from './interface'
-import { isArray } from '../../utils'
+import { isArray, defaultArray, defaultFilterOption, defaultPickerLabelRender } from '../../utils'
 import { useVisible } from '../../hooks'
 import { PickerInput, IPickerRef } from '../base'
 
@@ -15,14 +15,14 @@ export const AsyncTreePicker: FC<IAsyncTreePickerProps & RefAttributes<IPickerRe
     defaultValue,
     depth,
     title,
-    options = [],
+    options = defaultArray,
     panelProps,
     onChange,
     onNext,
     onPrevious,
     onFocus,
-    labelRender = (labels: string[]) => labels.join(' / '),
-    filterOption = (k: string, o: IOption) => o.label.includes(k),
+    labelRender = defaultPickerLabelRender,
+    filterOption = defaultFilterOption,
     ...restProps
 }: IAsyncTreePickerProps, ref: ForwardedRef<IPickerRef>) => {
     const [labels, setLabels] = useState(defaultValue ?? propsValue ?? [])

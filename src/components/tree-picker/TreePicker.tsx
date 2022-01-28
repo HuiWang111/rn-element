@@ -4,7 +4,7 @@ import { ITreePickerProps, IOption, IOnSearchProps } from './interface'
 import { PickerPanel } from '../picker-panel'
 import { PickerInput, IPickerRef } from '../base'
 import { getDepth, getListByDepth, getLabelsByValue } from './utils'
-import { isArray, isUndefined } from '../../utils'
+import { isArray, isUndefined, defaultArray, defaultFilterOption, defaultPickerLabelRender } from '../../utils'
 import { useVisible } from '../../hooks'
 
 const PickerPanelItem = PickerPanel.Item
@@ -12,14 +12,14 @@ const PickerPanelItem = PickerPanel.Item
 export const TreePicker: FC<ITreePickerProps & RefAttributes<IPickerRef>> = forwardRef(({
     value: propsValue,
     defaultValue,
-    options = [],
+    options = defaultArray,
     title,
     panelProps,
     onChange,
     onVisibleChange,
     onFocus,
-    labelRender = (labels: string[]) => labels.join(' / '),
-    filterOption = (k: string, o: IOption) => o.label.includes(k),
+    labelRender = defaultPickerLabelRender,
+    filterOption = defaultFilterOption,
     ...restProps
 }: ITreePickerProps, ref: ForwardedRef<IPickerRef>) => {
     const [label, setLabel] = useState<string[]>(() => {

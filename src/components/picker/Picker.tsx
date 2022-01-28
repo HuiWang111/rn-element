@@ -4,18 +4,18 @@ import { PickerInput, IPickerRef } from '../base'
 import { PickerPanel } from '../picker-panel'
 import { IPickerProps, IOnSearchProps } from './interface'
 import { useVisible } from '../../hooks'
-import { isUndefined } from '../../utils'
+import { isUndefined, defaultFilterOption, defaultArray } from '../../utils'
 import { IOption } from '../tree-picker/interface'
 
 export const Picker: FC<IPickerProps & RefAttributes<IPickerRef>> = forwardRef(({
-    options = [],
+    options = defaultArray,
     value: propsValue,
     defaultValue,
     panelProps,
     onChange,
     onVisibleChange,
     onFocus,
-    filterOption = (k: string, o: IOption) => o.label.includes(k),
+    filterOption = defaultFilterOption,
     ...restProps
 }: IPickerProps, ref: ForwardedRef<IPickerRef>) => {
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)

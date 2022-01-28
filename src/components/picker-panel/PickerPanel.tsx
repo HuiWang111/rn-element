@@ -22,7 +22,7 @@ import { IPickerPanelProps } from './interface'
 import { PickerFooter, Mask, Empty } from '../base'
 import { PickerContext } from './context'
 import { useArrowUp, useArrowDown, useTheme, useConfig, useEnter } from '../../hooks'
-import { isNumber, isString, omit } from '../../utils'
+import { defaultObject, isNumber, isString, omit } from '../../utils'
 import { Input } from '../input'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -41,7 +41,7 @@ export const PickerPanel: FC<PropsWithChildren<IPickerPanelProps>> = ({
     showSearch = false,
     searchInputProps,
     fullScreen = true,
-    footerProps = {},
+    footerProps = defaultObject,
     confirmOnSelect = false,
     confirmOnEnter = true,
     onSearch,
