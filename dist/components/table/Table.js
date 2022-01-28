@@ -3,10 +3,10 @@ import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { TableHead } from './TableHead';
 import { TableRow } from './TableRow';
 import { useTheme, useArrowUp, useArrowDown } from '../../hooks';
-import { isUndefined } from '../../utils';
+import { isUndefined, defaultArray } from '../../utils';
 import { Empty } from '../base';
 const { width } = Dimensions.get('window');
-export const Table = ({ highlightColor: hColor, highlightable = false, dataSource = [], columns, containerStyle, tableBodyHeight, expandable, rowSelection, tableHeadBackgroundColor = '#fff', rowKey, onRowEnter }) => {
+export const Table = ({ highlightColor: hColor, highlightable = false, dataSource = defaultArray, columns, containerStyle, tableBodyHeight, expandable, rowSelection, tableHeadBackgroundColor = '#fff', rowKey, onRowEnter }) => {
     var _a;
     const theme = useTheme();
     const [highlight, setHighlight] = useState(highlightable ? 0 : -1);

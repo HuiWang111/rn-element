@@ -14,3 +14,4 @@ export declare const colors: {
 export { styleUtils, mergeStyle } from './styles';
 export { omit, keyBy, isArrayShallowEqual, last, wait } from './tools';
 export { regExp };
+export { defaultFilterOption, defaultPickerLabelRender, defaultArray, defaultObject, defaultPageFnKeyMap } from './defaults';

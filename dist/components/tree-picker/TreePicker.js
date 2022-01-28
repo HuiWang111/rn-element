@@ -9,17 +9,17 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from 'react';
 import { Text } from 'react-native';
 import { PickerPanel } from '../picker-panel';
 import { PickerInput } from '../base';
 import { getDepth, getListByDepth, getLabelsByValue } from './utils';
-import { isArray, isUndefined } from '../../utils';
+import { isArray, isUndefined, defaultArray, defaultFilterOption, defaultPickerLabelRender } from '../../utils';
 import { useVisible } from '../../hooks';
 const PickerPanelItem = PickerPanel.Item;
-export const TreePicker = (_a) => {
+export const TreePicker = forwardRef((_a, ref) => {
     var _b;
-    var { value: propsValue, defaultValue, options = [], title, panelProps, onChange, onVisibleChange, onFocus, labelRender = (labels) => labels.join(' / '), filterOption = (k, o) => o.label.includes(k) } = _a, restProps = __rest(_a, ["value", "defaultValue", "options", "title", "panelProps", "onChange", "onVisibleChange", "onFocus", "labelRender", "filterOption"]);
+    var { value: propsValue, defaultValue, options = defaultArray, title, panelProps, onChange, onVisibleChange, onFocus, labelRender = defaultPickerLabelRender, filterOption = defaultFilterOption } = _a, restProps = __rest(_a, ["value", "defaultValue", "options", "title", "panelProps", "onChange", "onVisibleChange", "onFocus", "labelRender", "filterOption"]);
     const [label, setLabel] = useState(() => {
         var _a;
         return getLabelsByValue(options, (_a = defaultValue !== null && defaultValue !== void 0 ? defaultValue : propsValue) !== null && _a !== void 0 ? _a : []);
@@ -41,6 +41,20 @@ export const TreePicker = (_a) => {
     useEffect(() => {
         setLabel(getLabelsByValue(options, propsValue !== null && propsValue !== void 0 ? propsValue : []));
     }, [propsValue, options]);
+    useImperativeHandle(ref, () => ({
+        blur() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
+        },
+        focus() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.focus();
+        },
+        isFocused() {
+            var _a;
+            return ((_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.isFocused()) || false;
+        }
+    }), []);
     const depth = useMemo(() => getDepth(options), [options]);
     const [isFirstDepth, isLastDepth] = useMemo(() => {
         return [activeDepth === 0, activeDepth === depth - 1];
@@ -103,5 +117,5 @@ export const TreePicker = (_a) => {
             return (React.createElement(PickerPanelItem, { value: item.value, key: item.value },
                 React.createElement(Text, null, item.label)));
         }))));
-};
+});
 TreePicker.displayName = 'TreePicker';

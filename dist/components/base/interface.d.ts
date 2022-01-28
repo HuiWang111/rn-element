@@ -25,3 +25,8 @@ export interface IBaseGroupProps {
     onChange?: (value: string[]) => void;
 }
 export declare type IPickerInputProps = IInputProps;
+export interface IPickerRef {
+    isFocused: () => boolean;
+    focus: () => void;
+    blur: () => void;
+}

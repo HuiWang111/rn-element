@@ -18,15 +18,15 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { Text } from 'react-native';
 import { PickerPanel } from '../picker-panel';
-import { isArray } from '../../utils';
+import { isArray, defaultArray, defaultFilterOption, defaultPickerLabelRender } from '../../utils';
 import { useVisible } from '../../hooks';
 import { PickerInput } from '../base';
-export const AsyncTreePicker = (_a) => {
+export const AsyncTreePicker = forwardRef((_a, ref) => {
     var _b, _c;
-    var { value: propsValue, defaultValue, depth, title, options = [], panelProps, onChange, onNext, onPrevious, onFocus, labelRender = (labels) => labels.join(' / '), filterOption = (k, o) => o.label.includes(k) } = _a, restProps = __rest(_a, ["value", "defaultValue", "depth", "title", "options", "panelProps", "onChange", "onNext", "onPrevious", "onFocus", "labelRender", "filterOption"]);
+    var { value: propsValue, defaultValue, depth, title, options = defaultArray, panelProps, onChange, onNext, onPrevious, onFocus, labelRender = defaultPickerLabelRender, filterOption = defaultFilterOption } = _a, restProps = __rest(_a, ["value", "defaultValue", "depth", "title", "options", "panelProps", "onChange", "onNext", "onPrevious", "onFocus", "labelRender", "filterOption"]);
     const [labels, setLabels] = useState((_b = defaultValue !== null && defaultValue !== void 0 ? defaultValue : propsValue) !== null && _b !== void 0 ? _b : []);
     const [panelValue, setPanelValue] = useState((_c = defaultValue !== null && defaultValue !== void 0 ? defaultValue : propsValue) !== null && _c !== void 0 ? _c : []);
     const [visible, showPanel, hidePanel] = useVisible();
@@ -53,6 +53,20 @@ export const AsyncTreePicker = (_a) => {
         }
         return options.filter(item => filterOption(keyword, item));
     }, [options, keyword, filterOption]);
+    useImperativeHandle(ref, () => ({
+        blur() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
+        },
+        focus() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.focus();
+        },
+        isFocused() {
+            var _a;
+            return ((_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.isFocused()) || false;
+        }
+    }), []);
     const handleInputFocus = (e) => {
         var _a;
         (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
@@ -112,4 +126,5 @@ export const AsyncTreePicker = (_a) => {
             return (React.createElement(PickerPanel.Item, { key: val, value: val },
                 React.createElement(Text, null, label)));
         }))));
-};
+});
+AsyncTreePicker.displayName = 'AsyncTreePicker';

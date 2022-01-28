@@ -9,15 +9,15 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { Text } from 'react-native';
 import { PickerInput } from '../base';
 import { PickerPanel } from '../picker-panel';
 import { useVisible } from '../../hooks';
-import { isUndefined } from '../../utils';
-export const Picker = (_a) => {
+import { isUndefined, defaultFilterOption, defaultArray } from '../../utils';
+export const Picker = forwardRef((_a, ref) => {
     var _b;
-    var { options = [], value: propsValue, defaultValue, panelProps, onChange, onVisibleChange, onFocus, filterOption = (k, o) => o.label.includes(k) } = _a, restProps = __rest(_a, ["options", "value", "defaultValue", "panelProps", "onChange", "onVisibleChange", "onFocus", "filterOption"]);
+    var { options = defaultArray, value: propsValue, defaultValue, panelProps, onChange, onVisibleChange, onFocus, filterOption = defaultFilterOption } = _a, restProps = __rest(_a, ["options", "value", "defaultValue", "panelProps", "onChange", "onVisibleChange", "onFocus", "filterOption"]);
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange);
     const [value, setValue] = useState((_b = defaultValue !== null && defaultValue !== void 0 ? defaultValue : propsValue) !== null && _b !== void 0 ? _b : '');
     const [keyword, setKeyword] = useState('');
@@ -45,6 +45,20 @@ export const Picker = (_a) => {
         }
         return options.filter(item => filterOption(keyword, item));
     }, [options, keyword, filterOption]);
+    useImperativeHandle(ref, () => ({
+        blur() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
+        },
+        focus() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.focus();
+        },
+        isFocused() {
+            var _a;
+            return ((_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.isFocused()) || false;
+        }
+    }), []);
     useEffect(() => {
         setValue(propsValue !== null && propsValue !== void 0 ? propsValue : '');
     }, [propsValue]);
@@ -72,5 +86,5 @@ export const Picker = (_a) => {
             return (React.createElement(PickerPanel.Item, { key: value, value: value },
                 React.createElement(Text, null, label)));
         }))));
-};
+});
 Picker.displayName = 'Picker';

@@ -12,8 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React, { forwardRef } from 'react';
 import { Input } from '../input';
 import Icon from 'react-native-vector-icons/AntDesign';
+const defaultIcon = React.createElement(Icon, { name: 'down' });
 export const PickerInput = forwardRef((_a, ref) => {
-    var { rightIcon = React.createElement(Icon, { name: 'down' }) } = _a, restProps = __rest(_a, ["rightIcon"]);
+    var { rightIcon = defaultIcon } = _a, restProps = __rest(_a, ["rightIcon"]);
     const noop = () => {
     };
     return (React.createElement(Input, Object.assign({}, restProps, { onChangeText: noop, rightIcon: rightIcon, ref: ref })));

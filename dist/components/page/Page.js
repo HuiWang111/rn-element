@@ -3,13 +3,8 @@ import { View, StyleSheet, useWindowDimensions, Text, TouchableOpacity } from 'r
 import PropTypes from 'prop-types';
 import { KeyCode } from '../../constants';
 import { useKeyUp, useTheme } from '../../hooks';
-import { isFunction, isString, isUndefined } from '../../utils';
-export const Page = ({ Component = View, componentProps, F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKeyMap = {
-    F1: KeyCode.Z,
-    F2: KeyCode.X,
-    F3: KeyCode.C,
-    F4: KeyCode.V
-}, header, headerStyle, style, fnStyle, children }) => {
+import { isFunction, isString, isUndefined, defaultPageFnKeyMap } from '../../utils';
+export const Page = ({ Component = View, componentProps, F1, F2, F3, F4, mockFn = true, keyborad = true, mockFnKeyMap = defaultPageFnKeyMap, header, headerStyle, style, fnStyle, children }) => {
     const { width, height } = useWindowDimensions();
     const { page } = useTheme();
     const headerTextStyle = {

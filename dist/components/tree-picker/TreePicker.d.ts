@@ -1,3 +1,4 @@
-import { FC } from 'react';
+import { FC, RefAttributes } from 'react';
 import { ITreePickerProps } from './interface';
-export declare const TreePicker: FC<ITreePickerProps>;
+import { IPickerRef } from '../base';
+export declare const TreePicker: FC<ITreePickerProps & RefAttributes<IPickerRef>>;

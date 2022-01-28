@@ -18,14 +18,14 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { PickerInput } from '../base';
 import { useMergedState, useVisible } from '../../hooks';
 import { DatePickerPanel } from './DatePickerPanel';
 import { wait } from '../../utils';
-export const DatePicker = (_a) => {
+export const DatePicker = forwardRef((_a, ref) => {
     var { value: propsValue, defaultValue, format = 'YYYY-MM-DD', panelProps, onChange, onVisibleChange, onFocus } = _a, restProps = __rest(_a, ["value", "defaultValue", "format", "panelProps", "onChange", "onVisibleChange", "onFocus"]);
     const inputRef = useRef(null);
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange);
@@ -33,6 +33,20 @@ export const DatePicker = (_a) => {
         defaultValue,
         onChange
     });
+    useImperativeHandle(ref, () => ({
+        blur() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.blur();
+        },
+        focus() {
+            var _a;
+            (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.focus();
+        },
+        isFocused() {
+            var _a;
+            return ((_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.isFocused()) || false;
+        }
+    }), []);
     useEffect(() => {
         setValue(propsValue);
     }, [propsValue, setValue]);
@@ -62,4 +76,4 @@ export const DatePicker = (_a) => {
     return (React.createElement(React.Fragment, null,
         React.createElement(PickerInput, Object.assign({ clearable: false }, restProps, { ref: inputRef, showSoftInputOnFocus: false, value: value ? value.format(format) : '', onClear: () => onChange === null || onChange === void 0 ? void 0 : onChange(undefined), rightIcon: React.createElement(Icon, { name: 'calendar' }), onFocus: handleFocus })),
         React.createElement(DatePickerPanel, { visible: visible, value: propsValue, onCancel: handleCancel, onConfirm: handleConfirm, onDateChange: handleDateChange })));
-};
+});

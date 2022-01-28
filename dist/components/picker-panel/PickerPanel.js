@@ -4,11 +4,11 @@ import { RootSiblingPortal } from 'react-native-root-siblings';
 import { PickerFooter, Mask, Empty } from '../base';
 import { PickerContext } from './context';
 import { useArrowUp, useArrowDown, useTheme, useConfig, useEnter } from '../../hooks';
-import { isNumber, isString, omit } from '../../utils';
+import { defaultObject, isNumber, isString, omit } from '../../utils';
 import { Input } from '../input';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const baseHeaderHeight = 40;
-export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = {}, confirmOnSelect = false, confirmOnEnter = true, onSearch, onCancel, onConfirm }) => {
+export const PickerPanel = ({ title, headerStyle, zIndex = 10, maskStyle, children, value: propsValue, activeItemStyle, itemStyle, visible = false, showSearch = false, searchInputProps, fullScreen = true, footerProps = defaultObject, confirmOnSelect = false, confirmOnEnter = true, onSearch, onCancel, onConfirm }) => {
     var _a, _b;
     const theme = useTheme();
     const values = useMemo(() => {

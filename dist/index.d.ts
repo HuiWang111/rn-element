@@ -41,3 +41,4 @@ export { Picker } from './components/picker';
 export type { IPickerProps } from './components/picker';
 export { DatePicker } from './components/date-picker';
 export type { IDatePickerProps } from './components/date-picker';
+export type { IPickerRef } from './components/base';

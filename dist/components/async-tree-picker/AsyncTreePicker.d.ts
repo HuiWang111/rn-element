@@ -1,3 +1,4 @@
-import { FC } from 'react';
+import { FC, RefAttributes } from 'react';
 import { IAsyncTreePickerProps } from './interface';
-export declare const AsyncTreePicker: FC<IAsyncTreePickerProps>;
+import { IPickerRef } from '../base';
+export declare const AsyncTreePicker: FC<IAsyncTreePickerProps & RefAttributes<IPickerRef>>;
