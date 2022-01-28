@@ -1,15 +1,15 @@
-import React, { FC, useRef, useEffect } from 'react'
+import React, { FC, useRef, useEffect, forwardRef, useImperativeHandle, RefAttributes, ForwardedRef } from 'react'
 import { TextInput, NativeSyntheticEvent, TextInputFocusEventData  } from 'react-native'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 import Icon from 'react-native-vector-icons/AntDesign'
-import { PickerInput } from '../base'
+import { PickerInput, IPickerRef } from '../base'
 import { IDatePickerProps } from './interface'
 import { useMergedState, useVisible } from '../../hooks'
 import { DatePickerPanel } from './DatePickerPanel'
 import { wait } from '../../utils'
 
-export const DatePicker: FC<IDatePickerProps<Dayjs>> = ({
+export const DatePicker: FC<IDatePickerProps<Dayjs> & RefAttributes<IPickerRef>> = forwardRef(({
     value: propsValue,
     defaultValue,
     format = 'YYYY-MM-DD',
@@ -18,13 +18,25 @@ export const DatePicker: FC<IDatePickerProps<Dayjs>> = ({
     onVisibleChange,
     onFocus,
     ...restProps
-}: IDatePickerProps<Dayjs>) => {
+}: IDatePickerProps<Dayjs>, ref: ForwardedRef<IPickerRef>) => {
     const inputRef = useRef<TextInput | null>(null)
     const [visible, showPanel, hidePanel] = useVisible(false, onVisibleChange)
     const [value, setValue, setValueWithOnChange] = useMergedState<Dayjs | undefined>(propsValue, {
         defaultValue,
         onChange
     })
+
+    useImperativeHandle(ref, () => ({
+        blur() {
+            inputRef.current?.blur()
+        },
+        focus() {
+            inputRef.current?.focus()
+        },
+        isFocused() {
+            return inputRef.current?.isFocused() || false
+        }
+    }), [])
 
     useEffect(() => {
         setValue(propsValue)
@@ -73,4 +85,4 @@ export const DatePicker: FC<IDatePickerProps<Dayjs>> = ({
             />
         </> 
     )
-}
+})

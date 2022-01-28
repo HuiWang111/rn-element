@@ -8,4 +8,4 @@ export { BaseGroup } from './BaseGroup'
 
 export { PickerInput } from './PickerInput'
 
-export type { IPickerInputProps } from './interface'
+export type { IPickerInputProps, IPickerRef } from './interface'

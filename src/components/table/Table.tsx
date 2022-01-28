@@ -4,7 +4,7 @@ import { ITableProps, Data } from './interface'
 import { TableHead } from './TableHead'
 import { TableRow } from './TableRow'
 import { useTheme, useArrowUp, useArrowDown } from '../../hooks'
-import { isUndefined } from '../../utils'
+import { isUndefined, defaultArray } from '../../utils'
 import { Empty } from '../base'
 
 const { width } = Dimensions.get('window')
@@ -12,7 +12,7 @@ const { width } = Dimensions.get('window')
 export const Table: FC<ITableProps> = ({
     highlightColor: hColor,
     highlightable = false,
-    dataSource = [],
+    dataSource = defaultArray,
     columns,
     containerStyle,
     tableBodyHeight,

@@ -4,8 +4,10 @@ import { Input } from '../input'
 import { IPickerInputProps } from './interface'
 import Icon from 'react-native-vector-icons/AntDesign'
 
+const defaultIcon = <Icon name='down' />
+
 export const PickerInput: FC<IPickerInputProps & ClassAttributes<TextInput>> = forwardRef(({
-    rightIcon = <Icon name='down' />,
+    rightIcon = defaultIcon,
     ...restProps
 }: IPickerInputProps, ref: ForwardedRef<TextInput>) => {
     const noop = () => {

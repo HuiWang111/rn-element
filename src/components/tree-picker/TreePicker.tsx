@@ -1,27 +1,27 @@
-import React, { FC, useState, useMemo, useRef, useEffect, useCallback } from 'react'
+import React, { FC, useState, useMemo, useRef, useEffect, useCallback, forwardRef, useImperativeHandle, RefAttributes, ForwardedRef } from 'react'
 import { Text, TextInput, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native'
 import { ITreePickerProps, IOption, IOnSearchProps } from './interface'
 import { PickerPanel } from '../picker-panel'
-import { PickerInput } from '../base'
+import { PickerInput, IPickerRef } from '../base'
 import { getDepth, getListByDepth, getLabelsByValue } from './utils'
-import { isArray, isUndefined } from '../../utils'
+import { isArray, isUndefined, defaultArray, defaultFilterOption, defaultPickerLabelRender } from '../../utils'
 import { useVisible } from '../../hooks'
 
 const PickerPanelItem = PickerPanel.Item
 
-export const TreePicker: FC<ITreePickerProps> = ({
+export const TreePicker: FC<ITreePickerProps & RefAttributes<IPickerRef>> = forwardRef(({
     value: propsValue,
     defaultValue,
-    options = [],
+    options = defaultArray,
     title,
     panelProps,
     onChange,
     onVisibleChange,
     onFocus,
-    labelRender = (labels: string[]) => labels.join(' / '),
-    filterOption = (k: string, o: IOption) => o.label.includes(k),
+    labelRender = defaultPickerLabelRender,
+    filterOption = defaultFilterOption,
     ...restProps
-}: ITreePickerProps) => {
+}: ITreePickerProps, ref: ForwardedRef<IPickerRef>) => {
     const [label, setLabel] = useState<string[]>(() => {
         return getLabelsByValue(options, defaultValue ?? propsValue ?? [])
     })
@@ -42,6 +42,18 @@ export const TreePicker: FC<ITreePickerProps> = ({
     useEffect(() => {
         setLabel(getLabelsByValue(options, propsValue ?? []))
     }, [propsValue, options])
+
+    useImperativeHandle(ref, () => ({
+        blur() {
+            inputRef.current?.blur()
+        },
+        focus() {
+            inputRef.current?.focus()
+        },
+        isFocused() {
+            return inputRef.current?.isFocused() || false
+        }
+    }), [])
 
     /**
      * 计算 options 有多少层
@@ -147,6 +159,6 @@ export const TreePicker: FC<ITreePickerProps> = ({
             </PickerPanel>
         </>
     )
-}
+})
 
 TreePicker.displayName = 'TreePicker'
