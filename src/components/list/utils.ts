@@ -1,4 +1,4 @@
-import { Children, cloneElement, ReactElement, ReactNode, RefObject, FC, ComponentType } from 'react'
+import { Children, cloneElement, ReactNode, RefObject, FC, ComponentType, isValidElement } from 'react'
 import {
     NativeSyntheticEvent,
     TextInputFocusEventData,
@@ -13,8 +13,10 @@ export function mapChildrenWithRef<T>(
     config: IInputConfig,
     handleFocus: (e: NativeSyntheticEvent<TextInputFocusEventData>, inputProps: TextInputProps) => void
 ): ReactNode | undefined {
-    return Children.map(children, child => {
-        const c = child as ReactElement
+    return Children.map(children, c => {
+        if (!isValidElement(c)) {
+            return c
+        }
         
         if (c.type === inputComponent) {
             return cloneElement(c, {

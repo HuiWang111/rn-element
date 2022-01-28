@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component } from 'react'
+import React, { cloneElement, ReactElement, PropsWithChildren, Children, Component, isValidElement } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInputFocusEventData, View, ViewStyle } from 'react-native'
 import { FormContext } from './contexts'
 import { IFieldEntity, IFieldProps, ValueType } from './interface'
@@ -127,7 +127,7 @@ export class Field extends Component<PropsWithChildren<IFieldProps>> implements 
                         }
 
                         return Children.map(children, c => {
-                            if (c) {
+                            if (isValidElement<any>(c)) {
                                 if (c.type === inputComponent) {
                                     return cloneElement(c, this.getControlled({
                                         ...c.props,

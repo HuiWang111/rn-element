@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, useRef } from 'react'
+import React, { FC, PropsWithChildren, Children, cloneElement, ReactElement, useRef, isValidElement, ReactNode } from 'react'
 import { ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
 import { IListProps, IParentProps } from './interface'
@@ -9,7 +9,10 @@ import { mergeStyle } from '../../utils'
 import { ListContext } from './context'
 import { Input } from '../input'
 
-function isActivableListItem(c: ReactElement) {
+function isActivableListItem(c: ReactNode): boolean {
+    if (!isValidElement(c)) {
+        return false
+    }
     return [ActivableListItem, ListItem].includes(c.type as never)
 }
 
@@ -52,7 +55,7 @@ function mapChildrenIsActivable(c: ReactElement) {
         return true
     }
     
-    if (!c.props?.children) {
+    if (!isValidElement<any>(c)) {
         return false
     }
 

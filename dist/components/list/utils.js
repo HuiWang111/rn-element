@@ -1,8 +1,10 @@
-import { Children, cloneElement } from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
 export function mapChildrenWithRef(children, ref, inputComponent, config, handleFocus) {
-    return Children.map(children, child => {
+    return Children.map(children, c => {
         var _a;
-        const c = child;
+        if (!isValidElement(c)) {
+            return c;
+        }
         if (c.type === inputComponent) {
             return cloneElement(c, {
                 ref,

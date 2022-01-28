@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, useRef } from 'react';
+import React, { Children, cloneElement, useRef, isValidElement } from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { useArrowDown, useArrowUp } from '../../hooks';
@@ -8,6 +8,9 @@ import { mergeStyle } from '../../utils';
 import { ListContext } from './context';
 import { Input } from '../input';
 function isActivableListItem(c) {
+    if (!isValidElement(c)) {
+        return false;
+    }
     return [ActivableListItem, ListItem].includes(c.type);
 }
 function mapChildrenWithFindListItem(c, listProps) {
@@ -36,11 +39,10 @@ function mapChildrenWithFindListItem(c, listProps) {
         : c;
 }
 function mapChildrenIsActivable(c) {
-    var _a;
     if (c.type === ActivableListItem) {
         return true;
     }
-    if (!((_a = c.props) === null || _a === void 0 ? void 0 : _a.children)) {
+    if (!isValidElement(c)) {
         return false;
     }
     return Children.toArray(c.props.children).some((child) => mapChildrenIsActivable(child));

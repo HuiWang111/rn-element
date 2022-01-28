@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import React, { cloneElement, Children, Component } from 'react';
+import React, { cloneElement, Children, Component, isValidElement } from 'react';
 import { View } from 'react-native';
 import { FormContext } from './contexts';
 import { HOOK_MARK } from './contexts';
@@ -104,7 +104,7 @@ export class Field extends Component {
                 }
                 return Children.map(children, c => {
                     var _a;
-                    if (c) {
+                    if (isValidElement(c)) {
                         if (c.type === inputComponent) {
                             return cloneElement(c, this.getControlled(Object.assign(Object.assign({}, c.props), { showSoftInputOnFocus: (_a = c.props.showSoftInputOnFocus) !== null && _a !== void 0 ? _a : showSoftInputOnFocus })));
                         }

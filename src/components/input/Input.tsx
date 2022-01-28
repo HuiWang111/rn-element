@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, ForwardedRef, ClassAttributes, ReactNode, isValidElement, cloneElement } from 'react'
+import React, { FC, forwardRef, ForwardedRef, ClassAttributes, ReactNode, isValidElement, cloneElement, ReactElement } from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { IInputProps } from './interface'
@@ -24,7 +24,7 @@ export const Input: FC<IInputProps & ClassAttributes<TextInput>> = forwardRef(({
         clearable: boolean,
         editable: boolean,
         hasValue: boolean,
-        IconNode?: ReactNode
+        IconNode?: ReactElement
     ): ReactNode => {
         if (clearable && editable && hasValue) {
             return (
