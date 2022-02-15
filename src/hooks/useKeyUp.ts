@@ -1,7 +1,15 @@
+/*
+ * @Autor: hui.wang
+ * @Date: 2021-08-13 20:31:55
+ * @LastEditors: hui.wang
+ * @LastEditTime: 2022-02-15 21:25:42
+ * @emial: hui.wang@bizfocus.cn
+ */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 import { DeviceEventEmitter, EmitterSubscription } from 'react-native'
 import { KeyCode } from '../constants'
+import { Loading } from '../components/loading'
 
 interface IEventType {
     which: number;
@@ -13,6 +21,13 @@ const KeyUpEventName = 'keyup'
 
 export function useKeyUp(listener: EventListener, deps: any[] = []): void {
     useEffect(() => {
+        /**
+         * @description: 当前存在Loading的情况下，阻止键盘事件，防止重复提交。
+         */
+        if (Loading.isLoading()) {
+            return
+        }
+
         let subscription: EmitterSubscription | undefined
         const didMount = () => {
             subscription = DeviceEventEmitter.addListener(KeyUpEventName, listener)
@@ -29,6 +44,10 @@ export function useKeyUp(listener: EventListener, deps: any[] = []): void {
 
 export function useEnter(callback: () => void, deps: any[] = []): void {
     useEffect(() => {
+        if (Loading.isLoading()) {
+            return
+        }
+
         let subscription: EmitterSubscription | undefined
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Enter) {
@@ -51,6 +70,10 @@ export function useEnter(callback: () => void, deps: any[] = []): void {
 
 export function useArrowUp(callback: () => void, deps: any[] = []): void {
     useEffect(() => {
+        if (Loading.isLoading()) {
+            return
+        }
+
         let subscription: EmitterSubscription | undefined
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Up) {
@@ -74,6 +97,10 @@ export function useArrowUp(callback: () => void, deps: any[] = []): void {
 export function useArrowDown(callback: () => void, deps: any[] = []): void {
     let subscription: EmitterSubscription | undefined
     useEffect(() => {
+        if (Loading.isLoading()) {
+            return
+        }
+
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Down) {
                 callback()
@@ -96,6 +123,10 @@ export function useArrowDown(callback: () => void, deps: any[] = []): void {
 export function useArrowLeft(callback: () => void, deps: any[] = []): void {
     let subscription: EmitterSubscription | undefined
     useEffect(() => {
+        if (Loading.isLoading()) {
+            return
+        }
+
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Left) {
                 callback()
@@ -118,6 +149,10 @@ export function useArrowLeft(callback: () => void, deps: any[] = []): void {
 export function useArrowRight(callback: () => void, deps: any[] = []): void {
     let subscription: EmitterSubscription | undefined
     useEffect(() => {
+        if (Loading.isLoading()) {
+            return
+        }
+
         const listener = (e: IEventType) => {
             if (e.which === KeyCode.Right) {
                 callback()

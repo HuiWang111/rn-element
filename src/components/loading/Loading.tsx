@@ -1,3 +1,10 @@
+/*
+ * @Autor: hui.wang
+ * @Date: 2021-08-13 20:31:55
+ * @LastEditors: hui.wang
+ * @LastEditTime: 2022-02-15 21:17:49
+ * @emial: hui.wang@bizfocus.cn
+ */
 import React from 'react'
 import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
 import RootSiblings from 'react-native-root-siblings'
@@ -37,6 +44,10 @@ export class Loading {
 
         Loading.sibling.destroy()
         Loading.sibling = null
+    }
+
+    static isLoading(): boolean {
+        return Boolean(Loading.sibling)
     }
 }
 
